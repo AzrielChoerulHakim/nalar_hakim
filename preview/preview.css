@@ -1,0 +1,31 @@
+/* Preview-only framing; the website itself uses the WordPress theme stylesheet. */
+.preview-note { padding:7px 16px; text-align:center; color:var(--muted); border-bottom:1px solid var(--line); font:10px/1.6 var(--mono); letter-spacing:.05em; }
+.preview-note span { padding-inline:7px; color:var(--accent); }
+.home-main { padding-top:30px!important; }
+.home-intro { margin-bottom:28px; }
+.home-intro p { max-width:42ch; }
+.lead-story { display:flex; flex-direction:column; }
+.lead-story .story-body { order:-1; padding-top:0; padding-bottom:24px; }
+.lead-story .story-image { aspect-ratio:2 / 1; }
+.tone-pidana { --accent:#e3a384; --accent-wash:#302522; }
+.tone-perdata { --accent:#86e8cb; --accent-wash:#182b2a; }
+.tone-agama-keluarga { --accent:#d4be7f; --accent-wash:#2b281b; }
+.tone-hukum-teknologi { --accent:#97c4ff; --accent-wash:#192738; }
+html[data-theme="light"] .tone-pidana { --accent:#934a2e; --accent-wash:#f0ded5; }
+html[data-theme="light"] .tone-perdata { --accent:#176958; --accent-wash:#dceee7; }
+html[data-theme="light"] .tone-agama-keluarga { --accent:#79622c; --accent-wash:#eee5cd; }
+html[data-theme="light"] .tone-hukum-teknologi { --accent:#305d98; --accent-wash:#e0e9f8; }
+.preview-invite { display:flex; flex-direction:column; justify-content:center; gap:20px; padding:32px; border:1px solid var(--line); text-decoration:none; background:var(--surface); }
+.preview-invite h3 { font-size:clamp(26px,3vw,36px); }
+.preview-invite p { color:var(--muted); font-size:14px; }
+.preview-invite > span:last-child { color:var(--accent); font-size:30px; }
+.article-cover .story-image { aspect-ratio:2.2 / 1; }
+.article-cover .cover-monogram { font-size:clamp(70px,12vw,130px); }
+.sample-notice { color:var(--muted); font-size:14px; line-height:1.7; padding:18px 20px; border:1px solid var(--line); border-left:3px solid var(--accent); }
+.article-content table caption { text-align:left; color:var(--muted); font-size:13px; padding-bottom:10px; }
+#preview-search { max-width:640px; margin-top:24px; }
+.search-result { padding-top:20px; }
+.search-empty { grid-column:1/-1; color:var(--muted); padding:24px; border:1px solid var(--line); }
+.donation img { height:auto; }
+.footer-contact .footer-about { font-size:13px; color:var(--accent); }
+@media(max-width:640px) { .lead-story .story-image { aspect-ratio:16/9; } .home-intro p br { display:none; } .home-intro p br::after { content:' '; } .preview-note { font-size:9px; } }

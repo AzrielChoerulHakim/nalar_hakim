@@ -1,8 +1,12 @@
 # Nalar Hakim
 
-Tema WordPress khusus untuk portal hukum beridentitas Web3 yang mengutamakan pembaca HP.
+Portal hukum beridentitas Web3 yang mengutamakan pembaca HP, dengan pratinjau statis di GitHub Pages dan tema WordPress untuk pemasangan selanjutnya.
 
-**Status: fondasi pengembangan 0.1.0. Belum dipasang di VPS dan belum diuji menyeluruh pada WordPress hidup.**
+**Lihat pratinjau:** https://azrielchoerulhakim.github.io/nalar_hakim/
+
+Pratinjau menampilkan desain, kanal, pencarian tulisan contoh dan halaman baca. Tulisan diberi label contoh; belum ada CMS atau penyimpanan artikel di GitHub Pages. Pemasangan WordPress di VPS ditunda sampai tahap ini siap.
+
+**Status tema WordPress: fondasi pengembangan 0.1.0. Belum dipasang di VPS dan belum diuji menyeluruh pada WordPress hidup.**
 
 ## Ruang lingkup
 
@@ -15,6 +19,8 @@ Tema WordPress khusus untuk portal hukum beridentitas Web3 yang mengutamakan pem
 
 ## Isi repository
 
+- `index.html`, `artikel/`, `kanal/`, `cari.html`, `tentang.html`: halaman pratinjau GitHub Pages.
+- `preview/` dan `scripts/build-preview.py`: sumber dan pembuat pratinjau statis.
 - `theme/nalar-hakim/`: tema yang dipasang ke WordPress.
 - `scripts/package.py`: menghasilkan ZIP tema untuk unggah dari dashboard.
 - `scripts/preflight.sh`: pemeriksaan server baca-saja, tidak memasang atau menghapus apa pun.

@@ -13,3 +13,9 @@ jobs:
         run: node --check theme/nalar-hakim/assets/site.js
       - name: Package theme
         run: python3 scripts/package.py
+      - name: Build static preview
+        run: python3 scripts/build-preview.py
+      - name: Check preview JavaScript
+        run: node --check preview/search.js
+      - name: Verify generated preview is current
+        run: git diff --exit-code -- index.html cari.html tentang.html 404.html artikel kanal preview

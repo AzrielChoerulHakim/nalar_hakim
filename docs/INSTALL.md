@@ -1,9 +1,19 @@
 # Pemasangan singkat
 
+## Pratinjau GitHub Pages
+
+Pratinjau statis tersedia langsung dari branch `main`, folder akar repository. `index.html` adalah halaman utama; `.nojekyll` menjaga berkas HTML disajikan sebagai situs statis. Tidak memerlukan VPS atau domain sendiri untuk melihat desain.
+
+Setelah mengubah sumber pratinjau, jalankan `python3 scripts/build-preview.py` lalu commit sumber dan hasilnya. Pratinjau tidak menjalankan WordPress dan tidak memiliki panel admin; tulisan contoh tidak dimasukkan ke database.
+
+## WordPress di VPS — tahap berikutnya
+
+Pemasangan ini ditunda sementara. Paket dasar telah dipasang di OpenCloudOS 9.6 oleh pemilik: Nginx 1.29.8, PHP 8.3.36 dan MariaDB 10.11.19, sesuai log pemasangan yang diberikan. Konfigurasi situs dan pemasangan WordPress belum dilakukan.
+
 ## Yang masih diperlukan
 
-1. Nama/versi OS setelah reset VPS.
-2. Domain yang dipakai, atau keputusan menunda domain hingga pratinjau selesai.
+1. Keputusan untuk melanjutkan pemasangan WordPress.
+2. Domain yang dipakai ketika situs siap dipublikasikan dari VPS.
 
 Jangan mengirim password, private key, atau isi `wp-config.php` melalui chat/GitHub.
 

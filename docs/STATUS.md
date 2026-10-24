@@ -2,6 +2,17 @@
 
 Fondasi kode awal untuk repository Nalar Hakim. Belum dipasang di VPS atau diuji dengan WordPress/database hidup.
 
+## Pratinjau GitHub Pages
+
+Pratinjau statis memuat beranda, lima kanal, enam halaman tulisan contoh, pencarian, Tentang dan halaman 404. Pemasangan WordPress ditunda; pratinjau tidak memakai database atau panel admin.
+
+- 15 halaman HTML dibuat dengan generator tanpa dependensi tambahan.
+- 407 tautan lokal, aset dan tujuan formulir diperiksa dan ditemukan.
+- Pencarian kata `teknologi` menampilkan satu tulisan yang sesuai; kueri tanpa kecocokan menampilkan nol hasil dengan pesan yang jelas.
+- Navigasi beranda → artikel dan artikel → kanal Pidana berhasil diperiksa di browser.
+- Pratinjau lebar 360/390 px tidak meluber horizontal pada halaman yang diperiksa; judul utama ditaruh sebelum sampul dekoratif.
+- Halaman baca tetap berisi HTML statis. JavaScript hanya untuk pencarian, pilihan tema dan tombol salin.
+
 ## Pemeriksaan yang sudah dilakukan
 
 - 13 berkas PHP lolos parser dengan tata bahasa PHP 8.3. Ini pemeriksaan statis, bukan eksekusi PHP/WordPress.
