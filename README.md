@@ -52,9 +52,9 @@ Struktur editorial terinspirasi Solana News, garis dan ruang dari Monad, serta k
 
 Desain memakai tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid dan ilustrasi SVG dua dimensi. Palet: hitam `#0B0B0B`, putih tulang `#F3F0E7`, violet `#AD91FF` dan hijau limau `#C8FA72`. Mode terang/gelap tersedia.
 
-Animasi 2D berdurasi terbatas hanya aktif pada layar minimal 1000 px dengan hover, penunjuk presisi, dan tanpa preferensi pengurangan gerak. HP tetap statis. Konten sudah terlihat tanpa animasi. Tidak ada 3D, WebGL, video latar, animasi terus-menerus, library frontend atau unduhan font eksternal.
+Animasi judul singkat dan jaringan sinyal 2D hanya aktif pada layar minimal 1000 px dengan hover, penunjuk presisi, dan tanpa preferensi pengurangan gerak. Sembilan sinyal berulang di jalur SVG selama hero terlihat; gerak berhenti ketika keluar layar, tab disembunyikan, atau tombol Jeda animasi dipilih. HP menampilkan jaringan statis. Konten terlihat tanpa JavaScript. Tidak ada 3D, WebGL, video latar, library frontend atau unduhan font eksternal.
 
-Identitas bersama ada di `preview/identity.css`, halaman pembuka di `scripts/landing_page.py` dan `preview/landing.css`, sampul datar di `scripts/flat_cover.py`, serta animasi di `preview/motion.js` dan `preview/motion.css`.
+Identitas bersama ada di `preview/identity.css`, halaman pembuka di `scripts/landing_page.py` dan `preview/landing.css`, sampul datar di `scripts/flat_cover.py`, serta animasi pembuka di `preview/motion.js` dan `preview/motion.css`. Jaringan sinyal ditulis khusus di `scripts/signal_field.py`, `preview/signals.js` dan `preview/signals.css`; pola lengkung dan sinyalnya terinspirasi pengamatan visual landing Monad, tanpa mengambil kode atau asetnya.
 
 ## WordPress dan identitas
 

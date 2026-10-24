@@ -1,0 +1,37 @@
+/* A flat network behind the wordmark. Native vector strokes, no canvas loop. */
+.landing-hero-stage { position:relative; isolation:isolate; }
+.landing-hero-stage > h1,.landing-symbol-panel { position:relative; z-index:1; }
+.landing-signal-field { position:absolute; inset:-12px -40px -6px; z-index:0; pointer-events:none; overflow:hidden; }
+.landing-signal-field svg { display:block; width:100%; height:100%; overflow:visible; }
+.signal-strands { fill:none; stroke:url(#signal-line-fade); stroke-width:1; opacity:.48; }
+.signal-strands path,.signal-packet path { vector-effect:non-scaling-stroke; }
+.signal-packets { display:none; fill:none; stroke:var(--accent); stroke-linecap:round; }
+.signals-ready .signal-packets { display:block; }
+.signal-tail { stroke-width:1.5; stroke-dasharray:22 978; opacity:.44; }
+.signal-head { stroke-width:3; stroke-dasharray:.3 999.7; opacity:.95; }
+.signal-junction { fill:var(--accent); opacity:.75; }
+.signal-junction-ring { fill:none; stroke:var(--accent); stroke-width:1; opacity:.25; }
+html[data-theme="light"] .signal-strands { opacity:.32; }
+html[data-theme="light"] .signal-tail { opacity:.45; }
+.landing-hero-base { align-items:center; padding-block:12px; min-height:70px; }
+.landing-base-end { display:flex; align-items:center; justify-content:flex-end; gap:22px; }
+.signal-toggle { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:9px 12px; border:1px solid var(--line); border-radius:0; background:var(--bg); color:var(--muted); cursor:pointer; font:10px/1.4 var(--mono); }
+.signal-toggle::before { content:'Ⅱ'; color:var(--accent); font:14px/1 var(--font); }
+.signal-toggle[data-paused="true"]::before { content:'▷'; }
+.signal-toggle:hover { border-color:var(--accent); color:var(--text); }
+.signal-toggle[hidden] { display:none; }
+.landing-hero-base .signal-toggle span { margin-left:0; }
+@media(max-width:999px),(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce) {
+ .signal-packets,.signal-toggle { display:none!important; }
+ .signal-strands { opacity:.22; }
+ .signal-strands path:nth-child(even) { display:none; }
+}
+@media(max-width:720px) {
+ .landing-signal-field { inset:0 -20px; }
+ .signal-strands { opacity:.17; }
+ html[data-theme="light"] .signal-strands { opacity:.18; }
+ .signal-junction,.signal-junction-ring { display:none; }
+ .landing-base-end { gap:0; }
+ .landing-hero-base { min-height:0; padding-block:14px; }
+}
+@media print { .landing-signal-field,.signal-toggle { display:none!important; } }

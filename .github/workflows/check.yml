@@ -18,7 +18,9 @@ jobs:
       - name: Check preview JavaScript
         run: node --check preview/search.js
       - name: Check desktop animation JavaScript
-        run: node --check preview/motion.js
+        run: |
+          node --check preview/motion.js
+          node --check preview/signals.js
       - name: Check preview links and reading anchors
         run: python3 scripts/check-preview.py
       - name: Verify generated preview is current

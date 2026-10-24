@@ -1,6 +1,9 @@
 """Flat editorial entry page for Nalar Hakim's reading room."""
 
 
+from signal_field import render_signal_field
+
+
 def render_landing():
     return '''<!doctype html>
 <html lang="id">
@@ -14,8 +17,8 @@ def render_landing():
 <title>Nalar Hakim — Ruang untuk Menimbang</title>
 <link rel="stylesheet" href="theme/nalar-hakim/style.css">
 <link rel="stylesheet" href="preview/identity.css">
-<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css">
-<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script>
+<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/signals.css">
+<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/signals.js" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
@@ -27,6 +30,7 @@ def render_landing():
   <section class="landing-hero landing-shell" aria-labelledby="landing-title">
     <div class="landing-running-head"><span>MEDIA HUKUM &amp; GAGASAN</span><span>OLEH LAZARUS <b aria-hidden="true">✳</b></span></div>
     <div class="landing-hero-stage">
+      __SIGNAL_FIELD__
       <h1 id="landing-title" aria-label="Nalar Hakim"><span>NALAR</span><span>HAKIM<span class="landing-title-stop">.</span></span></h1>
       <div class="landing-symbol-panel" aria-hidden="true">
         <span class="landing-symbol-index">[ NH — 01 ]</span>
@@ -35,7 +39,7 @@ def render_landing():
       </div>
     </div>
     <div class="landing-hero-support"><div><p class="landing-hero-statement">Hukum hadir di mana-mana. <br><span>Mari membacanya lebih dalam.</span></p><p class="landing-hero-caption">Peristiwa, pemikiran, dan pertanyaan. <br>Satu ruang. Berbagai sudut pandang.</p></div><div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-text-link" href="#kanal"><span>Jelajahi lima kanal</span><span aria-hidden="true">↓</span></a></div></div>
-    <div class="landing-hero-base"><span>ANALISIS / PANDUAN / ESAI</span><span>TERBUKA UNTUK PERTANYAAN <span aria-hidden="true">↓</span></span></div>
+    <div class="landing-hero-base"><span>ANALISIS / PANDUAN / ESAI</span><span class="landing-base-end"><button class="signal-toggle" type="button" data-signal-toggle data-paused="false" hidden><span>Jeda animasi</span></button><span>TERBUKA UNTUK PERTANYAAN <span aria-hidden="true">↓</span></span></span></div>
   </section>
 
   <section class="landing-manifest" aria-labelledby="landing-manifest-title"><div class="landing-shell">
@@ -58,4 +62,4 @@ def render_landing():
   <section class="landing-invitation landing-shell" aria-labelledby="landing-invitation-title"><div class="landing-section-top"><p>03 / GILIRAN ANDA</p><span aria-hidden="true">✳</span></div><p class="landing-invitation-kicker">SEBUAH PERTANYAAN BISA MENJADI AWAL.</p><h2 id="landing-invitation-title">BUKA <br><span>PIKIRAN.</span></h2><a class="landing-final-link" href="beranda.html"><span>Masuk ruang baca</span><span aria-hidden="true">↗</span></a></section>
 </main>
 <footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Ditulis oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Konteks. Rujukan. Pertanyaan.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
-</body></html>'''
+</body></html>'''.replace('__SIGNAL_FIELD__', render_signal_field())

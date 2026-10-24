@@ -1,10 +1,10 @@
 /* Flat, typographic entry page. All decoration is a small inline vector. */
 .nh-landing { --landing-width:1320px; --landing-ink:#0b0b0b; --landing-paper:#f3f0e7; --landing-violet:#ad91ff; --landing-lime:#c8fa72; }
 .landing-shell { width:min(var(--landing-width),calc(100% - 80px)); margin-inline:auto; }
-.landing-header { min-height:88px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--line); }
+.landing-header { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:20px; border-bottom:1px solid var(--line); }
 .landing-brand { display:inline-flex; align-items:center; gap:12px; min-height:44px; font-size:22px; font-weight:800; line-height:1; letter-spacing:-.05em; white-space:nowrap; text-decoration:none; }
 .landing-brand:hover { color:var(--text); }
-.landing-brand .brand-mark { width:25px; height:28px; flex-basis:25px; }
+.landing-brand .brand-mark { display:inline-block; width:25px; height:28px; flex-basis:25px; }
 .landing-dot { color:var(--accent); }
 .landing-header nav { display:flex; align-items:center; gap:29px; font:11px/1.5 var(--mono); }
 .landing-header nav a { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; }
@@ -101,7 +101,7 @@
 }
 @media(max-width:720px) {
  .landing-shell { width:calc(100% - 40px); }
- .landing-header { min-height:76px; gap:12px; }
+ .landing-header { min-height:68px; gap:12px; }
  .landing-brand { font-size:19px; gap:9px; }
  .landing-brand .brand-mark { width:22px; flex-basis:22px; height:26px; }
  .landing-header nav { gap:18px; font-size:10px; }

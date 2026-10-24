@@ -31,7 +31,7 @@ h1,h2,h3,h4 { font-weight:750; }
 [id] { scroll-margin-top:28px; }
 ::selection { background:var(--mint); color:var(--bg); }
 :focus-visible { outline:3px solid var(--mint); outline-offset:5px; border-radius:0; }
-.brand-mark { width:32px; height:32px; flex-basis:32px; transform:none; margin:0; background:var(--accent); clip-path:polygon(0 0,32% 0,68% 65%,68% 0,100% 0,100% 100%,68% 100%,32% 35%,32% 100%,0 100%); }
+.brand-mark { width:28px; height:28px; flex-basis:28px; transform:none; margin:0; background:var(--accent); clip-path:polygon(0 0,32% 0,68% 65%,68% 0,100% 0,100% 100%,68% 100%,32% 35%,32% 100%,0 100%); }
 .brand-mark::before { content:none; }
 .brand-mark::after { width:32%; height:100%; border:0; transform:none; top:0; bottom:auto; left:68%; right:auto; background:var(--mint); }
 .brand-dot { color:var(--accent); }
@@ -54,7 +54,7 @@ input[type="submit"],.search-submit,.button,.donation button,.share-row button,
   :root { --gutter:20px; }
   .brand-mark { width:24px; height:26px; flex-basis:24px; transform:none; }
 }
-@media(max-width:359px) { :root { --gutter:16px; } }
+@media(max-width:359px) { :root { --gutter:16px; } .site-header .brand-mark { display:inline-block; width:20px; height:23px; flex-basis:20px; } }
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; }
 }
