@@ -22,7 +22,7 @@
    meta.append(channel,kind,sample);
    const heading = document.createElement('h2'); const anchor=document.createElement('a'); anchor.href=entry.url; anchor.textContent=entry.title; heading.append(anchor);
    const excerpt=document.createElement('p'); excerpt.textContent=entry.excerpt;
-   const read=document.createElement('a'); read.href=entry.url; read.className='read-link'; read.textContent='Baca tulisan ↗';
+   const read=document.createElement('a'); read.href=entry.url; read.className='read-link'; read.textContent='Baca tulisan';
    card.append(meta,heading,excerpt,read); results.append(card);
   }
   if (!matches.length) { const empty=document.createElement('p'); empty.className='search-empty'; empty.textContent='Belum ada tulisan contoh yang cocok. Coba kata “hukum”, “ruang”, atau nama kanal.'; results.append(empty); }

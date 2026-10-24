@@ -44,7 +44,9 @@ Unggah `dist/nalar-hakim.zip` melalui **Tampilan → Tema → Tambah Tema → Un
 
 Struktur editorial terinspirasi Solana News, garis dan ruang dari Monad, keterbacaan dari Ethereum. Implementasi, wordmark dan komponen ditulis khusus untuk Nalar Hakim. Tidak menyertakan logo, ilustrasi atau kode situs referensi.
 
-Palet: arang `#0D0D12`, permukaan `#181821`, putih tulang `#F4F1EA`, violet `#A594FF`, mint `#86E8CB`. Sistem font lokal perangkat; tidak mengunduh webfont. CSS dan JavaScript lokal; tidak ada library frontend eksternal.
+Pratinjau memakai desain editorial datar: tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid, serta ilustrasi SVG dua dimensi. Palet: hitam `#0B0B0B`, putih tulang `#F3F0E7`, violet `#AD91FF`, dan hijau limau `#C8FA72`. Tidak ada efek 3D, WebGL, video latar, atau animasi terus-menerus.
+
+Desktop dan HP memakai susunan berbeda: landing desktop menampilkan poster tipografis dan simbol besar; versi HP mengutamakan judul serta tombol masuk. Mode terang/gelap tetap tersedia. Sistem font lokal perangkat, CSS lokal, JavaScript kecil, dan SVG inline menjaga halaman ringan tanpa library frontend eksternal. Identitas bersama ada di `preview/identity.css`, halaman pembuka di `scripts/landing_page.py` dan `preview/landing.css`, serta sampul datar di `scripts/flat_cover.py`.
 
 ## Konten dan identitas
 

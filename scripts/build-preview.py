@@ -6,6 +6,7 @@ import json
 import re
 import unicodedata
 from landing_page import render_landing
+from flat_cover import render_cover
 
 ROOT = Path(__file__).resolve().parents[1]
 CHANNELS = {
@@ -56,7 +57,7 @@ def footer(prefix):
 def page(path, title, body, selected='', extra=''):
  depth=len(Path(path).parts)-1
  prefix='../'*depth
- html=f'''<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta name="description" content="Pratinjau desain Nalar Hakim, media hukum dan gagasan. Semua tulisan pada pratinjau adalah contoh tampilan."><meta name="theme-color" content="#0d0d12"><title>{e(title)} — Nalar Hakim</title><link rel="stylesheet" href="{prefix}theme/nalar-hakim/style.css"><link rel="stylesheet" href="{prefix}preview/preview.css"><link rel="stylesheet" href="{prefix}preview/editorial.css"><script src="{prefix}theme/nalar-hakim/assets/site.js" defer></script>{extra}</head><body>{header(prefix,selected)}{body}{footer(prefix)}</body></html>'''
+ html=f'''<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta name="description" content="Pratinjau desain Nalar Hakim, media hukum dan gagasan. Semua tulisan pada pratinjau adalah contoh tampilan."><meta name="theme-color" content="#0b0b0b"><title>{e(title)} — Nalar Hakim</title><link rel="icon" href="{prefix}preview/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}theme/nalar-hakim/style.css"><link rel="stylesheet" href="{prefix}preview/identity.css"><link rel="stylesheet" href="{prefix}preview/preview.css"><link rel="stylesheet" href="{prefix}preview/editorial.css"><script src="{prefix}theme/nalar-hakim/assets/site.js" defer></script>{extra}</head><body>{header(prefix,selected)}{body}{footer(prefix)}</body></html>'''
  dest=ROOT/path;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html,encoding='utf-8');WRITTEN.append(path)
 
 def meta(p,prefix=''):
@@ -64,7 +65,7 @@ def meta(p,prefix=''):
 
 def cover(p,prefix='',tag='a'):
  target=f'href="{article_url(p,prefix)}" aria-label="{e(p["title"])}"' if tag=='a' else 'aria-hidden="true"'
- return f'<{tag} class="story-image tone-{p["channel"]}" {target}><span class="cover-placeholder" aria-hidden="true"><span class="cover-orbit"></span><span class="cover-monogram">{p["symbol"]}</span><span class="cover-caption">NALAR HAKIM / {e(CHANNELS[p["channel"]][0].upper())}</span></span></{tag}>'
+ return f'<{tag} class="story-image tone-{p["channel"]}" {target}><span class="cover-placeholder" aria-hidden="true">{render_cover(p["channel"])}<span class="cover-symbol">{p["symbol"]}</span><span class="cover-caption">NALAR HAKIM / {e(CHANNELS[p["channel"]][0].upper())}</span></span></{tag}>'
 
 def card(p,prefix='',lead=False):
  return f'<article class="story-card {"lead-story" if lead else ""}">{cover(p,prefix)}<div class="story-body">{meta(p,prefix)}<h{2 if lead else 3}><a href="{article_url(p,prefix)}">{e(p["title"])}</a></h{2 if lead else 3}><p>{e(p["excerpt"])}</p><a class="read-link" href="{article_url(p,prefix)}">Baca tulisan <span aria-hidden="true">↗</span></a></div></article>'
@@ -134,14 +135,14 @@ for p in POSTS:
  body += ''.join(card(other,prefix) for other in [other for other in POSTS if other['slug']!=p['slug']][:3])+'</div></section></main>'
  page(f'artikel/{p["slug"]}/index.html',p['title'],body,p['channel'])
 
-about=f'''<main id="main-content" class="container"><article class="article-layout"><header class="article-header"><span class="eyebrow">TENTANG NALAR HAKIM</span><h1>Membaca peristiwa.<br>Menimbang hukum.</h1><p>Sebuah ruang untuk hukum, gagasan, dan pertanyaan yang terus hidup.</p></header><div class="article-content"><p>Nalar Hakim disiapkan sebagai media edukasi hukum dengan lima ruang pembahasan: Pidana, Perdata, Agama &amp; Keluarga, Filsafat Hukum, serta Hukum &amp; Teknologi.</p><p>Tulisan akan diterbitkan dengan nama <strong>Lazarus</strong>. Pembaca dapat mengikuti pembahasan peristiwa, penjelasan, maupun pemikiran melalui kanal yang sesuai.</p><h2>Ruang ini sedang dipersiapkan</h2><p>Yang sedang Anda jelajahi adalah pratinjau desain. Seluruh tulisan di dalamnya adalah contoh tampilan dan belum merupakan publikasi redaksi. Tautan antarhalaman, pencarian, mode terang/gelap, serta panel donasi dapat dicoba.</p><h2>Terbuka untuk percakapan</h2><p>Untuk catatan, masukan, atau koreksi, hubungi <a href="mailto:{EMAIL}">{EMAIL}</a>.</p><a class="read-link" href="beranda.html">Jelajahi ruang baca ↗</a></div></article>{channels()}</main>'''
+about=f'''<main id="main-content" class="container"><article class="article-layout"><header class="article-header"><span class="eyebrow">TENTANG NALAR HAKIM</span><h1>Membaca peristiwa.<br>Menimbang hukum.</h1><p>Sebuah ruang untuk hukum, gagasan, dan pertanyaan yang terus hidup.</p></header><div class="article-content"><p>Nalar Hakim disiapkan sebagai media edukasi hukum dengan lima ruang pembahasan: Pidana, Perdata, Agama &amp; Keluarga, Filsafat Hukum, serta Hukum &amp; Teknologi.</p><p>Tulisan akan diterbitkan dengan nama <strong>Lazarus</strong>. Pembaca dapat mengikuti pembahasan peristiwa, penjelasan, maupun pemikiran melalui kanal yang sesuai.</p><h2>Ruang ini sedang dipersiapkan</h2><p>Yang sedang Anda jelajahi adalah pratinjau desain. Seluruh tulisan di dalamnya adalah contoh tampilan dan belum merupakan publikasi redaksi. Tautan antarhalaman, pencarian, mode terang/gelap, serta panel donasi dapat dicoba.</p><h2>Terbuka untuk percakapan</h2><p>Untuk catatan, masukan, atau koreksi, hubungi <a href="mailto:{EMAIL}">{EMAIL}</a>.</p><a class="read-link" href="beranda.html">Jelajahi ruang baca</a></div></article>{channels()}</main>'''
 page('tentang.html','Tentang',about)
 
 search=f'''<main id="main-content" class="container"><header class="archive-header"><span class="eyebrow">JELAJAHI GAGASAN</span><h1>Cari tulisan.</h1><p class="section-intro">Telusuri judul, kanal, jenis tulisan, atau kata yang ingin Anda baca dalam tulisan contoh.</p>{search_form('', ' id="preview-search"')}</header><p id="search-status" class="section-intro" role="status" aria-live="polite">{len(POSTS)} tulisan contoh tersedia.</p><div id="search-results" class="article-grid">{''.join(card(p) for p in POSTS)}</div><noscript><p>Pencarian membutuhkan JavaScript. Semua tulisan contoh tersedia di daftar di atas.</p></noscript></main>'''
 page('cari.html','Cari Tulisan',search,extra='<script src="preview/search.js" defer></script>')
 
 # Use a site-relative root for an error page whose unknown URL depth cannot be inferred.
-missing='''<main id="main-content" class="container"><section class="empty-state"><span class="eyebrow">404 / HALAMAN TIDAK DITEMUKAN</span><h1>Jalan ini belum ada.</h1><p>Kembali ke beranda untuk menjelajahi tulisan dan kanal Nalar Hakim.</p><a class="read-link" href="/nalar_hakim/beranda.html">Kembali ke ruang baca ↗</a></section></main>'''
+missing='''<main id="main-content" class="container"><section class="empty-state"><span class="eyebrow">404 / HALAMAN TIDAK DITEMUKAN</span><h1>Jalan ini belum ada.</h1><p>Kembali ke beranda untuk menjelajahi tulisan dan kanal Nalar Hakim.</p><a class="read-link" href="/nalar_hakim/beranda.html">Kembali ke ruang baca</a></section></main>'''
 page('404.html','Halaman tidak ditemukan',missing)
 notfound=(ROOT/'404.html').read_text().replace('<head>','<head><base href="/nalar_hakim/">',1)
 (ROOT/'404.html').write_text(notfound)
@@ -171,7 +172,7 @@ search_js='''/* Tiny search over the six explicitly labelled preview entries. */
    meta.append(channel,kind,sample);
    const heading = document.createElement('h2'); const anchor=document.createElement('a'); anchor.href=entry.url; anchor.textContent=entry.title; heading.append(anchor);
    const excerpt=document.createElement('p'); excerpt.textContent=entry.excerpt;
-   const read=document.createElement('a'); read.href=entry.url; read.className='read-link'; read.textContent='Baca tulisan ↗';
+   const read=document.createElement('a'); read.href=entry.url; read.className='read-link'; read.textContent='Baca tulisan';
    card.append(meta,heading,excerpt,read); results.append(card);
   }
   if (!matches.length) { const empty=document.createElement('p'); empty.className='search-empty'; empty.textContent='Belum ada tulisan contoh yang cocok. Coba kata “hukum”, “ruang”, atau nama kanal.'; results.append(empty); }
