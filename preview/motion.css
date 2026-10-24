@@ -1,0 +1,53 @@
+/* Optional, finite 2D motion. Nothing here is needed to reveal content. */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  html.nh-motion {
+    --motion-ease:cubic-bezier(.22,1,.36,1);
+  }
+  .nh-motion :is(.landing-primary,.landing-channel,.landing-final-link,.theme-toggle,.header-actions summary,.search-submit,.share-row button,.donation button) {
+    transition:background-color 180ms ease,color 180ms ease,border-color 180ms ease;
+  }
+  .nh-motion :is(.landing-button-arrow,.landing-channel-arrow,.landing-final-link > span:last-child,.landing-nav-enter > span,.landing-text-link > span:last-child,.rail-arrow,.channel-card > span:last-child),
+  .nh-motion .read-link::after {
+    transition:transform 320ms var(--motion-ease);
+  }
+  .nh-motion :is(.landing-primary,.landing-channel,.landing-final-link,.landing-nav-enter):hover > :last-child,
+  .nh-motion :is(.landing-primary,.landing-channel,.landing-final-link,.landing-nav-enter):focus-visible > :last-child,
+  .nh-motion .read-link:is(:hover,:focus-visible)::after,
+  .nh-motion .rail-story:is(:hover,:focus-within) .rail-arrow,
+  .nh-motion .channel-card:is(:hover,:focus-visible) > span:last-child {
+    transform:translate(3px,-3px);
+  }
+  .nh-motion .landing-text-link:is(:hover,:focus-visible) > span:last-child { transform:translateY(3px); }
+  .nh-motion .landing-channel-name { transition:transform 360ms var(--motion-ease); }
+  .nh-motion .landing-channel:is(:hover,:focus-visible) .landing-channel-name { transform:translateX(6px); }
+  .nh-motion .landing-asterisk { transform-origin:center; transition:transform 650ms var(--motion-ease); }
+  .nh-motion .landing-symbol-panel:hover .landing-asterisk { transform:rotate(30deg); }
+
+  .nh-motion :is(.landing-about-link,.landing-footer-links a) { position:relative; }
+  .nh-motion :is(.landing-about-link,.landing-footer-links a)::after {
+    content:""; position:absolute; bottom:7px; left:0; width:100%; height:1px;
+    background:currentColor; transform:scaleX(0); transform-origin:right;
+    transition:transform 320ms var(--motion-ease);
+  }
+  .nh-motion :is(.landing-about-link,.landing-footer-links a):is(:hover,:focus-visible) { text-decoration:none; }
+  .nh-motion :is(.landing-about-link,.landing-footer-links a):is(:hover,:focus-visible)::after {
+    transform:scaleX(1); transform-origin:left;
+  }
+  .nh-motion :is(.landing-hero-support,.landing-manifest-notes) { position:relative; }
+  .nh-motion :is(.landing-hero-support,.landing-manifest-notes)::before {
+    content:""; position:absolute; pointer-events:none; top:-1px; left:0; width:100%; height:1px;
+    background:var(--accent); transform:scaleX(0); transform-origin:left;
+  }
+  .nh-motion .nh-rule-enter::before { animation:nh-rule-in 800ms var(--motion-ease) both; }
+  .nh-motion .landing-hero-support.nh-rule-enter::before { animation-delay:230ms; }
+  @keyframes nh-rule-in { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+}
+
+/* Touch, compact layouts and reduced-motion preferences remain entirely static. */
+@media (max-width:999px), (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+  .story-image:hover img { transform:none; }
+}
+@media print {
+  *,*::before,*::after { animation:none!important; transition:none!important; }
+}

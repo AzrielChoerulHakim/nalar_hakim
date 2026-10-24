@@ -25,8 +25,10 @@ html[data-theme="light"] {
   --mint:#365a0d;
   --accent-wash:#e4d8ff;
 }
-body { -webkit-font-smoothing:antialiased; }
+body { -webkit-font-smoothing:antialiased; font-kerning:normal; }
 h1,h2,h3,h4 { font-weight:750; }
+/* Reserve room around anchors and focus rings without changing reading flow. */
+[id] { scroll-margin-top:28px; }
 ::selection { background:var(--mint); color:var(--bg); }
 :focus-visible { outline:3px solid var(--mint); outline-offset:5px; border-radius:0; }
 .brand-mark { width:32px; height:32px; flex-basis:32px; transform:none; margin:0; background:var(--accent); clip-path:polygon(0 0,32% 0,68% 65%,68% 0,100% 0,100% 100%,68% 100%,32% 35%,32% 100%,0 100%); }
@@ -42,9 +44,7 @@ input[type="submit"],.search-submit,.button,.donation button,.share-row button,
 .story-placeholder::before,.story-placeholder::after,
 .story-image:not(:has(img))::before,.story-image:not(:has(img))::after { content:none; }
 .cover-orbit { display:none; }
-.theme-toggle,.header-actions summary,.search-submit,.share-row button,.donation button {
-  transition:background-color 140ms ease,color 140ms ease,border-color 140ms ease;
-}
+/* Motion is opt-in for fine-pointer desktops in motion.css. */
 .theme-toggle:hover,.theme-toggle:focus-visible,.header-actions summary:hover {
   background:var(--text); color:var(--bg); border-color:var(--text);
 }

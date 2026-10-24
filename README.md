@@ -1,67 +1,73 @@
 # Nalar Hakim
 
-Portal hukum beridentitas Web3 yang mengutamakan pembaca HP, dengan pratinjau statis di GitHub Pages dan tema WordPress untuk pemasangan selanjutnya.
+Portal hukum beridentitas Web3 yang mengutamakan pembaca HP. Situs statis memuat lima artikel lengkap dengan sumber, satu untuk setiap kanal: Pidana, Perdata, Agama & Keluarga, Filsafat Hukum, serta Hukum & Teknologi.
 
-**Lihat pratinjau:** https://azrielchoerulhakim.github.io/nalar_hakim/
+**Alamat GitHub Pages:** https://azrielchoerulhakim.github.io/nalar_hakim/
 
-Pratinjau dibuka dengan landing page dan tombol masuk ke ruang baca. Di dalamnya tersedia lima kanal, pencarian tulisan contoh dan halaman baca dengan label Berita/Analisis/Opini/Panduan, tautan rujukan, serta daftar isi pada tulisan dengan sedikitnya tiga subjudul. Tulisan diberi label contoh; belum ada CMS atau penyimpanan artikel di GitHub Pages. Pemasangan WordPress di VPS ditunda sampai tahap ini siap.
+Landing page mengantar pembaca ke ruang baca. Artikel memiliki label jenis tulisan, ringkasan, daftar isi, tanggal terbit/pembaruan, penanda rujukan dan daftar sumber. Pencarian mencakup judul, kanal, jenis tulisan dan isi artikel. Situs dapat dibaca tanpa akun; kontennya dikelola melalui berkas JSON di repository.
 
-**Status tema WordPress: fondasi pengembangan 0.1.0. Belum dipasang di VPS dan belum diuji menyeluruh pada WordPress hidup.**
+**Tema WordPress masih berupa fondasi pengembangan 0.1.0. Belum dipasang di VPS, belum diuji menyeluruh pada WordPress hidup, dan belum setara dengan seluruh fitur situs statis.** Status pemeriksaan serta publikasi revisi terbaru dicatat di [docs/STATUS.md](docs/STATUS.md) dan GitHub Actions.
 
 ## Ruang lingkup
 
-- Beranda editorial, lima kanal, halaman artikel, pencarian dan halaman biasa.
 - Semua byline publik menggunakan **Lazarus**.
 - Kontak publik: **nalar.hakim77@gmail.com**.
 - Donasi manual **Ethereum Mainnet**, tanpa koneksi wallet atau pengiriman transaksi.
 - Alamat: `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`.
-- Konten dikelola sendiri di editor WordPress. Tidak ada AI, langganan, akun pembaca, forum, atau layanan backup otomatis.
+- Tidak ada fitur AI, langganan, akun pembaca, forum, atau layanan backup otomatis.
 
 ## Isi repository
 
-- `index.html`: landing page dengan tombol masuk ke ruang baca.
-- `beranda.html`, `artikel/`, `kanal/`, `cari.html`, `tentang.html`: ruang baca dan halaman pratinjau GitHub Pages.
-- `preview/` dan `scripts/build-preview.py`: sumber dan pembuat pratinjau statis.
-- `theme/nalar-hakim/`: tema yang dipasang ke WordPress.
-- `scripts/package.py`: menghasilkan ZIP tema untuk unggah dari dashboard.
-- `scripts/preflight.sh`: pemeriksaan server baca-saja, tidak memasang atau menghapus apa pun.
-- `docs/INSTALL.md`: panduan singkat pemasangan.
-- `docs/ACCEPTANCE.md`: pemeriksaan sebelum peluncuran.
+- `content/*.json`: lima artikel lengkap beserta metadata dan sumbernya.
+- `index.html`: landing page; `beranda.html`: ruang baca.
+- `artikel/`, `kanal/`, `cari.html`, `tentang.html`, `404.html`: halaman hasil generator. Enam alamat artikel lama mengarah ke artikel pengganti.
+- `sitemap.xml`: daftar URL utama yang dihasilkan bersama halaman.
+- `preview/`: aset lokal, indeks pencarian dan perilaku situs statis.
+- `scripts/build-preview.py` dan `scripts/articles.py`: generator halaman dan validasi struktur artikel.
+- `theme/nalar-hakim/`: fondasi tema WordPress; `scripts/package.py` membuat ZIP tema.
+- `scripts/preflight.sh`: pemeriksaan server baca-saja.
+- [docs/INSTALL.md](docs/INSTALL.md): pengelolaan situs statis dan tahap pemasangan WordPress.
+- [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md): pemeriksaan sebelum peluncuran WordPress.
 
-Bangun ulang pratinjau dengan `python3 scripts/build-preview.py`, lalu periksa tautan dan jangkar bacanya dengan `python3 scripts/check-preview.py`. Tautan rujukan pada tulisan contoh adalah demonstrasi portal resmi, bukan sumber yang mendukung kesimpulan suatu artikel. Fitur baru pada pratinjau belum dipindahkan seluruhnya ke tema WordPress.
+## Menyunting artikel
 
-## Membuat ZIP tema
+Sunting berkas kanal yang sesuai di `content/`. Setiap artikel berisi `slug`, `channel`, `type`, `title`, `excerpt`, tiga butir `summary`, tanggal `published`/`updated` berformat `YYYY-MM-DD`, `body` berupa HTML, serta `sources` dengan `id`, `title`, `url` dan `note`. Gunakan subjudul `h2`; generator membuat daftar isi dan daftar rujukan. Pertahankan ID penanda yang unik dan tautan ke `#rujukan-N` sesuai sumbernya.
 
-Jalankan dari akar repo dengan Python 3:
+Buka sumber primer yang ditautkan, periksa bagian yang mendukung klaim, serta tinjau perubahan peraturan atau putusan sebelum menerbitkan pembaruan. Cantumkan tautan dokumen atau halaman spesifik dan catatan bagian yang dirujuk. Pemeriksaan otomatis mencocokkan penanda dengan sumber serta memeriksa struktur artikel dan tautan lokal; pemeriksaan itu tidak menilai kebenaran analisis hukum atau isi situs rujukan.
+
+Jalankan dari akar repository:
 
 ```sh
-python3 scripts/package.py
+python3 scripts/build-preview.py
+python3 scripts/check-preview.py
+node --check preview/search.js
+node --check preview/motion.js
 ```
 
-Unggah `dist/nalar-hakim.zip` melalui **Tampilan → Tema → Tambah Tema → Unggah Tema**.
+Commit sumber dan hasil generator bersama, termasuk halaman HTML, indeks pencarian dan `sitemap.xml`. Jangan menyunting halaman hasil generator secara langsung. Jika slug berubah, perbarui pengalihan alamat lama di generator agar tautan masuk tetap berfungsi. Saat ini pemuat konten menggunakan satu berkas untuk setiap kanal; penambahan jumlah artikel memerlukan penyesuaian pemuat tersebut.
 
 ## Desain
 
-Struktur editorial terinspirasi Solana News, garis dan ruang dari Monad, keterbacaan dari Ethereum. Implementasi, wordmark dan komponen ditulis khusus untuk Nalar Hakim. Tidak menyertakan logo, ilustrasi atau kode situs referensi.
+Struktur editorial terinspirasi Solana News, garis dan ruang dari Monad, serta keterbacaan dari Ethereum. Implementasi, wordmark dan komponen ditulis khusus untuk Nalar Hakim. Tidak menyertakan logo, ilustrasi atau kode situs referensi.
 
-Pratinjau memakai desain editorial datar: tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid, serta ilustrasi SVG dua dimensi. Palet: hitam `#0B0B0B`, putih tulang `#F3F0E7`, violet `#AD91FF`, dan hijau limau `#C8FA72`. Tidak ada efek 3D, WebGL, video latar, atau animasi terus-menerus.
+Desain memakai tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid dan ilustrasi SVG dua dimensi. Palet: hitam `#0B0B0B`, putih tulang `#F3F0E7`, violet `#AD91FF` dan hijau limau `#C8FA72`. Mode terang/gelap tersedia.
 
-Desktop dan HP memakai susunan berbeda: landing desktop menampilkan poster tipografis dan simbol besar; versi HP mengutamakan judul serta tombol masuk. Mode terang/gelap tetap tersedia. Sistem font lokal perangkat, CSS lokal, JavaScript kecil, dan SVG inline menjaga halaman ringan tanpa library frontend eksternal. Identitas bersama ada di `preview/identity.css`, halaman pembuka di `scripts/landing_page.py` dan `preview/landing.css`, serta sampul datar di `scripts/flat_cover.py`.
+Animasi 2D berdurasi terbatas hanya aktif pada layar minimal 1000 px dengan hover, penunjuk presisi, dan tanpa preferensi pengurangan gerak. HP tetap statis. Konten sudah terlihat tanpa animasi. Tidak ada 3D, WebGL, video latar, animasi terus-menerus, library frontend atau unduhan font eksternal.
 
-## Konten dan identitas
+Identitas bersama ada di `preview/identity.css`, halaman pembuka di `scripts/landing_page.py` dan `preview/landing.css`, sampul datar di `scripts/flat_cover.py`, serta animasi di `preview/motion.js` dan `preview/motion.css`.
 
-Gunakan nama tampilan akun **Lazarus**, nickname dan slug penulis yang tidak mengandung nama asli. Tema menyamarkan byline dan membatasi beberapa jalur publik penulis, tetapi tidak dapat menjamin anonimitas di plugin pihak ketiga, metadata gambar/PDF, nama berkas, atau teks yang diunggah. Periksa hasil sebelum publikasi. Email kontak memang dimaksudkan untuk tampil publik.
+## WordPress dan identitas
 
-QR dari pengguna sudah didekode dan cocok persis dengan alamat di atas. QR menyimpan alamat mentah; pemilihan jaringan tetap dilakukan pengirim. Karena itu label Ethereum Mainnet selalu ditampilkan bersama QR.
+Untuk membuat paket tema, jalankan `python3 scripts/package.py`, lalu unggah `dist/nalar-hakim.zip` melalui **Tampilan → Tema → Tambah Tema → Unggah Tema** pada instalasi WordPress yang sudah siap. Artikel JSON tidak diimpor otomatis ke WordPress.
 
-## Penyimpanan
+Gunakan nama tampilan akun **Lazarus**, nickname dan slug penulis yang tidak mengandung nama asli. Tema menyamarkan byline dan membatasi beberapa jalur publik penulis, tetapi metadata unggahan, teks dan plugin tetap perlu diperiksa sebelum publikasi. Email kontak memang dimaksudkan untuk tampil publik.
 
-Repository hanya memuat kode tema dan dokumentasi. Artikel, akun, database, gambar unggahan, `wp-config.php`, kredensial, dan kunci privat tetap di luar Git. Backup dikelola sendiri oleh pemilik.
+QR donasi sudah didekode dan cocok persis dengan alamat di atas. QR menyimpan alamat mentah; pemilihan jaringan tetap dilakukan pengirim. Label Ethereum Mainnet ditampilkan bersama QR.
 
-## Acuan teknis
+## Penyimpanan dan server
 
-- https://wordpress.org/about/requirements/
-- https://developer.wordpress.org/themes/
-- https://developer.wordpress.org/cli/commands/theme/install/
+Repository memuat kode, dokumentasi, artikel publik dan hasil generator. Akun, database WordPress, unggahan privat, `wp-config.php`, kredensial dan kunci privat tetap di luar Git. Backup dikelola pemilik sendiri.
 
-Versi layanan server ditentukan setelah OS hasil reset dikonfirmasi. Target lingkungan: PHP 8.3+, MariaDB 10.11+ atau MySQL 8.0+, HTTPS, sesuai rekomendasi WordPress yang ditinjau saat persiapan.
+VPS memakai **OpenCloudOS 9.6** dengan paket **Nginx 1.29.8**, **PHP 8.3.36** dan **MariaDB 10.11.19** terpasang. Konfigurasi situs dan deployment WordPress sengaja ditunda.
+
+Acuan WordPress: [persyaratan sistem](https://wordpress.org/about/requirements/), [pengembangan tema](https://developer.wordpress.org/themes/) dan [pemasangan tema melalui WP-CLI](https://developer.wordpress.org/cli/commands/theme/install/).

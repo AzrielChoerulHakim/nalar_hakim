@@ -7,15 +7,15 @@ def render_landing():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,follow">
+<meta name="robots" content="index,follow"><link rel="canonical" href="https://azrielchoerulhakim.github.io/nalar_hakim/">
 <meta name="description" content="Nalar Hakim. Membaca peristiwa, memeriksa sumber, dan menimbang hukum dari berbagai sudut.">
 <meta name="theme-color" content="#0b0b0b">
 <link rel="icon" href="preview/favicon.svg" type="image/svg+xml">
 <title>Nalar Hakim — Ruang untuk Menimbang</title>
 <link rel="stylesheet" href="theme/nalar-hakim/style.css">
 <link rel="stylesheet" href="preview/identity.css">
-<link rel="stylesheet" href="preview/landing.css">
-<script src="theme/nalar-hakim/assets/site.js" defer></script>
+<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css">
+<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
@@ -35,7 +35,7 @@ def render_landing():
       </div>
     </div>
     <div class="landing-hero-support"><div><p class="landing-hero-statement">Hukum hadir di mana-mana. <br><span>Mari membacanya lebih dalam.</span></p><p class="landing-hero-caption">Peristiwa, pemikiran, dan pertanyaan. <br>Satu ruang. Berbagai sudut pandang.</p></div><div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-text-link" href="#kanal"><span>Jelajahi lima kanal</span><span aria-hidden="true">↓</span></a></div></div>
-    <div class="landing-hero-base"><span>BERITA / ANALISIS / OPINI / PANDUAN</span><span>TERBUKA UNTUK PERTANYAAN <span aria-hidden="true">↓</span></span></div>
+    <div class="landing-hero-base"><span>ANALISIS / PANDUAN / ESAI</span><span>TERBUKA UNTUK PERTANYAAN <span aria-hidden="true">↓</span></span></div>
   </section>
 
   <section class="landing-manifest" aria-labelledby="landing-manifest-title"><div class="landing-shell">
@@ -57,5 +57,5 @@ def render_landing():
 
   <section class="landing-invitation landing-shell" aria-labelledby="landing-invitation-title"><div class="landing-section-top"><p>03 / GILIRAN ANDA</p><span aria-hidden="true">✳</span></div><p class="landing-invitation-kicker">SEBUAH PERTANYAAN BISA MENJADI AWAL.</p><h2 id="landing-invitation-title">BUKA <br><span>PIKIRAN.</span></h2><a class="landing-final-link" href="beranda.html"><span>Masuk ruang baca</span><span aria-hidden="true">↗</span></a></section>
 </main>
-<footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Ditulis oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Pratinjau desain · tulisan contoh di ruang baca</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
+<footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Ditulis oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Konteks. Rujukan. Pertanyaan.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
 </body></html>'''
