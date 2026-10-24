@@ -17,5 +17,7 @@ jobs:
         run: python3 scripts/build-preview.py
       - name: Check preview JavaScript
         run: node --check preview/search.js
+      - name: Check preview links and reading anchors
+        run: python3 scripts/check-preview.py
       - name: Verify generated preview is current
-        run: git diff --exit-code -- index.html cari.html tentang.html 404.html artikel kanal preview
+        run: git diff --exit-code -- index.html beranda.html cari.html tentang.html 404.html artikel kanal preview

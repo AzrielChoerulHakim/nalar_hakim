@@ -2,7 +2,7 @@
 
 ## Pratinjau GitHub Pages
 
-Pratinjau statis tersedia langsung dari branch `main`, folder akar repository. `index.html` adalah halaman utama; `.nojekyll` menjaga berkas HTML disajikan sebagai situs statis. Tidak memerlukan VPS atau domain sendiri untuk melihat desain.
+Pratinjau statis tersedia langsung dari branch `main`, folder akar repository. `index.html` adalah landing page; `beranda.html` adalah ruang baca. `.nojekyll` menjaga berkas HTML disajikan sebagai situs statis. Tidak memerlukan VPS atau domain sendiri untuk melihat desain.
 
 Setelah mengubah sumber pratinjau, jalankan `python3 scripts/build-preview.py` lalu commit sumber dan hasilnya. Pratinjau tidak menjalankan WordPress dan tidak memiliki panel admin; tulisan contoh tidak dimasukkan ke database.
 

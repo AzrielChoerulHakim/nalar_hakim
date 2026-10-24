@@ -4,7 +4,7 @@ Portal hukum beridentitas Web3 yang mengutamakan pembaca HP, dengan pratinjau st
 
 **Lihat pratinjau:** https://azrielchoerulhakim.github.io/nalar_hakim/
 
-Pratinjau menampilkan desain, kanal, pencarian tulisan contoh dan halaman baca. Tulisan diberi label contoh; belum ada CMS atau penyimpanan artikel di GitHub Pages. Pemasangan WordPress di VPS ditunda sampai tahap ini siap.
+Pratinjau dibuka dengan landing page dan tombol masuk ke ruang baca. Di dalamnya tersedia lima kanal, pencarian tulisan contoh dan halaman baca dengan label Berita/Analisis/Opini/Panduan, tautan rujukan, serta daftar isi pada tulisan dengan sedikitnya tiga subjudul. Tulisan diberi label contoh; belum ada CMS atau penyimpanan artikel di GitHub Pages. Pemasangan WordPress di VPS ditunda sampai tahap ini siap.
 
 **Status tema WordPress: fondasi pengembangan 0.1.0. Belum dipasang di VPS dan belum diuji menyeluruh pada WordPress hidup.**
 
@@ -19,13 +19,16 @@ Pratinjau menampilkan desain, kanal, pencarian tulisan contoh dan halaman baca. 
 
 ## Isi repository
 
-- `index.html`, `artikel/`, `kanal/`, `cari.html`, `tentang.html`: halaman pratinjau GitHub Pages.
+- `index.html`: landing page dengan tombol masuk ke ruang baca.
+- `beranda.html`, `artikel/`, `kanal/`, `cari.html`, `tentang.html`: ruang baca dan halaman pratinjau GitHub Pages.
 - `preview/` dan `scripts/build-preview.py`: sumber dan pembuat pratinjau statis.
 - `theme/nalar-hakim/`: tema yang dipasang ke WordPress.
 - `scripts/package.py`: menghasilkan ZIP tema untuk unggah dari dashboard.
 - `scripts/preflight.sh`: pemeriksaan server baca-saja, tidak memasang atau menghapus apa pun.
 - `docs/INSTALL.md`: panduan singkat pemasangan.
 - `docs/ACCEPTANCE.md`: pemeriksaan sebelum peluncuran.
+
+Bangun ulang pratinjau dengan `python3 scripts/build-preview.py`, lalu periksa tautan dan jangkar bacanya dengan `python3 scripts/check-preview.py`. Tautan rujukan pada tulisan contoh adalah demonstrasi portal resmi, bukan sumber yang mendukung kesimpulan suatu artikel. Fitur baru pada pratinjau belum dipindahkan seluruhnya ke tema WordPress.
 
 ## Membuat ZIP tema
 

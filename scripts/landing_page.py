@@ -1,0 +1,81 @@
+"""Original, buildless entry page for Nalar Hakim's reading room."""
+
+
+def render_landing():
+    return '''<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Nalar Hakim. Ruang untuk membaca peristiwa, menguji gagasan, dan menimbang hukum dari berbagai sudut.">
+<meta name="theme-color" content="#0d0d12">
+<title>Nalar Hakim — Ruang untuk Menimbang</title>
+<link rel="stylesheet" href="theme/nalar-hakim/style.css">
+<link rel="stylesheet" href="preview/landing.css">
+<script src="theme/nalar-hakim/assets/site.js" defer></script>
+</head>
+<body class="nh-landing">
+<a class="skip-link" href="#main-content">Langsung ke konten</a>
+<header class="landing-header landing-shell">
+  <a class="landing-brand" href="index.html" aria-label="Nalar Hakim — halaman awal"><span class="brand-mark" aria-hidden="true"></span><span>NALAR HAKIM<span class="landing-dot">.</span></span></a>
+  <nav aria-label="Navigasi utama"><a class="landing-about-link" href="tentang.html">Tentang</a><a class="landing-nav-enter" href="beranda.html">Masuk <span aria-hidden="true">↗</span></a></nav>
+</header>
+<main id="main-content" class="landing-main">
+  <section class="landing-hero landing-shell" aria-labelledby="landing-title">
+    <div class="landing-hero-copy">
+      <p class="landing-kicker"><span class="landing-signal" aria-hidden="true"></span> HUKUM / PERISTIWA / GAGASAN</p>
+      <h1 id="landing-title">Membaca.<br>Memikirkan.<br><span>Menimbang.</span></h1>
+      <p class="landing-deck">Hukum hadir di setiap sisi kehidupan.<br>Nalar Hakim mengajak Anda melihatnya<br class="desktop-break"> dari berbagai sudut.</p>
+      <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html">Masuk ruang baca <span aria-hidden="true">↗</span></a><a class="landing-text-link" href="#kanal">Jelajahi kanal <span aria-hidden="true">↓</span></a></div>
+    </div>
+    <div class="landing-art" aria-hidden="true">
+      <div class="landing-art-index"><span>NH / 001</span><span>RUANG NALAR</span></div>
+      <svg class="landing-portal" viewBox="0 0 520 510" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nh-frame" x1="108" y1="95" x2="410" y2="445" gradientUnits="userSpaceOnUse"><stop stop-color="#c3b4ff"/><stop offset=".55" stop-color="#9481ef"/><stop offset="1" stop-color="#554585"/></linearGradient>
+          <linearGradient id="nh-face" x1="165" y1="40" x2="355" y2="452" gradientUnits="userSpaceOnUse"><stop stop-color="#b1a0ff" stop-opacity=".25"/><stop offset="1" stop-color="#a594ff" stop-opacity=".025"/></linearGradient>
+          <linearGradient id="nh-leaf" x1="265" y1="80" x2="392" y2="430" gradientUnits="userSpaceOnUse"><stop stop-color="#86e8cb" stop-opacity=".28"/><stop offset="1" stop-color="#86e8cb" stop-opacity=".015"/></linearGradient>
+          <radialGradient id="nh-glow"><stop stop-color="#8971d9" stop-opacity=".22"/><stop offset="1" stop-color="#8971d9" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="265" cy="279" rx="245" ry="231" fill="url(#nh-glow)"/>
+        <g class="landing-orbits" stroke="currentColor" stroke-width=".8"><ellipse cx="260" cy="275" rx="246" ry="101" transform="rotate(-28 260 275)"/><ellipse cx="260" cy="275" rx="227" ry="214"/><path d="M13 453H507M260 21V487" stroke-dasharray="3 9"/></g>
+        <path d="M134 142 331 43 398 80 201 179Z" fill="url(#nh-frame)" opacity=".8"/>
+        <path d="M134 142 201 179V457L134 420Z" fill="#514374" opacity=".9"/>
+        <path d="M201 179 398 80V358L201 457Z" fill="url(#nh-face)" stroke="url(#nh-frame)" stroke-width="2"/>
+        <path d="M151 151 331 61 377 87 197 177Z" fill="var(--bg)"/>
+        <path d="M158 163 181 176V417L158 404Z" fill="var(--bg)"/>
+        <path d="M223 192 375 116V345L223 421Z" fill="var(--bg)" stroke="url(#nh-frame)" stroke-width="1.5"/>
+        <path d="M247 209 353 156V332L247 385Z" fill="url(#nh-leaf)" stroke="#86e8cb" stroke-opacity=".8" stroke-width="1.5"/>
+        <path d="M267 222 331 190V319L267 351Z" fill="url(#nh-face)" stroke="#a594ff" stroke-opacity=".65"/>
+        <path d="m239 425 129-65 21 12-129 65Z" fill="#86e8cb" opacity=".7"/>
+        <path d="m254 447 129-65" stroke="#86e8cb" stroke-opacity=".4"/>
+        <path d="m87 159 0 18m-9-9h18M429 315v18m-9-9h18" stroke="var(--mint)" stroke-width="1.5"/>
+        <circle cx="83" cy="348" r="4" fill="var(--accent)"/>
+        <circle cx="433" cy="171" r="3" fill="var(--mint)"/>
+      </svg>
+      <p class="landing-art-caption"><span>TERBUKA UNTUK PERTANYAAN.</span><span>↗</span></p>
+    </div>
+    <div class="landing-hero-base"><span>MEDIA HUKUM &amp; GAGASAN</span><span>CATATAN LAZARUS <span aria-hidden="true">↘</span></span></div>
+  </section>
+
+  <section class="landing-intro landing-shell" aria-labelledby="landing-manifest">
+    <p class="landing-section-marker">01 / CARA KAMI MEMBACA</p>
+    <div><h2 id="landing-manifest">Satu peristiwa.<br><span>Banyak sudut pandang.</span></h2><div class="landing-intro-prose"><p>Di balik sebuah aturan, ada manusia, kepentingan, dan pertanyaan yang belum selesai.</p><p>Kami membuka ruang untuk memahami peristiwa, menelusuri rujukan, dan menguji pemikiran. Dengan rasa ingin tahu. Dengan nalar yang terbuka.</p></div></div>
+  </section>
+
+  <section id="kanal" class="landing-channels landing-shell" aria-labelledby="landing-channels-title">
+    <div class="landing-channel-heading"><p class="landing-section-marker">02 / PILIH SUDUT PANDANG</p><h2 id="landing-channels-title">Mulai dari<br>yang membuat Anda <span>penasaran.</span></h2></div>
+    <div class="landing-channel-list">
+      <a href="kanal/pidana/" class="landing-channel"><span class="landing-channel-no">01</span><span class="landing-channel-name">Pidana</span><span class="landing-channel-description">Perbuatan, pertanggungjawaban,<br>dan proses peradilan.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>
+      <a href="kanal/perdata/" class="landing-channel"><span class="landing-channel-no">02</span><span class="landing-channel-name">Perdata</span><span class="landing-channel-description">Hak, hubungan antarorang,<br>dan kepentingan sehari-hari.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>
+      <a href="kanal/agama-keluarga/" class="landing-channel"><span class="landing-channel-no">03</span><span class="landing-channel-name">Agama &amp; Keluarga</span><span class="landing-channel-description">Persoalan yang dekat dengan<br>kehidupan dan hubungan manusia.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>
+      <a href="kanal/filsafat-hukum/" class="landing-channel"><span class="landing-channel-no">04</span><span class="landing-channel-name">Filsafat Hukum</span><span class="landing-channel-description">Gagasan, pemikiran, dan dasar<br>cara kita memahami hukum.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>
+      <a href="kanal/hukum-teknologi/" class="landing-channel"><span class="landing-channel-no">05</span><span class="landing-channel-name">Hukum &amp; Teknologi</span><span class="landing-channel-description">Menimbang perubahan<br>di ruang digital.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="landing-invitation landing-shell" aria-labelledby="landing-invitation-title"><span class="landing-invitation-symbol" aria-hidden="true">∴</span><p class="landing-kicker">SEBUAH PERTANYAAN BISA MENJADI AWAL.</p><h2 id="landing-invitation-title">Mari mulai<br><span>membaca.</span></h2><a class="landing-primary" href="beranda.html">Masuk ruang baca <span aria-hidden="true">↗</span></a></section>
+</main>
+<footer class="landing-footer landing-shell"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Ditulis oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Pratinjau desain · tulisan contoh di ruang baca</span></div></footer>
+</body></html>'''
