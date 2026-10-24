@@ -1,31 +1,43 @@
 /* Flat editorial identity: local fonts, solid ink, no rendering dependencies. */
 :root {
-  --bg:#0b0b0b;
-  --surface:#171717;
-  --surface-raised:#222222;
-  --text:#f3f0e7;
-  --muted:#aaa9a3;
-  --line:#3b3b38;
-  --accent:#ad91ff;
-  --mint:#c8fa72;
-  --accent-wash:#261e37;
+  --bg:#181a20;
+  --surface:#23262e;
+  --surface-raised:#30333d;
+  --text:#ece8e1;
+  --muted:#b1aea8;
+  --line:#50535d;
+  --control-line:#777984;
+  --accent:#ad9bd9;
+  --mint:#a8bda0;
+  --accent-wash:#2c273a;
+  --cover-violet:#ad9bd9;
+  --cover-sage:#a8bda0;
+  --cover-paper:#ece8e1;
+  --cover-ink:#22242a;
+  --cover-stone:#cbc6bb;
+  --cover-lilac:#d5cee1;
   --font:Arial,Helvetica,sans-serif;
   --mono:ui-monospace,"Cascadia Code","SFMono-Regular",Consolas,monospace;
   --max-width:1440px;
   --gutter:clamp(20px,3.5vw,64px);
 }
 html[data-theme="light"] {
-  --bg:#f3f0e7;
-  --surface:#e8e5dc;
-  --surface-raised:#dddacf;
-  --text:#0b0b0b;
-  --muted:#54534c;
-  --line:#b8b5ab;
-  --accent:#6030c9;
-  --mint:#365a0d;
-  --accent-wash:#e4d8ff;
+  --bg:#f4f1eb;
+  --surface:#eae6df;
+  --surface-raised:#dfdbd4;
+  --text:#22242a;
+  --muted:#615e68;
+  --line:#b2adb7;
+  --control-line:#827e89;
+  --accent:#65508f;
+  --mint:#465c40;
+  --accent-wash:#e5deef;
 }
 body { -webkit-font-smoothing:antialiased; font-kerning:normal; }
+.eyebrow { font-size:12px; letter-spacing:.065em; }
+.header-actions .theme-toggle,.header-actions > details > summary,.nh-landing .signal-toggle { border-color:var(--control-line); }
+.header-actions .search-submit { color:var(--bg); background:var(--accent); font-size:13px; }
+.header-actions .search-submit:hover { background:var(--mint); color:var(--bg); }
 h1,h2,h3,h4 { font-weight:750; }
 /* Reserve room around anchors and focus rings without changing reading flow. */
 [id] { scroll-margin-top:28px; }

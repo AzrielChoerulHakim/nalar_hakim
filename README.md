@@ -42,6 +42,7 @@ python3 scripts/build-preview.py
 python3 scripts/check-preview.py
 node --check preview/search.js
 node --check preview/motion.js
+node --check preview/signals.js
 ```
 
 Commit sumber dan hasil generator bersama, termasuk halaman HTML, indeks pencarian dan `sitemap.xml`. Jangan menyunting halaman hasil generator secara langsung. Jika slug berubah, perbarui pengalihan alamat lama di generator agar tautan masuk tetap berfungsi. Saat ini pemuat konten menggunakan satu berkas untuk setiap kanal; penambahan jumlah artikel memerlukan penyesuaian pemuat tersebut.
@@ -50,7 +51,9 @@ Commit sumber dan hasil generator bersama, termasuk halaman HTML, indeks pencari
 
 Struktur editorial terinspirasi Solana News, garis dan ruang dari Monad, serta keterbacaan dari Ethereum. Implementasi, wordmark dan komponen ditulis khusus untuk Nalar Hakim. Tidak menyertakan logo, ilustrasi atau kode situs referensi.
 
-Desain memakai tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid dan ilustrasi SVG dua dimensi. Palet: hitam `#0B0B0B`, putih tulang `#F3F0E7`, violet `#AD91FF` dan hijau limau `#C8FA72`. Mode terang/gelap tersedia.
+Desain memakai tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid dan ilustrasi SVG dua dimensi. Palet gelap: arang `#181A20`, putih tulang `#ECE8E1`, lavender `#AD9BD9` dan sage `#A8BDA0`. Mode terang memakai krem `#F4F1EB`, teks `#22242A`, ungu `#65508F` dan zaitun `#465C40`. Pilihan tema pembaca disimpan dan diterapkan sebelum CSS tampil.
+
+Metadata serta label minimal 12px, navigasi 13px desktop/12px HP, keterangan 14–16px, dan isi artikel 19px desktop/18px HP. Kontras teks dasar diperiksa pada kedua tema. Ukuran tombol utama minimal 44px. Generator memberi fingerprint otomatis pada CSS, JavaScript dan favicon agar revisi aset terbaca oleh pengunjung lama.
 
 Animasi judul singkat dan jaringan sinyal 2D hanya aktif pada layar minimal 1000 px dengan hover, penunjuk presisi, dan tanpa preferensi pengurangan gerak. Sembilan sinyal berulang di jalur SVG selama hero terlihat; gerak berhenti ketika keluar layar, tab disembunyikan, atau tombol Jeda animasi dipilih. HP menampilkan jaringan statis. Konten terlihat tanpa JavaScript. Tidak ada 3D, WebGL, video latar, library frontend atau unduhan font eksternal.
 

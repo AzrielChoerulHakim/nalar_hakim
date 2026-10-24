@@ -4,6 +4,10 @@
 from signal_field import render_signal_field
 
 
+# Apply a saved reading preference before CSS paints, including when storage is blocked.
+THEME_INIT = '''<script>try{if(localStorage.getItem('nalar-hakim-theme')==='light'){document.documentElement.dataset.theme='light';document.querySelector('meta[name="theme-color"]').content='#f4f1eb';}}catch(_){}</script>'''
+
+
 def render_landing():
     return '''<!doctype html>
 <html lang="id">
@@ -12,7 +16,8 @@ def render_landing():
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow"><link rel="canonical" href="https://azrielchoerulhakim.github.io/nalar_hakim/">
 <meta name="description" content="Nalar Hakim. Membaca peristiwa, memeriksa sumber, dan menimbang hukum dari berbagai sudut.">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#181a20">
+__THEME_INIT__
 <link rel="icon" href="preview/favicon.svg" type="image/svg+xml">
 <title>Nalar Hakim — Ruang untuk Menimbang</title>
 <link rel="stylesheet" href="theme/nalar-hakim/style.css">
@@ -62,4 +67,4 @@ def render_landing():
   <section class="landing-invitation landing-shell" aria-labelledby="landing-invitation-title"><div class="landing-section-top"><p>03 / GILIRAN ANDA</p><span aria-hidden="true">✳</span></div><p class="landing-invitation-kicker">SEBUAH PERTANYAAN BISA MENJADI AWAL.</p><h2 id="landing-invitation-title">BUKA <br><span>PIKIRAN.</span></h2><a class="landing-final-link" href="beranda.html"><span>Masuk ruang baca</span><span aria-hidden="true">↗</span></a></section>
 </main>
 <footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Ditulis oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Konteks. Rujukan. Pertanyaan.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
-</body></html>'''.replace('__SIGNAL_FIELD__', render_signal_field())
+</body></html>'''.replace('__SIGNAL_FIELD__', render_signal_field()).replace('__THEME_INIT__', THEME_INIT)
