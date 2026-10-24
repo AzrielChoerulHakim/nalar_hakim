@@ -1,0 +1,15 @@
+name: Theme checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check PHP syntax
+        run: find theme/nalar-hakim -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Check JavaScript syntax
+        run: node --check theme/nalar-hakim/assets/site.js
+      - name: Package theme
+        run: python3 scripts/package.py

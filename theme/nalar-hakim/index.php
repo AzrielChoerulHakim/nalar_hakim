@@ -1,0 +1,3 @@
+<?php if (!defined('ABSPATH')) { exit; } get_header(); ?>
+<main id="main-content" class="container archive-main"><header class="archive-header"><span class="eyebrow">ARSIP NALAR HAKIM</span><h1>Semua tulisan</h1></header>
+<?php if (have_posts()) : ?><div class="article-grid"><?php while (have_posts()) : the_post(); get_template_part('template-parts/card'); endwhile; ?></div><?php the_posts_pagination(array('prev_text'=>'← Sebelumnya','next_text'=>'Berikutnya →')); else : ?><div class="empty-state"><h2>Belum ada tulisan.</h2><p>Catatan pertama sedang dipersiapkan.</p></div><?php endif; ?></main><?php get_footer(); ?>

@@ -1,0 +1,2 @@
+<?php if (!defined('ABSPATH')) { exit; } $nh_search_id = wp_unique_id('nh-search-'); ?>
+<form class="search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>"><label class="screen-reader-text" for="<?php echo esc_attr($nh_search_id); ?>">Cari artikel</label><input id="<?php echo esc_attr($nh_search_id); ?>" type="search" name="s" placeholder="Cari isu, istilah, atau gagasan…" value="<?php echo esc_attr(get_search_query()); ?>"><button type="submit">Cari <span aria-hidden="true">→</span></button></form>

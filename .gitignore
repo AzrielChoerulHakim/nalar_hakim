@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+wp-config.php
+*.sql
+*.sql.gz
+*.pem
+*.key
+*.log
+node_modules/
+vendor/
+dist/
+uploads/
+wp-content/uploads/
+.DS_Store
+.idea/
+.vscode/
