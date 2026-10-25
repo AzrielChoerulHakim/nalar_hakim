@@ -1,4 +1,4 @@
-/* Editorial structure: arguments, submissions, and a public right of reply. */
+/* Editorial structure: anonymous critical writing and email submissions. */
 .header-note { text-decoration:none; }
 .header-note:hover { text-decoration:underline; text-underline-offset:5px; }
 .home-intro > .home-position { flex:0 1 36%; }
@@ -8,7 +8,7 @@
 .article-type { text-decoration:none; }
 .article-type:hover { background:var(--mint); border-color:var(--mint); color:var(--bg); }
 .formats-section { margin-top:72px; }
-.formats-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.formats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
 .format-card { position:relative; display:block; padding:32px; padding-right:65px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); text-decoration:none; color:var(--text); }
 .format-card > .eyebrow { color:var(--mint); }
 .format-card h3 { margin:22px 0 14px; font-size:clamp(27px,3vw,40px); line-height:1.15; letter-spacing:-.04em; }
@@ -16,10 +16,6 @@
 .format-arrow { position:absolute; right:26px; top:28px; font-size:28px; line-height:1; color:var(--mint); }
 .format-card:hover { background:var(--surface); }
 .format-card:hover h3 { text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:6px; }
-.debate-invitation { margin-top:72px; padding:42px; border-left:4px solid var(--accent); background:var(--surface); }
-.debate-invitation h2 { margin:20px 0; font-size:clamp(34px,4.4vw,60px); line-height:1.05; letter-spacing:-.05em; }
-.debate-invitation p { max-width:60ch; font-size:17px; line-height:1.7; }
-.debate-invitation .eyebrow { color:var(--accent); }
 .editorial-invitation { display:flex; align-items:center; justify-content:space-between; gap:30px; margin-top:72px; padding:40px; background:var(--cover-sage); color:var(--cover-ink); }
 .editorial-invitation .eyebrow { color:inherit; }
 .editorial-invitation h2 { margin:18px 0; font-size:clamp(34px,4vw,55px); line-height:1.05; letter-spacing:-.05em; }
@@ -43,10 +39,6 @@
 .argument-frame dd { margin:0; font-size:15px; line-height:1.65; overflow-wrap:anywhere; }
 .article-footer .revision-note { color:var(--muted); font:14px/1.75 var(--font); padding:18px 0; border-block:1px solid var(--line); margin-top:22px; }
 .article-footer .revision-note strong { color:var(--text); font-weight:650; }
-.article-response { padding-top:12px; }
-.article-response h2 { font:750 clamp(26px,3vw,35px)/1.2 var(--font); letter-spacing:-.03em; }
-.article-response p { font:16px/1.7 var(--font); max-width:54ch; }
-.article-response .read-link { margin-right:26px; }
 .submission-layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:56px; align-items:start; }
 .submission-heading { margin:0 0 24px; font-size:clamp(27px,3vw,38px); line-height:1.15; letter-spacing:-.04em; }
 .submission-steps { padding:0; margin:0; list-style:none; }
@@ -73,19 +65,11 @@
 .review-grid .eyebrow { color:var(--mint); }
 .review-grid h3 { margin:20px 0 14px; font-size:clamp(24px,2.2vw,30px); line-height:1.15; letter-spacing:-.035em; }
 .review-grid p { margin:0; font-size:16px; line-height:1.75; }
-.reply-note { max-width:70ch; margin-top:44px; padding-top:26px; border-top:1px solid var(--line); }
-.reply-note h2 { font-size:26px; line-height:1.2; letter-spacing:-.03em; }
-.reply-note p { font-size:17px; line-height:1.75; }
-.debate-empty { max-width:850px; padding:40px; border:1px solid var(--line); border-left:4px solid var(--accent); background:var(--surface); }
-.debate-empty .eyebrow { color:var(--accent); }
-.debate-empty h2 { margin:20px 0; font-size:clamp(32px,4vw,54px); line-height:1.1; letter-spacing:-.04em; }
-.debate-empty p { max-width:60ch; font-size:18px; line-height:1.75; }
-.debate-empty .read-link { display:flex; margin-top:16px; }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) { .format-arrow { transition:transform 160ms ease; } .format-card:hover .format-arrow { transform:translate(3px,-3px); } }
 @media(max-width:1023px) { .submission-layout { gap:28px; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); } .submission-contact { padding:24px; } .review-grid { gap:16px; } .review-grid article { padding:20px; } }
 @media(max-width:760px) { .submission-layout { grid-template-columns:minmax(0,1fr); gap:30px; } .submission-contact { max-width:100%; } .review-grid { grid-template-columns:minmax(0,1fr); } .editorial-invitation { align-items:flex-start; flex-direction:column; padding:30px; } .format-card { padding:24px; padding-right:54px; } .format-arrow { right:20px; top:23px; } }
-@media(max-width:640px) { .home-position p { font-size:16px; } .formats-grid { grid-template-columns:minmax(0,1fr); } .formats-section,.debate-invitation,.editorial-invitation,.review-section { margin-top:48px; } .format-card { padding:25px; padding-right:52px; } .format-card h3 { font-size:30px; } .format-card p { font-size:16px; } .debate-invitation,.debate-empty { padding:25px; } .debate-invitation h2,.debate-empty h2 { font-size:34px; } .debate-invitation p,.debate-empty p { font-size:17px; } .editorial-invitation { padding:25px; } .editorial-invitation h2 { font-size:35px; } .editorial-invitation .editorial-button { width:100%; } .argument-frame { padding:20px; } .argument-frame > p { font-size:23px; } .argument-frame dl > div { grid-template-columns:50px minmax(0,1fr); } .submission-steps li { grid-template-columns:28px minmax(0,1fr); gap:14px; padding-block:23px; } .submission-steps h3 { font-size:23px; } .submission-steps p { font-size:17px; } .submission-contact { padding:24px; } .submission-contact h2 { font-size:36px; } .submission-email { font-size:18px; } .review-grid article { padding:25px; } .review-grid h3 { font-size:29px; } .footer-editorial-links { gap:4px 18px; } }
-@media print { .formats-section,.editorial-invitation,.article-response,.submission-actions { display:none; } .argument-frame { break-inside:avoid; } }
+@media(max-width:640px) { .home-position p { font-size:16px; } .formats-grid { grid-template-columns:minmax(0,1fr); } .formats-section,.editorial-invitation,.review-section { margin-top:48px; } .format-card { padding:25px; padding-right:52px; } .format-card h3 { font-size:30px; } .format-card p { font-size:16px; } .editorial-invitation { padding:25px; } .editorial-invitation h2 { font-size:35px; } .editorial-invitation .editorial-button { width:100%; } .argument-frame { padding:20px; } .argument-frame > p { font-size:23px; } .argument-frame dl > div { grid-template-columns:50px minmax(0,1fr); } .submission-steps li { grid-template-columns:28px minmax(0,1fr); gap:14px; padding-block:23px; } .submission-steps h3 { font-size:23px; } .submission-steps p { font-size:17px; } .submission-contact { padding:24px; } .submission-contact h2 { font-size:36px; } .submission-email { font-size:18px; } .review-grid article { padding:25px; } .review-grid h3 { font-size:29px; } .footer-editorial-links { gap:4px 18px; } }
+@media print { .formats-section,.editorial-invitation,.submission-actions { display:none; } .argument-frame { break-inside:avoid; } }
 
 /* Keep the submission address close to the opening instructions. */
 @media(min-width:1000px) { .submission-main .archive-header { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:24px 42px; align-items:end; } .submission-main .archive-header > .eyebrow { grid-column:1/-1; } .submission-main .archive-header h1 { max-width:none; font-size:clamp(50px,5.7vw,78px); margin:0; } .submission-main .archive-header .section-intro { margin:0 0 3px; font-size:18px; } }
@@ -94,3 +78,6 @@
 @media(max-width:640px) { .submission-main .archive-header h1 { max-width:none; font-size:clamp(34px,9vw,60px); } }
 @media(min-width:641px) and (max-width:999px) { .submission-main .archive-header h1 { max-width:none; font-size:clamp(40px,6.3vw,62px); } }
 @media(max-width:359px) { .submission-email { font-size:16px; } }
+
+@media(min-width:761px) { .format-card { padding:28px 24px; } .format-card h3 { padding-right:0; font-size:clamp(26px,2.6vw,36px); } .format-arrow { right:22px;top:26px; } }
+@media(max-width:900px) { .formats-grid { grid-template-columns:minmax(0,1fr); } }

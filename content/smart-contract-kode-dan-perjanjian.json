@@ -1,8 +1,6 @@
 {
   "slug": "smart-contract-kode-dan-perjanjian",
-  "channel": "hukum-teknologi",
   "format": "telaah",
-  "type": "Telaah",
   "title": "Siapa berkuasa ketika smart contract dapat diubah?",
   "excerpt": "Di balik alamat kontrak yang tetap, logika aplikasi dapat berganti. Membaca kuasa administrator, oracle, dan persetujuan pengguna melalui Lessig serta desain kontrak Ethereum.",
   "thesis": "Otomatisasi memindahkan sebagian kekuasaan ke desain dan pengelolaan kode; legitimasi perubahan harus diperiksa terpisah dari keberhasilan eksekusinya.",

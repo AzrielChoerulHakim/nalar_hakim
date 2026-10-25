@@ -2,8 +2,8 @@
 /** Theme foundation for a critical legal publication edited by Lazarus. */
 if (!defined('ABSPATH')) { exit; }
 
-function nh_channels() {
-    return array('pidana' => 'Pidana', 'perdata' => 'Perdata', 'agama-keluarga' => 'Agama & Keluarga', 'filsafat-hukum' => 'Filsafat Hukum', 'hukum-teknologi' => 'Hukum & Teknologi');
+function nh_formats() {
+    return array('esai' => 'Esai', 'telaah' => 'Telaah Fenomena', 'bedah' => 'Bedah Putusan atau Norma');
 }
 function nh_setup() {
     add_theme_support('title-tag');
@@ -18,7 +18,7 @@ function nh_setup() {
 }
 add_action('after_setup_theme', 'nh_setup');
 function nh_activate() {
-    foreach (nh_channels() as $slug => $name) {
+    foreach (nh_formats() as $slug => $name) {
         if (!term_exists($slug, 'category')) { wp_insert_term($name, 'category', array('slug' => $slug)); }
     }
 }
@@ -29,7 +29,7 @@ function nh_assets() {
     wp_enqueue_script('nalar-hakim', get_theme_file_uri('assets/site.js'), array(), $version, array('strategy' => 'defer', 'in_footer' => true));
 }
 add_action('wp_enqueue_scripts', 'nh_assets');
-function nh_channel_url($slug) {
+function nh_format_url($slug) {
     $term = get_category_by_slug($slug);
     if ($term) {
         $url = get_category_link($term->term_id);
@@ -80,12 +80,12 @@ function nh_save_author_alias($post_id) {
     else { update_post_meta($post_id, '_nh_author_alias', wp_slash($alias)); }
 }
 add_action('save_post_post', 'nh_save_author_alias');
-function nh_post_channel() {
+function nh_post_format() {
     $categories = get_the_category();
     foreach ($categories as $category) {
-        if (array_key_exists($category->slug, nh_channels())) { return $category; }
+        if (array_key_exists($category->slug, nh_formats())) { return $category; }
     }
-    return $categories ? $categories[0] : null;
+    return null;
 }
 function nh_read_minutes() {
     $text = wp_strip_all_tags(strip_shortcodes(get_post_field('post_content', get_the_ID())));
@@ -93,9 +93,9 @@ function nh_read_minutes() {
     return max(1, (int) ceil(count($words ?: array()) / 200));
 }
 function nh_meta() {
-    $category = nh_post_channel();
+    $category = nh_post_format();
     echo '<div class="story-meta">';
-    if ($category) { echo '<a class="category-label" href="' . esc_url(get_category_link($category)) . '">' . esc_html($category->name) . '</a>'; }
+    if ($category) { echo '<a class="category-label" href="' . esc_url(nh_format_url($category->slug)) . '">' . esc_html(nh_formats()[$category->slug]) . '</a>'; }
     echo '<time datetime="' . esc_attr(get_the_date(DATE_W3C)) . '">' . esc_html(get_the_date('j M Y')) . '</time>';
     echo '<span>' . esc_html(nh_read_minutes()) . ' menit baca</span></div>';
 }
@@ -125,6 +125,16 @@ add_filter('oembed_response_data', function ($data, $post) {
 }, 10, 2);
 add_filter('wp_sitemaps_add_provider', function ($provider, $name) { return 'users' === $name ? false : $provider; }, 10, 2);
 add_action('template_redirect', function () {
+    // Retain existing terms in the database, but only expose the three editorial archives.
+    $redirect_archive = is_tag();
+    if (is_category()) {
+        $category = get_queried_object();
+        $redirect_archive = !isset($category->slug) || !array_key_exists($category->slug, nh_formats());
+    }
+    if ($redirect_archive) {
+        wp_safe_redirect(home_url('/'), 302);
+        exit;
+    }
     if (is_author()) {
         global $wp_query;
         $wp_query->set_404();

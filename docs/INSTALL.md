@@ -4,9 +4,9 @@
 
 GitHub Pages menggunakan branch `main`, folder akar repository. `index.html` adalah landing page dan `beranda.html` adalah ruang baca. `.nojekyll` menjaga berkas HTML disajikan sebagai situs statis. Situs ini tidak menjalankan WordPress dan tidak memiliki panel admin.
 
-Artikel disimpan dalam `content/*.json`. Sunting isi, metadata dan sumber pada berkas tersebut. Gunakan tiga butir ringkasan, tanggal berformat `YYYY-MM-DD`, subjudul `h2`, serta penanda rujukan yang cocok dengan ID di `sources`. Isikan `author` dengan nama samaran yang disepakati penulis; nilai bawaan Lazarus hanya untuk tulisan Lazarus. Metadata editorial juga mencakup `format`, `thesis`, `lens`, `object` dan `editorial_revision` sesuai pemuat konten.
+Artikel disimpan dalam `content/*.json`. Sunting isi, metadata dan sumber pada berkas tersebut. Gunakan tiga butir ringkasan, tanggal berformat `YYYY-MM-DD`, subjudul `h2`, serta penanda rujukan yang cocok dengan ID di `sources`. Isikan `author` dengan nama samaran yang disepakati penulis; gunakan Lazarus hanya untuk tulisan Lazarus. Metadata editorial juga mencakup `format`, `thesis`, `lens`, `object` dan `editorial_revision` sesuai pemuat konten.
 
-Halaman `kirim-naskah.html`, `kebijakan-redaksi.html` dan `tentang.html` menjelaskan pengiriman serta penilaian naskah. Bentuk tulisan dikelompokkan di `bentuk/telaah/`, `bentuk/bedah/`, `bentuk/esai/` dan `bentuk/perdebatan/`. Pengiriman naskah dilakukan melalui kontak redaksi; situs statis tidak menyediakan akun kontributor atau formulir unggah.
+Halaman `kirim-naskah.html`, `kebijakan-redaksi.html` dan `tentang.html` menjelaskan pengiriman serta penilaian naskah. Hanya ada tiga bentuk tulisan: **Esai** (`bentuk/esai/`), **Telaah Fenomena** (`bentuk/telaah/`), dan **Bedah Putusan atau Norma** (`bentuk/bedah/`). Pengiriman naskah Word dilakukan melalui email untuk ditinjau Lazarus; situs statis tidak menyediakan akun kontributor atau formulir unggah. Koreksi faktual dikirim ke email redaksi dengan menyertakan sumber.
 
 Sebelum publikasi, buka setiap sumber primer dan pastikan bagian yang dirujuk mendukung klaim; periksa perubahan ketentuan serta tanggal pembaruan artikel. Pakai tautan ke dokumen atau halaman spesifik. Pemeriksaan otomatis memvalidasi struktur dan tautan lokal, bukan kebenaran kesimpulan hukum atau ketersediaan sumber eksternal.
 
@@ -40,15 +40,17 @@ Jangan mengirim password, private key atau isi `wp-config.php` melalui chat/GitH
 4. Setel nama situs Nalar Hakim dan tagline Ruang Kritik Hukum.
 5. Setel zona waktu Jakarta dan permalink Nama tulisan; simpan.
 6. Setel identitas akun editor secara terpisah dari nama penulis publik. Lazarus adalah editor dan penulis untuk tulisannya sendiri, bukan nama kolektif semua kontributor.
-7. Periksa lima kategori yang dibuat pada aktivasi tema. Artikel lama tidak dipindah/dihapus otomatis.
-8. Tulis atau pindahkan artikel melalui editor WordPress, pilih kanal, isi ringkasan dan **Nama penulis publik**, periksa rujukan, pratinjau, lalu terbitkan.
+7. Periksa tiga kategori bentuk tulisan: **Esai** (`esai`), **Telaah Fenomena** (`telaah`), dan **Bedah Putusan atau Norma** (`bedah`). Aktivasi tema membuat kategori yang belum ada, tanpa menghapus kategori atau mengubah penempatan artikel lama.
+8. Tulis atau pindahkan artikel melalui editor WordPress, pilih satu dari tiga bentuk tulisan, isi ringkasan dan **Nama penulis publik**, periksa rujukan, pratinjau, lalu terbitkan.
 9. Buat halaman dengan slug `kirim-naskah`, `tentang` dan `kebijakan-redaksi`; salin isi redaksional dari versi statis yang sudah ditinjau. Tautan navigasi muncul setelah halaman diterbitkan tanpa password. Tema tidak membuat atau menerbitkan halaman tersebut otomatis.
 
 Beranda awal tema menampilkan artikel terbaru sebagai utama. Tema tidak membuat artikel secara otomatis. Fitur editor bawaan WordPress tetap digunakan.
 
+Pada pembaruan tema yang sudah aktif, periksa atau buat tiga kategori tersebut melalui dashboard karena hook aktivasi tidak berjalan pada setiap pembaruan ZIP. Penempatan artikel lama ke bentuk yang sesuai dilakukan manual. Tema hanya menampilkan tiga bentuk tersebut pada navigasi dan label artikel; arsip kategori lain dan arsip tag diarahkan ke beranda tanpa menghapus datanya. Artikel tanpa bentuk yang sesuai tidak menampilkan bagian bacaan terkait. Kategori lama yang masih tersimpan perlu ditinjau pemilik sebelum WordPress diluncurkan.
+
 Kotak **Nama penulis publik** menyimpan nama samaran pada post meta `_nh_author_alias`. Nilai kosong memakai Lazarus; naskah kontributor harus diisi alias yang disepakati sebelum terbit. Byline artikel, nama penulis pada feed dan respons oEmbed memakai alias tersebut, bukan nama login atau nama tampilan akun WordPress. Akun pengunggah tetap dipakai untuk izin penyuntingan internal.
 
-Periksa penyimpanan alias pada editor, pratinjau, feed dan oEmbed saat WordPress tersedia. Integrasi plugin, metadata pihak ketiga, alur redaksi, serta pengelompokan Telaah/Bedah/Esai/Perdebatan di WordPress belum setara dengan situs statis. Pengiriman melalui email tetap dikelola manual; tidak ada backend penerimaan naskah, akun kontributor publik atau jaminan anonimitas teknis dari tema.
+Periksa penyimpanan alias pada editor, pratinjau, feed dan oEmbed saat WordPress tersedia. Tiga bentuk tulisan menggunakan kategori bawaan WordPress; integrasi plugin, metadata pihak ketiga, tampilan dan alur redaksi belum diuji menyeluruh atau setara dengan situs statis. Pengiriman Word melalui email dan peninjauan Lazarus tetap dikelola manual; tidak ada backend penerimaan naskah, akun kontributor publik atau jaminan anonimitas teknis dari tema.
 
 ## Memperbarui tema dan meluncurkan WordPress
 

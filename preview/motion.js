@@ -80,7 +80,7 @@
       document.addEventListener('click', onClick, true);
       window.addEventListener('hashchange', onHash);
 
-      const targets = document.querySelectorAll('.landing-manifest-copy,.landing-channel-heading,.landing-channel,.landing-invitation h2,.section-heading,.article-grid > .story-card,.preview-invite,.channel-card,.article-references,.format-card,.editorial-invitation,.debate-invitation,.review-grid > article');
+      const targets = document.querySelectorAll('.landing-manifest-copy,.landing-channel-heading,.landing-channel,.landing-invitation h2,.section-heading,.article-grid > .story-card,.preview-invite,.article-references,.format-card,.editorial-invitation,.review-grid > article');
       targets.forEach((element) => {
         if (seen.has(element)) return;
         element.dataset.nhReveal = element.getBoundingClientRect().top > window.innerHeight ? 'below' : 'visible';

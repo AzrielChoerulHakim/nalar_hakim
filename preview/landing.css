@@ -58,15 +58,10 @@
 .landing-channel-heading > p { font-size:15px; line-height:1.6; margin:0 40px 0 0; }
 .landing-channel { display:grid; grid-template-columns:70px minmax(0,1.25fr) minmax(0,.8fr) 46px; align-items:center; gap:24px; min-height:128px; border-top:1px solid #22242a75; padding:24px 0; color:var(--landing-ink); text-decoration:none; }
 .landing-channel-no { font:38px/1 Arial,Helvetica,sans-serif; font-weight:500; letter-spacing:-.06em; }
-.landing-channel-name { font-size:clamp(28px,3.35vw,47px); font-weight:600; line-height:1.04; letter-spacing:-.055em; }
+.landing-channel-name { font-size:clamp(28px,3.35vw,47px); font-weight:600; line-height:1.1; letter-spacing:-.055em; }
 .landing-channel-description { font-size:15px; line-height:1.65; }
 .landing-channel-arrow { font:46px/.9 Arial,Helvetica,sans-serif; justify-self:end; }
 .landing-channel:focus-visible { outline:3px solid var(--landing-ink); outline-offset:-3px; color:var(--landing-ink); background:var(--landing-lime); }
-.landing-topics { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.6fr); align-items:start; gap:20px 40px; border-top:1px solid #22242a75; padding-block:25px 30px; }
-.landing-topics > p { margin:12px 0 0; font:12px/1.6 var(--mono); }
-.landing-topics nav { display:flex; flex-wrap:wrap; gap:0 24px; }
-.landing-topics a { display:inline-flex; align-items:center; min-height:44px; color:var(--landing-ink); font-size:14px; line-height:1.5; text-decoration-thickness:1px; text-underline-offset:4px; }
-.landing-topics a:focus-visible { outline-color:var(--landing-ink); }
 .landing-invitation { padding-block:37px 64px; }
 .landing-invitation .landing-section-top > span { color:var(--mint); }
 .landing-invitation-kicker { font:12px/1.7 var(--mono); color:var(--muted); margin:37px 0 23px; letter-spacing:.025em; }
@@ -158,13 +153,10 @@
  .landing-channel-heading > p br { display:none; }
  .landing-channel { grid-template-columns:34px minmax(0,1fr) 29px; min-height:115px; gap:8px 12px; padding-block:22px; }
  .landing-channel-no { font-size:25px; align-self:start; margin-top:3px; }
- .landing-channel-name { font-size:clamp(23px,6.3vw,33px); line-height:1.04; }
+ .landing-channel-name { font-size:clamp(23px,6.3vw,33px); line-height:1.1; }
  .landing-channel-description { grid-column:2; grid-row:2; font-size:15px; line-height:1.55; }
  .landing-channel-description br { display:none; }
  .landing-channel-arrow { grid-column:3; grid-row:1/3; font-size:32px; }
- .landing-topics { grid-template-columns:minmax(0,1fr); gap:10px; padding-block:23px 26px; }
- .landing-topics > p { margin:0; }
- .landing-topics nav { gap:0 20px; }
  .landing-invitation { padding-block:26px 39px; }
  .landing-invitation-kicker { font-size:12px; margin-block:28px 24px; letter-spacing:0; }
  .landing-invitation h2 { font-size:clamp(54px,17vw,115px); line-height:.88; }

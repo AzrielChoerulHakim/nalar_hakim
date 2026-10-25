@@ -38,19 +38,21 @@ class Prose(HTMLParser):
         self.words.append(data)
 
 
-def load_articles(root, channels):
+def load_articles(root, formats):
     posts = []
     slugs = set()
     for path in sorted((Path(root) / 'content').glob('*.json')):
         post = json.loads(path.read_text(encoding='utf-8'))
-        channel = post.get('channel')
-        for key in ('slug', 'channel', 'type', 'title', 'excerpt', 'summary', 'published', 'updated', 'body', 'sources', 'author', 'format', 'thesis', 'lens', 'object', 'editorial_revision'):
+        for key in ('slug', 'title', 'excerpt', 'summary', 'published', 'updated', 'body', 'sources', 'author', 'format', 'thesis', 'lens', 'object', 'editorial_revision'):
             if not post.get(key):
                 raise ValueError(f'{path.name}: missing {key}')
-        if channel not in channels or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', post['slug']):
-            raise ValueError(f'{path.name}: invalid channel or slug')
-        if post['format'] not in {'telaah', 'bedah', 'esai', 'perdebatan'}:
+        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', post['slug']):
+            raise ValueError(f'{path.name}: invalid slug')
+        if post['format'] not in formats:
             raise ValueError(f'{path.name}: invalid publication format')
+        if 'channel' in post:
+            raise ValueError(f'{path.name}: obsolete classification field')
+        post['type'] = formats[post['format']][0]
         if not isinstance(post['author'], str) or len(post['author']) > 80:
             raise ValueError(f'{path.name}: invalid public author alias')
         if post['slug'] in slugs:
@@ -78,8 +80,7 @@ def load_articles(root, channels):
                 raise ValueError(f'{path.name}: missing reference return target')
         post['minutes'] = max(1, ceil(post['word_count'] / 200))
         posts.append(post)
-    order = {channel: index for index, channel in enumerate(channels)}
-    posts.sort(key=lambda post: (-date.fromisoformat(post['published']).toordinal(), order[post['channel']], post['slug']))
+    posts.sort(key=lambda post: (-date.fromisoformat(post['published']).toordinal(), post['slug']))
     for index, post in enumerate(posts, 1):
         post['symbol'] = f'{index:02}'
     return posts

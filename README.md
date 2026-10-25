@@ -6,9 +6,9 @@ Ruang publikasi kritik hukum independen: fenomena aktual dibaca melalui teori, d
 
 ## Arah redaksi
 
-Empat bentuk tulisan menjadi navigasi utama: **Telaah**, **Bedah Putusan & Norma**, **Esai Pemikiran**, dan **Perdebatan**. Lima bidang menjadi pintu penelusuran tambahan: Pidana, Perdata, Agama & Keluarga, Filsafat Hukum, serta Hukum & Teknologi.
+Tiga bentuk tulisan menjadi navigasi utama: **Esai**, **Telaah Fenomena**, dan **Bedah Putusan atau Norma**. Semua tulisan dikelompokkan hanya menurut tiga bentuk tersebut.
 
-Tulisan memiliki objek yang jelas, tesis, lensa teori, sumber dan ruang sanggahan. Lima tulisan pembuka telah ditulis ulang sesuai arah ini. Halaman Perdebatan menjelaskan bahwa belum ada tanggapan terbit; tidak menampilkan kiriman atau percakapan rekaan.
+Tulisan memiliki objek yang jelas, tesis, lensa teori, sumber dan analisis mendalam. Lima tulisan pembuka telah ditulis ulang sesuai arah ini. Platform berfokus pada penerbitan karya kritis dengan nama samaran dan peninjauan Lazarus.
 
 ## Pengiriman dan keputusan
 
@@ -27,7 +27,7 @@ Email baru tidak menjamin anonimitas teknis. Website menjelaskan batas tersebut 
 
 - `content/*.json`: naskah publik beserta metadata dan sumber.
 - `index.html`: landing; `beranda.html`: ruang baca.
-- `bentuk/`: empat arsip bentuk tulisan; `kanal/`: lima arsip bidang.
+- `bentuk/`: tiga arsip bentuk tulisan.
 - `artikel/`: artikel dan enam pengalihan alamat lama dengan tujuan tetap.
 - `kirim-naskah.html`, `kebijakan-redaksi.html`, `tentang.html`: pengiriman, pertimbangan Lazarus dan identitas publikasi.
 - `cari.html`, `404.html`, `sitemap.xml`: pencarian lokal, halaman kesalahan dan peta URL.
@@ -39,11 +39,11 @@ Email baru tidak menjamin anonimitas teknis. Website menjelaskan batas tersebut 
 
 ## Menambahkan tulisan yang telah disetujui
 
-Tambahkan satu berkas JSON di `content/` dengan nama unik. Tidak lagi dibatasi satu artikel per bidang. Pemuat mengurutkan artikel berdasarkan tanggal terbit terbaru; untuk tanggal sama digunakan urutan bidang dan slug yang stabil.
+Tambahkan satu berkas JSON di `content/` dengan nama unik. Setiap bentuk dapat memuat banyak tulisan. Pemuat mengurutkan artikel berdasarkan tanggal terbit terbaru; untuk tanggal sama digunakan urutan slug yang stabil.
 
-Field naskah: `slug`, `channel`, `format`, `type`, `author`, `title`, `excerpt`, `thesis`, `lens`, `object`, tiga butir `summary`, `published`, `updated`, `editorial_revision`, HTML `body`, dan daftar `sources`. Tanggal menggunakan `YYYY-MM-DD`. `author` adalah nama samaran publik; jangan mengisinya dengan identitas privat.
+Field naskah: `slug`, `format`, `author`, `title`, `excerpt`, `thesis`, `lens`, `object`, tiga butir `summary`, `published`, `updated`, `editorial_revision`, HTML `body`, dan daftar `sources`. Tanggal menggunakan `YYYY-MM-DD`. `author` adalah nama samaran publik; jangan mengisinya dengan identitas privat.
 
-`format` menggunakan `telaah`, `bedah`, `esai`, atau `perdebatan`. `type` adalah label tampilannya. `channel` menggunakan salah satu dari lima slug bidang yang ada. Setiap sumber memiliki `id`, `title`, `url`, `note`, tautan `#rujukan-N` dan penanda unik `id="penanda-N"` di dalam naskah. Subjudul `h2` membentuk daftar isi bila terdapat sedikitnya tiga bagian. Panjang tulisan diputuskan redaksi, bukan dipaksakan oleh generator.
+`format` menggunakan `esai`, `telaah`, atau `bedah`. Label tampilan diturunkan otomatis dari definisi tiga bentuk tersebut. Setiap sumber memiliki `id`, `title`, `url`, `note`, tautan `#rujukan-N` dan penanda unik `id="penanda-N"` di dalam naskah. Subjudul `h2` membentuk daftar isi bila terdapat sedikitnya tiga bagian. Panjang tulisan diputuskan redaksi, bukan dipaksakan oleh generator.
 
 Buka sumber yang dirujuk, cocokkan bagian yang mendukung klaim, dan bedakan teks primer dari komentar. Validasi otomatis hanya memeriksa struktur dan hubungan rujukan; tidak membuktikan kebenaran analisis hukum.
 

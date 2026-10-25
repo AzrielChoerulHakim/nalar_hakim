@@ -1,44 +1,35 @@
-# Status Nalar Hakim — perombakan redaksi
+# Status Nalar Hakim — tiga bentuk tulisan
 
-## Implementasi
+## Struktur publikasi
 
-Situs statis telah diarahkan menjadi publikasi kritik hukum independen. Landing, ruang baca, navigasi, halaman bidang, artikel, pencarian, footer dan metadata mengikuti arah redaksi baru. Empat bentuk publikasi: Telaah, Bedah Putusan & Norma, Esai Pemikiran, Perdebatan. Lima bidang tetap dapat ditelusuri.
+Website berfokus pada penerbitan karya kritis dengan nama samaran, melalui peninjauan Lazarus. Seluruh tulisan dikelompokkan hanya menjadi:
 
-Halaman baru: `kirim-naskah.html`, `kebijakan-redaksi.html`, serta empat arsip `bentuk/`. `tentang.html` memuat posisi dan cara kerja redaksi. Total 27 HTML, termasuk enam pengalihan historis dengan tujuan tetap. Sitemap mencakup halaman publik baru.
+1. **Esai** — `bentuk/esai/`.
+2. **Telaah Fenomena** — `bentuk/telaah/`.
+3. **Bedah Putusan atau Norma** — `bentuk/bedah/`.
 
-Panduan pengiriman menggunakan email baru → lampiran Word → tinjauan Lazarus → keputusan atau revisi melalui email. Tombol mailto memuat penerima dan subjek; lampiran ditambahkan sendiri oleh pengirim. Tombol salin memiliki petunjuk manual bila API clipboard ditolak/tidak tersedia. Tidak ada formulir unggah, backend email, akun kontributor atau notifikasi otomatis. Korespondensi dilakukan manual oleh Lazarus.
+Navigasi, landing, ruang baca, arsip, sampul, label, metadata, pencarian dan halaman redaksi menggunakan struktur tersebut. Klasifikasi bidang sudah dihapus dari data konten dan generator. Lima arsip bidang serta arsip Perdebatan dicabut dari situs dan sitemap. Tautan koreksi faktual tetap mengarah ke email redaksi.
 
-Kelima artikel telah ditulis ulang dengan objek, tesis, lensa teori, sanggahan, batas analisis, rujukan dan catatan perubahan:
+Lima artikel yang telah ditulis dan diperiksa tetap tersedia pada URL masing-masing. Berkas sumber dinamai menurut slug artikel, tanpa field klasifikasi bidang. Label bentuk diturunkan dari satu definisi bersama agar tidak berbeda antara artikel, pencarian dan arsip.
 
-- Pidana: ukuran keberhasilan dalam publikasi kinerja KPK 22 Desember 2025.
-- Perdata: pemulihan dan bentuk gugatan dalam SEMA 1/2022 B.1.a–b.
-- Agama & Keluarga: Putusan MA 266 K/AG/2010 dan pengakuan kerja perawatan.
-- Filsafat Hukum: MK 257/PUU-XXIII/2025, partisipasi publik dan kewajiban menjelaskan.
-- Hukum & Teknologi: kuasa upgrade, oracle dan persetujuan dalam smart contract.
+## Alur pengiriman
 
-Dokumen lama dibaca ulang dengan tanggal objek yang jelas; tidak dipresentasikan sebagai kejadian baru. Sumber primer ditelusuri dan batas antara teks dokumen serta kritik penulis dijelaskan. Perdebatan belum memiliki tanggapan terbit dan menampilkan undangan yang jujur.
+Email baru → lampiran Word `.doc`/`.docx` → peninjauan Lazarus → keputusan atau penyuntingan lewat email. Alamat: `nalar.hakim77@gmail.com`. Naskah yang layak diterbitkan; naskah potensial disunting; naskah yang tidak sesuai ditolak. Halaman panduan memuat tautan email dan tombol salin alamat.
 
-Pemuat JSON menerima lebih dari satu artikel per bidang serta nama samaran masing-masing penulis. Artikel terbaru tampil lebih dahulu. Tidak ada syarat panjang atau jumlah subjudul otomatis; panjang naskah diputuskan redaksi. Validasi tetap memeriksa teks tidak kosong, metadata, format, tanggal dan pasangan penanda/sumber. Identitas privat tidak menjadi field konten.
+Pengiriman, lampiran dan korespondensi tetap berlangsung di email. Website tidak mengirim notifikasi sendiri. Nama samaran tidak disamakan dengan jaminan anonimitas teknis. Penghapusan jejak identitas pengelola ditunda sesuai keputusan pemilik.
 
 ## Pemeriksaan
 
-- Generator dan pemeriksaan tautan: **27 halaman, 871 tautan lokal/aset/anchor**.
-- Sintaks JavaScript untuk tema, pencarian dan kedua animasi diperiksa.
-- Tambahan naskah uji di direktori sementara berhasil dimuat sebagai artikel keenam, format Perdebatan dan alias Anonim; dua artikel dalam bidang sama tidak saling menggantikan. Naskah uji tidak masuk repository.
-- Tinjauan sumber terhadap lima file PHP dan penyimpanan alias tidak menemukan masalah material. PHP tidak tersedia di runtime lokal; lint nyata dijalankan melalui workflow GitHub, bukan diklaim dari pemeriksaan lokal.
-- Browser: 21 halaman utama pada dua lebar (320 dan 1366px), masing-masing tema terang/gelap, **84 keadaan halaman**. Tidak ditemukan teks isi/label terlihat di bawah 12px, luapan horizontal halaman, atau kontras teks dasar di bawah ambang yang diperiksa (4,5:1 teks biasa; 3:1 teks besar). Ini bukan audit aksesibilitas menyeluruh.
-- Landing dan panduan juga diperiksa visual pada 320/390/768px. Alamat email didahulukan di layar kecil. Isi artikel tetap 19px desktop/18px HP.
-- Alur navigasi landing → kiriman, ruang baca → artikel, daftar isi, penanda sumber → rujukan → kembali, pencarian “Fuller” (dua artikel), hasil nihil, dan ruang Perdebatan diperiksa.
-- Alamat serta subjek mailto diperiksa tanpa mengirim pesan. Fallback clipboard diperiksa di preview HTTP; pengiriman dan penerimaan email nyata tidak diuji.
+Generator menghasilkan 21 HTML: 15 halaman utama dan enam pengalihan historis artikel. Pemeriksa tautan mencakup 588 tautan lokal, aset dan anchor. Pemeriksa juga menolak arsip atau tautan klasifikasi yang telah dicabut. Indeks pencarian dan sitemap dibangun dari tiga bentuk yang tersedia.
 
-Build dan status publikasi setiap commit dapat diperiksa di GitHub Actions. Pembuatan ulang harus menghasilkan HTML/indeks yang identik. Tidak ada pengukuran performa lapangan/Core Web Vitals pada revisi ini.
+Sintaks JavaScript, struktur naskah, kecocokan sumber/penanda, determinisme generator dan paket tema diperiksa sebelum publikasi. Isi argumentasi serta sumber kelima artikel tidak diubah pada penyederhanaan struktur ini.
 
-## Desain
+Pemeriksaan tampilan revisi sebelumnya mencakup HP/desktop dalam kedua tema. Revisi tiga bentuk menjalani pemeriksaan tambahan atas navigasi, landing, daftar bentuk, arsip, label artikel dan pencarian. Pemeriksaan kontras dasar/ukuran teks bukan audit aksesibilitas menyeluruh. Status lint PHP serta deployment tersedia pada GitHub Actions.
 
-Palet arang/ivory/lavender/sage dan padanan tema terang dipertahankan. Jaringan SVG serta animasi masuk tetap terbatas pada desktop dengan pointer presisi, hover dan tanpa preferensi pengurangan gerak. Kartu bentuk tulisan memperoleh gerak ringan. HP memakai jaringan statis. Tidak ada tambahan library, font eksternal, 3D atau WebGL.
+## Desain dan fondasi WordPress
 
-## Batas dan tahap berikutnya
+Tipografi, warna, ilustrasi SVG dan animasi ringan dipertahankan. Teks artikel 19px desktop/18px HP, label minimum 12px; jaringan bergerak hanya di desktop yang mendukungnya. Tidak ada penambahan library, 3D, font eksternal atau video latar.
 
-Fondasi WordPress memiliki alias `_nh_author_alias`, byline/feed/oEmbed sesuai alias, serta tautan kondisional ke halaman redaksi yang diterbitkan manual. Kode tidak memakai nama tampilan akun sebagai byline publik. Situs statis tidak diimpor otomatis ke WordPress, dan seluruh fitur visual belum setara. WordPress belum diuji dengan instalasi serta database hidup.
+Fondasi WordPress mengikuti tiga bentuk yang sama dan nama samaran per artikel. Aktivasi tidak menghapus data pengguna; penataan kategori pada instalasi nyata dijelaskan di INSTALL. WordPress belum dipasang atau diuji dengan database hidup dan belum sepenuhnya setara dengan situs statis.
 
-Pemasangan VPS, pemindahan domain dan pembersihan jejak identitas pengelola **ditunda atas keputusan pemilik**. Canonical GitHub Pages dan akun repository dipertahankan. Tidak ada klaim anonimitas teknis mutlak atau bahwa Google telah mengindeks versi ini. Membuat email baru tidak dengan sendirinya menghapus metadata/jejak komunikasi.
+Migrasi VPS, domain dan penataan jejak identitas tetap menjadi tahap berikutnya. Canonical GitHub Pages dipertahankan. Tidak ada klaim bahwa versi ini sudah dipasang di VPS atau terindeks Google.

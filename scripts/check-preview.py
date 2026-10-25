@@ -34,7 +34,7 @@ class Page(HTMLParser):
 
 
 paths = sorted(ROOT.glob('*.html'))
-for folder in ('artikel', 'kanal', 'bentuk'):
+for folder in ('artikel', 'bentuk'):
     paths.extend(sorted((ROOT / folder).rglob('*.html')))
 pages = {p.resolve(): Page(p) for p in paths}
 errors = []
@@ -62,6 +62,15 @@ for path, page in pages.items():
         elif target.fragment and dest in pages:
             if unquote(target.fragment) not in pages[dest].ids:
                 errors.append(f'{label}: missing anchor: {link}')
+retired = list((ROOT / 'kanal').glob('*/index.html')) + [ROOT / 'bentuk' / 'perdebatan' / 'index.html']
+for path in retired:
+    if path.is_file():
+        errors.append(f'Retired archive remains: {path.relative_to(ROOT)}')
+for page in pages.values():
+    for link in page.links:
+        target = urlsplit(urljoin(page.base, link))
+        if target.netloc == 'preview.invalid' and ('/kanal/' in target.path or '/bentuk/perdebatan/' in target.path):
+            errors.append(f'{page.path.relative_to(ROOT)}: retired archive link: {link}')
 if errors:
     raise SystemExit('\n'.join(errors))
 print(f'PASS: {len(pages)} pages, {checked} local routes/assets/anchors')
