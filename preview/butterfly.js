@@ -5,23 +5,21 @@
   const root = document.documentElement;
   const scene = document.querySelector('[data-nature-scene]');
   const article = document.querySelector('.article-layout');
-  const toggle = scene?.querySelector('[data-nature-toggle]');
-  if ((!article && (!scene || !toggle)) || !window.MutationObserver) return;
+  if ((!article && !scene) || !window.MutationObserver) return;
   const headings = (article
     ? [...article.querySelectorAll('.article-header h1,.article-content h2,.article-content h3')]
     : ['#landing-title','#landing-manifest-title','#landing-channels-title','#landing-invitation-title','#idea-flow-title','.landing-footer-brand'].map(s => document.querySelector(s))
   ).filter(Boolean);
   if (!headings.length) return;
   const statue = scene?.querySelector('svg');
-  let control, layer, watcher, themeWatcher, resizeObserver, frame = 0, restTimer = 0;
-  let visitors = [], theme = '', desired = '', phase = 'idle', localPaused = false, suspended = false;
+  let layer, themeWatcher, resizeObserver, frame = 0, restTimer = 0;
+  let visitors = [], theme = '', desired = '', phase = 'idle', suspended = false;
   let dirty = true, clock = 0, last = 0, activeHeading, targets = [], statuePoint;
   let nextWander = 0, articleRect;
   let textContext;
   const glyphMetrics = new Map();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-  const paused = () => toggle ? toggle.getAttribute('aria-pressed') === 'true' : localPaused;
-  const available = () => media.matches && !document.hidden && !suspended && !paused();
+  const available = () => media.matches && !document.hidden && !suspended;
   const currentTheme = () => root.dataset.theme === 'dark' ? 'dark' : 'light';
   // A shared engraved wing is mirrored within separately hinged groups.
   // Glowing antenna tips use small radial paints, not costly blur filters.
@@ -169,8 +167,6 @@
       const r=statue.getBoundingClientRect(), y=r.top+r.height*.142;
       if (y>=80 && y<innerHeight-100) statuePoint={x:r.left+r.width*.46,y,kind:'statue',key:'statue'};
     }
-    if (toggle) { const r=toggle.getBoundingClientRect(); control.hidden=r.bottom>0 && r.top<innerHeight; }
-    else control.hidden=false;
   }
   function marginTarget(index,size) {
     const gutter=articleRect ? Math.max(0,Math.min(articleRect.left,innerWidth-articleRect.right)) : 200;
@@ -193,7 +189,7 @@
     v.node.dataset.flight='fly';
   }
   function wake() {
-    if (!control || !available() || frame) return;
+    if (!layer || !available() || frame) return;
     last=0; frame=requestAnimationFrame(tick);
   }
   function stop() {cancelAnimationFrame(frame);frame=0;clearTimeout(restTimer);restTimer=0;last=0;}
@@ -220,7 +216,7 @@
     visitors.forEach(v=>{fly(v);v.node.dataset.phase='exiting';v.exitRight=v.x>=innerWidth/2;v.exitY=clamp(v.y-45-v.index*18,65,innerHeight-90);v.started=clock;});
   }
   function themeChanged() {
-    if(!control)return;
+    if(!layer)return;
     desired=currentTheme();
     if(!theme) {dirty=true;measure();enter();}
     else if(desired!==theme) beginExit();
@@ -238,7 +234,7 @@
     },13000+nextWander%3*1700);
   }
   function tick(now) {
-    frame=0;if(!available()||!control)return;
+    frame=0;if(!available()||!layer)return;
     if(dirty)measure();
     const dt=Math.min((now-(last||now-16))/1000,.035);last=now;clock+=dt;
     if(phase==='exiting') {
@@ -282,34 +278,30 @@
     if(moving)frame=requestAnimationFrame(tick);
   }
   function sync() {
-    if(!control)return;
+    if(!layer)return;
     visitors.forEach(v=>v.node.dataset.paused=String(!available()));
-    control.textContent=paused()?'▷ Lanjutkan gerak':'Ⅱ Jeda gerak';
-    control.setAttribute('aria-pressed',String(paused()));
-    control.setAttribute('aria-label',paused()?'Lanjutkan animasi alam':'Jeda animasi alam');
     if(available()){dirty=true;wake();}else stop();
   }
   function onScroll(){dirty=true;wake();}
   function onHide(){suspended=true;sync();}
   function onShow(){suspended=false;sync();}
   function destroy(){
-    stop();removeVisitors();watcher?.disconnect();themeWatcher?.disconnect();resizeObserver?.disconnect();
+    stop();removeVisitors();themeWatcher?.disconnect();resizeObserver?.disconnect();
     window.removeEventListener('scroll',onScroll);window.removeEventListener('resize',onScroll);
+    window.removeEventListener('nh:layout-settled',onScroll);
     window.removeEventListener('pagehide',onHide);window.removeEventListener('pageshow',onShow);
     document.removeEventListener('visibilitychange',sync);
-    control?.remove();layer?.remove();control=layer=undefined;theme='';desired='';phase='idle';suspended=false;activeHeading=undefined;
+    layer?.remove();layer=undefined;theme='';desired='';phase='idle';suspended=false;activeHeading=undefined;
   }
   function setup(){
     if(!media.matches){destroy();return;}
-    if(control){themeChanged();return;}
-    control=document.createElement('button');control.className='nature-page-toggle';control.type='button';
-    control.addEventListener('click',()=>{if(toggle)toggle.click();else{localPaused=!localPaused;sync();}});
+    if(layer){themeChanged();return;}
     layer=document.createElement('div');layer.className='nature-companions';layer.setAttribute('aria-hidden','true');
-    document.body.append(layer,control);
-    if(toggle){watcher=new MutationObserver(sync);watcher.observe(toggle,{attributes:true,attributeFilter:['aria-pressed']});}
+    document.body.append(layer);
     themeWatcher=new MutationObserver(themeChanged);themeWatcher.observe(root,{attributes:true,attributeFilter:['data-theme']});
     if(window.ResizeObserver){resizeObserver=new ResizeObserver(onScroll);headings.forEach(h=>resizeObserver.observe(h));}
     window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);
+    window.addEventListener('nh:layout-settled',onScroll);
     document.addEventListener('visibilitychange',sync);window.addEventListener('pagehide',onHide);window.addEventListener('pageshow',onShow);
     themeChanged();
   }

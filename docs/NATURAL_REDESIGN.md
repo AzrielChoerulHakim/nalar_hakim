@@ -3,6 +3,15 @@
 ## Tujuan
 Membuat publikasi kritik hukum nyaman ditelusuri dan dibaca, dengan identitas alam yang tetap memiliki konteks hukum. Struktur Esai, Telaah Fenomena, dan Bedah Putusan atau Norma, isi artikel, serta alur kiriman Word lewat email tetap berlaku.
 
+## Audit 26 Oktober 2026 — perilaku terkini
+- Paragraf pertama halaman awal menjelaskan dua tujuan: anonimitas untuk menjaga identitas penulis dan akses tulisan gratis bagi masyarakat. Kiriman melalui email tidak memerlukan akun, biaya, atau formulir panjang; peninjauan redaksi tetap berlaku.
+- Bahasa halaman informasi dan panduan disederhanakan. Email terpisah menjadi anjuran, bukan langkah wajib. Sepuluh frasa pada lima artikel disunting tanpa mengubah pokok argumentasi, kutipan, atau rujukan; tanggal dan catatan penyuntingan diperbarui.
+- Judul memakai font sistem dan jarak huruf yang lebih longgar; paragraf panjang tetap Georgia 20px/1,8 pada desktop dan 19px pada HP. Pembuka halaman mendapat ukuran dan lebar baca yang sesuai. Palet dipertahankan setelah pemeriksaan kontras.
+- Tombol jeda dihapus dari seluruh halaman. Ini menggantikan uraian kendali jeda pada catatan tahap terdahulu di bawah. Animasi desktop berjalan otomatis; pengaturan reduced-motion, layar kecil, tab tersembunyi, pagehide, dan kondisi di luar viewport tetap mengendalikan pekerjaan animasi.
+- Bug posisi hinggap yang tertinggal setelah judul selesai beranimasi diperbaiki melalui satu pengukuran ulang saat animasi selesai. Observer lama dibersihkan dan animasi pembuka tidak lagi berjalan pada tab tersembunyi.
+- Justitia dan bentuk sungai dipertahankan setelah pemeriksaan. Bayangan kontak alas diperhalus; durasi gerak daun dibedakan. Tidak ada aset raster, font eksternal, atau pustaka tambahan.
+- Validasi: 51 skenario animasi, 21 halaman, 648 rute/aset/anchor, struktur heading dan landmark, serta build dan paket tema. Browser memeriksa halaman informasi, kategori, pencarian berhasil/tanpa hasil, lima artikel, enam pengalihan lama, salin alamat, dan viewport 390/1024/1363px. Pengujian viewport bukan pengujian perangkat fisik; audit ini tidak mengulang verifikasi hukum seluruh sumber artikel atau mengklaim audit aksesibilitas menyeluruh.
+
 ## Rencana pelaksanaan
 1. Terapkan putih kabut #F5F6F2, arang alami #29312D, hutan #294D3E, langit #DFEAF0, dan batu #D9DCD5. Putih mendominasi; warna aksen tidak memenuhi layar secara bergantian.
 2. Bangun landing dua kolom: judul dan tindakan utama di kiri, ilustrasi datar Justitia dengan mata tertutup, timbangan, pedang, dan akar pohon di kanan. Pada layar kecil, tindakan utama mendahului ilustrasi.

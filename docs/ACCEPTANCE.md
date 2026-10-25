@@ -17,7 +17,7 @@
 - [ ] Panduan kiriman menjelaskan file Word melalui email dan peninjauan Lazarus; tidak mengesankan naskah terkirim hanya dengan membuka aplikasi email.
 - [ ] Kontak koreksi faktual meminta bagian yang keliru dan sumber pembanding.
 - [ ] Salin alamat berhasil pada HTTPS dan memberi pesan jujur saat clipboard ditolak.
-- [ ] Scan QR menghasilkan tepat `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`; label Ethereum Mainnet terlihat.
+- [ ] Alamat ETH, BSC, dan Robinhood tepat `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`; label serta status salin terpisah dan tidak ada gambar QR.
 - [ ] Kontak menuju nalar.hakim77@gmail.com.
 
 ## Tampilan dan performa
@@ -25,7 +25,7 @@
 - [ ] Lebar 360/390/768/1280 px tidak membuat body meluber; navigasi/tabel boleh digeser di wadahnya.
 - [ ] Keyboard, fokus, skip-link, kontras dan pembesaran teks 200% diperiksa.
 - [ ] Tema terang/gelap bekerja, termasuk jika penyimpanan browser ditolak.
-- [ ] Reduced motion dihormati; tidak ada video otomatis/animasi terus-menerus.
+- [ ] Animasi desktop berjalan otomatis tanpa tombol jeda; reduced motion dan HP tetap statis. Tab tersembunyi menghentikan gerak; ilustrasi dan aliran gagasan berhenti di luar viewport.
 - [ ] Ukuran gambar dan dimensi dicantumkan; gambar utama diprioritaskan.
 - [ ] Uji Lighthouse mobile pada beranda dan artikel representatif, bukan halaman kosong saja.
 - [ ] Target LCP ≤2,5 detik dan CLS ≤0,1 dicatat bersama konfigurasi uji; bukan jaminan sebelum diuji.

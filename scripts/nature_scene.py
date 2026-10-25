@@ -22,6 +22,7 @@ def nature_scene():
       <linearGradient id="nature-foliage-depth" x1="0" y1="0" x2="1" y2=".65"><stop stop-color="var(--n-leaf-light)"/><stop offset=".48" stop-color="var(--n-leaf-mid)"/><stop offset="1" stop-color="var(--n-leaf-dark)"/></linearGradient>
       <linearGradient id="nature-water-depth" x1="0" y1="0" x2=".55" y2="1"><stop stop-color="var(--n-water-deep)"/><stop offset=".43" stop-color="var(--n-water-light)"/><stop offset="1" stop-color="var(--n-water-deep)"/></linearGradient>
       <linearGradient id="nature-bank-depth" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="var(--n-bank-light)"/><stop offset="1" stop-color="var(--n-bank-dark)" stop-opacity=".2"/></linearGradient>
+      <radialGradient id="nature-plinth-shadow"><stop stop-color="var(--n-bark-dark)" stop-opacity=".3"/><stop offset=".55" stop-color="var(--n-bark-dark)" stop-opacity=".14"/><stop offset="1" stop-color="var(--n-bark-dark)" stop-opacity="0"/></radialGradient>
       <g id="nature-botanical-leaf-wide">
         <path class="nature-leaf-blade" d="M0 0C-8 -6-13 -15-11 -24C-9 -32-2 -37 2 -43C7 -34 14 -27 12 -18C10 -8 5 -3 0 0Z"/>
         <path class="nature-leaf-fold" d="M0 0C2 -14 4 -28 2 -43C7 -34 14 -27 12 -18C10 -8 5 -3 0 0Z"/>
@@ -240,6 +241,8 @@ def nature_scene():
         <ellipse cx="394" cy="550" rx="26" ry="10" transform="rotate(-32 394 550)"/>
       </g>
     </g>
+    <!-- A soft contact shadow seats the plinth in the bank without blurring its engraving. -->
+    <ellipse class="nature-desktop-detail" cx="253" cy="466" rx="90" ry="11" fill="url(#nature-plinth-shadow)"/>
     <!-- Original detailed 2D illustration, isolated from animated scenery. -->
     <image class="nature-justitia-portrait" href="preview/justitia-engraving.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
     <!-- The portrait alpha clips dappled light exactly to robe, face and plinth. -->
@@ -297,5 +300,5 @@ def nature_scene():
     </g>
     <g class="nature-ground-lines nature-compact-detail" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M50 483H112M71 488H98M423 524H485M441 530H474M101 539H154"/></g>
   </svg>
-  <figcaption class="nature-caption"><span>JUSTITIA / BERAKAR, TETAP MENGUJI.</span><button type="button" class="nature-toggle" data-nature-toggle aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span> <span data-nature-label>Jeda gerak</span></button></figcaption>
+  <figcaption class="nature-caption">Justitia di antara akar dan aliran air.</figcaption>
 </figure>'''

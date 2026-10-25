@@ -11,7 +11,8 @@
     root.dataset.theme = light ? 'light' : 'dark';
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#F5F6F2' : '#18231E');
     toggles.forEach((button) => {
-      button.setAttribute('aria-pressed', String(light));
+      // The label describes the next action; this is an ordinary action button.
+      button.removeAttribute('aria-pressed');
       button.setAttribute('aria-label', light ? 'Aktifkan mode gelap' : 'Aktifkan mode terang');
       button.textContent = light ? 'Gelap' : 'Terang';
     });

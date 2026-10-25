@@ -80,7 +80,7 @@ test('Desktop source loader is inert on compact/reduced-motion and loads once wh
  h.capability(false);h.capability(true);assert.equal(h.head.children.length,1);
 });
 test('Mobile or incomplete documents remain native without DOM/RAF enhancements',()=>{
- for(const option of [{capable:false},{hasHero:false},{hasToggle:false},{hasSection:false},{mutation:false}]){
+ for(const option of [{capable:false},{hasHero:false},{hasSection:false}]){
   const h=harness(option);assert.equal(h.created,0);assert.equal(h.frames.size,0);assert.equal(h.body.children.length,0);assert.equal(h.root.classList.contains('nh-scroll-story'),false);
  }
 });
@@ -100,11 +100,10 @@ test('Chapter links remain native hash anchors and track the section in view',()
   h.nav.children.forEach((a,i)=>{if(i!==index)assert.equal(a.getAttribute('aria-current'),null);});
  }
 });
-test('Pause freezes decoration but preserves chapter navigation and progress',()=>{
- const h=harness();h.scrollTo(900);h.frame();h.pause(true);h.frame();const before=decoration(h),progress=h.nav.style.getPropertyValue('--story-progress');
- h.scrollTo(1900);h.frame();assert.deepEqual(decoration(h),before);assert.notEqual(h.nav.style.getPropertyValue('--story-progress'),progress);
- assert.equal(h.nav.children[1].getAttribute('aria-current'),'location');assert.equal(h.root.dataset.scrollPaused,'true');
- h.pause(false);h.frame();assert.notDeepEqual(decoration(h),before);assert.equal(h.root.dataset.scrollPaused,'false');
+test('Scroll decoration runs automatically without a pause button or MutationObserver',()=>{
+ const h=harness({hasToggle:false,mutation:false});h.scrollTo(900);h.frame();const before=decoration(h),progress=h.nav.style.getPropertyValue('--story-progress');
+ h.scrollTo(1900);h.frame();assert.notDeepEqual(decoration(h),before);assert.notEqual(h.nav.style.getPropertyValue('--story-progress'),progress);
+ assert.equal(h.nav.children[1].getAttribute('aria-current'),'location');assert.equal(h.root.dataset.scrollPaused,undefined);assert.equal(h.watchers.size,0);assert.ok(h.body.children.every(n=>n.tagName!=='button'));
 });
 test('Hidden tab and pagehide cancel pending frames and preserve idle scheduling',()=>{
  const h=harness();h.visibility(true);assert.equal(h.frames.size,0);h.scrollTo(1000);assert.equal(h.frames.size,0);
@@ -126,10 +125,39 @@ test('Capability destroy restores native properties, disconnects observers and a
  assert.equal(h.sections[1].classList.contains('scroll-focus-content'),false);
  assert.ok(decoration(h).every(v=>v===''));h.cards.forEach(c=>assert.equal(c.style.getPropertyValue('--card-index'),''));
  for(const type of ['scroll','resize','hashchange'])assert.equal(h.window.count(type),0);assert.equal(h.document.count('focusin'),0);
- h.capability(true);h.frame();assert.equal(h.body.children.length,1);assert.equal(h.watchers.size,1);assert.equal(h.resizers.size,1);
+ h.capability(true);h.frame();assert.equal(h.body.children.length,1);assert.equal(h.watchers.size,0);assert.equal(h.resizers.size,1);
  for(const type of ['scroll','resize','hashchange'])assert.equal(h.window.count(type),1);assert.equal(h.document.count('focusin'),1);
 });
 test('ResizeObserver absence retains scroll/native resize functionality',()=>{
  const h=harness({resize:false});h.frame();assert.equal(h.resizers.size,0);h.scrollTo(1600);h.frame();assert.equal(h.nav.children[1].getAttribute('aria-current'),'location');assert.equal(h.frames.size,0);
+});
+test('General reveals suspend hidden tabs and cannot restart before pageshow',()=>{
+ const classes=new Set(),observers=new Set(),preference=events({matches:true});
+ const root={classList:{add:n=>classes.add(n),remove:n=>classes.delete(n),contains:n=>classes.has(n)}};
+ const document=events({hidden:true,documentElement:root,activeElement:null,querySelectorAll:()=>[],querySelector:()=>null,getElementById:()=>null});
+ class Intersection {constructor(callback){this.callback=callback;observers.add(this);}observe(){}unobserve(){}disconnect(){observers.delete(this);}}
+ class Element {animate(){throw Error('No element was selected for animation');}}
+ const window=events({matchMedia:()=>preference,IntersectionObserver:Intersection,location:{hash:'',href:'https://example.test/'},scrollY:0,innerHeight:900});
+ vm.runInNewContext(fs.readFileSync(path.join(base,'preview/motion.js'),'utf8'),{window,document,IntersectionObserver:Intersection,Element,URL});
+ assert.equal(observers.size,0);assert.equal(classes.has('nh-motion'),false);
+ document.hidden=false;document.emit('visibilitychange');assert.equal(observers.size,1);assert.equal(classes.has('nh-motion'),true);
+ document.hidden=true;document.emit('visibilitychange');assert.equal(observers.size,0);assert.equal(classes.has('nh-motion'),false);
+ window.emit('pagehide');document.hidden=false;document.emit('visibilitychange');assert.equal(observers.size,0);
+ window.emit('pageshow',{persisted:true});assert.equal(observers.size,1);
+ preference.matches=false;preference.emit('change');assert.equal(observers.size,0);assert.equal(classes.has('nh-motion'),false);
+});
+test('Native reveal finish and cancellation notify final heading geometry only once',()=>{
+ const classes=new Set(),animations=[],preference=events({matches:true});let notifications=0;
+ const root={classList:{add:n=>classes.add(n),remove:n=>classes.delete(n),contains:n=>classes.has(n)}};
+ class Element {contains(){return false;}animate(){const animation={cancel(){animation.oncancel?.();}};animations.push(animation);return animation;}}
+ const headings=[new Element(),new Element()];
+ const document=events({hidden:false,documentElement:root,activeElement:null,querySelectorAll:s=>s.startsWith('.home-intro .eyebrow')?headings:[],querySelector:()=>null,getElementById:()=>null});
+ class Intersection {observe(){}unobserve(){}disconnect(){}}
+ class Event {constructor(type){this.type=type;}}
+ const window=events({matchMedia:()=>preference,IntersectionObserver:Intersection,location:{hash:'',href:'https://example.test/'},scrollY:0,innerHeight:900});
+ window.addEventListener('nh:layout-settled',()=>notifications++);
+ vm.runInNewContext(fs.readFileSync(path.join(base,'preview/motion.js'),'utf8'),{window,document,IntersectionObserver:Intersection,Element,Event,URL});
+ assert.equal(animations.length,2);assert.equal(notifications,0);animations[0].onfinish();assert.equal(notifications,1);
+ document.hidden=true;document.emit('visibilitychange');assert.equal(notifications,2);animations[0].onfinish();animations[1].oncancel();assert.equal(notifications,2,'Obsolete callbacks must not schedule duplicate measurements');
 });
 console.log(`${passed} scroll-story checks passed; ${failed} failed.`);process.exitCode=failed?1:0;

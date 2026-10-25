@@ -28,7 +28,7 @@ Pemeriksaan tampilan revisi sebelumnya mencakup HP/desktop dalam kedua tema. Rev
 
 ## Desain dan fondasi WordPress
 
-Tipografi, warna, ilustrasi SVG dan animasi ringan dipertahankan. Teks artikel 19px desktop/18px HP, label minimum 12px; jaringan bergerak hanya di desktop yang mendukungnya. Tidak ada penambahan library, 3D, font eksternal atau video latar.
+Palet alam, ilustrasi Justitia, serta animasi ringan dipertahankan. Teks artikel 20px desktop/19px HP; judul memakai font sistem dengan bobot yang lebih terukur. Animasi berjalan otomatis tanpa tombol jeda pada desktop yang mendukungnya; HP dan reduced-motion tetap statis. Tidak ada penambahan library, 3D, font eksternal atau video latar.
 
 Fondasi WordPress mengikuti tiga bentuk yang sama dan nama samaran per artikel. Aktivasi tidak menghapus data pengguna; penataan kategori pada instalasi nyata dijelaskan di INSTALL. WordPress belum dipasang atau diuji dengan database hidup dan belum sepenuhnya setara dengan situs statis.
 

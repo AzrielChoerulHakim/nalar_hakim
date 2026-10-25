@@ -17,11 +17,11 @@ function eventTarget(properties={}) {
   count(t){return events.get(t)?.size||0;}
  });
 }
-function harness({capable=true,article=false,dark=false,width=1366,hasScene=true,hasObserver=true,loadOnly=false,shortHeading=false}={}) {
+function harness({capable=true,article=false,dark=false,width=1366,hasScene=true,hasObserver=true,loadOnly=false,shortHeading=false,layoutShift=0}={}) {
  let now=100,scroll=0,nextId=0,created=0,reads=0,metricReads=0;
  const frames=new Map(),timers=new Map(),watchers=new Set(),live=[],head=[],queries=[];
  const media=eventTarget({matches:capable});
- const rect=(x,y,w,h)=>({left:x,right:x+w,top:y-scroll,bottom:y-scroll+h,width:w,height:h});
+ const rect=(x,y,w,h)=>({left:x,right:x+w,top:y-scroll+layoutShift,bottom:y-scroll+h+layoutShift,width:w,height:h});
  function element(tag){
   created++;const attrs={};
   const n=eventTarget({nodeType:1,tagName:tag,dataset:{},style:{setProperty(k,v){this[k]=v;}},childNodes:[],hidden:false,
@@ -51,11 +51,8 @@ function harness({capable=true,article=false,dark=false,width=1366,hasScene=true
  const articleHeadings=[120,1000,2000,3000].map(y=>heading((width-940)/2,y,'  Pertanyaan hukum: alasan dan akibat bagi masyarakat.',28));
  let selectorUsed='';
  const articleNode={querySelectorAll(s){selectorUsed=s;return articleHeadings;},getBoundingClientRect(){reads++;return rect((width-940)/2,120,940,3500);}};
- const toggle=element('button');toggle.setAttribute('aria-pressed','false');
- toggle.addEventListener('click',()=>toggle.setAttribute('aria-pressed',toggle.getAttribute('aria-pressed')==='true'?'false':'true'));
- toggle.getBoundingClientRect=()=>{reads++;return rect(900,700,120,44);};
  const svg={getBoundingClientRect(){reads++;return rect(650,120,500,500);}};
- const scene={querySelector:s=>s==='svg'?svg:s==='[data-nature-toggle]'?toggle:null};
+ const scene={querySelector:s=>{assert.equal(s,'svg','Scene must not depend on a manual control');return svg;}};
  const html=element('html');html.dataset.theme=dark?'dark':'light';
  const document=eventTarget({hidden:false,documentElement:html,currentScript:{dataset:{butterflySrc:'preview/butterfly.js?v=test'}},
   querySelector:s=>s==='[data-nature-scene]'?(!article&&hasScene?scene:null):s==='.article-layout'?(article?articleNode:null):headings[s]||null,
@@ -69,7 +66,7 @@ function harness({capable=true,article=false,dark=false,width=1366,hasScene=true
   requestAnimationFrame:f=>{const id=++nextId;frames.set(id,f);return id;},cancelAnimationFrame:id=>frames.delete(id),
   setTimeout:(f,delay)=>{const id=++nextId;timers.set(id,{f,due:now+delay});return id;},clearTimeout:id=>timers.delete(id)};
  created=0;vm.runInNewContext(loadOnly?loader:source,context);
- const h={document,window,media,toggle,html,live,head,frames,timers,queries,
+ const h={document,window,media,html,live,head,frames,timers,queries,
   get created(){return created;},get reads(){return reads;},get metricReads(){return metricReads;},get watchers(){return watchers.size;},get selectorUsed(){return selectorUsed;},
   get butterfly(){return live.find(n=>n.className==='nature-butterfly');},get fireflies(){return live.filter(n=>n.className==='nature-firefly');},
   get control(){return live.find(n=>n.className==='nature-page-toggle');},get visitors(){return live.filter(n=>['nature-butterfly','nature-firefly'].includes(n.className));},
@@ -81,7 +78,8 @@ function harness({capable=true,article=false,dark=false,width=1366,hasScene=true
   capability(value){media.matches=value;media.emit('change');},
   position(node=h.butterfly){const m=node.style.transform.match(/translate3d\(([-\d.]+)px,([-\d.]+)px/);return {x:+m[1],y:+m[2]};},
   feet(node=h.butterfly){const p=h.position(node),size=parseFloat(node.style['--visitor-size']);return{x:p.x+size/2,y:p.y+size*(node.className==='nature-butterfly'?.86:.65625)};},
-  resize(w){context.innerWidth=w;window.emit('resize');}
+  resize(w){context.innerWidth=w;window.emit('resize');},
+  settleLayout(value){layoutShift=value;window.emit('nh:layout-settled');}
  };return h;
 }
 let count=0,failed=0;
@@ -117,15 +115,14 @@ test('Reverse handoff flies all three away before the butterfly enters',()=>{
  const h=harness({dark:true});h.settle();h.theme('light');assert.equal(h.fireflies.length,3);assert.equal(h.butterfly,undefined);h.settle();assert.equal(h.fireflies.length,0);assert.ok(h.butterfly);assert.equal(h.butterfly.dataset.flight,'rest');
 });
 test('Rapid reversals honor the latest requested theme without duplicate DOM or frames',()=>{
- const h=harness();h.settle();for(let i=0;i<12;i++){h.theme('dark');h.step(30);h.theme('light');h.step();assert.equal(h.fireflies.length,0);assert.equal(h.live.length,3);assert.ok(h.frames.size<=1);assert.equal(h.watchers,2);}
- h.theme('dark');h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.live.length,5);assert.equal(h.frames.size,0);
+ const h=harness();h.settle();for(let i=0;i<12;i++){h.theme('dark');h.step(30);h.theme('light');h.step();assert.equal(h.fireflies.length,0);assert.equal(h.live.length,2);assert.ok(h.frames.size<=1);assert.equal(h.watchers,1);}
+ h.theme('dark');h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.live.length,4);assert.equal(h.frames.size,0);
 });
-test('Pause freezes a departure, then resumes the same sequence',()=>{
- const h=harness();h.settle();h.theme('dark');for(let i=0;i<10;i++)h.step();h.control.click();const position=h.position();h.step(60000);assert.deepEqual(h.position(),position);assert.equal(h.frames.size,0);assert.equal(h.fireflies.length,0);assert.equal(h.butterfly.dataset.paused,'true');
- h.control.click();h.settle();assert.equal(h.butterfly,undefined);assert.equal(h.fireflies.length,3);
+test('Desktop starts automatically without creating pause controls on landing or articles',()=>{
+ for(const article of [false,true]){const h=harness({article});assert.equal(h.control,undefined);assert.ok(h.frames.size>0);assert.equal(h.watchers,1);h.settle();assert.equal(h.butterfly.dataset.flight,'rest');assert.ok(h.live.every(n=>n.tagName!=='button'));}
 });
-test('A theme change while paused defers motion and preserves user intent',()=>{
- const h=harness({article:true});h.settle();h.control.click();h.theme('dark');assert.ok(h.butterfly);assert.equal(h.fireflies.length,0);assert.equal(h.frames.size,0);assert.equal(h.control.getAttribute('aria-pressed'),'true');h.control.click();h.settle();assert.equal(h.fireflies.length,3);
+test('Theme change in a hidden tab freezes departure and resumes automatically',()=>{
+ const h=harness({article:true});h.settle();h.visibility(true);h.theme('dark');const before=h.position();assert.ok(h.butterfly);assert.equal(h.fireflies.length,0);assert.equal(h.frames.size,0);h.step(60000);assert.deepEqual(h.position(),before);assert.equal(h.butterfly.dataset.paused,'true');h.visibility(false);h.settle();assert.equal(h.fireflies.length,3);
 });
 test('Hidden tab freezes entry without time jumps; resumed night flight settles',()=>{
  const h=harness({dark:true});for(let i=0;i<30;i++)h.step();const before=h.visitors.map(n=>h.position(n));h.visibility(true);h.step(60000);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.deepEqual(h.visitors.map(n=>h.position(n)),before);
@@ -133,14 +130,14 @@ test('Hidden tab freezes entry without time jumps; resumed night flight settles'
 });
 test('Pagehide freezes transition; pageshow completes and capability loss cleans up',()=>{
  const h=harness();h.settle();h.theme('dark');h.window.emit('pagehide');assert.equal(h.frames.size,0);h.visibility(false);assert.equal(h.frames.size,0);h.window.emit('pageshow');h.settle();assert.equal(h.fireflies.length,3);
- h.capability(false);assert.equal(h.live.length,0);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.equal(h.watchers,0);assert.equal(h.window.count('scroll'),0);assert.equal(h.document.count('visibilitychange'),0);h.capability(true);h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.window.count('scroll'),1);
+ h.capability(false);assert.equal(h.live.length,0);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.equal(h.watchers,0);assert.equal(h.window.count('scroll'),0);assert.equal(h.window.count('nh:layout-settled'),0);assert.equal(h.document.count('visibilitychange'),0);h.capability(true);h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.window.count('scroll'),1);assert.equal(h.window.count('nh:layout-settled'),1);
 });
 test('Scroll sends visitors on curved flights to fresh heading letters instead of snapping',()=>{
  const h=harness({dark:true});h.settle();const before=h.visitors.map(n=>h.position(n));h.scrollTo(850);assert.deepEqual(h.visitors.map(n=>h.position(n)),before);h.step();assert.ok(h.visitors.some(n=>n.dataset.flight==='fly'));h.settle();assert.ok(h.visitors.every(n=>n.dataset.perchKind==='letter'));assert.ok(h.visitors.every(n=>n.dataset.perch.startsWith('1:')));
 });
 test('Article title and subheadings use real nested first-line letters for both species',()=>{
  for(const width of [1024,1366]){
-  const h=harness({article:true,width});assert.ok(!h.selectorUsed.includes('article-footer'));assert.equal(h.control.hidden,false);h.settle();assert.equal(h.butterfly.dataset.perchKind,'letter');assert.ok(h.feet().x>(width-940)/2);assert.ok(Math.abs(h.feet().y-130.4)<.02);
+  const h=harness({article:true,width});assert.ok(!h.selectorUsed.includes('article-footer'));assert.equal(h.control,undefined);h.settle();assert.equal(h.butterfly.dataset.perchKind,'letter');assert.ok(h.feet().x>(width-940)/2);assert.ok(Math.abs(h.feet().y-130.4)<.02);
   h.theme('dark');h.settle();assert.equal(new Set(h.fireflies.map(n=>n.dataset.perch)).size,3);assert.ok(h.fireflies.every(n=>Math.abs(h.feet(n).y-130.4)<.02));h.scrollTo(944.1875);h.settle();assert.ok(h.fireflies.every(n=>n.dataset.perch.startsWith('1:')));assert.ok(h.fireflies.every(n=>Math.abs(h.feet(n).y-66.2125)<.02));
  }
 });
@@ -153,6 +150,10 @@ test('A gap in article headings uses quiet margin perches, then returns to lette
 test('Rest timer moves only one visitor at a time and returns to idle',()=>{
  const h=harness({dark:true});h.settle();h.step(13100);assert.equal(h.frames.size,1);h.step();assert.equal(h.visitors.filter(n=>n.dataset.flight==='fly').length,1);h.settle();assert.equal(h.frames.size,0);assert.equal(h.timers.size,1);
 });
-test('Paused intent survives capability destroy and recreation',()=>{const h=harness({article:true,dark:true});h.settle();h.control.click();h.capability(false);h.capability(true);assert.equal(h.control.getAttribute('aria-pressed'),'true');assert.equal(h.frames.size,0);assert.ok(h.fireflies.every(n=>n.dataset.paused==='true'));});
-test('Resize remeasures heading perches without duplicating controls',()=>{const h=harness({dark:true});h.settle();h.resize(1024);h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.live.length,5);assert.equal(h.frames.size,0);assert.ok(h.fireflies.every(n=>h.feet(n).x>=0&&h.feet(n).x<=1024));});
+test('Capability restoration automatically starts the current theme with no controls',()=>{const h=harness({article:true,dark:true});h.settle();h.capability(false);h.capability(true);assert.equal(h.control,undefined);assert.equal(h.frames.size,1);h.settle();assert.ok(h.fireflies.every(n=>n.dataset.paused==='false'&&n.dataset.flight==='rest'));});
+test('Resize remeasures heading perches without duplicate visitors',()=>{const h=harness({dark:true});h.settle();h.resize(1024);h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.live.length,4);assert.equal(h.frames.size,0);assert.ok(h.fireflies.every(n=>h.feet(n).x>=0&&h.feet(n).x<=1024));});
+test('Reveal completion refreshes transformed heading perches once without snapping',()=>{
+ const h=harness({article:true,dark:true,layoutShift:12});h.settle();const before=h.visitors.map(n=>h.feet(n));assert.ok(before.every(p=>Math.abs(p.y-142.4)<.02));
+ h.settleLayout(0);assert.equal(h.frames.size,1);assert.deepEqual(h.visitors.map(n=>h.feet(n)),before);h.step();const reads=h.reads;h.settle();assert.equal(h.reads,reads,'Layout must not be reread on every flight frame');assert.ok(h.visitors.every(n=>Math.abs(h.feet(n).y-130.4)<.02));
+});
 console.log(`${count} companion checks passed; ${failed} failed.`);process.exitCode=failed?1:0;

@@ -5,7 +5,7 @@ $featured = new WP_Query(array('post_type' => 'post', 'post_status' => 'publish'
 $featured_ids = wp_list_pluck($featured->posts, 'ID');
 ?>
 <main id="main-content" class="container home-main">
-<div class="home-intro"><div><span class="eyebrow">RUANG KRITIK HUKUM.</span><h1>Ruang untuk<br><span>menimbang.</span></h1></div><p>Esai, Telaah Fenomena, dan Bedah Putusan atau Norma. <br>Terbuka bagi penulis dengan nama samaran.</p></div>
+<div class="home-intro"><div><span class="eyebrow">RUANG KRITIK HUKUM.</span><h1>Ruang<br><span>baca.</span></h1></div><p>Nalar Hakim memberi tempat bagi penulis yang perlu menjaga identitasnya dan tulisan yang ingin dibaca masyarakat luas secara gratis. Gunakan nama samaran; kirim naskah lewat email tanpa biaya atau administrasi berbelit. Redaksi membaca naskah sebelum terbit.</p></div>
 <?php if ($featured->have_posts()) : ?>
 <div class="section-heading"><h2>Sorotan</h2><span class="eyebrow">PILIHAN REDAKSI <span aria-hidden="true">↘</span></span></div>
 <div class="hero-grid">
@@ -18,7 +18,7 @@ $featured_ids = wp_list_pluck($featured->posts, 'ID');
 <section class="latest-section" aria-labelledby="latest-title"><div class="section-heading"><h2 id="latest-title">Catatan terbaru</h2><a class="text-link" href="<?php echo esc_url(add_query_arg('s', '', home_url('/'))); ?>">Cari artikel ↗</a></div><div class="article-grid"><?php while ($latest->have_posts()) : $latest->the_post(); get_template_part('template-parts/card'); endwhile; ?></div></section>
 <?php endif; wp_reset_postdata(); ?>
 <?php else : ?>
-<section class="empty-state"><span class="eyebrow">SEBUAH RUANG BARU</span><h2>Gagasan pertama<br>sedang dipersiapkan.</h2><p>Nalar Hakim adalah ruang kritik hukum yang terbuka bagi penulis dengan nama samaran. Redaksi menyeleksi dan menyunting naskah sebelum publikasi.</p><a class="read-link" href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a></section>
+<section class="empty-state"><span class="eyebrow">SEBUAH RUANG BARU</span><h2>Belum ada<br>tulisan terbit.</h2><p>Nalar Hakim adalah ruang kritik hukum yang terbuka bagi penulis dengan nama samaran. Redaksi menyeleksi dan menyunting naskah sebelum publikasi.</p><a class="read-link" href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a></section>
 <?php endif; ?>
 <section class="channel-section" aria-labelledby="format-title"><div class="section-heading"><h2 id="format-title">Tiga bentuk tulisan</h2><span class="eyebrow">PILIH BACAAN</span></div><div class="channel-grid"><?php $i=0; foreach (nh_formats() as $slug=>$label) : $i++; ?><a class="channel-card" href="<?php echo esc_url(nh_format_url($slug)); ?>"><span class="channel-number"><?php echo esc_html(sprintf('%02d', $i)); ?></span><h3><?php echo esc_html($label); ?></h3><span aria-hidden="true">↗</span></a><?php endforeach; ?></div></section>
 </main><?php get_footer(); ?>

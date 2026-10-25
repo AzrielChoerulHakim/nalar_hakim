@@ -1,4 +1,4 @@
-/* Flat landscape illustration; movement is opt-in through desktop capability. */
+/* Engraved landscape; desktop motion follows viewport and device preferences. */
 .nature-scene{--n-forest:#294d3e;--n-ink:#294d3e;--n-sky:#dfeaf0;--n-stone:#d9dcd5;--n-paper:#f5f6f2;--n-soft:#a6b7a6;--n-water:#b5cfd4;margin:0;width:100%;min-width:0;color:var(--n-forest);isolation:isolate}
 :root[data-theme="dark"] .nature-scene{--n-forest:#b7cbb8;--n-ink:#8ea996;--n-sky:#263a3d;--n-stone:#53635b;--n-paper:#c4cec1;--n-soft:#7a9181;--n-water:#3c5d61}
 .nature-art{display:block;width:100%;height:auto;overflow:visible}
@@ -12,9 +12,7 @@
 .nature-shade{fill:var(--n-stone)}.nature-line{stroke:var(--n-ink)}.nature-scale,.nature-sword{color:var(--n-ink);stroke:var(--n-ink)}
 .nature-blade{fill:var(--n-sky)}.nature-roots,.nature-sprouts{color:var(--n-forest)}
 .nature-ground-lines{color:var(--n-soft)}
-.nature-caption{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:10px 12px 0;font:500 13px/1.5 var(--mono,monospace);letter-spacing:.04em;color:var(--muted,#646d66)}
-.nature-toggle{font:inherit;font-size:14px;min-height:44px;border:1px solid var(--line,#d9dcd5);border-radius:99px;padding:7px 13px;background:transparent;color:inherit;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
-.nature-toggle[hidden]{display:none}.nature-toggle:hover{background:var(--n-sky);color:var(--n-forest)}.nature-toggle:focus-visible{outline:2px solid var(--n-forest);outline-offset:4px}
+.nature-caption{padding:12px 12px 0;font:400 13px/1.6 var(--sans,Arial,sans-serif);letter-spacing:.01em;color:var(--muted,#646d66);text-align:center}
 /* Local leaf coordinates keep the petiole fixed while the blade bends. */
 .nature-leaf-blade{fill:var(--n-soft);stroke:var(--n-ink);stroke-width:.35;stroke-opacity:.3}
 .nature-leaf-vein{fill:none;stroke:var(--n-ink);stroke-width:.55;opacity:.42}
@@ -33,6 +31,10 @@
  .nature-scene[data-motion] .nature-bird-three .nature-wing{animation-delay:-4.1s;animation-duration:6s}
  .nature-scene[data-motion] .nature-canopy{animation:nature-canopy-breeze 17s ease-in-out infinite;animation-play-state:paused}
  .nature-scene[data-motion] .nature-leaf{animation:nature-leaf-breeze 17s ease-in-out infinite;animation-delay:var(--leaf-delay,0s);animation-play-state:paused}
+ .nature-scene[data-motion] :is(.nature-leaf-2,.nature-leaf-5,.nature-leaf-8){animation-duration:18.4s}
+ .nature-scene[data-motion] :is(.nature-leaf-3,.nature-leaf-7,.nature-leaf-11){animation-duration:16.2s}
+ .nature-scene[data-motion] .nature-leaf-rich{animation-duration:19.6s}
+ .nature-scene[data-motion] .nature-leaf-back{animation-duration:21s}
  .nature-scene[data-motion] .nature-flow{stroke-dasharray:13 20;animation:nature-water-flow 7s linear infinite;animation-play-state:paused}
  .nature-scene[data-motion] .nature-flow-two{animation-duration:9s;animation-delay:-3s}.nature-scene[data-motion] .nature-flow-three{animation-duration:8s;animation-delay:-5s}
  .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing,.nature-canopy,.nature-leaf,.nature-flow){animation-play-state:running}
@@ -53,7 +55,7 @@
 @keyframes nature-canopy-breeze{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-.35deg)}46%{transform:rotate(.65deg)}61%{transform:rotate(.25deg)}79%{transform:rotate(-.3deg)}}
 @keyframes nature-leaf-breeze{0%,100%{transform:rotate(0deg)}16%{transform:rotate(calc(var(--leaf-turn)*-.35))}34%{transform:rotate(calc(var(--leaf-turn)*.45))}46%{transform:rotate(var(--leaf-turn))}59%{transform:rotate(calc(var(--leaf-turn)*.3))}73%{transform:rotate(calc(var(--leaf-turn)*-.45))}87%{transform:rotate(calc(var(--leaf-turn)*.2))}}
 @keyframes nature-water-flow{to{stroke-dashoffset:-132}}
-@media(max-width:600px){.nature-caption{font-size:13px;justify-content:center;text-align:center}.nature-art{max-height:420px}}
+@media(max-width:600px){.nature-art{max-height:420px}}
 @media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
 
 /* Engraved lines retain definition against the statue in the night palette. */

@@ -1,17 +1,23 @@
 /* Progressive enhancement: static, visible HTML is the baseline. No scroll loop. */
 (() => {
   'use strict';
-  const preference = window.matchMedia('(min-width: 1000px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  const preference = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   const root = document.documentElement;
   const seen = new WeakSet();
   const running = new Map();
   let observer;
   let introduced = false;
+  let suspended = false;
 
+  // CSS transforms do not resize a heading. Let letter-perching companions read
+  // its final position once a native reveal settles, rather than on every frame.
+  const layoutSettled = () => window.dispatchEvent(new Event('nh:layout-settled'));
   const cancel = (element) => {
     const animation = running.get(element);
-    if (animation) animation.cancel();
+    if (!animation) return;
     running.delete(element);
+    animation.cancel();
+    layoutSettled();
   };
   const animate = (element, keyframes, delay = 0, duration = 650) => {
     if (!element || element.contains(document.activeElement)) return;
@@ -19,7 +25,9 @@
     const animation = element.animate(keyframes, { duration, delay, fill: 'backwards', easing: 'cubic-bezier(.22,1,.36,1)' });
     running.set(element, animation);
     animation.onfinish = animation.oncancel = () => {
-      if (running.get(element) === animation) running.delete(element);
+      if (running.get(element) !== animation) return;
+      running.delete(element);
+      layoutSettled();
     };
   };
   const settle = (target) => {
@@ -58,7 +66,7 @@
   };
   const start = () => {
     stop();
-    if (!preference.matches || !window.IntersectionObserver || !Element.prototype.animate) return;
+    if (!preference.matches || document.hidden || suspended || !window.IntersectionObserver || !Element.prototype.animate) return;
     try {
       observer = new IntersectionObserver((entries) => {
         if (!observer || !preference.matches) return;
@@ -89,7 +97,6 @@
       });
       if (!introduced && !window.location.hash && window.scrollY < 40) {
         introduced = true;
-        const titleLines = document.querySelectorAll('.landing-hero h1 > span');
         // Native animations own their cleanup. No CSS class ever hides the title.
         // Slightly expanded clip bounds preserve the oversized letterforms.
         // Wordmark remains still; the landscape carries the ambient motion.
@@ -110,7 +117,8 @@
     } catch (_) { stop(); }
   };
   preference.addEventListener?.('change', start);
-  window.addEventListener('pagehide', stop);
-  window.addEventListener('pageshow', (event) => { if (event.persisted) start(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+  window.addEventListener('pagehide', () => { suspended = true; stop(); });
+  window.addEventListener('pageshow', (event) => { suspended = false; if (event.persisted) start(); });
   start();
 })();

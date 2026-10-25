@@ -61,15 +61,15 @@ Commit sumber bersama seluruh hasil generator. Jangan menyunting HTML hasil seca
 
 ## Desain dan pembacaan
 
-Identitas Web3 datar memakai tipografi monumental, garis tegas, ilustrasi SVG dua dimensi dan palet arang/ivory/lavender/sage. Mode terang memakai krem, ungu dan zaitun. Isi artikel 19px desktop/18px HP; label minimum 12px. Pilihan tema diterapkan sebelum CSS tampil. Aset lokal diberi fingerprint otomatis.
+Identitas alam memakai warna putih kabut, hutan, langit dan batu. Judul memakai font sistem; isi artikel memakai Georgia 20px desktop/19px HP dengan jarak baris 1,8. Pilihan tema diterapkan sebelum CSS tampil. Aset lokal diberi fingerprint otomatis.
 
-Animasi judul, kemunculan elemen dan sinyal jaringan hanya aktif pada desktop dengan hover, pointer presisi, serta tanpa preferensi pengurangan gerak. Sinyal dapat dijeda dan berhenti ketika hero tidak terlihat. HP memakai jaringan statis. Tidak ada library frontend, font eksternal, WebGL, 3D atau video latar.
+Animasi berjalan otomatis pada desktop dengan hover, pointer presisi, serta tanpa preferensi pengurangan gerak. Tidak ada tombol jeda. Ilustrasi dan aliran gagasan berhenti saat keluar viewport; semua gerak berhenti saat tab tersembunyi. Mode terang memakai satu kupu-kupu, mode gelap tiga kunang-kunang, dengan pergantian keluar–masuk berurutan dan titik hinggap pada judul. HP tetap statis. Tidak ada library frontend, font eksternal, WebGL, 3D atau video latar.
 
 ## Donasi
 
-- Ethereum Mainnet; tanpa koneksi dompet atau pengiriman transaksi oleh website.
+- Label Ethereum Mainnet, BSC, dan Robinhood; tanpa koneksi dompet atau pengiriman transaksi oleh website.
 - Alamat: `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`.
-- QR berisi alamat mentah yang telah dicocokkan; jaringan dipilih pengirim.
+- Alamat teks dan tombol salin terpisah untuk setiap label; tidak ada gambar QR.
 - Membaca dan mengirim naskah tidak dipungut biaya; donasi tidak menentukan keputusan redaksi.
 
 ## Fondasi WordPress

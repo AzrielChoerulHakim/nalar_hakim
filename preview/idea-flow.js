@@ -1,19 +1,18 @@
-/* Native SVG signals: no frame loop; one lifecycle for visibility and shared pause. */
+/* Native SVG signals: automatic desktop motion, no frame loop. */
 (() => {
   'use strict';
   const section = document.querySelector('[data-idea-flow]');
-  const toggle = document.querySelector('[data-nature-toggle]');
-  if (!section || !toggle || !window.IntersectionObserver || !window.MutationObserver) return;
+  if (!section || !window.IntersectionObserver) return;
   const capable = matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-  let intersection, watcher, visible = false, suspended = false, generation = 0;
+  let intersection, visible = false, suspended = false, generation = 0;
   function update() {
-    const active = capable.matches && visible && !suspended && !document.hidden && toggle.getAttribute('aria-pressed') !== 'true';
+    const active = capable.matches && visible && !suspended && !document.hidden;
     section.dataset.flowState = capable.matches && !suspended ? (active ? 'running' : 'paused') : 'static';
   }
   function dispose() {
     generation++;
-    intersection?.disconnect(); watcher?.disconnect();
-    intersection = watcher = undefined;
+    intersection?.disconnect();
+    intersection = undefined;
     visible = false;
     section.dataset.flowState = 'static';
   }
@@ -26,8 +25,6 @@
       const latest = entries.filter(entry => entry.target === section).pop();
       if (latest) { visible = latest.isIntersecting; update(); }
     }, {threshold: 0});
-    watcher = new MutationObserver(update);
-    watcher.observe(toggle, {attributes: true, attributeFilter: ['aria-pressed']});
     intersection.observe(section);
     update();
   }

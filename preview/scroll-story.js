@@ -5,15 +5,13 @@
   const media = matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   const hero = document.querySelector('.landing-hero');
   const sections = ['sikap', 'bentuk', 'kirim'].map(id => document.getElementById(id));
-  const toggle = document.querySelector('[data-nature-toggle]');
-  if (!hero || sections.some(s => !s) || !toggle || !window.MutationObserver) return;
+  if (!hero || sections.some(s => !s)) return;
   const cards = [...sections[1].querySelectorAll('.landing-channel')];
   const labels = ['Sikap redaksi', 'Bentuk tulisan', 'Kirim naskah'];
   const journey = document.getElementById('gagasan');
   if (journey) { sections.push(journey); labels.push('Perjalanan gagasan'); }
-  let nav, links = [], watcher, resizeObserver, frame = 0, suspended = false;
+  let nav, links = [], resizeObserver, frame = 0, suspended = false;
   const clamp = n => Math.min(1, Math.max(0, n));
-  const paused = () => toggle.getAttribute('aria-pressed') === 'true';
   function render() {
     frame = 0;
     if (!nav || !media.matches || document.hidden || suspended) return;
@@ -33,8 +31,6 @@
       if (i === active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
-    root.dataset.scrollPaused = String(paused());
-    if (paused()) return;
     hero.style.setProperty('--story-sky-shift', `${(clamp(-h.top / Math.max(h.height, 1)) * 28).toFixed(2)}px`);
     sections[0].style.setProperty('--statement-progress', clamp((viewport * .8 - rects[0].top) / (viewport * .6)).toFixed(4));
     cards.forEach((card, i) => card.style.setProperty('--card-progress', clamp((viewport * .87 - cardRects[i].top) / (viewport * .55)).toFixed(4)));
@@ -61,13 +57,13 @@
   }
   function stopFrame() {cancelAnimationFrame(frame); frame = 0;}
   function destroy() {
-    stopFrame(); watcher?.disconnect(); resizeObserver?.disconnect();
+    stopFrame(); resizeObserver?.disconnect();
     window.removeEventListener('scroll', schedule);
     window.removeEventListener('resize', schedule);
     window.removeEventListener('hashchange', onHash);
     document.removeEventListener('focusin', onFocus);
     nav?.remove(); nav = undefined; links = [];
-    root.classList.remove('nh-scroll-story'); delete root.dataset.scrollPaused;
+    root.classList.remove('nh-scroll-story');
     hero.style.removeProperty('--story-sky-shift');
     sections[0].style.removeProperty('--statement-progress');
     sections[1].classList.remove('scroll-focus-content');
@@ -89,7 +85,6 @@
     document.body.append(nav);
     cards.forEach((c, i) => c.style.setProperty('--card-index', i));
     root.classList.add('nh-scroll-story');
-    watcher = new MutationObserver(schedule); watcher.observe(toggle, {attributes: true, attributeFilter: ['aria-pressed']});
     if (window.ResizeObserver) {
       resizeObserver = new ResizeObserver(schedule);
       sections.forEach(s => resizeObserver.observe(s));

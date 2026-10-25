@@ -16,10 +16,23 @@ class Page(HTMLParser):
         self.links = []
         self.base = ORIGIN + path.relative_to(ROOT).as_posix()
         self.errors = []
+        self.h1_count = 0
+        self.redirect = False
+        self.main_count = 0
         self.feed(path.read_text(encoding='utf-8'))
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'h1':
+            self.h1_count += 1
+        if tag == 'main':
+            self.main_count += 1
+        if tag == 'meta' and attrs.get('http-equiv', '').lower() == 'refresh':
+            self.redirect = True
+        if tag == 'img' and 'alt' not in attrs:
+            self.errors.append('image missing alt text')
+        if 'data-nature-toggle' in attrs or 'nature-page-toggle' in attrs.get('class', '').split():
+            self.errors.append('retired animation pause control remains')
         ident = attrs.get('id')
         if ident:
             if ident in self.ids:
@@ -42,6 +55,8 @@ checked = 0
 for path, page in pages.items():
     label = path.relative_to(ROOT)
     errors.extend(f'{label}: {error}' for error in page.errors)
+    if not page.redirect and (page.h1_count != 1 or page.main_count != 1):
+        errors.append(f'{label}: expected one main landmark and one primary heading')
     for link in page.links:
         target = urlsplit(urljoin(page.base, link))
         if target.scheme in ('javascript', 'data'):

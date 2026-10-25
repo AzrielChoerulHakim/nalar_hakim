@@ -1,157 +1,93 @@
 #!/usr/bin/env node
 'use strict';
 
-// Lifecycle regression tests for the ambient scene. No browser or dependencies.
+// Lifecycle regression tests for automatic ambient motion, without a browser.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../preview/nature-scene.js'), 'utf8');
-
-function eventTarget(properties = {}) {
+function events(properties = {}) {
   const listeners = new Map();
   return Object.assign(properties, {
-    addEventListener(name, callback) {
-      const callbacks = listeners.get(name) || [];
-      callbacks.push(callback);
-      listeners.set(name, callbacks);
-    },
-    emit(name) { for (const callback of listeners.get(name) || []) callback({type: name}); },
-    listenerCount() { return [...listeners.values()].reduce((n, callbacks) => n + callbacks.length, 0); }
+    addEventListener(name, callback) {const list = listeners.get(name) || []; list.push(callback); listeners.set(name, list);},
+    emit(name) {for (const callback of listeners.get(name) || []) callback();},
+    listenerCount() {return [...listeners.values()].reduce((n, list) => n + list.length, 0);}
   });
 }
-
-function setup({capable = true, hasScene = true, hasToggle = true, hasObserver = true} = {}) {
-  const label = {textContent: 'Jeda gerak'};
-  const icon = {textContent: 'Ⅱ'};
-  const attributes = {};
-  const toggle = eventTarget({
-    hidden: true,
-    setAttribute(name, value) { attributes[name] = value; },
-    querySelector(selector) {
-      if (selector === '[data-nature-label]') return label;
-      if (selector === '[aria-hidden]') return icon;
-      throw new Error(`Unexpected toggle selector: ${selector}`);
-    }
-  });
-  const scene = {
-    dataset: {motion: 'static'},
-    querySelector(selector) {
-      assert.equal(selector, '[data-nature-toggle]');
-      return hasToggle ? toggle : null;
-    }
-  };
-  const preference = eventTarget({matches: capable});
-  let callback;
-  let observed = false;
-  let mediaQuery;
-  class Observer {
-    constructor(listener) { callback = listener; }
-    observe(element) { assert.equal(element, scene); observed = true; }
+function harness({capable = true, hasScene = true, hasObserver = true} = {}) {
+  const scene = {dataset: {motion: 'static'}};
+  const preference = events({matches: capable});
+  const intersections = [];
+  class IntersectionObserver {
+    constructor(callback) {this.callback = callback; this.disconnected = false; intersections.push(this);}
+    observe(element) {assert.equal(element, scene);}
+    disconnect() {this.disconnected = true;}
   }
-  const document = eventTarget({
+  const document = events({
     hidden: false,
-    querySelector(selector) {
-      assert.equal(selector, '[data-nature-scene]');
-      return hasScene ? scene : null;
-    }
+    querySelector(selector) {assert.equal(selector, '[data-nature-scene]'); return hasScene ? scene : null;},
+    createElement() {throw Error('Automatic motion must not create a control');}
   });
-  const window = eventTarget({
-    IntersectionObserver: hasObserver ? Observer : undefined,
-    matchMedia(query) { mediaQuery = query; return preference; }
+  let query;
+  const window = events({
+    IntersectionObserver: hasObserver ? IntersectionObserver : undefined,
+    matchMedia(value) {query = value; return preference;}
   });
-  vm.runInNewContext(source, {document, window, IntersectionObserver: hasObserver ? Observer : undefined});
-  return {
-    scene, toggle, label, icon, attributes, preference, document, window,
-    get observed() { return observed; },
-    get mediaQuery() { return mediaQuery; },
-    intersect(value) { assert.ok(callback); callback([{target: scene, isIntersecting: value}]); },
-    capability(value) { preference.matches = value; preference.emit('change'); },
-    visibility(hidden) { document.hidden = hidden; document.emit('visibilitychange'); }
+  vm.runInNewContext(source, {document, window, IntersectionObserver});
+  return {scene, preference, intersections, document, window,
+    get query() {return query;},
+    intersect(value, index = intersections.length - 1) {intersections[index].callback([{target: scene, isIntersecting: value}]);},
+    capability(value) {preference.matches = value; preference.emit('change');},
+    visibility(value) {document.hidden = value; document.emit('visibilitychange');}
   };
 }
-
 let passed = 0;
-function test(name, run) {
-  run(); passed++;
-  console.log(`PASS ${name}`);
-}
-
-test('Desktop starts paused until intersection is known, then stops offscreen', () => {
-  const h = setup();
-  assert.equal(h.observed, true);
-  assert.equal(h.scene.dataset.motion, 'paused');
-  assert.equal(h.toggle.hidden, false);
+function test(name, run) {run(); passed++; console.log(`PASS ${name}`);}
+test('Desktop runs automatically in view with no pause-control dependency', () => {
+  const h = harness(); assert.equal(h.intersections.length, 1); assert.equal(h.scene.dataset.motion, 'paused');
   h.intersect(true); assert.equal(h.scene.dataset.motion, 'running');
   h.intersect(false); assert.equal(h.scene.dataset.motion, 'paused');
   h.intersect(true); assert.equal(h.scene.dataset.motion, 'running');
 });
-
-test('Capability query requires wide fine-pointer desktop and reduced-motion opt-in', () => {
-  const {mediaQuery} = setup();
-  for (const clause of ['min-width: 1024px', 'hover: hover', 'pointer: fine', 'prefers-reduced-motion: no-preference']) {
-    assert.ok(mediaQuery.includes(clause), `Missing capability condition ${clause}`);
-  }
+test('Capability requires desktop, fine pointer, hover and reduced-motion opt-in', () => {
+  const h = harness();
+  for (const clause of ['min-width: 1024px','hover: hover','pointer: fine','prefers-reduced-motion: no-preference']) assert.ok(h.query.includes(clause));
 });
-
-test('User pause survives scrolling out and back; resume updates accessible control', () => {
-  const h = setup(); h.intersect(true); h.toggle.emit('click');
-  assert.equal(h.scene.dataset.motion, 'paused');
-  assert.equal(h.attributes['aria-pressed'], 'true');
-  assert.equal(h.attributes['aria-label'], 'Lanjutkan animasi alam');
-  assert.equal(h.label.textContent, 'Lanjutkan gerak');
-  h.intersect(false); h.intersect(true); assert.equal(h.scene.dataset.motion, 'paused');
-  h.toggle.emit('click'); assert.equal(h.scene.dataset.motion, 'running');
-  assert.equal(h.attributes['aria-pressed'], 'false');
-  assert.equal(h.attributes['aria-label'], 'Jeda animasi alam');
-  assert.equal(h.label.textContent, 'Jeda gerak');
-});
-
-test('Hidden tab pauses automatically without overriding explicit user pause', () => {
-  const h = setup(); h.intersect(true);
-  h.visibility(true); assert.equal(h.scene.dataset.motion, 'paused');
+test('Hidden tab stops motion and visible tab resumes only while scene is in view', () => {
+  const h = harness(); h.intersect(true); h.visibility(true); assert.equal(h.scene.dataset.motion, 'paused');
   h.visibility(false); assert.equal(h.scene.dataset.motion, 'running');
-  h.toggle.emit('click'); h.visibility(true); h.visibility(false);
-  assert.equal(h.scene.dataset.motion, 'paused');
-  assert.equal(h.attributes['aria-pressed'], 'true');
+  h.intersect(false); h.visibility(true); h.visibility(false); assert.equal(h.scene.dataset.motion, 'paused');
 });
-
-test('Compact, touch, or reduced-motion initial state stays static with no pause control', () => {
-  const h = setup({capable: false});
-  assert.equal(h.scene.dataset.motion, 'static');
-  assert.equal(h.toggle.hidden, true);
-  h.intersect(true); assert.equal(h.scene.dataset.motion, 'static');
+test('Compact, touch or reduced-motion state stays static without an observer', () => {
+  const h = harness({capable:false}); assert.equal(h.intersections.length, 0); assert.equal(h.scene.dataset.motion, 'static');
   h.visibility(true); h.visibility(false); assert.equal(h.scene.dataset.motion, 'static');
 });
-
-test('Live capability changes preserve user intent and restore eligible animation', () => {
-  const h = setup(); h.intersect(true);
-  h.capability(false); assert.equal(h.scene.dataset.motion, 'static'); assert.equal(h.toggle.hidden, true);
-  h.capability(true); assert.equal(h.scene.dataset.motion, 'running'); assert.equal(h.toggle.hidden, false);
-  h.toggle.emit('click'); h.capability(false); h.capability(true);
-  assert.equal(h.scene.dataset.motion, 'paused'); assert.equal(h.attributes['aria-pressed'], 'true');
+test('Capability changes disconnect observers and ignore obsolete callbacks', () => {
+  const h = harness(); h.intersect(true); h.capability(false);
+  assert.equal(h.intersections[0].disconnected, true); assert.equal(h.scene.dataset.motion, 'static');
+  h.intersect(true, 0); assert.equal(h.scene.dataset.motion, 'static');
+  h.capability(true); assert.equal(h.scene.dataset.motion, 'paused');
+  h.intersect(true, 0); assert.equal(h.scene.dataset.motion, 'paused');
+  h.intersect(true); assert.equal(h.scene.dataset.motion, 'running');
 });
-
-test('Pagehide/pageshow suspend and restore without losing explicit pause', () => {
-  const h = setup(); h.intersect(true);
-  h.window.emit('pagehide'); assert.equal(h.scene.dataset.motion, 'paused');
-  h.visibility(false); assert.equal(h.scene.dataset.motion, 'paused');
-  h.window.emit('pageshow'); assert.equal(h.scene.dataset.motion, 'running');
-  h.toggle.emit('click'); h.window.emit('pagehide'); h.window.emit('pageshow');
-  assert.equal(h.scene.dataset.motion, 'paused');
+test('Pagehide disposes and pageshow waits for a fresh visibility observation', () => {
+  const h = harness(); h.intersect(true); h.window.emit('pagehide');
+  assert.equal(h.scene.dataset.motion, 'static'); assert.equal(h.intersections[0].disconnected, true);
+  h.visibility(false); h.intersect(true, 0); assert.equal(h.scene.dataset.motion, 'static');
+  h.window.emit('pageshow'); assert.equal(h.scene.dataset.motion, 'paused');
+  h.intersect(true); assert.equal(h.scene.dataset.motion, 'running');
 });
-
-for (const [name, options] of [
-  ['No illustration on article pages', {hasScene: false}],
-  ['No usable animation control', {hasToggle: false}],
-  ['IntersectionObserver unavailable', {hasObserver: false}]
-]) {
-  test(`${name}: leave static content intact`, () => {
-    const h = setup(options);
-    assert.equal(h.scene.dataset.motion, 'static');
-    assert.equal(h.toggle.hidden, true);
-    assert.equal(h.observed, false);
-    assert.equal(h.document.listenerCount() + h.window.listenerCount() + h.toggle.listenerCount(), 0);
+test('Empty or unrelated intersection batches leave the current scene state intact', () => {
+  const h = harness(); h.intersect(true);
+  h.intersections[0].callback([]);
+  h.intersections[0].callback([{target:{},isIntersecting:false}]);
+  assert.equal(h.scene.dataset.motion, 'running');
+});
+for (const [name, options] of [['No illustration', {hasScene:false}], ['No IntersectionObserver', {hasObserver:false}]]) {
+  test(`${name} keeps static content and registers no lifecycle work`, () => {
+    const h = harness(options); assert.equal(h.scene.dataset.motion, 'static'); assert.equal(h.intersections.length, 0);
+    assert.equal(h.document.listenerCount() + h.window.listenerCount(), 0);
   });
 }
 console.log(`${passed} nature-motion lifecycle checks passed.`);
