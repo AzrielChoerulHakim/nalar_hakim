@@ -1,6 +1,7 @@
 """Entry page for Nalar Hakim's independent legal criticism platform."""
 
 
+from html import escape
 from nature_scene import nature_scene
 from idea_flow import render_idea_flow
 
@@ -9,19 +10,19 @@ from idea_flow import render_idea_flow
 THEME_INIT = '''<script>document.documentElement.dataset.theme='light';try{if(localStorage.getItem('nalar-hakim-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(_){}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='dark'?'#18231E':'#F5F6F2';</script>'''
 
 
-def render_landing():
+def render_landing(site_url='https://azrielchoerulhakim.github.io/nalar_hakim/'):
     return '''<!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="index,follow"><link rel="canonical" href="https://azrielchoerulhakim.github.io/nalar_hakim/">
+<meta name="robots" content="index,follow"><link rel="canonical" href="__SITE_URL__">
 <meta name="description" content="Tulisan hukum dengan nama samaran, terbuka untuk dibaca siapa saja secara gratis. Kirim naskah tanpa biaya atau administrasi berbelit.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nalar Hakim">
 <meta property="og:title" content="Nalar Hakim — Hukum Layak Dipertanyakan">
 <meta property="og:description" content="Tulisan hukum dengan nama samaran, terbuka untuk dibaca siapa saja secara gratis. Kirim naskah tanpa biaya atau administrasi berbelit.">
-<meta property="og:url" content="https://azrielchoerulhakim.github.io/nalar_hakim/">
+<meta property="og:url" content="__SITE_URL__">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#F5F6F2">
 __THEME_INIT__
@@ -48,7 +49,7 @@ __THEME_INIT__
         <div class="nature-overline">Nama samaran. Tulisan terbuka.</div>
         <h1 id="landing-title" aria-label="Nalar Hakim"><span>NALAR</span><span>HAKIM<span class="landing-title-stop">.</span></span></h1>
         <h2 class="landing-hero-statement">Hukum layak dipertanyakan.</h2>
-        <p class="landing-hero-caption">Nalar Hakim adalah platform tulisan hukum yang menjawab dua persoalan: <strong>kebutuhan penulis akan anonimitas untuk melindungi identitasnya</strong> dan <strong>akses masyarakat luas terhadap tulisan tanpa biaya</strong>. Penulis boleh memakai nama samaran; semua tulisan dapat dibaca gratis. Kirim naskah lewat email, tanpa biaya, akun, formulir panjang, atau administrasi berbelit yang menyita waktu. Redaksi meninjau setiap naskah sebelum terbit.</p>
+        <p class="landing-hero-caption">Nalar Hakim adalah platform tulisan hukum yang menjawab dua persoalan: <strong>anonimitas sebagai perlindungan identitas penulis</strong> dan <strong>akses masyarakat luas terhadap tulisan tanpa biaya</strong>. Anda dapat menulis dengan nama samaran dan mengirim naskah lewat email, tanpa biaya, akun, atau administrasi berbelit. Semua artikel dapat dibaca gratis; setiap naskah tetap ditinjau redaksi sebelum terbit.</p>
         <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true">↗</span></a></div>
       </div>
       __NATURE_SCENE__
@@ -75,4 +76,4 @@ __THEME_INIT__
 __IDEA_FLOW__
 </main>
 <footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Disunting oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="kirim-naskah.html">Kirim naskah</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Nama samaran. Bebas dibaca.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
-</body></html>'''.replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT).replace('__IDEA_FLOW__', render_idea_flow())
+</body></html>'''.replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT).replace('__IDEA_FLOW__', render_idea_flow()).replace('__SITE_URL__', escape(site_url, quote=True))

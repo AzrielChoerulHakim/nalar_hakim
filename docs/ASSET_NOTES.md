@@ -1,0 +1,11 @@
+# Aset Justitia
+
+Aset aktif: `preview/justitia-engraving-v2.webp` (1024 × 1536 piksel, transparan).
+
+Versi ini menyunting `preview/justitia-engraving.webp` dengan tool image generation bawaan, mode edit dengan background transparan. PNG hasil disimpan sebagai WebP kualitas 90 melalui ImageMagick; pose dan lokasi penempatan SVG tetap. Tidak mengambil ilustrasi pihak ketiga. Aset versi awal tetap tersedia untuk kompatibilitas cache, tetapi tidak lagi dipakai pada landing.
+
+Arahan lengkap yang dipakai:
+
+> Use case: precise-object-edit. Asset type: transparent cutout of Lady Justice for an existing Indonesian legal editorial website. Edit the provided Lady Justice artwork only. Preserve the same entire full-body composition, classical stance, proportions, portrait 2:3 canvas, left raised arm holding balanced scales and right lowered arm holding a straight sword, blindfold and rectangular pedestal. Keep her head, hands, scales and pedestal in approximately the same positions, so this drops into an existing scene and root overlays. Improve finish: precise anatomically natural fingers and grip, two balanced symmetrical pans with clean chain links, straight elegant sword, refined facial profile and blindfold fabric, flowing convincing robe folds, disciplined fine engraved hatching without noisy scratchiness. Material: warm ivory carved stone, very fine forest-green ink contours, muted antique bronze tools. Refined nineteenth-century botanical engraving / bookplate quality, gentle dimensional shading; no photorealistic CGI, no glossy plastics. Clean silhouettes, clean alpha edges. Background must be genuinely transparent everywhere outside the statue, scales, sword and pedestal, with empty transparent spaces inside scale chains and between arms and body. Remove all background smears, halos and checkerboard artifacts. No landscape, tree, roots, water, butterflies, text, logo, border or watermark. Full statue and whole pedestal entirely visible, no cropping. Preserve the original design identity while making it more elegant, balanced and professionally illustrated.
+
+Lingkungan, akar, air, burung, kupu-kupu dan kunang-kunang tetap aset SVG/CSS di repository; gambar raster tidak memuat latar tambahan.

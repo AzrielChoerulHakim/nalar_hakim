@@ -6,6 +6,7 @@
   const seen = new WeakSet();
   const running = new Map();
   let observer;
+  let generation = 0;
   let introduced = false;
   let suspended = false;
 
@@ -55,6 +56,7 @@
     if (url.origin === window.location.origin && url.pathname === window.location.pathname) settleHash(url.hash);
   };
   const stop = () => {
+    generation++;
     observer?.disconnect();
     observer = undefined;
     for (const [element] of running) cancel(element);
@@ -68,8 +70,9 @@
     stop();
     if (!preference.matches || document.hidden || suspended || !window.IntersectionObserver || !Element.prototype.animate) return;
     try {
+      const currentGeneration = generation;
       observer = new IntersectionObserver((entries) => {
-        if (!observer || !preference.matches) return;
+        if (currentGeneration !== generation || !observer || !preference.matches) return;
         entries.forEach(({ target, isIntersecting, boundingClientRect }) => {
           if (!isIntersecting) return;
           observer.unobserve(target);

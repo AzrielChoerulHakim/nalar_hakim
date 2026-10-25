@@ -11,7 +11,7 @@ def nature_scene():
       <!-- Passive definitions do not alter the compact/static illustration. -->
       <clipPath id="nature-sky-atmosphere-clip"><circle cx="284" cy="256" r="218"/></clipPath>
       <clipPath id="nature-stone-atmosphere-clip"><path d="M69 465C69 460 76 456 80 453C84 447 95 445 106 448C117 447 123 452 127 456C134 460 136 466 129 470C120 475 102 476 88 474C78 475 70 471 69 465ZM395 494C397 488 401 484 404 480C409 475 417 473 426 474C436 472 442 478 447 484C453 490 451 498 443 502C436 506 420 508 409 504C401 503 394 499 395 494ZM136 512C137 507 142 504 147 501C153 497 162 498 170 501C177 501 181 506 184 510C190 515 182 521 171 522C160 524 146 522 140 519C136 517 135 514 136 512ZM364 558C365 551 372 547 377 543C384 538 394 539 402 542C410 544 412 549 416 553C422 559 416 565 407 568C398 571 385 571 376 567C369 566 363 563 364 558Z"/></clipPath>
-      <mask id="nature-portrait-atmosphere-mask" maskUnits="userSpaceOnUse" x="98" y="65" width="274" height="411" style="mask-type:alpha"><image href="preview/justitia-engraving.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/></mask>
+      <mask id="nature-portrait-atmosphere-mask" maskUnits="userSpaceOnUse" x="98" y="65" width="274" height="411" style="mask-type:alpha"><image href="preview/justitia-engraving-v2.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/></mask>
       <radialGradient id="nature-cloud-soft"><stop offset="0" stop-color="#F5F6F2" stop-opacity=".8"/><stop offset=".62" stop-color="#F5F6F2" stop-opacity=".42"/><stop offset="1" stop-color="#F5F6F2" stop-opacity="0"/></radialGradient>
       <radialGradient id="nature-leaf-shadow-soft"><stop offset="0" stop-color="#294D3E" stop-opacity=".78"/><stop offset=".55" stop-color="#294D3E" stop-opacity=".5"/><stop offset="1" stop-color="#294D3E" stop-opacity="0"/></radialGradient>
       <radialGradient id="nature-leaf-light-soft"><stop offset="0" stop-color="#FFFFF0" stop-opacity=".7"/><stop offset=".58" stop-color="#FFFFF0" stop-opacity=".35"/><stop offset="1" stop-color="#FFFFF0" stop-opacity="0"/></radialGradient>
@@ -21,6 +21,7 @@ def nature_scene():
       <linearGradient id="nature-bark-depth" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="var(--n-bark-light)"/><stop offset=".45" stop-color="var(--n-bark-mid)"/><stop offset="1" stop-color="var(--n-bark-dark)"/></linearGradient>
       <linearGradient id="nature-foliage-depth" x1="0" y1="0" x2="1" y2=".65"><stop stop-color="var(--n-leaf-light)"/><stop offset=".48" stop-color="var(--n-leaf-mid)"/><stop offset="1" stop-color="var(--n-leaf-dark)"/></linearGradient>
       <linearGradient id="nature-water-depth" x1="0" y1="0" x2=".55" y2="1"><stop stop-color="var(--n-water-deep)"/><stop offset=".43" stop-color="var(--n-water-light)"/><stop offset="1" stop-color="var(--n-water-deep)"/></linearGradient>
+      <linearGradient id="nature-channel-depth" x1="0" y1="0" x2=".25" y2="1"><stop stop-color="var(--n-water-channel)" stop-opacity=".14"/><stop offset=".42" stop-color="var(--n-water-channel)" stop-opacity=".43"/><stop offset="1" stop-color="var(--n-water-channel)" stop-opacity=".08"/></linearGradient>
       <linearGradient id="nature-bank-depth" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="var(--n-bank-light)"/><stop offset="1" stop-color="var(--n-bank-dark)" stop-opacity=".2"/></linearGradient>
       <radialGradient id="nature-plinth-shadow"><stop stop-color="var(--n-bark-dark)" stop-opacity=".3"/><stop offset=".55" stop-color="var(--n-bark-dark)" stop-opacity=".14"/><stop offset="1" stop-color="var(--n-bark-dark)" stop-opacity="0"/></radialGradient>
       <g id="nature-botanical-leaf-wide">
@@ -34,6 +35,10 @@ def nature_scene():
         <path class="nature-leaf-fold" d="M0 0Q4 -19 2 -38C4 -30 10 -22 8 -15C7 -7 3 -3 0 0Z"/>
         <path class="nature-leaf-vein" d="M0 1Q4 -18 2 -35M1 -8L-4 -14M2 -15L-4 -22M3 -23L-1 -29M2 -12L6 -18M3 -21L6 -26"/>
         <path class="nature-leaf-etch" d="M-2 -10L-4 -13M-1 -18L-3 -21M4 -16L6 -19M4 -25L5 -28"/>
+      </g>
+      <g id="nature-fern-frond">
+        <path class="nature-fern-blade" d="M0 0C-2 -9-1 -20 4 -31C5 -36 8 -40 10 -44C11 -38 7 -35 6 -32C13 -34 15 -33 16 -34C13 -29 10 -28 4 -28L3 -24C10 -27 13 -25 14 -26C11 -21 8 -20 2 -21L1 -17C8 -20 11 -17 12 -18C9 -13 6 -13 0 -14L0 -10C6 -12 8 -10 10 -10C7 -6 4 -6 0 -7ZM4 -30C-3 -32-4 -35-3 -38C1 -37 4 -35 5 -33ZM2 -23C-6 -25-7 -28-6 -31C-1 -30 1 -28 3 -26ZM0 -16C-8 -17-10 -20-10 -24C-5 -23-1 -21 1 -19ZM0 -9C-7 -9-10 -11-11 -15C-5 -15-2 -13 0 -11Z"/>
+        <path class="nature-fern-stem" d="M0 1C-2 -12 2 -29 10 -43M3 -26L-3 -29M1 -19L-6 -21M0 -12L-7 -13M4 -28L11 -31M2 -21L9 -24M0 -14L7 -16"/>
       </g>
     </defs>
     <circle class="nature-sky" cx="284" cy="256" r="218"/>
@@ -178,6 +183,8 @@ def nature_scene():
     </g>
     <path class="nature-water" d="M314 453C344 459 374 468 385 480C397 493 386 504 363 512C336 522 331 537 358 550L418 580H189C170 555 190 537 230 528C265 520 287 509 276 499C264 489 248 479 260 467Z"/>
     <g class="nature-desktop-detail nature-water-detail" clip-path="url(#nature-water-clip)" stroke-linecap="round">
+      <!-- The current deepens on the outside of each bend; the inner bank stays pale. -->
+      <path class="nature-water-channel" d="M307 458C333 466 371 476 376 489C383 503 352 510 334 521C315 533 325 548 350 559L390 580H310C281 564 257 552 266 537C272 524 307 516 324 505C341 494 318 488 294 477Z"/>
       <g class="nature-water-shallows" fill="none">
         <path d="M269 466C256 480 289 491 288 502C287 518 258 523 228 534C200 544 195 560 217 580" stroke-width="12"/>
         <path d="M316 462C343 468 380 480 377 492C373 509 330 515 324 533C318 551 361 561 386 580" stroke-width="8"/>
@@ -187,6 +194,21 @@ def nature_scene():
       </g>
       <g class="nature-water-engraving" fill="none" stroke-width=".5">
         <path d="M282 469Q299 472 309 477M311 478L319 480M365 499Q360 504 353 506M337 515L329 518M268 518Q251 523 242 527M236 531L228 535M322 537Q329 545 342 550M344 551L350 554M280 562Q287 568 294 574M188 552Q187 561 194 568"/>
+      </g>
+      <g class="nature-water-shore" fill="none" stroke-width="1.15">
+        <path d="M262 469C253 479 270 490 280 500C290 512 259 523 231 531C199 541 181 557 193 578M317 456C346 462 376 472 385 484C394 497 378 505 363 510M350 518C335 529 338 540 357 550L414 578"/>
+      </g>
+      <g class="nature-water-edge-light" fill="none" stroke-width=".65">
+        <path d="M260 475Q258 483 273 493M276 507C267 516 249 521 234 525M198 543Q184 556 190 568M376 476Q387 481 388 488M381 501L369 507M345 529Q341 538 352 545"/>
+      </g>
+      <g class="nature-water-caustic" fill="none" stroke-width=".7">
+        <path class="nature-current-trace" d="M310 461C334 470 368 478 369 491C368 505 326 515 312 530C303 543 336 558 374 578"/>
+        <path class="nature-current-trace nature-current-trace-two" d="M272 470C265 482 299 490 300 501C301 518 258 525 243 540C231 553 267 567 284 579"/>
+      </g>
+      <!-- Quiet bank eddies stretch with the stream instead of spinning like wheels. -->
+      <g class="nature-bank-eddies" fill="none" stroke-width=".7">
+        <path class="nature-eddy nature-eddy-one" d="M375 495C385 491 388 495 381 499C374 503 367 503 366 506"/>
+        <path class="nature-eddy nature-eddy-two" d="M215 540C206 543 201 549 207 550C213 552 217 547 223 548"/>
       </g>
     </g>
     <g clip-path="url(#nature-water-clip)" class="nature-ripples" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
@@ -233,7 +255,18 @@ def nature_scene():
         <path class="nature-moss" d="M375 545Q377 542 381 543Q384 539 387 542Q391 540 394 543Q398 542 400 545Q394 548 389 545Q382 548 378 546Z"/>
       </g>
     </g>
-    <!-- Leaf shadows stay on the stones; the water remains unchanged. -->
+    <!-- Mineral seams follow each face; wet lower facets anchor the stones in the bank. -->
+    <g class="nature-desktop-detail nature-stone-finish" clip-path="url(#nature-stone-atmosphere-clip)" stroke-linecap="round" stroke-linejoin="round">
+      <path class="nature-rock-wet" d="M70 468Q87 474 103 472Q119 473 134 465L134 477H68ZM395 498Q413 506 430 501Q444 498 452 491L454 509H393ZM136 517Q153 522 169 519Q181 517 186 513L189 526H134ZM364 562Q381 569 397 565Q409 563 419 556L422 574H361Z"/>
+      <path class="nature-rock-seam" d="M103 450L99 457L103 463L99 469M99 457L88 458L83 463M426 476L422 484L427 491L424 499M427 491L439 491L444 496M164 502L160 509L164 514L160 520M160 509L151 508M393 543L388 551L393 558L388 565M388 551L378 553L374 559"/>
+      <path class="nature-rock-mineral" d="M108 451L104 457L108 462M422 477L418 485L423 490M155 503L152 507L155 512M399 544L396 549L400 555M374 555L379 552M89 456L95 455M432 486L439 485"/>
+      <path class="nature-rock-grain" d="M79 460h1M85 462h.6M92 452h.8M112 462h1M120 461h.6M109 467h.8M405 488h.8M413 481h.6M418 495h1M434 479h.8M438 494h.6M146 511h.8M152 515h.6M170 506h1M178 514h.6M379 550h.6M385 546h.8M403 553h.6M407 558h1M381 561h.8"/>
+      <path class="nature-rock-lichen" d="M87 451l2 1M89 454l2 -1M94 451l2 1M412 479l2 1M417 478l2 1M421 480l1 -1M151 503l2 1M157 502l1 1M380 545l2 1M385 543l2 1M390 546l2 -1"/>
+    </g>
+    <g class="nature-desktop-detail nature-stone-wake" clip-path="url(#nature-water-clip)" fill="none" stroke-linecap="round">
+      <path d="M397 497C389 498 386 501 382 503M393 502L387 505M372 548C358 552 354 557 360 562C365 567 376 570 387 572M365 551C356 553 352 558 356 561M367 569L377 573"/>
+    </g>
+    <!-- Leaf shadows remain clipped to the stones. -->
     <g class="nature-desktop-atmosphere nature-atmosphere-stones" clip-path="url(#nature-stone-atmosphere-clip)" aria-hidden="true">
       <g class="nature-dapple-drift nature-dapple-stones" fill="url(#nature-leaf-shadow-soft)">
         <ellipse cx="98" cy="457" rx="27" ry="10" transform="rotate(-28 98 457)"/><ellipse cx="121" cy="472" rx="20" ry="9" transform="rotate(-35 121 472)"/>
@@ -244,7 +277,7 @@ def nature_scene():
     <!-- A soft contact shadow seats the plinth in the bank without blurring its engraving. -->
     <ellipse class="nature-desktop-detail" cx="253" cy="466" rx="90" ry="11" fill="url(#nature-plinth-shadow)"/>
     <!-- Original detailed 2D illustration, isolated from animated scenery. -->
-    <image class="nature-justitia-portrait" href="preview/justitia-engraving.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
+    <image class="nature-justitia-portrait" href="preview/justitia-engraving-v2.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
     <!-- The portrait alpha clips dappled light exactly to robe, face and plinth. -->
     <g class="nature-desktop-atmosphere nature-atmosphere-portrait" mask="url(#nature-portrait-atmosphere-mask)" aria-hidden="true">
       <g class="nature-dapple-drift nature-dapple-portrait" fill="url(#nature-leaf-shadow-soft)">
@@ -291,9 +324,18 @@ def nature_scene():
       <path d="M483 453l-3 -3M474 449l-3 -3M464 446l-3 -3M454 445l-3 -2M444 445l-3 -2M432 446l-3 -2M418 448l-3 -3M407 448l-3 -3M394 446l-3 -3M383 444l-3 -3M372 441l-3 -3M361 436l-3 -3M348 431l-3 -4M335 425l-2 -3M322 421l-2 -3M308 418l-2 -3M294 417l-2 -3M278 417l-2 -3M263 413l-2 -3M250 407l-2 -3M241 397l-2 -2M245 384l-2 -2M257 375l-1 -2M267 367l2 -1M270 355l2 -1M263 344l2 -1M251 331l2 -1M251 318l2 0"/>
       <path d="M347 456l-2 -2M334 460l-2 -2M321 462l-2 -2M308 460l-2 -2M294 456l-2 -2M280 452l-2 -2M265 449l-2 -2M251 451l-2 -2M239 455l-2 -1M227 462l-2 -1M214 469l-2 -1M199 474l-2 -1M183 477l-2 -1M297 479l-2 -1M281 484l-2 -1M269 484l-2 -1M367 458l1 2M381 462l1 2"/>
     </g>
+    <g class="nature-desktop-detail nature-root-growth" stroke-linecap="round" stroke-linejoin="round">
+      <path class="nature-root-radicle" d="M187 475C179 484 181 489 171 494L160 500C174 496 184 490 184 484L191 476ZM238 455C234 466 225 469 222 477L217 488C225 480 224 475 231 471L244 453ZM294 481C304 485 313 485 321 492L335 500C325 491 319 487 310 484L297 479ZM388 464C386 473 391 479 400 483L410 489C402 482 393 478 393 471L394 465Z"/>
+      <path class="nature-root-filament" d="M172 494L169 501L165 504M161 500L153 501M218 487L212 493L210 500M223 476L216 477L212 481M334 499L343 501L348 506M322 492L321 498L325 502M409 489L417 491L421 496M400 482L401 477"/>
+      <path class="nature-root-ridge" d="M180 482Q179 489 171 493M233 465Q227 469 225 474M307 484L320 490M389 469Q389 477 398 482"/>
+    </g>
     <g class="nature-sprouts" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4">
       <path d="M166 447L166 431M395 448L393 431M228 404L223 390"/>
       <g fill="currentColor" stroke="none"><path d="M166 434Q150 434 151 421Q164 421 166 434ZM166 439Q178 439 181 425Q169 424 166 439ZM393 436Q382 435 382 425Q391 423 393 436ZM393 439Q408 438 407 427Q397 426 393 439ZM225 394Q214 394 214 382Q225 383 225 394Z"/></g>
+    </g>
+    <g class="nature-desktop-detail nature-ferns" aria-hidden="true">
+      <g transform="translate(143 456) rotate(-14) scale(.82)"><g class="nature-fern nature-fern-one"><use href="#nature-fern-frond"/><use href="#nature-fern-frond" transform="rotate(-38) scale(.78)"/><use href="#nature-fern-frond" transform="rotate(32) scale(.66)"/></g></g>
+      <g transform="translate(414 539) rotate(9) scale(.63)"><g class="nature-fern nature-fern-two"><use href="#nature-fern-frond"/><use href="#nature-fern-frond" transform="rotate(-39) scale(.71)"/><use href="#nature-fern-frond" transform="rotate(31) scale(.8)"/></g></g>
     </g>
     <g class="nature-desktop-detail nature-terrain-etch" fill="none" stroke-linecap="round" stroke-width=".6">
       <path d="M51 483Q69 480 83 482M88 483L109 481M67 489Q80 487 98 488M423 523Q441 519 459 523M466 523L484 521M440 529Q457 527 474 529M101 538Q119 535 134 537M140 538L154 536M99 544L112 542M173 570Q178 574 182 575M423 575L438 576"/>

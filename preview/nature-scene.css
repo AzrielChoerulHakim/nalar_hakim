@@ -37,7 +37,13 @@
  .nature-scene[data-motion] .nature-leaf-back{animation-duration:21s}
  .nature-scene[data-motion] .nature-flow{stroke-dasharray:13 20;animation:nature-water-flow 7s linear infinite;animation-play-state:paused}
  .nature-scene[data-motion] .nature-flow-two{animation-duration:9s;animation-delay:-3s}.nature-scene[data-motion] .nature-flow-three{animation-duration:8s;animation-delay:-5s}
- .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing,.nature-canopy,.nature-leaf,.nature-flow){animation-play-state:running}
+ .nature-scene[data-motion] .nature-current-trace{stroke-dasharray:12 58;animation:nature-current-glint 15s linear infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-current-trace-two{stroke-dasharray:8 62;animation-duration:19s;animation-delay:-8s}
+ .nature-scene[data-motion] .nature-eddy{stroke-dasharray:8 25;animation:nature-bank-eddy 12s linear infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-eddy-two{animation-duration:16s;animation-delay:-7s}
+ .nature-scene[data-motion] .nature-fern{transform-box:view-box;transform-origin:0 0;animation:nature-fern-breeze 19s ease-in-out infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-fern-two{animation-duration:23s;animation-delay:-11s}
+ .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing,.nature-canopy,.nature-leaf,.nature-flow,.nature-current-trace,.nature-eddy,.nature-fern){animation-play-state:running}
 }
 /* Travel in one direction. Reset happens only while the tiny silhouette is invisible. */
 @keyframes nature-bird-flight{
@@ -53,8 +59,12 @@
 @keyframes nature-wing-near{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(-16deg) scaleY(.24)}20%{transform:rotate(7deg) scaleY(1.16)}40%,84%{transform:rotate(2deg) scaleY(.92)}}
 @keyframes nature-wing-far{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(16deg) scaleY(.24)}20%{transform:rotate(-7deg) scaleY(1.16)}40%,84%{transform:rotate(-2deg) scaleY(.92)}}
 @keyframes nature-canopy-breeze{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-.35deg)}46%{transform:rotate(.65deg)}61%{transform:rotate(.25deg)}79%{transform:rotate(-.3deg)}}
-@keyframes nature-leaf-breeze{0%,100%{transform:rotate(0deg)}16%{transform:rotate(calc(var(--leaf-turn)*-.35))}34%{transform:rotate(calc(var(--leaf-turn)*.45))}46%{transform:rotate(var(--leaf-turn))}59%{transform:rotate(calc(var(--leaf-turn)*.3))}73%{transform:rotate(calc(var(--leaf-turn)*-.45))}87%{transform:rotate(calc(var(--leaf-turn)*.2))}}
+@keyframes nature-leaf-breeze{0%,100%{transform:rotate(0deg) scaleX(1) skewX(0deg)}16%{transform:rotate(calc(var(--leaf-turn)*-.35)) scaleX(.98) skewX(-.5deg)}34%{transform:rotate(calc(var(--leaf-turn)*.45)) scaleX(.97) skewX(.5deg)}46%{transform:rotate(var(--leaf-turn)) scaleX(.93) skewX(1deg)}59%{transform:rotate(calc(var(--leaf-turn)*.3)) scaleX(.98) skewX(.2deg)}73%{transform:rotate(calc(var(--leaf-turn)*-.45)) scaleX(.96) skewX(-.7deg)}87%{transform:rotate(calc(var(--leaf-turn)*.2)) scaleX(1) skewX(.3deg)}}
 @keyframes nature-water-flow{to{stroke-dashoffset:-132}}
+/* Dash periods divide the offsets exactly, so the current never jumps at a loop. */
+@keyframes nature-current-glint{to{stroke-dashoffset:-140}}
+@keyframes nature-bank-eddy{to{stroke-dashoffset:-66}}
+@keyframes nature-fern-breeze{0%,100%{transform:rotate(0deg) skewX(0deg)}23%{transform:rotate(-1.2deg) skewX(-.5deg)}48%{transform:rotate(2.5deg) skewX(1deg)}68%{transform:rotate(.8deg) skewX(.3deg)}84%{transform:rotate(-.8deg) skewX(-.4deg)}}
 @media(max-width:600px){.nature-art{max-height:420px}}
 @media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
 
@@ -100,7 +110,7 @@
   --n-rock-light:#E9EBDF;--n-rock-mid:#C4CCB9;--n-rock-dark:#849783;
   --n-bark-light:#A6AD8D;--n-bark-mid:#7C8D6E;--n-bark-dark:#4D6953;
   --n-leaf-light:#CAD3AF;--n-leaf-mid:#91AE7C;--n-leaf-dark:#537B54;
-  --n-water-deep:#86AFB1;--n-water-light:#CADDD4;
+  --n-water-deep:#86AFB1;--n-water-light:#CADDD4;--n-water-channel:#426F70;
   --n-bank-light:#DCE3CF;--n-bank-dark:#B2C1A3;
  }
  :root[data-theme="dark"] .nature-scene{
@@ -108,7 +118,7 @@
   --n-rock-light:#9AA991;--n-rock-mid:#6C8370;--n-rock-dark:#3C5749;
   --n-bark-light:#A3B18F;--n-bark-mid:#7A9274;--n-bark-dark:#415E49;
   --n-leaf-light:#B3C5A2;--n-leaf-mid:#7C9D73;--n-leaf-dark:#42664A;
-  --n-water-deep:#315C5C;--n-water-light:#638A7C;
+  --n-water-deep:#315C5C;--n-water-light:#638A7C;--n-water-channel:#142F31;
   --n-bank-light:#435D45;--n-bank-dark:#283D31;
  }
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-detail{display:inline}
@@ -143,12 +153,28 @@
  .nature-water-shallows{stroke:var(--n-water-light);opacity:.22}
  .nature-water-reflection{stroke:var(--n-paper);opacity:.65}
  .nature-water-engraving{stroke:var(--n-bark-dark);opacity:.24}
+ .nature-water-channel{fill:url(#nature-channel-depth);stroke:none}
+ .nature-water-shore{stroke:var(--n-water-channel);opacity:.26}
+ .nature-water-edge-light{stroke:var(--n-rock-light);opacity:.66}
+ .nature-water-caustic{stroke:var(--n-paper);opacity:.72}
+ .nature-bank-eddies{stroke:var(--n-paper);opacity:.66}
+ .nature-stone-wake{stroke:var(--n-paper);stroke-width:.75;opacity:.62}
  .nature-stone-contact{fill:var(--n-bark-dark);opacity:.12}
  .nature-rock-body{fill:url(#nature-stone-depth);stroke:var(--n-bark-dark);stroke-width:.6;stroke-opacity:.58}
  .nature-rock-shade{fill:var(--n-bark-dark);opacity:.13;stroke:none}
  .nature-rock-highlight{fill:var(--n-rock-light);opacity:.56;stroke:none}
  .nature-rock-etch{fill:none;stroke:var(--n-bark-dark);stroke-width:.55;opacity:.48}
  .nature-moss{fill:var(--n-leaf-mid);opacity:.7;stroke:none}
+ .nature-rock-wet{fill:var(--n-water-channel);opacity:.18;stroke:none}
+ .nature-rock-seam{fill:none;stroke:var(--n-rock-dark);stroke-width:.7;opacity:.62}
+ .nature-rock-mineral{fill:none;stroke:var(--n-rock-light);stroke-width:.65;opacity:.85}
+ .nature-rock-grain{fill:none;stroke:var(--n-bark-dark);stroke-width:.7;opacity:.4}
+ .nature-rock-lichen{fill:none;stroke:var(--n-leaf-light);stroke-width:1.3;opacity:.84}
  .nature-root-engraving{stroke:var(--n-bark-dark);opacity:.5}
+ .nature-root-radicle{fill:url(#nature-bark-depth);stroke:none}
+ .nature-root-filament{fill:none;stroke:var(--n-bark-mid);stroke-width:.55;opacity:.75}
+ .nature-root-ridge{fill:none;stroke:var(--n-rock-light);stroke-width:.5;opacity:.65}
+ .nature-fern-blade{fill:url(#nature-foliage-depth);stroke:var(--n-bark-dark);stroke-width:.35;stroke-opacity:.5}
+ .nature-fern-stem{fill:none;stroke:var(--n-bark-dark);stroke-width:.55;opacity:.65}
  .nature-terrain-etch{stroke:var(--n-bark-mid);opacity:.42}
 }

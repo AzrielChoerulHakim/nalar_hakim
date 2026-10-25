@@ -1,5 +1,7 @@
 # Nalar Hakim
 
+Website publik untuk domain `nalarhakim.com`: ikuti [panduan VPS](docs/VPS_NALARHAKIM.md). Exporter menyediakan paket statis siap pasang dengan nginx dan HTTPS; jalur tema WordPress di bawah tetap terpisah.
+
 Ruang publikasi kritik hukum independen: fenomena aktual dibaca melalui teori, dokumen, dan argumentasi yang terbuka untuk diuji. Identitas penulis ditampilkan sebagai nama samaran; Lazarus mengelola dan menyunting publikasi.
 
 **GitHub Pages:** https://azrielchoerulhakim.github.io/nalar_hakim/

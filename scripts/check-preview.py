@@ -3,9 +3,10 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit, unquote
+from site_config import SITE_PATH
 
 ROOT = Path(__file__).resolve().parents[1]
-ORIGIN = 'https://preview.invalid/nalar_hakim/'
+ORIGIN = 'https://preview.invalid' + SITE_PATH
 
 
 class Page(HTMLParser):
@@ -64,13 +65,16 @@ for path, page in pages.items():
             continue
         if target.netloc != 'preview.invalid':
             continue
-        if not target.path.startswith('/nalar_hakim/'):
+        if not target.path.startswith(SITE_PATH):
             errors.append(f'{label}: escapes project path: {link}')
             continue
-        dest = ROOT / unquote(target.path[len('/nalar_hakim/'):])
+        dest = ROOT / unquote(target.path[len(SITE_PATH):])
         if dest.is_dir():
             dest /= 'index.html'
         dest = dest.resolve()
+        if not dest.is_relative_to(ROOT):
+            errors.append(f'{label}: escapes public directory: {link}')
+            continue
         checked += 1
         if not dest.is_file():
             errors.append(f'{label}: missing target: {link}')

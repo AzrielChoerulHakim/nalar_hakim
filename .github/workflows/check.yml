@@ -32,5 +32,7 @@ jobs:
           node scripts/check-idea-flow.cjs
       - name: Check preview links and reading anchors
         run: python3 scripts/check-preview.py
+      - name: Check domain export and release activation
+        run: python3 scripts/test-static-release.py
       - name: Verify generated preview is current
-        run: git diff --exit-code -- index.html beranda.html cari.html tentang.html kirim-naskah.html kebijakan-redaksi.html 404.html artikel bentuk preview sitemap.xml
+        run: git diff --exit-code -- index.html beranda.html cari.html tentang.html kirim-naskah.html kebijakan-redaksi.html 404.html artikel bentuk preview sitemap.xml robots.txt

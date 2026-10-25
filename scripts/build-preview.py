@@ -9,11 +9,11 @@ from hashlib import sha256
 from landing_page import render_landing, THEME_INIT
 from flat_cover import render_cover
 from articles import load_articles
+from site_config import SITE, SITE_PATH
 from editorial_pages import FORMATS, form_links, invitation, about_page, submission_page, policy_page
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS = load_articles(ROOT, FORMATS)
-SITE = 'https://azrielchoerulhakim.github.io/nalar_hakim/'
 MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']
 
 def date_label(value):
@@ -146,9 +146,9 @@ search=f'''<main id="main-content" class="container"><header class="archive-head
 page('cari.html','Cari Tulisan',search,extra='<script src="preview/search.js" defer></script>')
 
 # Use a site-relative root for an error page whose unknown URL depth cannot be inferred.
-missing='''<main id="main-content" class="container"><section class="empty-state"><span class="eyebrow">404 / HALAMAN TIDAK DITEMUKAN</span><h1>Halaman tidak ditemukan.</h1><p>Tautannya mungkin berubah atau alamatnya keliru. Buka ruang baca untuk mencari tulisan yang Anda maksud.</p><a class="read-link" href="/nalar_hakim/beranda.html">Kembali ke ruang baca</a></section></main>'''
+missing=f'''<main id="main-content" class="container"><section class="empty-state"><span class="eyebrow">404 / HALAMAN TIDAK DITEMUKAN</span><h1>Halaman tidak ditemukan.</h1><p>Tautannya mungkin berubah atau alamatnya keliru. Buka ruang baca untuk mencari tulisan yang Anda maksud.</p><a class="read-link" href="{SITE_PATH}beranda.html">Kembali ke ruang baca</a></section></main>'''
 page('404.html','Halaman tidak ditemukan',missing)
-notfound=(ROOT/'404.html').read_text().replace('<head>','<head><base href="/nalar_hakim/">',1)
+notfound=(ROOT/'404.html').read_text().replace('<head>',f'<head><base href="{SITE_PATH}">',1)
 (ROOT/'404.html').write_text(notfound)
 
 index=[{'text':p['text'],'minutes':p['minutes'],'date':p['published'],'dateLabel':date_label(p['published']),'title':p['title'],'type':p['type'],'formatUrl':'bentuk/'+p['format']+'/','lens':p.get('lens',''),'object':p.get('object',''),'excerpt':p['excerpt'],'url':article_url(p)} for p in POSTS]
@@ -202,7 +202,8 @@ for old_slug,target_slug in legacy.items():
  dest=ROOT/'artikel'/old_slug/'index.html';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html,encoding='utf-8');WRITTEN.append(str(dest.relative_to(ROOT)))
 urls=[SITE,SITE+'beranda.html',SITE+'tentang.html',SITE+'kirim-naskah.html',SITE+'kebijakan-redaksi.html']+[SITE+'bentuk/'+slug+'/' for slug in FORMATS]+[SITE+article_url(post) for post in POSTS]
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{e(url)}</loc></url>' for url in urls)+'</urlset>\n',encoding='utf-8')
-(ROOT/'index.html').write_text(render_landing(), encoding='utf-8')
+(ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n', encoding='utf-8')
+(ROOT/'index.html').write_text(render_landing(SITE), encoding='utf-8')
 WRITTEN.append('index.html')
 # Fingerprint local assets only after the search index and all pages are final.
 # Existing readers receive the new palette and type styles on the next visit.

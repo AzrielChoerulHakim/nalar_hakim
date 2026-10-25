@@ -3,7 +3,15 @@
 ## Tujuan
 Membuat publikasi kritik hukum nyaman ditelusuri dan dibaca, dengan identitas alam yang tetap memiliki konteks hukum. Struktur Esai, Telaah Fenomena, dan Bedah Putusan atau Norma, isi artikel, serta alur kiriman Word lewat email tetap berlaku.
 
-## Audit 26 Oktober 2026 — perilaku terkini
+## Audit lanjutan 26 Oktober 2026 — perilaku terkini
+- Penyuntingan kedua memperbaiki 32 bagian: 23 kalimat pada lima artikel dan sembilan bagian halaman redaksi/pembuka. Argumen, kutipan, rujukan, judul dan anchor artikel dipertahankan. Alur kiriman kini menyatakan bahwa naskah **yang diterima** akan terbit.
+- Justitia diperhalus melalui penyuntingan aset transparan: kontur, lipatan jubah, tangan, rantai timbangan dan tepi gambar lebih bersih. Aset aktif `preview/justitia-engraving-v2.webp` berukuran sekitar 173 KiB, lebih kecil dari versi sebelumnya. Rincian produksi ada di `ASSET_NOTES.md`.
+- Sungai mendapat lapisan dangkal, tepian basah, dua kilau arus dan dua pusaran kecil. Batu mendapat retakan mineral, lumut dan bidang basah; akar bercabang lebih halus dan pakis bergerak dari pangkal. Daun sedikit berputar ketika bergoyang. Detail lingkungan tambahan tetap khusus desktop; tidak ada pustaka, filter SVG atau loop JavaScript baru.
+- Callback observer reveal yang sudah tidak berlaku kini diabaikan setelah tab tersembunyi atau kemampuan perangkat berubah, sehingga tidak mengganggu observer penggantinya.
+- Validasi kode: 52 skenario animasi lolos; build memeriksa 21 halaman dan 654 rute/aset/anchor. Paket domain dapat dibangun terpisah tanpa mengubah alamat bawaan GitHub Pages. Panduan instalasi ada di `VPS_NALARHAKIM.md`; publikasi ke GitHub tidak berarti VPS atau DNS sudah dikonfigurasi.
+- Referensi teknik: https://animejs.com/documentation/svg/createdrawable/ — gagasan menggambar lintasan SVG diterapkan melalui CSS native; tidak menyalin kode atau aset dan tidak menambah Anime.js sebagai dependensi.
+
+## Audit pertama 26 Oktober 2026 — catatan tahap terdahulu
 - Paragraf pertama halaman awal menjelaskan dua tujuan: anonimitas untuk menjaga identitas penulis dan akses tulisan gratis bagi masyarakat. Kiriman melalui email tidak memerlukan akun, biaya, atau formulir panjang; peninjauan redaksi tetap berlaku.
 - Bahasa halaman informasi dan panduan disederhanakan. Email terpisah menjadi anjuran, bukan langkah wajib. Sepuluh frasa pada lima artikel disunting tanpa mengubah pokok argumentasi, kutipan, atau rujukan; tanggal dan catatan penyuntingan diperbarui.
 - Judul memakai font sistem dan jarak huruf yang lebih longgar; paragraf panjang tetap Georgia 20px/1,8 pada desktop dan 19px pada HP. Pembuka halaman mendapat ukuran dan lebar baca yang sesuai. Palet dipertahankan setelah pemeriksaan kontras.

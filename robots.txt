@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://azrielchoerulhakim.github.io/nalar_hakim/sitemap.xml

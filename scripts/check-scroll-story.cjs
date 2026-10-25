@@ -160,4 +160,27 @@ test('Native reveal finish and cancellation notify final heading geometry only o
  assert.equal(animations.length,2);assert.equal(notifications,0);animations[0].onfinish();assert.equal(notifications,1);
  document.hidden=true;document.emit('visibilitychange');assert.equal(notifications,2);animations[0].onfinish();animations[1].oncancel();assert.equal(notifications,2,'Obsolete callbacks must not schedule duplicate measurements');
 });
+test('Queued reveal callbacks cannot affect a replacement observer after visibility changes',()=>{
+ const classes=new Set(),observers=[],animations=[],preference=events({matches:true});
+ const root={classList:{add:n=>classes.add(n),remove:n=>classes.delete(n),contains:n=>classes.has(n)}};
+ class Element {
+  constructor(){this.dataset={};}
+  contains(){return false;}closest(){return null;}querySelector(){return null;}
+  getBoundingClientRect(){return {top:1200,bottom:1300};}
+  animate(){const animation={cancel(){}};animations.push(animation);return animation;}
+ }
+ const target=new Element();
+ const document=events({hidden:false,documentElement:root,activeElement:null,querySelectorAll:s=>s.startsWith('.landing-manifest-copy')?[target]:[],querySelector:()=>null,getElementById:()=>null});
+ class Intersection {constructor(callback){this.callback=callback;this.unobserved=[];observers.push(this);}observe(){}unobserve(element){this.unobserved.push(element);}disconnect(){}}
+ class Event {constructor(type){this.type=type;}}
+ const window=events({matchMedia:()=>preference,IntersectionObserver:Intersection,location:{hash:'',href:'https://example.test/'},scrollY:200,innerHeight:900});
+ vm.runInNewContext(fs.readFileSync(path.join(base,'preview/motion.js'),'utf8'),{window,document,IntersectionObserver:Intersection,Element,Event,URL});
+ const oldObserver=observers[0];
+ document.hidden=true;document.emit('visibilitychange');document.hidden=false;document.emit('visibilitychange');
+ const newObserver=observers[1],entry={target,isIntersecting:true,boundingClientRect:{top:700,bottom:800}};
+ oldObserver.callback([entry]);
+ assert.equal(animations.length,0);assert.equal(oldObserver.unobserved.length,0);assert.equal(newObserver.unobserved.length,0);
+ newObserver.callback([entry]);
+ assert.equal(animations.length,1,'The old callback must not mark the target as already seen');assert.equal(newObserver.unobserved.length,1);
+});
 console.log(`${passed} scroll-story checks passed; ${failed} failed.`);process.exitCode=failed?1:0;
