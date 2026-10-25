@@ -70,3 +70,19 @@
  .landing-final-link { font-size:23px; }
  .landing-footer-bottom { font-size:13px; }
 }
+/* Phone composition: a compact masthead and more room for the opening text. */
+@media(max-width:600px) {
+ .landing-header nav { font:14px/1.5 var(--font); gap:12px; }
+ .landing-header nav a { white-space:nowrap; }
+ .landing-nav-enter { gap:8px; }
+ .nature-hero-copy { padding-top:8px; }
+ .nature-overline { font-size:17px; margin-bottom:16px; }
+ .landing-hero h1 { font-family:var(--font); font-size:clamp(58px,17vw,88px); line-height:.98; letter-spacing:-.055em; margin-bottom:22px; }
+ .landing-hero h1 > span + span { margin-top:0; }
+ .landing-hero-statement { font-size:24px; line-height:1.35; }
+ .landing-hero-caption { margin-top:16px; }
+ .landing-hero-actions { margin-top:22px; }
+ .landing-channel-heading h2 { font-size:clamp(29px,7.5vw,36px); line-height:1.15; letter-spacing:-.025em; }
+ .landing-submission-steps { padding-left:1.5em; }
+ .landing-submission-steps li { padding-left:4px; }
+}

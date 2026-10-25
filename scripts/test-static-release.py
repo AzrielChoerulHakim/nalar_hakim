@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 from site_config import DEFAULT_SITE, normalize_site_url
 
@@ -23,6 +24,10 @@ class Metadata(HTMLParser):
         self.canonical = []
         self.og_urls = []
         self.share_urls = []
+        self.base_urls = []
+        self.links = []
+        self.resources = []
+        self.ids = set()
         self.feed(path.read_text())
 
     def handle_starttag(self, tag, pairs):
@@ -33,6 +38,17 @@ class Metadata(HTMLParser):
             self.og_urls.append(attrs['content'])
         if 'data-copy-url' in attrs:
             self.share_urls.append(attrs['data-copy-url'])
+        if tag == 'base' and 'href' in attrs:
+            self.base_urls.append(attrs['href'])
+        if 'id' in attrs:
+            self.ids.add(attrs['id'])
+        for name in ('href', 'src', 'action'):
+            if name in attrs and tag != 'base':
+                self.links.append(attrs[name])
+        if tag == 'script' and 'src' in attrs:
+            self.resources.append(attrs['src'])
+        if tag == 'link' and attrs.get('rel') in ('stylesheet', 'icon'):
+            self.resources.append(attrs['href'])
 
 
 def checksums(bundle):
@@ -108,13 +124,34 @@ class StaticReleaseTest(unittest.TestCase):
             for url in metadata.canonical + metadata.og_urls + metadata.share_urls:
                 self.assertTrue(url.startswith('https://nalarhakim.com/'), (page, url))
             self.assertNotIn('https://azrielchoerulhakim.github.io/nalar_hakim/', page.read_text())
-        self.assertIn('<base href="/">', (public / '404.html').read_text())
+        self.assert_error_page_links(public, 'https://nalarhakim.com/')
         self.assertIn('href="/beranda.html"', (public / '404.html').read_text())
         self.assertIn('Sitemap: https://nalarhakim.com/sitemap.xml', (public / 'robots.txt').read_text())
         self.assertNotIn('github.io', (public / 'sitemap.xml').read_text())
         for page in (public / 'artikel').glob('*/index.html'):
             for block in __import__('re').findall(r'<script type="application/ld\+json">(.*?)</script>', page.read_text()):
                 self.assertTrue(json.loads(block)['mainEntityOfPage'].startswith('https://nalarhakim.com/'))
+
+    def assert_error_page_links(self, public, site_url):
+        metadata = Metadata(public / '404.html')
+        site = urlsplit(site_url)
+        self.assertTrue(metadata.resources)
+        for resource in metadata.resources:
+            self.assertTrue(urlsplit(resource).query.startswith('v='), resource)
+        for request_url in (site_url + 'tidak-ada', site_url + 'hilang/dalam/?q=contoh'):
+            base = urljoin(request_url, metadata.base_urls[0]) if metadata.base_urls else request_url
+            local_hashes = 0
+            for link in metadata.links:
+                target = urlsplit(urljoin(base, link))
+                if link.startswith('#'):
+                    local_hashes += 1
+                    self.assertEqual(urlunsplit(target._replace(fragment='')), request_url, link)
+                    self.assertIn(target.fragment, metadata.ids)
+                elif target.netloc == site.netloc:
+                    self.assertTrue(target.path.startswith(site.path), link)
+                    path = public / target.path[len(site.path):]
+                    self.assertTrue(path.is_file() or (path / 'index.html').is_file(), link)
+            self.assertGreaterEqual(local_hashes, 2, 'Skip and back-to-top links must remain local')
 
     def test_export_contains_only_public_files(self):
         public = self.bundle / 'public'
@@ -140,7 +177,7 @@ class StaticReleaseTest(unittest.TestCase):
         for script in ('build-preview.py', 'check-preview.py'):
             subprocess.run([sys.executable, str(work / 'scripts' / script)], env=env, check=True, capture_output=True)
         self.assertEqual(Metadata(work / 'index.html').canonical, [DEFAULT_SITE])
-        self.assertIn('<base href="/nalar_hakim/">', (work / '404.html').read_text())
+        self.assert_error_page_links(work, DEFAULT_SITE)
         self.assertIn(DEFAULT_SITE + 'sitemap.xml', (work / 'robots.txt').read_text())
 
     def test_filesystem_first_install_and_repeat(self):

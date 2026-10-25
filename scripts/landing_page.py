@@ -64,7 +64,7 @@ __THEME_INIT__
 
   <section id="bentuk" class="landing-channels" aria-labelledby="landing-channels-title"><div class="landing-shell">
     <div class="landing-section-top"><p>02 / TIGA BENTUK TULISAN</p><span aria-hidden="true">↙</span></div>
-    <div class="landing-channel-heading"><h2 id="landing-channels-title">PILIH BENTUK<br>TULISAN ANDA.</h2><p>Mulai dari gagasan, peristiwa,<br>atau putusan yang ingin Anda bahas.</p></div>
+    <div class="landing-channel-heading"><h2 id="landing-channels-title">PILIH BENTUK<br>TULISAN ANDA.</h2><p>Mulai dari gagasan, peristiwa, <br>atau putusan yang ingin Anda bahas.</p></div>
     <div class="landing-channel-list">
       <a href="bentuk/esai/" class="landing-channel"><span class="landing-channel-no">01</span><span class="landing-channel-name">Esai</span><span class="landing-channel-description">Mengembangkan pendapat dan membahas pemikiran tentang hukum.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>
       <a href="bentuk/telaah/" class="landing-channel"><span class="landing-channel-no">02</span><span class="landing-channel-name">Telaah Fenomena</span><span class="landing-channel-description">Membahas peristiwa yang sedang terjadi beserta persoalan hukumnya.</span><span class="landing-channel-arrow" aria-hidden="true">↗</span></a>

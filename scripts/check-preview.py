@@ -16,6 +16,7 @@ class Page(HTMLParser):
         self.ids = set()
         self.links = []
         self.base = ORIGIN + path.relative_to(ROOT).as_posix()
+        self.has_base = False
         self.errors = []
         self.h1_count = 0
         self.redirect = False
@@ -40,6 +41,7 @@ class Page(HTMLParser):
                 self.errors.append(f'duplicate id: {ident}')
             self.ids.add(ident)
         if tag == 'base' and attrs.get('href'):
+            self.has_base = True
             self.base = urljoin(self.base, attrs['href'])
             return
         for attr in ('href', 'src', 'action', 'data-butterfly-src', 'data-desktop-src'):
@@ -58,6 +60,13 @@ for path, page in pages.items():
     errors.extend(f'{label}: {error}' for error in page.errors)
     if not page.redirect and (page.h1_count != 1 or page.main_count != 1):
         errors.append(f'{label}: expected one main landmark and one primary heading')
+    if label.as_posix() == '404.html':
+        if page.has_base:
+            errors.append('404.html: a base URL redirects local reading links away from the error page')
+        for link in page.links:
+            target = urlsplit(link)
+            if not target.scheme and not target.netloc and not link.startswith('#') and not target.path.startswith(SITE_PATH):
+                errors.append(f'404.html: URL depends on the unknown request depth: {link}')
     for link in page.links:
         target = urlsplit(urljoin(page.base, link))
         if target.scheme in ('javascript', 'data'):

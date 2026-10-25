@@ -52,7 +52,9 @@ def footer(prefix):
 
 def page(path, title, body, selected='', extra='', description='', post=None):
  depth=len(Path(path).parts)-1
- prefix='../'*depth
+ # Error pages can be served at any URL depth. Root their resources and
+ # navigation, but keep local fragments on the URL the reader is viewing.
+ prefix=SITE_PATH if path=='404.html' else '../'*depth
  description=description or 'Tulisan hukum dengan nama samaran, terbuka untuk dibaca siapa saja secara gratis. Kirim naskah lewat email tanpa biaya atau akun di situs.'
  canonical=SITE+(path.removesuffix('index.html') if path.endswith('/index.html') else path)
  robots='noindex,follow' if path in ('cari.html','404.html') else 'index,follow'
@@ -145,11 +147,9 @@ def search_card(p):
 search=f'''<main id="main-content" class="container"><header class="archive-header"><span class="eyebrow">ARSIP TULISAN</span><h1>Cari tulisan.</h1><p class="section-intro">Cari berdasarkan judul, topik, nama pemikir, atau kata yang muncul dalam artikel.</p>{search_form('', ' id="preview-search"')}</header><p id="search-status" class="section-intro" role="status" aria-live="polite">{len(POSTS)} tulisan tersedia.</p><div id="search-results" class="article-grid">{''.join(search_card(p) for p in POSTS)}</div><noscript><p>Pencarian membutuhkan JavaScript. Semua tulisan tersedia di daftar di atas.</p></noscript></main>'''
 page('cari.html','Cari Tulisan',search,extra='<script src="preview/search.js" defer></script>')
 
-# Use a site-relative root for an error page whose unknown URL depth cannot be inferred.
+# Use site-root URLs without a base element, which would also redirect local hashes.
 missing=f'''<main id="main-content" class="container"><section class="empty-state"><span class="eyebrow">404 / HALAMAN TIDAK DITEMUKAN</span><h1>Halaman tidak ditemukan.</h1><p>Tautannya mungkin berubah atau alamatnya keliru. Buka ruang baca untuk mencari tulisan yang Anda maksud.</p><a class="read-link" href="{SITE_PATH}beranda.html">Kembali ke ruang baca</a></section></main>'''
 page('404.html','Halaman tidak ditemukan',missing)
-notfound=(ROOT/'404.html').read_text().replace('<head>',f'<head><base href="{SITE_PATH}">',1)
-(ROOT/'404.html').write_text(notfound)
 
 index=[{'text':p['text'],'minutes':p['minutes'],'date':p['published'],'dateLabel':date_label(p['published']),'title':p['title'],'type':p['type'],'formatUrl':'bentuk/'+p['format']+'/','lens':p.get('lens',''),'object':p.get('object',''),'excerpt':p['excerpt'],'url':article_url(p)} for p in POSTS]
 search_js='''/* Search the published articles locally, without tracking or external services. */
@@ -212,7 +212,11 @@ for written in WRITTEN:
  def version_asset(match):
   url=match.group(2)
   if '://' in url or url.startswith('//'): return match.group(0)
-  asset=(dest.parent/url).resolve()
+  if url.startswith('/'):
+   if not url.startswith(SITE_PATH): return match.group(0)
+   asset=(ROOT/url[len(SITE_PATH):]).resolve()
+  else:
+   asset=(dest.parent/url).resolve()
   if not asset.is_relative_to(ROOT) or not asset.is_file(): return match.group(0)
   return match.group(1)+url+'?v='+sha256(asset.read_bytes()).hexdigest()[:10]+match.group(3)
  html=re.sub(r'((?:href|src)=")([^"?]+\.(?:css|js|svg|webp))(")',version_asset,dest.read_text(encoding='utf-8'))

@@ -32,6 +32,31 @@
     });
   });
 
+  // A new article can open with its category outside the compact navigation.
+  // Move only that horizontal strip; leave restored or user-chosen positions alone.
+  function revealCurrentCategory() {
+    const navigationType = window.performance?.getEntriesByType?.('navigation')[0]?.type;
+    if (navigationType === 'back_forward' || navigationType === 'reload') return;
+    const strip = document.querySelector('.publication-nav .container');
+    const current = strip?.querySelector('[aria-current="page"]');
+    if (!current || strip.scrollLeft !== 0) return;
+    const maximum = strip.scrollWidth - strip.clientWidth;
+    if (maximum <= 0) return;
+    const stripBox = strip.getBoundingClientRect();
+    const currentBox = current.getBoundingClientRect();
+    const left = stripBox.left + strip.clientLeft;
+    const right = left + strip.clientWidth;
+    if (currentBox.left >= left && currentBox.right <= right) return;
+    const delta = currentBox.width > strip.clientWidth || currentBox.left < left
+      ? currentBox.left - left : currentBox.right - right;
+    strip.scrollLeft = Math.max(0, Math.min(maximum, strip.scrollLeft + delta));
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', revealCurrentCategory, { once: true });
+  } else {
+    revealCurrentCategory();
+  }
+
   document.querySelectorAll('[data-copy-address]').forEach((button) => {
     button.hidden = false;
     button.addEventListener('click', async () => {

@@ -210,7 +210,8 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
  .article-type { font-size:13px; }
  .article-grid .story-card h3 { font-size:28px; }
  .archive-header h1 { font-size:40px; }
- .article-header h1 { font-size:34px; line-height:1.2; }
+ .article-header h1 { font-size:clamp(29px,7.8vw,34px); line-height:1.23; }
+ .article-header .article-deck,.article-header > p { font-size:18px; line-height:1.65; }
  .article-content > h2 { font-size:28px; }
  .article-content blockquote { padding:22px; }
  .article-content blockquote p { font-size:22px; }
@@ -229,13 +230,21 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
  .footer-bottom { font-size:14px; }
  .wallet-address { font-size:13px; }
 }
+@media(max-width:430px) {
+ .argument-frame { padding:18px; }
+ .argument-frame dl > div { grid-template-columns:minmax(0,1fr); gap:4px; }
+ .argument-frame dl > div + div { margin-top:16px; }
+ .article-summary { padding:18px; }
+ .article-summary ul { padding-left:1em; }
+ .article-summary li { padding-left:4px; }
+ .article-content > h2,.article-content h2:target { font-size:26px; line-height:1.35; }
+}
 @media(max-width:359px) {
  .site-header .brand-name { font-size:17px; }
  .site-header .brand-mark { width:20px; flex-basis:20px; }
  .header-actions > .theme-toggle,.header-actions > details > summary { padding-inline:7px; }
  .home-intro h1 { font-size:38px; }
  .lead-story h2 { font-size:30px; }
- .article-header h1 { font-size:31px; }
  .submission-email { font-size:17px; }
 }
 @media print {
