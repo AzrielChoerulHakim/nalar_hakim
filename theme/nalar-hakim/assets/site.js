@@ -34,8 +34,9 @@
   document.querySelectorAll('[data-copy-address]').forEach((button) => {
     button.hidden = false;
     button.addEventListener('click', async () => {
-      const donation = button.closest('.donation');
-      const status = donation?.querySelector('[data-copy-status]');
+      const scope = button.closest('.donation-network') || button.closest('.donation');
+      const status = scope?.querySelector('[data-copy-status]');
+      const network = button.getAttribute('data-copy-network') || 'Ethereum Mainnet';
       const address = button.getAttribute('data-copy-address') || '';
       if (!status) return;
       status.textContent = '';
@@ -47,7 +48,7 @@
       try {
         if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
         await navigator.clipboard.writeText(address);
-        status.textContent = 'Alamat disalin. Jaringan: Ethereum Mainnet.';
+        status.textContent = `Alamat ${network} disalin.`;
       } catch (_) {
         status.textContent = 'Salin otomatis tidak tersedia. Pilih alamat di atas lalu salin secara manual.';
       } finally {

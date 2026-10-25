@@ -16,3 +16,9 @@ Publikasi kali ini tetap GitHub Pages. Migrasi VPS, penghapusan jejak identitas,
 
 ## Prinsip gerak
 Gerak hanya pendukung suasana. Tidak ada suara, video, neon, efek 3D, parallax kursor, atau animasi di belakang paragraf. Jika browser tidak mendukung enhancement, seluruh konten dan navigasi tetap tersedia.
+
+## Penyempurnaan ilustrasi dan donasi
+- Justitia menggunakan ilustrasi 2D baru bergaya ukiran klasik, dengan anatomi, lipatan jubah, timbangan, dan pedang yang lebih rinci. Aset `preview/justitia-engraving.webp` dibuat dengan image generation berdasarkan referensi pengguna, berlatar transparan, lalu dikodekan ke WebP (sekitar 273 KiB). Arahan visual: figur penuh bertutup mata, tinta hijau hutan dan batu gading, tanpa latar atau teks. Lingkungan tetap berupa lapisan SVG yang dapat digerakkan terpisah.
+- Akar memiliki cabang meruncing dan guratan kulit. Sebelas daun berurat bergerak dari pangkal tangkai dengan fase angin berbeda. Tiga burung memiliki badan, ekor, dan sayap terpisah; dua kepakan singkat diikuti melayang. Jalur, warna, dan animasi sungai dipertahankan.
+- Donasi hanya menampilkan alamat, tanpa gambar QR. ETH / Ethereum Mainnet, BSC, dan Robinhood masing-masing memiliki label, alamat persis yang diberikan pengguna, serta tombol dan status salin sendiri. Label Robinhood tidak diubah menjadi klaim jaringan tertentu.
+- Pemeriksaan lokal mencakup 21 halaman, tautan/aset/anchor, build deterministik, sintaks JavaScript, dan 10 skenario siklus animasi. Tampilan diperiksa pada browser desktop; perilaku layar kecil dan reduced-motion diperiksa melalui CSS dan tes siklus, bukan pengujian perangkat fisik.

@@ -1,2 +1,17 @@
-<?php if (!defined('ABSPATH')) { exit; } $nh_wallet='0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE'; ?>
-<details class="donation"><summary><span><span class="eyebrow">TETAP TERBUKA UNTUK SEMUA</span><span class="donation-title">Dukung Nalar Hakim</span></span><span class="donation-toggle" aria-hidden="true">+</span></summary><div class="donation-content"><div><p>Bantu Nalar Hakim menghadirkan bacaan hukum yang terbuka untuk semua.</p><span class="network-label">ETH · Ethereum Mainnet</span><code class="wallet-address"><?php echo esc_html($nh_wallet); ?></code><button class="copy-button" type="button" data-copy-address="<?php echo esc_attr($nh_wallet); ?>" hidden>Salin alamat</button><span data-copy-status role="status" aria-live="polite"></span><p class="donation-note">Donasi sukarela. Semua tulisan tetap bebas dibaca.</p></div><figure class="donation-qr"><img src="<?php echo esc_url(get_theme_file_uri('assets/donation-qr.png')); ?>" width="277" height="263" loading="lazy" decoding="async" alt="QR alamat donasi ETH di Ethereum Mainnet"><figcaption>Pindai alamat donasi</figcaption></figure></div></details>
+<?php
+if (!defined('ABSPATH')) { exit; }
+$nh_wallet = '0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE';
+$nh_donation_networks = array('Ethereum Mainnet' => 'ETH · Ethereum Mainnet', 'BSC' => 'BSC', 'Robinhood' => 'Robinhood');
+?>
+<details class="donation"><summary><span><span class="eyebrow">TETAP TERBUKA UNTUK SEMUA</span><span class="donation-title">Dukung Nalar Hakim</span></span></summary>
+<div class="donation-content donation-addresses"><p>Bantu Nalar Hakim menghadirkan bacaan hukum yang terbuka untuk semua.</p>
+<div class="donation-networks">
+<?php foreach ($nh_donation_networks as $nh_network => $nh_label) : ?>
+<section class="donation-network" aria-label="<?php echo esc_attr('Donasi melalui ' . $nh_network); ?>">
+<h3 class="network-label"><?php echo esc_html($nh_label); ?></h3>
+<code class="wallet-address"><?php echo esc_html($nh_wallet); ?></code>
+<button class="copy-button" type="button" data-copy-address="<?php echo esc_attr($nh_wallet); ?>" data-copy-network="<?php echo esc_attr($nh_network); ?>" aria-label="<?php echo esc_attr('Salin alamat ' . $nh_network); ?>" hidden>Salin alamat</button>
+<span data-copy-status role="status" aria-live="polite"></span>
+</section>
+<?php endforeach; ?>
+</div><p class="donation-note">Donasi sukarela. Semua tulisan tetap bebas dibaca.</p></div></details>

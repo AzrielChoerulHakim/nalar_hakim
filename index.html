@@ -15,10 +15,10 @@
 <script>document.documentElement.dataset.theme='light';try{if(localStorage.getItem('nalar-hakim-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(_){}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='dark'?'#18231E':'#F5F6F2';</script>
 <link rel="icon" href="preview/favicon.svg?v=1be2a7a97c" type="image/svg+xml">
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
-<link rel="stylesheet" href="theme/nalar-hakim/style.css?v=3e45567a25">
+<link rel="stylesheet" href="theme/nalar-hakim/style.css?v=513bcadc3e">
 <link rel="stylesheet" href="preview/identity.css?v=9b9dea7983">
-<link rel="stylesheet" href="preview/landing.css?v=d1b70b9057"><link rel="stylesheet" href="preview/motion.css?v=6340856f23"><link rel="stylesheet" href="preview/natural.css?v=ba2dea8430"><link rel="stylesheet" href="preview/nature-scene.css?v=5dd9994174"><link rel="stylesheet" href="preview/natural-landing.css?v=daf982f9de">
-<script src="theme/nalar-hakim/assets/site.js?v=8ff6f00b4b" defer></script><script src="preview/motion.js?v=219bb24a7d" defer></script><script src="preview/nature-scene.js?v=972c7641e0" defer></script>
+<link rel="stylesheet" href="preview/landing.css?v=d1b70b9057"><link rel="stylesheet" href="preview/motion.css?v=6340856f23"><link rel="stylesheet" href="preview/natural.css?v=ba2dea8430"><link rel="stylesheet" href="preview/nature-scene.css?v=5a7ebf6bb2"><link rel="stylesheet" href="preview/natural-landing.css?v=daf982f9de">
+<script src="theme/nalar-hakim/assets/site.js?v=e0b8a26b11" defer></script><script src="preview/motion.js?v=219bb24a7d" defer></script><script src="preview/nature-scene.js?v=972c7641e0" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
@@ -49,33 +49,72 @@
     <g class="nature-clouds" fill="none" stroke="currentColor" stroke-width="1">
       <path d="M67 193H150M96 186H178M362 149H444M386 156H465"/>
     </g>
-    <!-- An airy branch, separate from the readable silhouette. -->
-    <g class="nature-branch" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path class="nature-wood" d="M492 455C464 379 481 309 451 235C434 191 405 169 414 104M455 246C492 205 478 169 502 142M432 190C403 180 377 163 369 139M472 345C511 321 517 285 520 262" stroke-width="4"/>
-      <path class="nature-wood" d="M415 127L439 101M415 151L397 125M485 186L511 178M475 209L461 177M458 258L433 244M505 306L492 278M507 300L532 289" stroke-width="1.8"/>
-      <g class="nature-leaf nature-leaf-one" fill="currentColor" stroke="none">
-        <path d="M414 107C397 89 410 72 417 66C424 83 425 95 414 107Z"/>
-        <path d="M437 104C434 88 446 78 458 78C456 92 449 100 437 104Z"/>
-        <path d="M397 127C382 128 372 117 370 104C387 105 396 113 397 127Z"/>
-        <path d="M369 141C353 139 346 126 346 114C361 117 370 126 369 141Z"/>
-      </g>
-      <g class="nature-leaf nature-leaf-two" fill="currentColor" stroke="none">
-        <path d="M502 146C496 129 506 116 518 111C522 126 514 139 502 146Z"/>
-        <path d="M510 179C515 164 529 162 541 166C533 178 525 182 510 179Z"/>
-        <path d="M461 180C446 177 442 164 444 153C457 158 464 168 461 180Z"/>
-        <path d="M433 245C416 247 406 238 403 225C419 225 430 231 433 245Z"/>
-      </g>
-      <g class="nature-leaf nature-leaf-three" fill="currentColor" stroke="none">
-        <path d="M520 265C511 249 519 237 529 228C536 243 532 257 520 265Z"/>
-        <path d="M492 281C478 276 475 264 477 253C491 258 497 268 492 281Z"/>
-        <path d="M532 290C536 276 549 272 558 277C553 288 544 294 532 290Z"/>
-      </g>
+    <!-- A rooted canopy: each leaf turns at its own petiole, never as a floating cluster. -->
+    <g class="nature-branch nature-canopy" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path class="nature-wood" d="M492 455C464 379 481 309 451 235C434 191 405 169 414 104M455 246C492 205 478 169 502 142M432 190C403 180 377 163 369 139M472 345C511 321 517 285 520 262" stroke-width="3.2"/>
+      <path class="nature-wood" d="M415 127L439 101M415 151L397 125M485 186L511 178M475 209L461 177M458 258L433 244M505 306L492 278M507 300L532 289" stroke-width="1.35"/>
+      <g transform="translate(414 104) rotate(4)"><g class="nature-leaf nature-leaf-1" style="--leaf-delay:-0.8s;--leaf-turn:3.5deg">
+        <path class="nature-leaf-blade" d="M0 0C-9 -8.14 -9.9 -24.05 0 -37C8.55 -23.31 9.9 -8.51 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -14.8 0 -33.67M0 -11.47L-4.32 -17.39M0 -19.24L4.14 -24.79"/>
+      </g></g>
+      <g transform="translate(439 101) rotate(39)"><g class="nature-leaf nature-leaf-2" style="--leaf-delay:-1.6s;--leaf-turn:4.6deg">
+        <path class="nature-leaf-blade" d="M0 0C-9 -7.04 -9.9 -20.8 0 -32C8.55 -20.16 9.9 -7.36 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -12.8 0 -29.12M0 -9.92L-4.32 -15.04M0 -16.64L4.14 -21.44"/>
+      </g></g>
+      <g transform="translate(397 125) rotate(-43)"><g class="nature-leaf nature-leaf-3" style="--leaf-delay:-2.2s;--leaf-turn:5.7deg">
+        <path class="nature-leaf-blade" d="M0 0C-10 -7.26 -11 -21.45 0 -33C9.5 -20.79 11 -7.59 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -13.2 0 -30.03M0 -10.23L-4.8 -15.51M0 -17.16L4.6 -22.11"/>
+      </g></g>
+      <g transform="translate(369 139) rotate(-35)"><g class="nature-leaf nature-leaf-4" style="--leaf-delay:-2.8s;--leaf-turn:3.5deg">
+        <path class="nature-leaf-blade" d="M0 0C-9 -6.82 -9.9 -20.15 0 -31C8.55 -19.53 9.9 -7.13 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -12.4 0 -28.21M0 -9.61L-4.32 -14.57M0 -16.12L4.14 -20.77"/>
+      </g></g>
+      <g transform="translate(502 142) rotate(22)"><g class="nature-leaf nature-leaf-5" style="--leaf-delay:-1.9s;--leaf-turn:4.6deg">
+        <path class="nature-leaf-blade" d="M0 0C-9 -7.92 -9.9 -23.4 0 -36C8.55 -22.68 9.9 -8.28 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -14.4 0 -32.76M0 -11.16L-4.32 -16.92M0 -18.72L4.14 -24.12"/>
+      </g></g>
+      <g transform="translate(511 178) rotate(65)"><g class="nature-leaf nature-leaf-6" style="--leaf-delay:-2.6s;--leaf-turn:5.7deg">
+        <path class="nature-leaf-blade" d="M0 0C-8 -6.82 -8.8 -20.15 0 -31C7.6 -19.53 8.8 -7.13 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -12.4 0 -28.21M0 -9.61L-3.84 -14.57M0 -16.12L3.68 -20.77"/>
+      </g></g>
+      <g transform="translate(461 177) rotate(-28)"><g class="nature-leaf nature-leaf-7" style="--leaf-delay:-3.2s;--leaf-turn:3.5deg">
+        <path class="nature-leaf-blade" d="M0 0C-8 -6.38 -8.8 -18.85 0 -29C7.6 -18.27 8.8 -6.67 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -11.6 0 -26.39M0 -8.99L-3.84 -13.63M0 -15.08L3.68 -19.43"/>
+      </g></g>
+      <g transform="translate(433 244) rotate(-55)"><g class="nature-leaf nature-leaf-8" style="--leaf-delay:-3.8s;--leaf-turn:4.6deg">
+        <path class="nature-leaf-blade" d="M0 0C-9 -7.26 -9.9 -21.45 0 -33C8.55 -20.79 9.9 -7.59 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -13.2 0 -30.03M0 -10.23L-4.32 -15.51M0 -17.16L4.14 -22.11"/>
+      </g></g>
+      <g transform="translate(520 262) rotate(12)"><g class="nature-leaf nature-leaf-9" style="--leaf-delay:-3.5s;--leaf-turn:5.7deg">
+        <path class="nature-leaf-blade" d="M0 0C-9 -7.7 -9.9 -22.75 0 -35C8.55 -22.05 9.9 -8.05 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -14 0 -31.85M0 -10.85L-4.32 -16.45M0 -18.2L4.14 -23.45"/>
+      </g></g>
+      <g transform="translate(492 278) rotate(-29)"><g class="nature-leaf nature-leaf-10" style="--leaf-delay:-4.2s;--leaf-turn:3.5deg">
+        <path class="nature-leaf-blade" d="M0 0C-8 -6.6 -8.8 -19.5 0 -30C7.6 -18.9 8.8 -6.9 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -12 0 -27.3M0 -9.3L-3.84 -14.1M0 -15.6L3.68 -20.1"/>
+      </g></g>
+      <g transform="translate(532 289) rotate(61)"><g class="nature-leaf nature-leaf-11" style="--leaf-delay:-4.8s;--leaf-turn:4.6deg">
+        <path class="nature-leaf-blade" d="M0 0C-8 -6.16 -8.8 -18.2 0 -28C7.6 -17.64 8.8 -6.44 0 0Z"/>
+        <path class="nature-leaf-vein" d="M0 1Q1 -11.2 0 -25.48M0 -8.68L-3.84 -13.16M0 -14.56L3.68 -18.76"/>
+      </g></g>
     </g>
-    <!-- Three distant birds, gently crossing the sky on desktop. -->
-    <g class="nature-birds" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <g class="nature-bird nature-bird-one"><path d="M78 104Q90 99 97 108Q103 98 115 97"/></g>
-      <g class="nature-bird nature-bird-two"><path d="M133 75Q142 73 148 79Q153 72 162 71"/></g>
-      <g class="nature-bird nature-bird-three"><path d="M193 103Q199 101 204 105Q209 100 215 100"/></g>
+    <!-- Silhouettes have a body, forked tail and independent shoulder-hinged wings. -->
+    <g class="nature-birds" fill="currentColor" stroke="none">
+      <g class="nature-bird nature-bird-one"><g transform="translate(90 70) scale(1)">
+        <path class="nature-bird-body" d="M-4 1Q-1 -2 3 -1L5 -3L7 -2L6 0L9 1L5 2Q1 5-3 3L-8 6L-6 2L-9 0Z"/>
+        <g class="nature-wing nature-wing-near"><path d="M1 1C-6 -4-14 -9-25 -8L-18 -5L-20 -4C-11 -4-8 1-3 3Z"/></g>
+        <g class="nature-wing nature-wing-far"><path d="M2 1C7 -8 16 -13 26 -12L21 -9L23 -8C14 -7 10 -3 5 3Z"/></g>
+      </g></g>
+      <g class="nature-bird nature-bird-two"><g transform="translate(151 52) scale(0.76)">
+        <path class="nature-bird-body" d="M-4 1Q-1 -2 3 -1L5 -3L7 -2L6 0L9 1L5 2Q1 5-3 3L-8 6L-6 2L-9 0Z"/>
+        <g class="nature-wing nature-wing-near"><path d="M1 1C-6 -4-14 -9-25 -8L-18 -5L-20 -4C-11 -4-8 1-3 3Z"/></g>
+        <g class="nature-wing nature-wing-far"><path d="M2 1C7 -8 16 -13 26 -12L21 -9L23 -8C14 -7 10 -3 5 3Z"/></g>
+      </g></g>
+      <g class="nature-bird nature-bird-three"><g transform="translate(205 69) scale(0.63)">
+        <path class="nature-bird-body" d="M-4 1Q-1 -2 3 -1L5 -3L7 -2L6 0L9 1L5 2Q1 5-3 3L-8 6L-6 2L-9 0Z"/>
+        <g class="nature-wing nature-wing-near"><path d="M1 1C-6 -4-14 -9-25 -8L-18 -5L-20 -4C-11 -4-8 1-3 3Z"/></g>
+        <g class="nature-wing nature-wing-far"><path d="M2 1C7 -8 16 -13 26 -12L21 -9L23 -8C14 -7 10 -3 5 3Z"/></g>
+      </g></g>
     </g>
     <!-- Distant ground and the shallow stone stream. -->
     <path class="nature-ground" d="M47 451C95 422 147 435 189 428C247 418 269 443 311 440C363 434 402 417 454 440L497 473C444 500 350 513 258 506C163 501 95 485 47 451Z"/>
@@ -93,45 +132,31 @@
       <path d="M364 557L380 540L403 541L418 555L407 568L380 569Z"/>
       <path d="M75 465L100 459L123 471M405 482L424 488L441 481M153 503L169 514M380 545L393 553L409 550" fill="none" opacity=".5"/>
     </g>
-    <!-- Justitia: classical drapery, blindfold, scales and lowered sword. -->
-    <g class="nature-justitia" stroke-linecap="round" stroke-linejoin="round">
-      <path class="nature-plinth" d="M203 442L325 442L336 455L332 470H190L187 457Z" stroke-width="2"/>
-      <path class="nature-line" d="M191 456H332M207 447H318" fill="none" stroke-width="1.3"/>
-      <!-- Hair, face and neck. -->
-      <path class="nature-hair" d="M240 170C227 157 229 130 245 118C260 108 281 116 286 133C290 146 284 162 277 173L273 192L242 192Z" stroke-width="2"/>
-      <path class="nature-skin" d="M247 132C257 128 268 131 278 136L277 154L272 164L268 168L268 184L278 194L246 203L240 190L250 183L252 167C244 162 240 150 241 142Z" stroke-width="1.8"/>
-      <path class="nature-line" d="M264 148L266 154L261 155M256 162Q261 164 266 161M236 144Q234 128 249 121M233 151L244 169" fill="none" stroke-width="1.2"/>
-      <path class="nature-blindfold" d="M239 137L279 140L278 149L240 146Z" stroke-width="1.3"/>
-      <path class="nature-blindfold" d="M240 141L227 145L224 164L232 157L233 149Z" stroke-width="1.1"/>
-      <!-- Left arm holds the scale high, right arm follows the sword. -->
-      <path class="nature-skin" d="M244 188C227 185 216 200 207 211L184 218L171 200L168 185L161 178L157 181L159 190L154 187L150 191L156 200L159 212L176 245C179 251 188 253 196 249L229 234L246 214Z" stroke-width="2"/>
-      <path class="nature-skin" d="M279 191C296 189 307 208 312 225L323 268L333 291L332 311L324 315L318 307L319 295L305 278L286 239L271 217Z" stroke-width="2"/>
-      <!-- Robe: a continuous silhouette with long engraved folds. -->
-      <path class="nature-robe" d="M244 184C248 193 259 200 269 182L284 191L294 218L282 250L280 276C290 317 295 361 303 396L320 439C301 446 281 443 271 441C255 447 242 441 231 444L205 436L221 384L226 323L237 273L232 246L224 218L232 196Z" stroke-width="2.1"/>
-      <path class="nature-shade" d="M246 190C251 215 270 227 285 231L281 244C263 238 244 222 239 205ZM239 265C245 287 242 329 232 378L225 434L213 434L231 362ZM266 277C277 312 270 359 270 400L279 441L266 440L259 402ZM285 332L301 395L314 437L300 439L289 400Z" stroke="none"/>
-      <g class="nature-line" fill="none" stroke-width="1.4">
-        <path d="M238 192C243 219 261 231 281 238M233 205C237 225 251 240 266 243M229 222L238 244L241 259M243 254Q258 263 279 252M239 269Q258 277 279 265M247 283C248 331 238 361 237 401L234 433M257 283C263 315 250 367 251 395L256 435M278 288C287 327 281 367 286 399L297 435M220 421L214 433M271 202C273 215 280 220 287 222"/>
+    <!-- Original detailed 2D illustration, isolated from animated scenery. -->
+    <image class="nature-justitia-portrait" href="preview/justitia-engraving.webp?v=ae871994ed" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
+    <!-- Tapered, branching roots: broad at the tree, fine where they climb the stone. -->
+    <g class="nature-roots" stroke-linecap="round" stroke-linejoin="round">
+      <g class="nature-root-wood" fill="currentColor" stroke="none">
+        <path d="M491 456C469 440 449 439 426 443C411 446 402 441 387 440C363 437 350 426 328 419C312 414 301 412 287 413C271 414 255 407 247 402C239 397 240 389 246 383C255 374 269 374 274 361C278 351 270 341 262 337C254 332 251 325 253 318L259 304C249 312 245 320 247 329C248 336 256 342 263 348C272 357 265 365 255 371C245 376 237 382 236 392C235 402 244 410 256 414C270 420 282 420 294 419C314 418 328 425 344 432C359 439 373 447 389 449C403 450 414 452 429 448C451 444 471 449 491 456Z"/>
+        <path d="M391 444C364 446 347 456 322 457C304 458 293 450 275 447C257 442 245 445 233 451C219 458 205 467 188 471L134 480C156 481 174 477 191 476C211 474 222 464 239 457C251 452 260 451 275 454C291 457 305 465 324 463C347 460 369 451 391 444Z"/>
+        <path d="M320 459C309 472 297 478 280 480C264 482 253 478 241 480L206 484C224 484 237 482 249 484C265 487 279 486 292 482C307 477 316 469 320 459Z"/>
+        <path d="M354 452C367 461 375 464 391 465L419 473C411 468 402 463 391 461C374 458 364 456 354 452Z"/>
+        <path d="M248 406C233 407 226 416 216 425C209 433 194 434 181 439C164 446 151 452 141 460C159 452 170 447 184 443C198 439 212 439 221 430C232 417 237 413 248 406Z"/>
+        <path d="M271 373C286 375 297 381 305 390L314 399C308 389 303 381 294 377C286 373 279 372 271 373Z"/>
+        <path d="M261 339C276 335 289 333 303 318C293 326 282 329 272 330L261 339Z"/>
+        <path d="M251 328C238 324 225 316 217 306C222 317 231 324 243 329Z"/>
+        <path d="M333 440C338 435 344 425 349 424L367 419C358 420 350 420 345 424C338 428 336 434 333 440Z"/>
+        <path d="M188 473C178 481 167 484 158 489C165 482 173 479 180 475Z"/>
+        <path d="M279 482L259 494L273 483ZM222 459C213 452 203 452 183 457C198 451 211 448 224 454ZM417 471L445 468L426 472Z"/>
       </g>
-      <!-- Balance has fine chains and two unfilled pans. -->
-      <g class="nature-scale" fill="none" stroke="currentColor" stroke-width="1.7">
-        <path d="M162 182V147M114 159Q162 144 211 159M162 142V151"/>
-        <circle cx="162" cy="141" r="3"/>
-        <path d="M121 157L104 209H139ZM203 157L187 209H222Z" stroke-width="1.1"/>
-        <path class="nature-pan" d="M102 209H141C137 225 108 225 102 209ZM185 209H224C220 225 191 225 185 209Z"/>
+      <g class="nature-root-bark" fill="none" stroke-width=".7">
+        <path d="M476 449C459 443 447 444 435 446M418 447L405 446M381 443C367 440 353 431 339 427M329 423C314 417 303 416 292 417M279 417C265 414 250 409 245 402M241 397Q238 390 244 385M249 380C262 373 273 367 272 357M269 349L261 342M252 332L250 324"/>
+        <path d="M369 450C351 455 335 460 321 460M311 459L296 456M284 452C265 447 252 448 238 453M230 458L216 465M205 470L187 474M172 477L153 479M306 473L292 480M278 483L260 482M235 481L218 483M370 458L387 463M226 422L218 430M206 436L192 440"/>
+        <path d="M346 432l3 -2M356 437l3 -2M264 412l2 -3M302 457l2 -3M252 449l1 3M210 469l-2 -2M284 481l-1 3"/>
       </g>
-      <!-- Sword points down and remains clearly separate from the roots. -->
-      <g class="nature-sword" stroke-width="1.7">
-        <path class="nature-blade" d="M325 318L333 318L329 411L322 426L319 410Z"/>
-        <path class="nature-line" d="M327 321L324 411" fill="none" stroke-width="1"/>
-        <path d="M314 317L341 319M327 307L330 307M330 306L332 295" fill="none"/>
-        <circle cx="333" cy="291" r="3"/>
+      <g class="nature-root-fibers" fill="none" stroke-width=".65">
+        <path d="M145 480L132 484L125 483M160 488L151 494M209 484L200 489L194 489M260 494L251 498M445 468L453 471M367 419L376 419M217 306L213 296M259 304L260 296M303 318L309 311M314 399L322 403M183 457L174 461"/>
       </g>
-    </g>
-    <!-- Roots wrap around the sculpture, then open into a living landscape. -->
-    <g class="nature-roots" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M475 452C447 434 417 450 387 444C344 436 333 418 290 416C254 415 234 404 239 388C243 374 269 370 273 356C278 338 259 334 249 323C240 312 245 302 258 293" stroke-width="7"/>
-      <path d="M387 444C355 448 336 459 310 460C273 461 262 446 239 449C212 452 205 468 175 475L132 479M308 460C286 479 271 482 245 479L207 482M352 452C364 465 399 462 419 472" stroke-width="5"/>
-      <path d="M245 402C224 407 222 422 205 431C189 439 172 438 158 448L140 460M270 374C296 379 305 390 314 399M264 338C282 330 293 331 302 319M249 322C231 322 226 309 217 306M334 441L349 424L368 419M175 475L158 489M271 481L259 494M222 454L201 450L182 457M419 472L445 468" stroke-width="2.2"/>
     </g>
     <g class="nature-sprouts" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.4">
       <path d="M166 447L166 431M395 448L393 431M228 404L223 390"/>

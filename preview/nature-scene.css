@@ -15,17 +15,43 @@
 .nature-caption{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:10px 12px 0;font:500 13px/1.5 var(--mono,monospace);letter-spacing:.04em;color:var(--muted,#646d66)}
 .nature-toggle{font:inherit;font-size:14px;min-height:44px;border:1px solid var(--line,#d9dcd5);border-radius:99px;padding:7px 13px;background:transparent;color:inherit;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
 .nature-toggle[hidden]{display:none}.nature-toggle:hover{background:var(--n-sky);color:var(--n-forest)}.nature-toggle:focus-visible{outline:2px solid var(--n-forest);outline-offset:4px}
+/* Local leaf coordinates keep the petiole fixed while the blade bends. */
+.nature-leaf-blade{fill:var(--n-soft);stroke:var(--n-ink);stroke-width:.35;stroke-opacity:.3}
+.nature-leaf-vein{fill:none;stroke:var(--n-ink);stroke-width:.55;opacity:.42}
+.nature-leaf-3 .nature-leaf-blade,.nature-leaf-7 .nature-leaf-blade,.nature-leaf-10 .nature-leaf-blade{fill:var(--n-soft);fill-opacity:.83}
+.nature-birds{opacity:.85}
+.nature-wing{transform-box:view-box;transform-origin:2px 1px}
+.nature-leaf{transform-box:view-box;transform-origin:0px 0px}
+.nature-canopy{transform-box:view-box;transform-origin:492px 455px}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene[data-motion] .nature-bird{animation:nature-bird-drift 22s ease-in-out infinite;animation-play-state:paused;transform-box:fill-box;transform-origin:center}
- .nature-scene[data-motion] .nature-bird-two{animation-duration:27s;animation-delay:-7s}.nature-scene[data-motion] .nature-bird-three{animation-duration:31s;animation-delay:-16s}
- .nature-scene[data-motion] .nature-leaf{animation:nature-leaf-sway 9s ease-in-out infinite;animation-play-state:paused;transform-box:fill-box;transform-origin:bottom center}
- .nature-scene[data-motion] .nature-leaf-two{animation-delay:-3s;animation-duration:11s}.nature-scene[data-motion] .nature-leaf-three{animation-delay:-5s;animation-duration:13s}
+ .nature-scene[data-motion] .nature-bird{animation:nature-bird-flight 31s linear infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-bird-two{animation-duration:37s;animation-delay:-10s}
+ .nature-scene[data-motion] .nature-bird-three{animation-duration:41s;animation-delay:-22s}
+ .nature-scene[data-motion] .nature-wing{animation:nature-wing-near 6.6s ease-in-out infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-wing-far{animation-name:nature-wing-far}
+ .nature-scene[data-motion] .nature-bird-two .nature-wing{animation-delay:-2.2s;animation-duration:7.2s}
+ .nature-scene[data-motion] .nature-bird-three .nature-wing{animation-delay:-4.1s;animation-duration:6s}
+ .nature-scene[data-motion] .nature-canopy{animation:nature-canopy-breeze 17s ease-in-out infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-leaf{animation:nature-leaf-breeze 17s ease-in-out infinite;animation-delay:var(--leaf-delay,0s);animation-play-state:paused}
  .nature-scene[data-motion] .nature-flow{stroke-dasharray:13 20;animation:nature-water-flow 7s linear infinite;animation-play-state:paused}
  .nature-scene[data-motion] .nature-flow-two{animation-duration:9s;animation-delay:-3s}.nature-scene[data-motion] .nature-flow-three{animation-duration:8s;animation-delay:-5s}
- .nature-scene[data-motion="running"] .nature-bird,.nature-scene[data-motion="running"] .nature-leaf,.nature-scene[data-motion="running"] .nature-flow{animation-play-state:running}
+ .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing,.nature-canopy,.nature-leaf,.nature-flow){animation-play-state:running}
 }
-@keyframes nature-bird-drift{0%,100%{transform:translate(-12px,3px) rotate(-3deg)}50%{transform:translate(40px,-13px) rotate(3deg)}}
-@keyframes nature-leaf-sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(2deg)}}
+/* Travel in one direction. Reset happens only while the tiny silhouette is invisible. */
+@keyframes nature-bird-flight{
+ 0%{transform:translate(-42px,6px);opacity:0}
+ 7%{opacity:.9}
+ 30%{transform:translate(5px,-5px);opacity:.9}
+ 55%{transform:translate(58px,-14px);opacity:.9}
+ 78%{transform:translate(103px,-17px);opacity:.9}
+ 92%{opacity:0}
+ 100%{transform:translate(142px,-12px);opacity:0}
+}
+/* Two short wing beats give way to a longer glide. The shoulders stay attached. */
+@keyframes nature-wing-near{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(-16deg) scaleY(.24)}20%{transform:rotate(7deg) scaleY(1.16)}40%,84%{transform:rotate(2deg) scaleY(.92)}}
+@keyframes nature-wing-far{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(16deg) scaleY(.24)}20%{transform:rotate(-7deg) scaleY(1.16)}40%,84%{transform:rotate(-2deg) scaleY(.92)}}
+@keyframes nature-canopy-breeze{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-.35deg)}46%{transform:rotate(.65deg)}61%{transform:rotate(.25deg)}79%{transform:rotate(-.3deg)}}
+@keyframes nature-leaf-breeze{0%,100%{transform:rotate(0deg)}16%{transform:rotate(calc(var(--leaf-turn)*-.35))}34%{transform:rotate(calc(var(--leaf-turn)*.45))}46%{transform:rotate(var(--leaf-turn))}59%{transform:rotate(calc(var(--leaf-turn)*.3))}73%{transform:rotate(calc(var(--leaf-turn)*-.45))}87%{transform:rotate(calc(var(--leaf-turn)*.2))}}
 @keyframes nature-water-flow{to{stroke-dashoffset:-132}}
 @media(max-width:600px){.nature-caption{font-size:13px;justify-content:center;text-align:center}.nature-art{max-height:420px}}
 @media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
@@ -33,10 +59,10 @@
 /* Engraved lines retain definition against the statue in the night palette. */
 :root[data-theme="dark"] .nature-justitia { --n-ink:#294D3E; --n-forest:#294D3E; --n-stone:#A5B5A4; --n-soft:#91A58E; }
 :root[data-theme="dark"] .nature-roots { color:#839E86; }
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
- .nature-scene[data-motion] .nature-bird > path { animation:nature-wing 3.2s ease-in-out infinite; animation-play-state:paused; transform-box:fill-box; transform-origin:center; }
- .nature-scene[data-motion="running"] .nature-bird > path { animation-play-state:running; }
- .nature-scene .nature-bird-two > path { animation-delay:-1.3s; }
- .nature-scene .nature-bird-three > path { animation-delay:-2.4s; }
-}
-@keyframes nature-wing { 0%,100%{transform:scaleY(1)}50%{transform:scaleY(.45)} }
+
+/* Bark stays quieter than the detailed figure; fine roots taper into the ground. */
+.nature-roots{color:#657C64}
+.nature-root-bark{stroke:#BCC7AC;opacity:.7}
+.nature-root-fibers{stroke:currentColor;opacity:.8}
+:root[data-theme="dark"] .nature-roots{color:#6F896F}
+:root[data-theme="dark"] .nature-root-bark{stroke:#C0CAB0;opacity:.65}
