@@ -1,6 +1,6 @@
-/* Load the travelling butterfly only on motion-capable desktops. */
+/* Load each optional enhancement only on motion-capable desktops. */
 (() => {
-  const source = document.currentScript?.dataset.butterflySrc;
+  const source = (document.currentScript?.dataset.desktopSrc || document.currentScript?.dataset.butterflySrc);
   const capable = matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   let loaded = false;
   function load() {

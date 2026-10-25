@@ -30,3 +30,18 @@ Gerak hanya pendukung suasana. Tidak ada suara, video, neon, efek 3D, parallax k
 - Posisi huruf diukur dengan Range tanpa mengubah susunan teks. Pembacaan layout dilakukan saat scroll/resize; transform menggerakkan kupu-kupu. Perhitungan frame berhenti saat hinggap, jeda, tab tersembunyi, atau halaman ditinggalkan. Tombol jeda bersama tetap tersedia ketika ilustrasi utama keluar layar.
 - Loader sekitar 0,7 KB memeriksa layar >=1024px, hover, pointer halus, dan no-preference sebelum memuat pengendali kupu-kupu. HP tidak memuat pengendali tersebut dan tidak membuat elemen kupu-kupu. Jika kemampuan berubah, elemen dan listener scroll dibersihkan.
 - Validasi tambahan: `node scripts/check-butterfly.cjs`, termasuk transisi tujuan scroll, jeda, tab tersembunyi, penghentian frame saat hinggap, dan pergantian kemampuan perangkat. Pemeriksaan visual dilakukan di browser desktop; batas HP diverifikasi lewat kode dan tes, tanpa klaim pengujian perangkat fisik.
+
+
+## Scroll editorial desktop
+Referensi yang diamati:
+- Figma, “Add interactions to an element”: https://help.figma.com/hc/en-us/articles/31242843431575-Add-interactions-to-an-element — pola scroll parallax, transform, dan reveal.
+- Figma, “Prototype scroll and overflow behavior”: https://help.figma.com/hc/en-us/articles/360039818734-Prototype-scroll-and-overflow-behavior — elemen sticky dibatasi induknya.
+- Superdesign, “Animated Dark Landing Page: Geometric Display Type With a Scroll-Traced Data Curve and Ember Glow”: https://superdesign.dev/library/animated-dark-landing-page-geometric-display-type-with-a-scroll-traced-data-curve-and-ember-glow — demo publik Cullet diamati saat scroll: panggung menetap, penanda kemajuan, dan sapuan pernyataan. Implementasi Nalar Hakim mengadaptasi pola interaksi, mempertahankan warna alam dan isi redaksi; tidak menyalin aset, kode, atau merek demo.
+
+Penerapan:
+- Bagian tiga bentuk tulisan menjadi judul kiri yang menetap dan tiga kartu kertas berlapis di kanan. Tetap memakai scroll native, tanpa scroll-jacking atau library animasi tambahan. Fokus keyboard membuka susunan biasa agar tautan di bawah lapisan tetap dapat diakses. Layar pendek di bawah 650px menonaktifkan sticky.
+- Navigasi tiga bagian muncul setelah hero dan menandai bagian aktif; tautan hash asli tetap digunakan. Garis kemajuan menunjukkan posisi dalam halaman.
+- Langit bergeser maksimum 28px; patung dan titik hinggap kupu-kupu tetap. Garis bawah “Argumen diuji” terisi mengikuti kemajuan bagian tanpa menyembunyikan teks.
+- Loader yang sudah ada memuat pengendali scroll hanya pada desktop >=1024px, fine pointer/hover, no-preference. HP menerima susunan awal. Kode menghentikan pekerjaan saat tab tersembunyi/pagehide, membersihkan listener ketika kemampuan berubah, dan meminta paling banyak satu frame per rangkaian event scroll. Tidak ada render loop saat diam.
+- Jeda alam membekukan perubahan dekoratif; navigasi dan scroll native tetap berfungsi. Body artikel tidak diberi efek ini. Tampilan desktop terang/gelap dan keyboard diuji pada browser. Viewport HP diuji melalui iframe 390px (lebar konten 375px setelah scrollbar): tidak ada overflow horizontal, kartu tetap static, dan script kupu-kupu serta scroll-story tidak dimuat. Reduced-motion diperiksa melalui batas CSS dan tes lifecycle; bukan pengujian perangkat fisik.
+- Tes: `node scripts/check-scroll-story.cjs` (11 skenario), bersama tes kupu-kupu dan ilustrasi alam serta pemeriksaan aset/tautan.

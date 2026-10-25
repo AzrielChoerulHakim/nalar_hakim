@@ -1,0 +1,233 @@
+/* Desktop reading chapters. The original document remains the compact baseline. */
+.scroll-chapters { display:none; }
+.scroll-chapters[hidden] { display:none!important; }
+
+@media screen and (min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  html.nh-scroll-story {
+    --story-sage:#293B2E;
+    --story-sky:#293C3F;
+    --story-stone:#343B33;
+    --story-shadow:#0C160E24;
+  }
+  html.nh-scroll-story[data-theme="light"] {
+    --story-sage:#E3E9DC;
+    --story-sky:#E3EDF0;
+    --story-stone:#E8E7DF;
+    --story-shadow:#2336290D;
+  }
+
+  html.nh-scroll-story :is(#sikap,#bentuk,#kirim) { scroll-margin-top:110px; }
+
+  /* Only the sky plane moves; the figure and its visitor's coordinates stay fixed. */
+  html.nh-scroll-story .landing-hero :is(.nature-sky,.nature-sun,.nature-clouds,.nature-atmosphere-clouds) {
+    transform:translateY(clamp(-28px,var(--story-sky-shift,0px),28px));
+  }
+
+  html.nh-scroll-story .landing-manifest h2 span {
+    position:relative;
+    display:inline-block;
+    text-decoration:none;
+  }
+  html.nh-scroll-story .landing-manifest h2 span::after {
+    content:"";
+    position:absolute;
+    inset-inline:0;
+    bottom:-.11em;
+    height:.055em;
+    min-height:2px;
+    background:var(--accent);
+    opacity:.45;
+    transform:scaleX(clamp(0,var(--statement-progress,1),1));
+    transform-origin:left center;
+    pointer-events:none;
+  }
+
+  /* A still editorial heading accompanies three native, opaque paper layers. */
+  html.nh-scroll-story .landing-channels > .landing-shell {
+    display:grid;
+    grid-template-columns:minmax(0,.42fr) minmax(0,.58fr);
+    align-items:start;
+    gap:42px clamp(36px,4vw,64px);
+  }
+  html.nh-scroll-story .landing-channels .landing-section-top { grid-column:1 / -1; }
+  html.nh-scroll-story .landing-channel-heading {
+    position:sticky;
+    top:110px;
+    align-self:start;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:25px;
+    min-width:0;
+    padding:6px 0 30px;
+  }
+  html.nh-scroll-story .landing-channel-heading h2 {
+    font-size:clamp(34px,3.6vw,48px);
+    line-height:1.12;
+    margin:0;
+  }
+  html.nh-scroll-story .landing-channel-heading > p {
+    max-width:28ch;
+    margin:0;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.75;
+  }
+  html.nh-scroll-story .landing-channel-list {
+    display:grid;
+    gap:52px;
+    min-width:0;
+    padding-bottom:60px;
+  }
+  html.nh-scroll-story .landing-channel {
+    --story-card:var(--story-sage);
+    position:sticky;
+    top:calc(108px + var(--card-index,0) * 18px);
+    z-index:calc(1 + var(--card-index,0));
+    display:grid;
+    grid-template-columns:35px minmax(0,1fr) 28px;
+    grid-template-rows:auto 1fr;
+    align-items:start;
+    gap:23px 16px;
+    min-width:0;
+    min-height:260px;
+    padding:30px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    color:var(--text);
+    background:var(--story-card);
+    box-shadow:0 14px 28px -17px var(--story-shadow);
+    scroll-margin-top:110px;
+    text-decoration:none;
+  }
+  html.nh-scroll-story .landing-channel:nth-child(2) { --story-card:var(--story-sky); }
+  html.nh-scroll-story .landing-channel:nth-child(3) { --story-card:var(--story-stone); }
+  html.nh-scroll-story .landing-channel-no {
+    grid-column:1;
+    grid-row:1;
+    margin-top:3px;
+    font:italic 25px/1.2 Georgia,serif;
+    color:var(--muted);
+  }
+  html.nh-scroll-story .landing-channel-name {
+    grid-column:2;
+    grid-row:1;
+    font-size:clamp(27px,2.45vw,34px);
+    font-weight:550;
+    line-height:1.16;
+    letter-spacing:-.035em;
+    overflow-wrap:normal;
+  }
+  html.nh-scroll-story .landing-channel-description {
+    grid-column:2 / -1;
+    grid-row:2;
+    max-width:37ch;
+    font-size:16px;
+    line-height:1.75;
+    color:var(--muted);
+  }
+  html.nh-scroll-story .landing-channel-arrow {
+    grid-column:3;
+    grid-row:1;
+    justify-self:end;
+    margin-top:2px;
+    font-size:29px;
+    line-height:1;
+    color:var(--accent);
+  }
+  html.nh-scroll-story .landing-channel:is(:hover,:focus-visible) {
+    color:var(--text);
+    background:var(--story-card);
+    border-color:var(--control-line);
+  }
+  html.nh-scroll-story .landing-channel:focus-visible {
+    outline:3px solid var(--accent);
+    outline-offset:5px;
+  }
+  html.nh-scroll-story .scroll-focus-content .landing-channel {
+    position:relative;
+    top:0;
+    z-index:auto;
+  }
+
+  /* A compact chapter index keeps orientation without covering the reading column. */
+  html.nh-scroll-story .scroll-chapters {
+    position:fixed;
+    top:16px;
+    left:50%;
+    z-index:15;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    width:min(680px,calc(100% - 96px));
+    min-height:57px;
+    transform:translateX(-50%);
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--bg);
+    color:var(--muted);
+    box-shadow:0 8px 24px -14px var(--story-shadow);
+  }
+  html.nh-scroll-story .scroll-chapters::after {
+    content:"";
+    position:absolute;
+    right:0;
+    bottom:-1px;
+    left:0;
+    height:2px;
+    background:var(--accent);
+    transform:scaleX(clamp(0,var(--story-progress,0),1));
+    transform-origin:left center;
+    pointer-events:none;
+  }
+  html.nh-scroll-story .scroll-chapters a {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:11px;
+    min-width:0;
+    min-height:55px;
+    padding:12px 18px;
+    border-right:1px solid var(--line);
+    color:var(--muted);
+    font:500 13px/1.4 var(--font,Arial,sans-serif);
+    text-decoration:none;
+    transition:color 160ms ease,background-color 160ms ease;
+  }
+  html.nh-scroll-story .scroll-chapters a:last-child { border-right:0; }
+  html.nh-scroll-story .scroll-chapter-number {
+    color:var(--muted);
+    font:12px/1.4 var(--mono,monospace);
+  }
+  html.nh-scroll-story .scroll-chapter-label { min-width:0; }
+  html.nh-scroll-story .scroll-chapters a:is(.is-current,[aria-current="true"],[aria-current="location"],[aria-current="page"]) {
+    color:var(--accent);
+    background:var(--accent-wash);
+  }
+  html.nh-scroll-story .scroll-chapters a:hover { color:var(--accent); background:var(--surface); }
+  html.nh-scroll-story .scroll-chapters a:focus-visible {
+    position:relative;
+    z-index:1;
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  /* The controller freezes decorative values; native scrolling and chapter progress remain useful. */
+  html.nh-scroll-story[data-scroll-paused="true"] :is(.scroll-chapters a,.landing-channel,.landing-channel-name,.landing-channel-arrow) {
+    transition:none;
+  }
+  html.nh-scroll-story[data-scroll-paused="true"] .landing-channel :is(.landing-channel-name,.landing-channel-arrow) {
+    transform:none;
+    animation:none;
+  }
+}
+
+@media screen and (min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) and (max-height:649px) {
+  html.nh-scroll-story :is(.landing-channel-heading,.landing-channel) {
+    position:relative;
+    top:0;
+    z-index:auto;
+  }
+}
+
+@media print { .scroll-chapters { display:none!important; } }

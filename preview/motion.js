@@ -67,6 +67,7 @@
           observer.unobserve(target);
           if (seen.has(target)) return;
           seen.add(target);
+          if (root.classList.contains('nh-scroll-story') && target.closest('.landing-channels')) return;
           // Existing above-fold content never fades out when enhancement starts.
           if (target.dataset.nhReveal === 'below' && boundingClientRect.bottom > 0) {
             animate(target, [{ opacity: .5, transform: 'translateY(14px)' }, { opacity: 1, transform: 'translateY(0)' }]);
