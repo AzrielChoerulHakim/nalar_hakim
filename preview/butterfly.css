@@ -1,6 +1,7 @@
 /* No travelling decoration or new layout on compact / touch screens. */
 .nature-butterfly,.nature-page-toggle{display:none}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .nh-landing:has(.nature-page-toggle){padding-bottom:76px}
  .nature-butterfly{display:block;position:fixed;left:0;top:0;width:44px;height:40px;z-index:12;pointer-events:none;user-select:none;will-change:transform;contain:layout style;--butter-wing:#B69561;--butter-edge:#5A563B;--butter-vein:#D9CCA1}
  .nature-butterfly svg{display:block;width:100%;height:100%;overflow:visible}
  .butterfly-body{transform-origin:22px 36px;transition:rotate .5s ease-out}
