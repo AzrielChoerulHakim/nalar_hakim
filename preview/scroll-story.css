@@ -16,7 +16,7 @@
     --story-shadow:#2336290D;
   }
 
-  html.nh-scroll-story :is(#sikap,#bentuk,#kirim) { scroll-margin-top:110px; }
+  html.nh-scroll-story :is(#sikap,#bentuk,#kirim,#gagasan) { scroll-margin-top:110px; }
 
   /* Only the sky plane moves; the figure and its visitor's coordinates stay fixed. */
   html.nh-scroll-story .landing-hero :is(.nature-sky,.nature-sun,.nature-clouds,.nature-atmosphere-clouds) {
@@ -158,8 +158,9 @@
     left:50%;
     z-index:15;
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    width:min(680px,calc(100% - 96px));
+    grid-auto-flow:column;
+    grid-auto-columns:minmax(0,1fr);
+    width:min(820px,calc(100% - 96px));
     min-height:57px;
     transform:translateX(-50%);
     border:1px solid var(--line);

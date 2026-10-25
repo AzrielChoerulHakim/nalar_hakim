@@ -9,6 +9,8 @@
   if (!hero || sections.some(s => !s) || !toggle || !window.MutationObserver) return;
   const cards = [...sections[1].querySelectorAll('.landing-channel')];
   const labels = ['Sikap redaksi', 'Bentuk tulisan', 'Kirim naskah'];
+  const journey = document.getElementById('gagasan');
+  if (journey) { sections.push(journey); labels.push('Perjalanan gagasan'); }
   let nav, links = [], watcher, resizeObserver, frame = 0, suspended = false;
   const clamp = n => Math.min(1, Math.max(0, n));
   const paused = () => toggle.getAttribute('aria-pressed') === 'true';

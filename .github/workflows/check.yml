@@ -28,6 +28,8 @@ jobs:
           node scripts/check-butterfly.cjs
           node --check preview/scroll-story.js
           node scripts/check-scroll-story.cjs
+          node --check preview/idea-flow.js
+          node scripts/check-idea-flow.cjs
       - name: Check preview links and reading anchors
         run: python3 scripts/check-preview.py
       - name: Verify generated preview is current

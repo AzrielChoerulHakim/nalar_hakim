@@ -2,6 +2,7 @@
 
 
 from nature_scene import nature_scene
+from idea_flow import render_idea_flow
 
 
 # Apply a saved reading preference before CSS paints, including when storage is blocked.
@@ -30,6 +31,8 @@ __THEME_INIT__
 <link rel="stylesheet" href="preview/identity.css">
 <link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/natural.css"><link rel="stylesheet" href="preview/nature-scene.css"><link rel="stylesheet" href="preview/natural-landing.css"><link rel="stylesheet" href="preview/butterfly.css"><link rel="stylesheet" href="preview/scroll-story.css">
 <script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/nature-scene.js" defer></script><script src="preview/desktop-nature.js" data-butterfly-src="preview/butterfly.js" defer></script><script src="preview/desktop-nature.js" data-desktop-src="preview/scroll-story.js" defer></script>
+<link rel="stylesheet" href="preview/idea-flow.css">
+<script src="preview/desktop-nature.js" data-desktop-src="preview/idea-flow.js" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
@@ -69,6 +72,7 @@ __THEME_INIT__
   </div></section>
 
   <section id="kirim" class="landing-invitation landing-shell" aria-labelledby="landing-invitation-title"><div class="landing-section-top"><p>03 / KIRIM NASKAH</p><span aria-hidden="true">✳</span></div><p class="landing-invitation-kicker">REDAKSI MENERIMA NASKAH.</p><h2 id="landing-invitation-title">AJUKAN<br><span>ARGUMEN.</span></h2><div class="landing-submission-grid"><p>Redaksi menerima Esai, Telaah Fenomena, dan Bedah Putusan atau Norma. Ajukan pembacaan kritis dengan argumentasi dan rujukan yang jelas.</p><ol class="landing-submission-steps"><li><strong>Kirim Word lewat email.</strong><p>Lampirkan berkas .doc atau .docx ke <a href="mailto:nalar.hakim77@gmail.com">nalar.hakim77@gmail.com</a>. Sertakan pseudonim yang ingin dipakai.</p></li><li><strong>Ditinjau oleh Lazarus.</strong><p>Naskah dibaca untuk memeriksa argumentasi, penggunaan teori, dan rujukan.</p></li><li><strong>Keputusan melalui email.</strong><p>Redaksi menyampaikan keputusan atau permintaan revisi melalui email.</p></li></ol></div><a class="landing-final-link" href="kirim-naskah.html"><span>Panduan kirim naskah</span><span aria-hidden="true">↗</span></a></section>
+__IDEA_FLOW__
 </main>
 <footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Disunting oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="kirim-naskah.html">Kirim naskah</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Fenomena. Teori. Kritik.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
-</body></html>'''.replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT)
+</body></html>'''.replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT).replace('__IDEA_FLOW__', render_idea_flow())
