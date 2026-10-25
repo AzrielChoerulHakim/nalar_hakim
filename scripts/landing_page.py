@@ -28,8 +28,8 @@ __THEME_INIT__
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
 <link rel="stylesheet" href="theme/nalar-hakim/style.css">
 <link rel="stylesheet" href="preview/identity.css">
-<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/natural.css"><link rel="stylesheet" href="preview/nature-scene.css"><link rel="stylesheet" href="preview/natural-landing.css">
-<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/nature-scene.js" defer></script>
+<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/natural.css"><link rel="stylesheet" href="preview/nature-scene.css"><link rel="stylesheet" href="preview/natural-landing.css"><link rel="stylesheet" href="preview/butterfly.css">
+<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/nature-scene.js" defer></script><script src="preview/desktop-nature.js" data-butterfly-src="preview/butterfly.js" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>

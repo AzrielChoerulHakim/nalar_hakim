@@ -8,11 +8,27 @@ def nature_scene():
     <desc id="nature-desc">Ilustrasi dua dimensi Dewi Justitia bertutup mata, membawa timbangan dan pedang. Akar pohon merambat di jubah dan alasnya, dengan burung di langit serta air yang mengalir melewati bebatuan.</desc>
     <defs>
       <clipPath id="nature-water-clip"><path d="M314 453C344 459 374 468 385 480C397 493 386 504 363 512C336 522 331 537 358 550L418 580H189C170 555 190 537 230 528C265 520 287 509 276 499C264 489 248 479 260 467Z"/></clipPath>
+      <!-- Passive definitions do not alter the compact/static illustration. -->
+      <clipPath id="nature-sky-atmosphere-clip"><circle cx="284" cy="256" r="218"/></clipPath>
+      <clipPath id="nature-stone-atmosphere-clip"><path d="M69 464L88 448L115 449L133 462L123 471L87 475ZM396 494L406 478L433 473L451 486L442 502L415 506ZM136 511L153 498L173 501L186 514L171 522L148 521ZM364 557L380 540L403 541L418 555L407 568L380 569Z"/></clipPath>
+      <mask id="nature-portrait-atmosphere-mask" maskUnits="userSpaceOnUse" x="98" y="65" width="274" height="411" style="mask-type:alpha"><image href="preview/justitia-engraving.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/></mask>
+      <radialGradient id="nature-cloud-soft"><stop offset="0" stop-color="#F5F6F2" stop-opacity=".8"/><stop offset=".62" stop-color="#F5F6F2" stop-opacity=".42"/><stop offset="1" stop-color="#F5F6F2" stop-opacity="0"/></radialGradient>
+      <radialGradient id="nature-leaf-shadow-soft"><stop offset="0" stop-color="#294D3E" stop-opacity=".78"/><stop offset=".55" stop-color="#294D3E" stop-opacity=".5"/><stop offset="1" stop-color="#294D3E" stop-opacity="0"/></radialGradient>
+      <radialGradient id="nature-leaf-light-soft"><stop offset="0" stop-color="#FFFFF0" stop-opacity=".7"/><stop offset=".58" stop-color="#FFFFF0" stop-opacity=".35"/><stop offset="1" stop-color="#FFFFF0" stop-opacity="0"/></radialGradient>
     </defs>
     <circle class="nature-sky" cx="284" cy="256" r="218"/>
     <circle class="nature-sun" cx="156" cy="147" r="34"/>
     <g class="nature-clouds" fill="none" stroke="currentColor" stroke-width="1">
       <path d="M67 193H150M96 186H178M362 149H444M386 156H465"/>
+    </g>
+    <!-- Desktop-only translucent wisps pass behind the complete foreground. -->
+    <g class="nature-desktop-atmosphere nature-atmosphere-clouds" clip-path="url(#nature-sky-atmosphere-clip)" aria-hidden="true">
+      <g class="nature-cloud-drift nature-cloud-drift-one" fill="url(#nature-cloud-soft)">
+        <ellipse cx="200" cy="117" rx="100" ry="22"/><ellipse cx="170" cy="110" rx="40" ry="24"/><ellipse cx="225" cy="108" rx="48" ry="28"/>
+      </g>
+      <g class="nature-cloud-drift nature-cloud-drift-two" fill="url(#nature-cloud-soft)">
+        <ellipse cx="380" cy="190" rx="108" ry="21"/><ellipse cx="355" cy="181" rx="43" ry="27"/><ellipse cx="407" cy="185" rx="37" ry="24"/>
+      </g>
     </g>
     <!-- A rooted canopy: each leaf turns at its own petiole, never as a floating cluster. -->
     <g class="nature-branch nature-canopy" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -97,8 +113,34 @@ def nature_scene():
       <path d="M364 557L380 540L403 541L418 555L407 568L380 569Z"/>
       <path d="M75 465L100 459L123 471M405 482L424 488L441 481M153 503L169 514M380 545L393 553L409 550" fill="none" opacity=".5"/>
     </g>
+    <!-- Leaf shadows stay on the stones; the water remains unchanged. -->
+    <g class="nature-desktop-atmosphere nature-atmosphere-stones" clip-path="url(#nature-stone-atmosphere-clip)" aria-hidden="true">
+      <g class="nature-dapple-drift nature-dapple-stones" fill="url(#nature-leaf-shadow-soft)">
+        <ellipse cx="98" cy="457" rx="27" ry="10" transform="rotate(-28 98 457)"/><ellipse cx="121" cy="472" rx="20" ry="9" transform="rotate(-35 121 472)"/>
+        <ellipse cx="419" cy="486" rx="30" ry="11" transform="rotate(-29 419 486)"/><ellipse cx="154" cy="512" rx="22" ry="8" transform="rotate(-25 154 512)"/>
+        <ellipse cx="394" cy="550" rx="26" ry="10" transform="rotate(-32 394 550)"/>
+      </g>
+    </g>
     <!-- Original detailed 2D illustration, isolated from animated scenery. -->
     <image class="nature-justitia-portrait" href="preview/justitia-engraving.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
+    <!-- The portrait alpha clips dappled light exactly to robe, face and plinth. -->
+    <g class="nature-desktop-atmosphere nature-atmosphere-portrait" mask="url(#nature-portrait-atmosphere-mask)" aria-hidden="true">
+      <g class="nature-dapple-drift nature-dapple-portrait" fill="url(#nature-leaf-shadow-soft)">
+        <ellipse cx="272" cy="231" rx="31" ry="12" transform="rotate(-28 272 231)"/>
+        <ellipse cx="234" cy="268" rx="27" ry="13" transform="rotate(-37 234 268)"/>
+        <ellipse cx="285" cy="288" rx="35" ry="13" transform="rotate(-28 285 288)"/>
+        <ellipse cx="259" cy="333" rx="38" ry="15" transform="rotate(-34 259 333)"/>
+        <ellipse cx="222" cy="377" rx="30" ry="12" transform="rotate(-29 222 377)"/>
+        <ellipse cx="293" cy="399" rx="41" ry="15" transform="rotate(-35 293 399)"/>
+        <ellipse cx="251" cy="447" rx="41" ry="12" transform="rotate(-16 251 447)"/>
+      </g>
+      <g class="nature-dapple-drift nature-dapple-light" fill="url(#nature-leaf-light-soft)">
+        <ellipse cx="251" cy="247" rx="21" ry="13" transform="rotate(-28 251 247)"/>
+        <ellipse cx="269" cy="309" rx="27" ry="17" transform="rotate(-37 269 309)"/>
+        <ellipse cx="245" cy="359" rx="20" ry="12" transform="rotate(-29 245 359)"/>
+        <ellipse cx="272" cy="424" rx="27" ry="13" transform="rotate(-35 272 424)"/>
+      </g>
+    </g>
     <!-- Tapered, branching roots: broad at the tree, fine where they climb the stone. -->
     <g class="nature-roots" stroke-linecap="round" stroke-linejoin="round">
       <g class="nature-root-wood" fill="currentColor" stroke="none">

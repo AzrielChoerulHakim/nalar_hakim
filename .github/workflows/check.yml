@@ -23,6 +23,9 @@ jobs:
           node --check preview/signals.js
           node --check preview/nature-scene.js
           node scripts/check-nature-motion.cjs
+          node --check preview/desktop-nature.js
+          node --check preview/butterfly.js
+          node scripts/check-butterfly.cjs
       - name: Check preview links and reading anchors
         run: python3 scripts/check-preview.py
       - name: Verify generated preview is current

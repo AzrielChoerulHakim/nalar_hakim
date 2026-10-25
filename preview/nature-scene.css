@@ -66,3 +66,25 @@
 .nature-root-fibers{stroke:currentColor;opacity:.8}
 :root[data-theme="dark"] .nature-roots{color:#6F896F}
 :root[data-theme="dark"] .nature-root-bark{stroke:#C0CAB0;opacity:.65}
+
+/* Atmosphere is absent from compact/touch/reduced-motion output, preserving its image. */
+.nature-desktop-atmosphere{display:none;pointer-events:none}
+.nature-atmosphere-clouds{opacity:.46}
+.nature-atmosphere-portrait{opacity:.16}
+.nature-atmosphere-stones{opacity:.2}
+.nature-dapple-light{opacity:.6}
+:root[data-theme="dark"] .nature-atmosphere-clouds{opacity:.11}
+:root[data-theme="dark"] .nature-atmosphere-portrait{opacity:.13}
+:root[data-theme="dark"] .nature-atmosphere-stones{opacity:.15}
+@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-atmosphere{display:block}
+ .nature-scene[data-motion] .nature-cloud-drift{animation:nature-cloud-passage 82s linear infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-cloud-drift-one{animation-delay:-21s}
+ .nature-scene[data-motion] .nature-cloud-drift-two{animation-duration:89s;animation-delay:-53s}
+ .nature-scene[data-motion] .nature-dapple-drift{animation:nature-dapple-passage 73s ease-in-out infinite;animation-play-state:paused;transform-box:view-box;transform-origin:270px 340px}
+ .nature-scene[data-motion] .nature-dapple-stones{animation-duration:81s;animation-delay:-17s}
+ .nature-scene[data-motion] .nature-dapple-light{animation-duration:67s;animation-delay:-29s}
+ .nature-scene[data-motion="running"] :is(.nature-cloud-drift,.nature-dapple-drift){animation-play-state:running}
+}
+@keyframes nature-cloud-passage{0%{transform:translate(-77px,2px);opacity:0}12%,83%{opacity:1}100%{transform:translate(81px,-5px);opacity:0}}
+@keyframes nature-dapple-passage{0%,100%{transform:translate(-7px,-4px) rotate(-1deg)}28%{transform:translate(3px,2px) rotate(.5deg)}57%{transform:translate(11px,8px) rotate(1.5deg)}82%{transform:translate(0px,3px) rotate(.25deg)}}

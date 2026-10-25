@@ -22,3 +22,11 @@ Gerak hanya pendukung suasana. Tidak ada suara, video, neon, efek 3D, parallax k
 - Akar memiliki cabang meruncing dan guratan kulit. Sebelas daun berurat bergerak dari pangkal tangkai dengan fase angin berbeda. Tiga burung memiliki badan, ekor, dan sayap terpisah; dua kepakan singkat diikuti melayang. Jalur, warna, dan animasi sungai dipertahankan.
 - Donasi hanya menampilkan alamat, tanpa gambar QR. ETH / Ethereum Mainnet, BSC, dan Robinhood masing-masing memiliki label, alamat persis yang diberikan pengguna, serta tombol dan status salin sendiri. Label Robinhood tidak diubah menjadi klaim jaringan tertentu.
 - Pemeriksaan lokal mencakup 21 halaman, tautan/aset/anchor, build deterministik, sintaks JavaScript, dan 10 skenario siklus animasi. Tampilan diperiksa pada browser desktop; perilaku layar kecil dan reduced-motion diperiksa melalui CSS dan tes siklus, bukan pengujian perangkat fisik.
+
+
+## Atmosfer desktop dan kupu-kupu
+- Awan transparan bergerak 82–89 detik per siklus. Cahaya dan bayangan dedaunan dibatasi ke siluet Justitia serta batu; sungai tetap sama. Lapisan baru disembunyikan pada HP, perangkat sentuh, dan reduced-motion.
+- Satu kupu-kupu SVG berwarna oker berpindah sepanjang halaman pembuka. Tempat hinggapnya: bagian atas Justitia, huruf awal judul sikap redaksi, bentuk tulisan, kiriman naskah, dan merek footer. Ia mempertahankan arah serta kecepatan saat tujuan berubah, melambat sebelum mendarat, dan sesekali terbang pendek setelah istirahat.
+- Posisi huruf diukur dengan Range tanpa mengubah susunan teks. Pembacaan layout dilakukan saat scroll/resize; transform menggerakkan kupu-kupu. Perhitungan frame berhenti saat hinggap, jeda, tab tersembunyi, atau halaman ditinggalkan. Tombol jeda bersama tetap tersedia ketika ilustrasi utama keluar layar.
+- Loader sekitar 0,7 KB memeriksa layar >=1024px, hover, pointer halus, dan no-preference sebelum memuat pengendali kupu-kupu. HP tidak memuat pengendali tersebut dan tidak membuat elemen kupu-kupu. Jika kemampuan berubah, elemen dan listener scroll dibersihkan.
+- Validasi tambahan: `node scripts/check-butterfly.cjs`, termasuk transisi tujuan scroll, jeda, tab tersembunyi, penghentian frame saat hinggap, dan pergantian kemampuan perangkat. Pemeriksaan visual dilakukan di browser desktop; batas HP diverifikasi lewat kode dan tes, tanpa klaim pengujian perangkat fisik.
