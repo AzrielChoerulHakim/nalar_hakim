@@ -1,4 +1,4 @@
-/* Day/night companions. Geometry is read only on scroll/resize, never each frame. */
+/* Letter-perching companions. One flight clock; layout reads only on input. */
 (() => {
   'use strict';
   const media = matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
@@ -7,18 +7,18 @@
   const article = document.querySelector('.article-layout');
   const toggle = scene?.querySelector('[data-nature-toggle]');
   if ((!article && (!scene || !toggle)) || !window.MutationObserver) return;
-  const anchors = (article
-    ? [...article.querySelectorAll('.article-header h1,.article-content h2,.article-content h3,.article-footer')].map(element => ({element}))
-    : [{element: scene.querySelector('svg'), statue: true},
-       ...['#landing-manifest-title', '#landing-channels-title', '#landing-invitation-title', '#idea-flow-title', '.landing-footer-brand'].map(s => ({element: document.querySelector(s)}))]
-  ).filter(a => a.element);
-  if (!anchors.length) return;
-  let butterfly, body, control, watcher, themeWatcher, frame = 0, restTimer = 0;
-  let fireflies = [], theme = '', localPaused = false;
-  let points = [], active = 0, dirty = true, flying = false, suspended = false;
-  let x = 0, y = 0, vx = 0, vy = 0, last = 0, lastScroll = -1000, wanderEnd = 0, started = 0, nightTime = 0;
-  let butterflySize = 64, fireflySize = 52;
-  let leftLane = [36,110], rightLane = [innerWidth-110,innerWidth-36], perchX = 50;
+  const headings = (article
+    ? [...article.querySelectorAll('.article-header h1,.article-content h2,.article-content h3')]
+    : ['#landing-title','#landing-manifest-title','#landing-channels-title','#landing-invitation-title','#idea-flow-title','.landing-footer-brand'].map(s => document.querySelector(s))
+  ).filter(Boolean);
+  if (!headings.length) return;
+  const statue = scene?.querySelector('svg');
+  let control, layer, watcher, themeWatcher, resizeObserver, frame = 0, restTimer = 0;
+  let visitors = [], theme = '', desired = '', phase = 'idle', localPaused = false, suspended = false;
+  let dirty = true, clock = 0, last = 0, activeHeading, targets = [], statuePoint;
+  let nextWander = 0, articleRect;
+  let textContext;
+  const glyphMetrics = new Map();
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
   const paused = () => toggle ? toggle.getAttribute('aria-pressed') === 'true' : localPaused;
   const available = () => media.matches && !document.hidden && !suspended && !paused();
@@ -91,189 +91,229 @@
       <ellipse cx="32" cy="25.6" rx="2.4" ry="2" fill="#29382A"/><circle cx="30.2" cy="25" r=".55" fill="#D3D9A6"/><circle cx="33.8" cy="25" r=".55" fill="#D3D9A6"/>
       </g></svg>`;
   }
+  // Range boxes include the font's empty ascender space. Canvas ink bounds supply
+  // that top bearing, so feet meet the visible letter rather than hover above it.
+  function glyphTopBearing(char, style) {
+    const font=`${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    const ink=style.textTransform==='uppercase'?char.toUpperCase():style.textTransform==='lowercase'?char.toLowerCase():char;
+    const key=`${font}|${ink}`;
+    if(glyphMetrics.has(key))return glyphMetrics.get(key);
+    if(textContext===undefined)textContext=document.createElement('canvas').getContext?.('2d') || null;
+    const size=parseFloat(style.fontSize) || 16;
+    let bearing=size*.14;
+    if(textContext){
+      textContext.font=font;
+      const metrics=textContext.measureText(ink);
+      const ascent=metrics.fontBoundingBoxAscent ?? metrics.emHeightAscent;
+      if(Number.isFinite(ascent)&&Number.isFinite(metrics.actualBoundingBoxAscent))bearing=ascent-metrics.actualBoundingBoxAscent;
+    }
+    bearing=clamp(bearing,-size*.15,size*.6);
+    if(glyphMetrics.size>512)glyphMetrics.clear();
+    glyphMetrics.set(key,bearing);
+    return bearing;
+  }
+  // Read actual glyphs across nested spans without inserting wrappers into headings.
+  // Only the first line is used: a resting visitor cannot cover another line above it.
+  function firstLineLetters(element, headingIndex) {
+    const nodes = [];
+    function walk(node) {
+      if (node.nodeType === 3) { nodes.push(node); return; }
+      if (node.nodeType === 1 && (node.hidden || node.getAttribute?.('aria-hidden') === 'true')) return;
+      for (const child of node.childNodes || []) walk(child);
+    }
+    walk(element);
+    const letters = [], range = document.createRange();
+    let lineTop, scanned = 0, ordinal = 0;
+    for (const node of nodes) {
+      const style=getComputedStyle(node.parentElement || element);
+      let offset = 0;
+      for (const char of node.textContent) {
+        const start = offset; offset += char.length;
+        if (!/[\p{L}\p{N}]/u.test(char)) continue;
+        if (++scanned > 160) return letters;
+        range.setStart(node,start); range.setEnd(node,offset);
+        const r = range.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        if (lineTop === undefined) lineTop = r.top;
+        if (r.top > lineTop + r.height * .35) return letters;
+        if (r.top < lineTop - r.height * .35) continue;
+        if (r.left + r.width/2 < 30 || r.right > innerWidth-25) continue;
+        letters.push({x:r.left+r.width/2,y:r.top+glyphTopBearing(char,style)-1,kind:'letter',key:`${headingIndex}:${ordinal++}`});
+      }
+    }
+    return letters;
+  }
   function measure() {
     dirty = false;
-    if (article) {
-      const r = article.getBoundingClientRect();
-      // Fit even the 1024px layout gutter; never spill into the title or prose.
-      const gutter = Math.min(r.left, innerWidth-r.right);
-      butterflySize = clamp(gutter-12, 18, 64);
-      fireflySize = Math.min(52,butterflySize);
-      const pad = butterflySize/2 + 5;
-      leftLane = [pad, Math.max(pad, Math.min(180, r.left-pad))];
-      rightLane = [Math.min(innerWidth-pad, Math.max(innerWidth-180, r.right+pad)), innerWidth-pad];
-      perchX = (leftLane[0] + leftLane[1]) / 2;
-      butterfly?.style.setProperty('--visitor-size', `${butterflySize}px`);
-      fireflies.forEach(f => f.node.style.setProperty('--visitor-size', `${fireflySize}px`));
-    } else {
-      leftLane = [36, Math.max(36, Math.min(130, innerWidth * .09))];
-      rightLane = [innerWidth - Math.min(150, innerWidth * .11), innerWidth - 36];
+    articleRect = article?.getBoundingClientRect();
+    const candidates = headings.map((element,index) => ({element,index,rect:element.getBoundingClientRect()}))
+      .filter(h => h.rect.width > 0 && h.rect.height > 0 && h.rect.top >= 48 && h.rect.top < innerHeight-100);
+    if (!candidates.some(h => h.element === activeHeading)) {
+      activeHeading = candidates.reduce((a,b) => !a || Math.abs(b.rect.top-innerHeight*.35)<Math.abs(a.rect.top-innerHeight*.35) ? b : a, null)?.element;
     }
-    points = anchors.map(({element, statue}) => {
-      const rect = element.getBoundingClientRect();
-      if (statue) return {x: rect.left + rect.width * .46, y: rect.top + rect.height * .142};
-      if (article) return {x: perchX, y: rect.top + 18};
-      let node = element;
-      while (node.firstChild) node = node.firstChild;
-      let r = rect;
-      if (node.nodeType === 3 && node.textContent.trim()) {
-        const range = document.createRange();
-        const offset = node.textContent.search(/\S/);
-        range.setStart(node, offset); range.setEnd(node, offset + 1);
-        r = range.getBoundingClientRect();
+    candidates.sort((a,b) => (a.element===activeHeading?-1:0)-(b.element===activeHeading?-1:0));
+    const groups = candidates.map(h=>firstLineLetters(h.element,h.index)).filter(g=>g.length);
+    const chosen = [];
+    if (groups.length) {
+      const main = groups[0];
+      for (const fraction of [.12,.5,.88]) {
+        const wanted = main[Math.round((main.length-1)*fraction)];
+        const possible = groups.flat().filter(p=>chosen.every(q=>Math.hypot(q.x-p.x,q.y-p.y)>48));
+        const best = possible.reduce((a,b)=>!a||Math.hypot(b.x-wanted.x,b.y-wanted.y)<Math.hypot(a.x-wanted.x,a.y-wanted.y)?b:a,null);
+        if (best) chosen.push(best);
       }
-      return {x: r.left + r.width * .52, y: r.top + r.height * .16};
-    });
-    const visible = p => p.y > 110 && p.y < innerHeight - 110;
-    if (!points[active] || !visible(points[active])) {
-      const candidates = points.map((p, i) => ({p, i})).filter(({p}) => visible(p));
-      if (candidates.length) active = candidates.reduce((a, b) => Math.abs(a.p.y - innerHeight * .4) < Math.abs(b.p.y - innerHeight * .4) ? a : b).i;
     }
-    if (toggle) {
-      const r = toggle.getBoundingClientRect();
-      control.hidden = r.bottom > 0 && r.top < innerHeight;
-    } else control.hidden = false;
+    targets = chosen;
+    statuePoint = undefined;
+    if (statue) {
+      const r=statue.getBoundingClientRect(), y=r.top+r.height*.142;
+      if (y>=80 && y<innerHeight-100) statuePoint={x:r.left+r.width*.46,y,kind:'statue',key:'statue'};
+    }
+    if (toggle) { const r=toggle.getBoundingClientRect(); control.hidden=r.bottom>0 && r.top<innerHeight; }
+    else control.hidden=false;
   }
-  function paint(bank = 0) {
-    if (article) x = clamp(x, leftLane[0], leftLane[1]);
-    butterfly.style.transform = `translate3d(${(x - butterflySize/2).toFixed(2)}px,${(y - butterflySize*.86).toFixed(2)}px,0)`;
-    body.style.rotate = `${bank.toFixed(2)}deg`;
+  function marginTarget(index,size) {
+    const gutter=articleRect ? Math.max(0,Math.min(articleRect.left,innerWidth-articleRect.right)) : 200;
+    const fitted=Math.min(size,Math.max(12,gutter-12));
+    const left=articleRect ? articleRect.left/2 : 72;
+    const right=articleRect ? (articleRect.right+innerWidth)/2 : innerWidth-72;
+    return {x:clamp(index===1?right:left,fitted/2+3,innerWidth-fitted/2-3),y:innerHeight*[.29,.47,.69][index],size:fitted,kind:'margin',key:`margin:${index}`};
+  }
+  function targetFor(v) {
+    if (v.kind==='butterfly') return statuePoint || targets[targets.length>1?1:0] || marginTarget(0,v.baseSize);
+    return targets[v.index] || marginTarget(v.index,v.baseSize);
+  }
+  function paint(v) {
+    const foot = v.kind==='butterfly' ? .86 : .65625;
+    v.node.style.transform=`translate3d(${(v.x-v.size/2).toFixed(2)}px,${(v.y-v.size*foot).toFixed(2)}px,0)`;
+    v.body.style.rotate=`${clamp(v.vx*.07,-15,15).toFixed(2)}deg`;
+  }
+  function fly(v) {
+    if (v.rest) {v.rest=false;v.started=clock;}
+    v.node.dataset.flight='fly';
   }
   function wake() {
     if (!control || !available() || frame) return;
-    last = 0;
-    frame = requestAnimationFrame(tick);
+    last=0; frame=requestAnimationFrame(tick);
   }
-  function scheduleRest() {
-    clearTimeout(restTimer);
-    restTimer = setTimeout(() => { wanderEnd = performance.now() + 1800; wake(); }, 11000);
-  }
-  function nightTarget(index) {
-    const phase = [0.4,2.7,4.9][index], rate = [.19,.145,.173][index];
-    const t = nightTime * rate;
-    const lane = index === 1 ? rightLane : leftLane;
-    const u = .5 + .31 * Math.sin(t + phase) + .13 * Math.sin(t * 1.73 + phase * 2);
-    const v = .5 + .3 * Math.sin(t * .71 + phase) + .1 * Math.sin(t * 1.31 + phase * 1.6);
-    return {x: lane[0] + (lane[1]-lane[0])*u, y: 110 + Math.max(0,innerHeight - 240)*v};
-  }
-  function tick(now) {
-    frame = 0;
-    if (!available() || !control) return;
-    if (dirty) measure();
-    const dt = Math.min((now - (last || now - 16)) / 1000, .035); last = now;
-    if (theme === 'dark') {
-      nightTime += dt;
-      fireflies.forEach((f, i) => {
-        const target = nightTarget(i), oldX = f.x;
-        const ease = 1 - Math.exp(-dt * 1.5);
-        f.x += (target.x-f.x)*ease; f.y += (target.y-f.y)*ease;
-        // Constrain on resize immediately, while retaining smooth vertical drift.
-        const lane = i === 1 ? rightLane : leftLane;
-        f.x = clamp(f.x,lane[0],lane[1]);
-        f.node.style.transform = `translate3d(${(f.x-fireflySize/2).toFixed(2)}px,${(f.y-fireflySize/2).toFixed(2)}px,0)`;
-        f.body.style.rotate = `${clamp((f.x-oldX)/dt*1.5,-18,18).toFixed(2)}deg`;
-      });
-      frame = requestAnimationFrame(tick); return;
+  function stop() {cancelAnimationFrame(frame);frame=0;clearTimeout(restTimer);restTimer=0;last=0;}
+  function removeVisitors() { visitors.forEach(v=>v.node.remove());visitors=[]; }
+  function enter() {
+    removeVisitors(); theme=desired; phase='entering';
+    const count=theme==='dark'?3:1;
+    for(let i=0;i<count;i++) {
+      const kind=theme==='dark'?'firefly':'butterfly';
+      const size=kind==='butterfly'?(article?48:64):(article?42:48);
+      const node=document.createElement('div');node.className=`nature-${kind}`;
+      node.setAttribute('aria-hidden','true');node.style.setProperty('--visitor-size',`${size}px`);
+      node.innerHTML=kind==='butterfly'?art:fireflyArt(i);
+      node.style.setProperty('--firefly-delay',`${-i*1.7}s`);node.style.setProperty('--firefly-period',`${4.7+i*.9}s`);
+      node.dataset.flight='fly';node.dataset.phase='entering';node.dataset.paused=String(!available());
+      layer.append(node);
+      const v={node,body:node.querySelector(`.${kind}-body`),kind,index:i,size,baseSize:size,x:i===1?innerWidth+size:-size,y:clamp(innerHeight*(.24+i*.17),70,innerHeight-90),vx:0,vy:0,rest:false,started:clock,ready:clock+i*.22,wanderUntil:0};
+      visitors.push(v);paint(v);
     }
-    const perch = points[active];
-    const targetX = article ? perchX : clamp(perch.x, 40, innerWidth - 40);
-    const targetY = clamp(perch.y, 110, innerHeight - 110);
-    const distance = Math.hypot(targetX - x, targetY - y);
-    const idle = now - lastScroll > 260;
-    const wandering = now < wanderEnd;
-    if (!flying && (distance > 3 || !idle || wandering)) {
-      flying = true; started = now; butterfly.dataset.flight = 'fly';
-      clearTimeout(restTimer);
-    }
-    if (flying) {
-      const breeze = Math.min(distance / 110, 1);
-      const phase = (now - started) / 1000;
-      const gx = targetX + Math.sin(phase * 2.1) * (article ? 9 : 38) * breeze + (wandering ? Math.sin(now / 480) * (article ? 8 : 28) : 0);
-      const gy = targetY - Math.sin(Math.min(phase / 2, 1) * Math.PI) * 45 * breeze - (wandering ? 32 : 0);
-      vx += clamp((gx - x) * 12 - vx * 6.5, -850, 850) * dt;
-      vy += clamp((gy - y) * 12 - vy * 6.5, -850, 850) * dt;
-      const speed = Math.hypot(vx, vy);
-      if (speed > 300) { vx *= 300 / speed; vy *= 300 / speed; }
-      x += vx * dt; y += vy * dt;
-      paint(clamp(vx * .075, -17, 17));
-      if (distance < 1.8 && Math.hypot(vx, vy) < 5 && idle && !wandering) {
-        x = targetX; y = targetY; vx = vy = 0; flying = false;
-        butterfly.dataset.flight = 'rest'; paint();
-        if (perch.y > 110 && perch.y < innerHeight - 110) scheduleRest();
-        return;
-      }
-    }
-    if (!flying) { scheduleRest(); return; }
-    frame = requestAnimationFrame(tick);
   }
-  function stop() {
-    cancelAnimationFrame(frame); frame = 0; clearTimeout(restTimer); last = 0;
+  function beginExit() {
+    if(phase==='exiting')return;
+    phase='exiting';clearTimeout(restTimer);restTimer=0;
+    visitors.forEach(v=>{fly(v);v.node.dataset.phase='exiting';v.exitRight=v.x>=innerWidth/2;v.exitY=clamp(v.y-45-v.index*18,65,innerHeight-90);v.started=clock;});
   }
-  function removeVisitors() {
-    stop(); butterfly?.remove(); butterfly = body = undefined;
-    fireflies.forEach(f => f.node.remove()); fireflies = [];
-  }
-  function swapTheme() {
-    if (!control || theme === currentTheme()) {sync(); return;}
-    removeVisitors(); theme = currentTheme(); dirty = true; active = 0; measure();
-    if (theme === 'dark') {
-      nightTime = 0;
-      for (let i = 0; i < 3; i++) {
-        const node = document.createElement('div'); node.className = 'nature-firefly';
-        node.style.setProperty('--visitor-size', `${fireflySize}px`);
-        node.setAttribute('aria-hidden','true'); node.innerHTML = fireflyArt(i);
-        node.style.setProperty('--firefly-delay', `${-i * 1.7}s`);
-        node.style.setProperty('--firefly-period', `${4.7 + i * .9}s`);
-        const p = nightTarget(i);
-        node.style.transform = `translate3d(${(p.x-fireflySize/2).toFixed(2)}px,${(p.y-fireflySize/2).toFixed(2)}px,0)`;
-        document.body.append(node);
-        fireflies.push({node,body:node.querySelector('.firefly-body'),x:p.x,y:p.y});
-      }
-    } else {
-      butterfly = document.createElement('div'); butterfly.className = 'nature-butterfly';
-      butterfly.style.setProperty('--visitor-size', `${butterflySize}px`);
-      butterfly.setAttribute('aria-hidden', 'true'); butterfly.dataset.flight = 'rest'; butterfly.innerHTML = art;
-      document.body.append(butterfly); body = butterfly.querySelector('.butterfly-body');
-      x = article ? perchX : clamp(points[active].x, 40, innerWidth - 40);
-      y = clamp(points[active].y, 110, innerHeight - 110);
-      vx = vy = 0; flying = false; paint();
-      wanderEnd = performance.now() + 900;
-    }
+  function themeChanged() {
+    if(!control)return;
+    desired=currentTheme();
+    if(!theme) {dirty=true;measure();enter();}
+    else if(desired!==theme) beginExit();
+    else if(phase==='exiting') {phase='entering';visitors.forEach(v=>{v.node.dataset.phase='entering';v.ready=clock;v.started=clock;});}
     sync();
   }
+  function scheduleVisit() {
+    clearTimeout(restTimer);
+    // A single, bounded timer gives one visitor a short excursion while others rest.
+    restTimer=setTimeout(()=>{
+      restTimer=0;
+      if(!available()||phase!=='settled')return;
+      const v=visitors[nextWander++%visitors.length];
+      v.wanderUntil=clock+1.8;fly(v);wake();
+    },13000+nextWander%3*1700);
+  }
+  function tick(now) {
+    frame=0;if(!available()||!control)return;
+    if(dirty)measure();
+    const dt=Math.min((now-(last||now-16))/1000,.035);last=now;clock+=dt;
+    if(phase==='exiting') {
+      let gone=true;
+      visitors.forEach(v=>{
+        const tx=v.exitRight?innerWidth+v.size*1.8:-v.size*1.8;
+        v.vx+=( (v.exitRight?430:-430)-v.vx)*Math.min(1,dt*2.6);
+        v.vy+=((v.exitY-v.y)*3-v.vy*3.5)*dt;
+        v.x+=v.vx*dt;v.y+=v.vy*dt;paint(v);
+        if(v.exitRight?v.x<tx:v.x>tx)gone=false;
+      });
+      if(gone) {enter();sync();}
+      if(!frame)frame=requestAnimationFrame(tick);
+      return;
+    }
+    let moving=false;
+    visitors.forEach(v=>{
+      if(clock<v.ready) {moving=true;return;}
+      const target=targetFor(v), distance=Math.hypot(target.x-v.x,target.y-v.y);
+      const fitted=target.size || v.baseSize;
+      if(v.size!==fitted){v.size=fitted;v.node.style.setProperty('--visitor-size',`${fitted}px`);}
+      const wandering=clock<v.wanderUntil;
+      if(distance>1.8||wandering)fly(v);
+      v.node.dataset.perchKind=target.kind;v.node.dataset.perch=target.key;
+      if(v.rest)return;
+      moving=true;
+      const breeze=Math.min(distance/125,1), elapsed=clock-v.started;
+      const gx=target.x+Math.sin(elapsed*2.2+v.index*.8)*25*breeze+(wandering?Math.sin((v.wanderUntil-clock)*2)*17:0);
+      const gy=target.y-Math.sin(Math.min(elapsed/2,1)*Math.PI)*35*breeze-(wandering?25:0);
+      v.vx+=clamp((gx-v.x)*12-v.vx*6.5,-850,850)*dt;
+      v.vy+=clamp((gy-v.y)*12-v.vy*6.5,-850,850)*dt;
+      const speed=Math.hypot(v.vx,v.vy), maxSpeed=v.kind==='butterfly'?340:290;
+      if(speed>maxSpeed){v.vx*=maxSpeed/speed;v.vy*=maxSpeed/speed;}
+      v.x+=v.vx*dt;v.y+=v.vy*dt;paint(v);
+      if(distance<1.5&&Math.hypot(v.vx,v.vy)<4&&!wandering){
+        v.x=target.x;v.y=target.y;v.vx=v.vy=0;v.rest=true;
+        v.node.dataset.flight='rest';v.node.dataset.phase='settled';paint(v);
+      }
+    });
+    if(visitors.every(v=>v.rest)) {phase='settled';scheduleVisit();return;}
+    if(moving)frame=requestAnimationFrame(tick);
+  }
   function sync() {
-    if (!control) return;
-    if (butterfly) butterfly.dataset.paused = String(!available());
-    fireflies.forEach(f => {f.node.dataset.paused = String(!available());});
-    control.textContent = paused() ? '▷ Lanjutkan gerak' : 'Ⅱ Jeda gerak';
-    control.setAttribute('aria-pressed', String(paused()));
-    control.setAttribute('aria-label', paused() ? 'Lanjutkan animasi alam' : 'Jeda animasi alam');
-    if (available()) {dirty = true; wake();} else stop();
+    if(!control)return;
+    visitors.forEach(v=>v.node.dataset.paused=String(!available()));
+    control.textContent=paused()?'▷ Lanjutkan gerak':'Ⅱ Jeda gerak';
+    control.setAttribute('aria-pressed',String(paused()));
+    control.setAttribute('aria-label',paused()?'Lanjutkan animasi alam':'Jeda animasi alam');
+    if(available()){dirty=true;wake();}else stop();
   }
-  function onScroll() {dirty = true; lastScroll = performance.now(); wake();}
-  function onHide() {suspended = true; sync();}
-  function onShow() {suspended = false; sync();}
-  function destroy() {
-    removeVisitors(); watcher?.disconnect(); themeWatcher?.disconnect();
-    window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll);
-    window.removeEventListener('pagehide', onHide); window.removeEventListener('pageshow', onShow);
-    document.removeEventListener('visibilitychange', sync);
-    control?.remove(); control = undefined; theme = ''; suspended = false;
+  function onScroll(){dirty=true;wake();}
+  function onHide(){suspended=true;sync();}
+  function onShow(){suspended=false;sync();}
+  function destroy(){
+    stop();removeVisitors();watcher?.disconnect();themeWatcher?.disconnect();resizeObserver?.disconnect();
+    window.removeEventListener('scroll',onScroll);window.removeEventListener('resize',onScroll);
+    window.removeEventListener('pagehide',onHide);window.removeEventListener('pageshow',onShow);
+    document.removeEventListener('visibilitychange',sync);
+    control?.remove();layer?.remove();control=layer=undefined;theme='';desired='';phase='idle';suspended=false;activeHeading=undefined;
   }
-  function setup() {
-    if (!media.matches) {destroy(); return;}
-    if (control) {swapTheme(); return;}
-    control = document.createElement('button'); control.className = 'nature-page-toggle'; control.type = 'button';
-    control.addEventListener('click', () => {if (toggle) toggle.click(); else {localPaused = !localPaused; sync();}});
-    document.body.append(control);
-    if (toggle) {watcher = new MutationObserver(sync); watcher.observe(toggle, {attributes:true,attributeFilter:['aria-pressed']});}
-    themeWatcher = new MutationObserver(swapTheme); themeWatcher.observe(root, {attributes:true,attributeFilter:['data-theme']});
-    window.addEventListener('scroll', onScroll, {passive:true}); window.addEventListener('resize', onScroll);
-    document.addEventListener('visibilitychange', sync);
-    window.addEventListener('pagehide', onHide); window.addEventListener('pageshow', onShow);
-    swapTheme();
+  function setup(){
+    if(!media.matches){destroy();return;}
+    if(control){themeChanged();return;}
+    control=document.createElement('button');control.className='nature-page-toggle';control.type='button';
+    control.addEventListener('click',()=>{if(toggle)toggle.click();else{localPaused=!localPaused;sync();}});
+    layer=document.createElement('div');layer.className='nature-companions';layer.setAttribute('aria-hidden','true');
+    document.body.append(layer,control);
+    if(toggle){watcher=new MutationObserver(sync);watcher.observe(toggle,{attributes:true,attributeFilter:['aria-pressed']});}
+    themeWatcher=new MutationObserver(themeChanged);themeWatcher.observe(root,{attributes:true,attributeFilter:['data-theme']});
+    if(window.ResizeObserver){resizeObserver=new ResizeObserver(onScroll);headings.forEach(h=>resizeObserver.observe(h));}
+    window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);
+    document.addEventListener('visibilitychange',sync);window.addEventListener('pagehide',onHide);window.addEventListener('pageshow',onShow);
+    themeChanged();
   }
-  media.addEventListener('change', setup);
-  document.fonts?.ready.then(() => {dirty = true; wake();});
+  media.addEventListener('change',setup);
+  document.fonts?.ready.then(()=>{glyphMetrics.clear();onScroll();});
   setup();
 })();

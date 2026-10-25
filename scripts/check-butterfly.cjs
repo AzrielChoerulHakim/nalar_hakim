@@ -1,170 +1,158 @@
 #!/usr/bin/env node
 'use strict';
-// Deterministic lifecycle integration. No browser, network or dependencies.
+// Deterministic browser contract: actual character geometry, flight time, lifecycle.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const root = path.resolve(__dirname, '..');
-const butterflySource = fs.readFileSync(path.join(root, 'preview/butterfly.js'), 'utf8');
-const loaderSource = fs.readFileSync(path.join(root, 'preview/desktop-nature.js'), 'utf8');
-
-function target(properties = {}) {
-  const events = new Map();
-  return Object.assign(properties, {
-    addEventListener(type, handler) {
-      const handlers = events.get(type) || new Set(); handlers.add(handler); events.set(type, handlers);
-    },
-    removeEventListener(type, handler) { events.get(type)?.delete(handler); },
-    emit(type) { for (const handler of [...(events.get(type) || [])]) handler({type}); },
-    count(type) { return events.get(type)?.size || 0; }
-  });
+const root = path.resolve(__dirname,'..');
+const source = fs.readFileSync(path.join(root,'preview/butterfly.js'),'utf8');
+const loader = fs.readFileSync(path.join(root,'preview/desktop-nature.js'),'utf8');
+function eventTarget(properties={}) {
+ const events=new Map();
+ return Object.assign(properties,{
+  addEventListener(t,h){if(!events.has(t))events.set(t,new Set());events.get(t).add(h);},
+  removeEventListener(t,h){events.get(t)?.delete(h);},
+  emit(t){for(const h of [...events.get(t)||[]])h({type:t});},
+  count(t){return events.get(t)?.size||0;}
+ });
 }
-function harness({capable = true, hasScene = true, hasObserver = true, loader = false, articlePage = false, dark = false, width = 1366} = {}) {
-  let now = 100, scroll = 0, nextId = 1, created = 0, layoutReads = 0;
-  const frames = new Map(), timers = new Map(), watchers = new Set(), queries = [];
-  const live = [], head = [];
-  const media = target({matches: capable});
-  const rect = (left, top, width, height) => ({left, top: top-scroll, width, height, bottom: top-scroll+height, right: left+width});
-  function element(tag) {
-    created++;
-    const attrs = {};
-    const node = target({tagName: tag, dataset: {}, style: {setProperty(k,v){this[k]=v;}}, hidden: false, className: '', removed: false,
-      setAttribute(k,v) {attrs[k]=v; for(const w of watchers) if(w.element===node && (!w.filter || w.filter.includes(k))) w.callback();},
-      getAttribute(k) {return attrs[k] ?? null;},
-      remove() {node.removed=true; for(const list of [live,head]) {const i=list.indexOf(node); if(i>=0)list.splice(i,1);}},
-      click() {node.emit('click');},
-      querySelector(selector) {if(selector==='.butterfly-body' || selector==='.firefly-body') return node.visualBody ||= {style:{}}; throw Error(`Unexpected generated selector ${selector}`);}
-    });
-    return node;
-  }
-  const toggle = element('button'); toggle.setAttribute('aria-pressed','false');
-  toggle.getBoundingClientRect = () => {layoutReads++;return rect(850,680,130,44);};
-  toggle.addEventListener('click',()=>toggle.setAttribute('aria-pressed',toggle.getAttribute('aria-pressed')==='true'?'false':'true'));
-  const svg={getBoundingClientRect(){layoutReads++;return rect(650,120,500,500);}};
-  const scene={querySelector:s=>s==='[data-nature-toggle]'?toggle:s==='svg'?svg:null};
-  const selectors=['#landing-manifest-title','#landing-channels-title','#landing-invitation-title','.landing-footer-brand'];
-  const headings=Object.fromEntries(selectors.map((s,i)=>{
-    const node={nodeType:3,textContent:'  Heading',getBoundingClientRect:()=>rect(180+i*30,1000+i*850,18,55)};
-    return [s,{firstChild:node,getBoundingClientRect(){layoutReads++;return rect(180+i*30,1000+i*850,500,55);}}];
-  }));
-  const html = element('html'); html.dataset.theme = dark ? 'dark' : 'light';
-  const articleHeadings = [120,1000,2000,3000].map(top=>({getBoundingClientRect(){layoutReads++;return rect((width-940)/2,top,800,55);}}));
-  const articleNode = {querySelectorAll:()=>articleHeadings,getBoundingClientRect(){layoutReads++;return rect((width-940)/2,100,940,3500);}};
-  const document=target({hidden:false,documentElement:html,currentScript:{dataset:{butterflySrc:'preview/butterfly.js?v=test'}},
-    querySelector:s=>s==='[data-nature-scene]'?(hasScene&&!articlePage?scene:null):s==='.article-layout'?(articlePage?articleNode:null):(headings[s]||null),
-    createElement:element,
-    createRange:()=>{let node; return {setStart(n){node=n;},setEnd(){},getBoundingClientRect:()=>node.getBoundingClientRect()};},
-    body:{append(...nodes){live.push(...nodes);}},head:{append(node){head.push(node);}}
-  });
-  class Observer {
-    constructor(callback){this.callback=callback;}
-    observe(element,options){this.element=element;this.filter=options.attributeFilter;watchers.add(this);}
-    disconnect(){watchers.delete(this);}
-  }
-  const window=target({MutationObserver:hasObserver?Observer:undefined});
-  const requestAnimationFrame=callback=>{const id=nextId++;frames.set(id,callback);return id;};
-  const cancelAnimationFrame=id=>frames.delete(id);
-  const setTimeout=(callback,delay)=>{const id=nextId++;timers.set(id,{callback,due:now+delay});return id;};
-  const clearTimeout=id=>timers.delete(id);
-  const context={document,window,MutationObserver:hasObserver?Observer:undefined,matchMedia:q=>{queries.push(q);return media;},innerWidth:width,innerHeight:900,
-    performance:{now:()=>now},requestAnimationFrame,cancelAnimationFrame,setTimeout,clearTimeout};
-  created=0;
-  vm.runInNewContext(loader?loaderSource:butterflySource,context);
-  const h={document,window,toggle,media,live,head,frames,timers,queries,
-    get created(){return created;},get reads(){return layoutReads;},get watchers(){return watchers.size;},
-    get butterfly(){return live.find(n=>n.className==='nature-butterfly');},
-    get fireflies(){return live.filter(n=>n.className==='nature-firefly');},
-    theme(value){html.dataset.theme=value;html.setAttribute('data-theme',value);},
-    get control(){return live.find(n=>n.className==='nature-page-toggle');},
-    step(ms=16){now+=ms;const batch=[...frames];frames.clear();for(const [,f] of batch)f(now);for(const [id,t]of [...timers])if(t.due<=now){timers.delete(id);t.callback();}},
-    settle(limit=1500){let n=0;while(frames.size&&n++<limit)h.step();assert.equal(frames.size,0,`RAF did not rest within ${limit} frames`);return n;},
-    scrollTo(value){scroll=value;window.emit('scroll');},
-    visibility(hidden){document.hidden=hidden;document.emit('visibilitychange');},
-    capability(value){media.matches=value;media.emit('change');},
-    runLoaded(){vm.runInNewContext(butterflySource,context);},
-    position(){const m=h.butterfly.style.transform.match(/translate3d\(([-\d.]+)px,([-\d.]+)px/);return {x:+m[1],y:+m[2]};}
-  };return h;
+function harness({capable=true,article=false,dark=false,width=1366,hasScene=true,hasObserver=true,loadOnly=false,shortHeading=false}={}) {
+ let now=100,scroll=0,nextId=0,created=0,reads=0,metricReads=0;
+ const frames=new Map(),timers=new Map(),watchers=new Set(),live=[],head=[],queries=[];
+ const media=eventTarget({matches:capable});
+ const rect=(x,y,w,h)=>({left:x,right:x+w,top:y-scroll,bottom:y-scroll+h,width:w,height:h});
+ function element(tag){
+  created++;const attrs={};
+  const n=eventTarget({nodeType:1,tagName:tag,dataset:{},style:{setProperty(k,v){this[k]=v;}},childNodes:[],hidden:false,
+   setAttribute(k,v){attrs[k]=v;for(const w of [...watchers])if(w.element===n&&(!w.filter||w.filter.includes(k)))w.callback();},
+   getAttribute(k){return attrs[k]??null;},
+   remove(){for(const arr of [live,head]){const i=arr.indexOf(n);if(i>=0)arr.splice(i,1);}},
+   click(){n.emit('click');},
+   append(...nodes){live.push(...nodes);},
+   querySelector(s){if(['.butterfly-body','.firefly-body'].includes(s))return n.visualBody||={style:{}};throw Error('Unexpected generated selector '+s);}
+  });if(tag==='canvas')n.getContext=()=>({font:'',measureText(char){metricReads++;const size=parseFloat(this.font.match(/([\d.]+)px/)[1]);return{fontBoundingBoxAscent:size*.8,actualBoundingBoxAscent:size*(/[A-Z]/.test(char)?.6:.5)};}});return n;
+ }
+ function heading(x,y,text,columns=28,charWidth=16,charHeight=38){
+  const h=element('h2');let cursor=0;
+  // Multiple nested text nodes, punctuation/whitespace, and a wrapped second line.
+  const parts=[text.slice(0,6),text.slice(6,16),text.slice(16)];
+  h.childNodes=parts.map(t=>{const start=cursor;cursor+=t.length;const textNode={nodeType:3,textContent:t,glyph(offset){const i=start+offset;return rect(x+(i%columns)*charWidth,y+Math.floor(i/columns)*(charHeight+8),charWidth,charHeight);}};const span=element('span');span.childNodes=[textNode];span.fontSize=charHeight;span.parentElement=h;textNode.parentElement=span;return span;});
+  h.getBoundingClientRect=()=>{reads++;return rect(x,y,Math.min(columns,text.length)*charWidth,Math.ceil(text.length/columns)*(charHeight+8));};return h;
+ }
+ const headings={
+  '#landing-title':heading(40,280,shortHeading?'A':'NALAR HAKIM',5,70,90),
+  '#landing-manifest-title':heading(180,1000,'  Nama disamarkan. Argumen diuji.',28),
+  '#landing-channels-title':heading(200,1850,'TIGA BENTUK. SATU SIKAP.',28),
+  '#landing-invitation-title':heading(200,2700,'AJUKAN ARGUMEN.',28),
+  '#idea-flow-title':heading(200,3550,'Dari gagasan, menjadi percakapan.',28),
+  '.landing-footer-brand':heading(150,4400,'NALAR HAKIM.',28)
+ };
+ const articleHeadings=[120,1000,2000,3000].map(y=>heading((width-940)/2,y,'  Pertanyaan hukum: alasan dan akibat bagi masyarakat.',28));
+ let selectorUsed='';
+ const articleNode={querySelectorAll(s){selectorUsed=s;return articleHeadings;},getBoundingClientRect(){reads++;return rect((width-940)/2,120,940,3500);}};
+ const toggle=element('button');toggle.setAttribute('aria-pressed','false');
+ toggle.addEventListener('click',()=>toggle.setAttribute('aria-pressed',toggle.getAttribute('aria-pressed')==='true'?'false':'true'));
+ toggle.getBoundingClientRect=()=>{reads++;return rect(900,700,120,44);};
+ const svg={getBoundingClientRect(){reads++;return rect(650,120,500,500);}};
+ const scene={querySelector:s=>s==='svg'?svg:s==='[data-nature-toggle]'?toggle:null};
+ const html=element('html');html.dataset.theme=dark?'dark':'light';
+ const document=eventTarget({hidden:false,documentElement:html,currentScript:{dataset:{butterflySrc:'preview/butterfly.js?v=test'}},
+  querySelector:s=>s==='[data-nature-scene]'?(!article&&hasScene?scene:null):s==='.article-layout'?(article?articleNode:null):headings[s]||null,
+  createElement:element,createRange(){let node,offset;return {setStart(n,o){node=n;offset=o;},setEnd(){},getBoundingClientRect(){reads++;return node.glyph(offset);}};},
+  body:{append(...n){live.push(...n);}},head:{append(n){head.push(n);}}
+ });
+ class Observer{constructor(callback){this.callback=callback;}observe(element,opts){this.element=element;this.filter=opts.attributeFilter;watchers.add(this);}disconnect(){watchers.delete(this);}}
+ const window=eventTarget({MutationObserver:hasObserver?Observer:undefined});
+ const context={document,window,MutationObserver:Observer,matchMedia:q=>{queries.push(q);return media;},innerWidth:width,innerHeight:900,
+  getComputedStyle:n=>({fontStyle:'normal',fontWeight:'700',fontSize:`${n.fontSize||38}px`,fontFamily:'Arial, sans-serif',textTransform:'none'}),
+  requestAnimationFrame:f=>{const id=++nextId;frames.set(id,f);return id;},cancelAnimationFrame:id=>frames.delete(id),
+  setTimeout:(f,delay)=>{const id=++nextId;timers.set(id,{f,due:now+delay});return id;},clearTimeout:id=>timers.delete(id)};
+ created=0;vm.runInNewContext(loadOnly?loader:source,context);
+ const h={document,window,media,toggle,html,live,head,frames,timers,queries,
+  get created(){return created;},get reads(){return reads;},get metricReads(){return metricReads;},get watchers(){return watchers.size;},get selectorUsed(){return selectorUsed;},
+  get butterfly(){return live.find(n=>n.className==='nature-butterfly');},get fireflies(){return live.filter(n=>n.className==='nature-firefly');},
+  get control(){return live.find(n=>n.className==='nature-page-toggle');},get visitors(){return live.filter(n=>['nature-butterfly','nature-firefly'].includes(n.className));},
+  step(ms=16){now+=ms;const batch=[...frames];frames.clear();for(const [,f]of batch)f(now);for(const [id,t]of [...timers])if(t.due<=now){timers.delete(id);t.f();}},
+  settle(limit=1800){let i=0;while(frames.size&&i++<limit)h.step();assert.equal(frames.size,0,'Flight failed to rest');},
+  theme(value){html.dataset.theme=value;html.setAttribute('data-theme',value);},
+  scrollTo(value){scroll=value;window.emit('scroll');},
+  visibility(hidden){document.hidden=hidden;document.emit('visibilitychange');},
+  capability(value){media.matches=value;media.emit('change');},
+  position(node=h.butterfly){const m=node.style.transform.match(/translate3d\(([-\d.]+)px,([-\d.]+)px/);return {x:+m[1],y:+m[2]};},
+  feet(node=h.butterfly){const p=h.position(node),size=parseFloat(node.style['--visitor-size']);return{x:p.x+size/2,y:p.y+size*(node.className==='nature-butterfly'?.86:.65625)};},
+  resize(w){context.innerWidth=w;window.emit('resize');}
+ };return h;
 }
-let count=0, failures=0;
-function test(name,fn){try{fn();count++;console.log(`PASS ${name}`);}catch(e){failures++;console.error(`FAIL ${name}: ${e.message}`);}}
-
-test('Mobile/reduced-motion loader makes no DOM or animation requests',()=>{
- const h=harness({capable:false,loader:true});assert.equal(h.created,0);assert.equal(h.frames.size,0);assert.equal(h.head.length,0);
+let count=0,failed=0;
+function test(name,fn){try{fn();count++;console.log('PASS '+name);}catch(e){failed++;console.error('FAIL '+name+': '+e.message);}}
+test('Desktop loader is inert on mobile and loads only once when capable',()=>{
+ const h=harness({capable:false,loadOnly:true});assert.equal(h.created,0);assert.equal(h.frames.size,0);h.capability(true);assert.equal(h.head.length,1);h.capability(false);h.capability(true);assert.equal(h.head.length,1);
+ for(const c of ['min-width: 1024px','hover: hover','pointer: fine','prefers-reduced-motion: no-preference'])assert.ok(h.queries[0].includes(c));
 });
-test('Loader loads exactly once on desktop capability, including toggling capability',()=>{
- const h=harness({capable:false,loader:true});h.capability(true);assert.equal(h.head.length,1);assert.equal(h.head[0].src,'preview/butterfly.js?v=test');
- h.capability(false);h.capability(true);assert.equal(h.head.length,1);assert.equal(h.created,1);
- for(const condition of ['min-width: 1024px','hover: hover','pointer: fine','prefers-reduced-motion: no-preference'])assert.ok(h.queries[0].includes(condition));
+test('Failed loader can recover after a later capability change',()=>{const h=harness({loadOnly:true});h.head[0].onerror();assert.equal(h.head.length,0);h.capability(false);h.capability(true);assert.equal(h.head.length,1);});
+test('Mobile, unsupported and unrelated pages create no visitors or frame work',()=>{
+ for(const config of [{capable:false},{hasScene:false},{hasObserver:false},{article:true,capable:false}]){const h=harness(config);assert.equal(h.created,0);assert.equal(h.frames.size,0);assert.equal(h.watchers,0);}
 });
-test('Loader failed request can recover on a later capability change',()=>{
- const h=harness({loader:true});h.head[0].onerror();assert.equal(h.head.length,0);h.capability(false);h.capability(true);assert.equal(h.head.length,1);
+test('Butterfly enters from outside then rests on Justitia with an idle RAF',()=>{
+ const h=harness();assert.ok(h.position().x<0);h.settle();assert.equal(h.butterfly.dataset.flight,'rest');assert.equal(h.butterfly.dataset.perchKind,'statue');assert.ok(Math.abs(h.feet().x-880)<.02);assert.equal(h.frames.size,0);assert.equal(h.timers.size,1);
 });
-test('Full butterfly script stays inert on mobile, absent scene, or missing observer',()=>{
- for(const options of [{capable:false},{hasScene:false},{hasObserver:false}]){const h=harness(options);assert.equal(h.created,0);assert.equal(h.frames.size,0);assert.equal(h.live.length,0);}
+test('Theme handoff waits for complete sideways departure before other species enters',()=>{
+ const h=harness();h.settle();const old=h.butterfly;h.theme('dark');assert.equal(h.butterfly,old);assert.equal(old.dataset.phase,'exiting');assert.equal(h.fireflies.length,0);
+ const before=h.position().x;h.step();assert.notEqual(h.position().x,before);
+ for(let n=0;h.butterfly&&n<1000;n++){h.step();if(h.butterfly)assert.equal(h.fireflies.length,0);}
+ assert.equal(h.butterfly,undefined);assert.ok(h.position(old).x>1366,'Removed butterfly before it left viewport');assert.equal(h.fireflies.length,3);assert.ok(h.fireflies.every(v=>v.dataset.phase==='entering'));h.settle();assert.ok(h.fireflies.every(v=>v.dataset.flight==='rest'));
 });
-test('Initial flight settles and rest timer is bounded without per-frame layout reads',()=>{
- const h=harness();assert.equal(h.live.length,2);assert.equal(h.butterfly.getAttribute('aria-hidden'),'true');
- const reads=h.reads;h.settle();assert.equal(h.butterfly.dataset.flight,'rest');assert.ok(h.timers.size<=1);assert.ok(h.reads-reads<=10,'Layout read each frame');
-});
-test('A resting butterfly stays RAF-idle after hidden tab resumes',()=>{
- const h=harness();h.settle();h.visibility(true);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.equal(h.butterfly.dataset.paused,'true');
- h.visibility(false);h.settle(20);assert.equal(h.butterfly.dataset.paused,'false');assert.ok(h.timers.size<=1);
-});
-test('Pagehide cancels RAF and timers; pageshow restarts without a rest loop',()=>{
- const h=harness();h.window.emit('pagehide');assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);h.visibility(false);assert.equal(h.frames.size,0);
- h.window.emit('pageshow');h.settle();assert.ok(h.timers.size<=1);
-});
-test('Shared pause button stops flight; floating control resumes same pause state',()=>{
- const h=harness();h.toggle.click();assert.equal(h.frames.size,0);assert.equal(h.butterfly.dataset.paused,'true');assert.equal(h.control.getAttribute('aria-pressed'),'true');
- h.scrollTo(900);assert.equal(h.frames.size,0);h.control.click();assert.equal(h.toggle.getAttribute('aria-pressed'),'false');h.settle();assert.equal(h.butterfly.dataset.paused,'false');
-});
-test('Scroll transitions to a visible heading and reveals remote pause control',()=>{
- const h=harness();h.settle();const before=h.position();h.scrollTo(850);h.settle();const after=h.position();
- assert.ok(Math.abs(after.x-before.x)>300,'Did not move from statue to heading');assert.equal(h.control.hidden,false);assert.equal(h.butterfly.dataset.flight,'rest');
-});
-test('Capability destroy removes DOM/listeners; recreation has one controller',()=>{
- const h=harness();h.settle();h.capability(false);assert.equal(h.live.length,0);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.equal(h.watchers,0);assert.equal(h.window.count('scroll'),0);
- h.capability(true);assert.equal(h.live.length,2);assert.equal(h.watchers,2);assert.equal(h.window.count('scroll'),1);h.settle();
-});
-test('Pause intent survives capability destroy and recreation',()=>{
- const h=harness();h.toggle.click();h.capability(false);h.capability(true);assert.equal(h.butterfly.dataset.paused,'true');assert.equal(h.frames.size,0);assert.equal(h.control.getAttribute('aria-pressed'),'true');
-});
-test('Dark initial mode contains exactly three fireflies with unique glow IDs and no butterfly',()=>{
- const h=harness({dark:true});assert.equal(h.fireflies.length,3);assert.equal(h.butterfly,undefined);assert.equal(h.live.length,4);assert.equal(h.frames.size,1);
+test('Night visitors enter separately, settle on distinct first-line glyphs, and fold wings',()=>{
+ const h=harness({dark:true});assert.equal(h.fireflies.length,3);h.step();const reads=h.reads;h.settle();assert.equal(h.reads,reads,'Flight reads layout per frame');
  const ids=h.fireflies.map(n=>n.innerHTML.match(/id="(nh-firefly-glow-\d)"/)[1]);assert.equal(new Set(ids).size,3);
+ assert.equal(new Set(h.fireflies.map(n=>n.dataset.perch)).size,3);assert.ok(h.fireflies.every(n=>n.dataset.flight==='rest'&&n.dataset.perchKind==='letter'));
+ const feet=h.fireflies.map(n=>h.feet(n));assert.ok(feet.every(p=>Math.abs(p.y-297)<.02));for(let i=1;i<feet.length;i++)assert.ok(Math.abs(feet[i].x-feet[i-1].x)>48);
+ assert.equal(h.frames.size,0);assert.equal(h.timers.size,1);
 });
-test('Repeated theme switches replace visitors without duplicating controllers, frames or watchers',()=>{
- const h=harness();for(let i=0;i<12;i++){h.theme('dark');assert.equal(h.fireflies.length,3);assert.equal(h.butterfly,undefined);assert.equal(h.live.length,4);h.theme('light');assert.equal(h.fireflies.length,0);assert.ok(h.butterfly);assert.equal(h.live.length,2);assert.equal(h.frames.size,1);assert.equal(h.watchers,2);}
- h.settle();
+test('Insufficient spaced letters use separate margin perches without stacking visitors',()=>{
+ const h=harness({dark:true,shortHeading:true});h.settle();assert.equal(h.fireflies.filter(n=>n.dataset.perchKind==='letter').length,1);assert.equal(h.fireflies.filter(n=>n.dataset.perchKind==='margin').length,2);assert.equal(new Set(h.fireflies.map(n=>n.dataset.perch)).size,3);
 });
-test('Paused intent survives both kinds of visitor, with no timers or frame work',()=>{
- const h=harness();h.toggle.click();h.theme('dark');assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.ok(h.fireflies.every(n=>n.dataset.paused==='true'));
- h.theme('light');assert.equal(h.butterfly.dataset.paused,'true');assert.equal(h.frames.size,0);
+test('Reverse handoff flies all three away before the butterfly enters',()=>{
+ const h=harness({dark:true});h.settle();h.theme('light');assert.equal(h.fireflies.length,3);assert.equal(h.butterfly,undefined);h.settle();assert.equal(h.fireflies.length,0);assert.ok(h.butterfly);assert.equal(h.butterfly.dataset.flight,'rest');
 });
-test('Firefly motion is distinct and smooth, does not read layout each frame, and freezes while hidden',()=>{
- const h=harness({dark:true});h.step();const reads=h.reads;const before=h.fireflies.map(n=>n.style.transform);
- for(let i=0;i<120;i++)h.step();assert.equal(h.reads,reads);assert.equal(h.frames.size,1);
- assert.ok(h.fireflies.every((n,i)=>n.style.transform!==before[i]));assert.equal(new Set(h.fireflies.map(n=>n.style.transform)).size,3);
- const frozen=h.fireflies.map(n=>n.style.transform);h.visibility(true);h.step(60000);assert.equal(h.frames.size,0);assert.deepEqual(h.fireflies.map(n=>n.style.transform),frozen);
- h.visibility(false);h.step();assert.equal(h.frames.size,1);assert.ok(h.fireflies.every(n=>n.dataset.paused==='false'));
+test('Rapid reversals honor the latest requested theme without duplicate DOM or frames',()=>{
+ const h=harness();h.settle();for(let i=0;i<12;i++){h.theme('dark');h.step(30);h.theme('light');h.step();assert.equal(h.fireflies.length,0);assert.equal(h.live.length,3);assert.ok(h.frames.size<=1);assert.equal(h.watchers,2);}
+ h.theme('dark');h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.live.length,5);assert.equal(h.frames.size,0);
 });
-test('Dark lifecycle removes all visitors/observers on capability loss and suspends on pagehide',()=>{
- const h=harness({dark:true});h.window.emit('pagehide');assert.equal(h.frames.size,0);h.window.emit('pageshow');assert.equal(h.frames.size,1);
- h.capability(false);assert.equal(h.live.length,0);assert.equal(h.watchers,0);assert.equal(h.window.count('scroll'),0);assert.equal(h.document.count('visibilitychange'),0);h.capability(true);assert.equal(h.fireflies.length,3);assert.equal(h.frames.size,1);
+test('Pause freezes a departure, then resumes the same sequence',()=>{
+ const h=harness();h.settle();h.theme('dark');for(let i=0;i<10;i++)h.step();h.control.click();const position=h.position();h.step(60000);assert.deepEqual(h.position(),position);assert.equal(h.frames.size,0);assert.equal(h.fireflies.length,0);assert.equal(h.butterfly.dataset.paused,'true');
+ h.control.click();h.settle();assert.equal(h.butterfly,undefined);assert.equal(h.fireflies.length,3);
 });
-test('Article without hero has its own pause control and preserves intent across theme switches',()=>{
- const h=harness({articlePage:true});assert.ok(h.butterfly);assert.equal(h.control.hidden,false);h.control.click();assert.equal(h.frames.size,0);h.theme('dark');assert.equal(h.fireflies.length,3);assert.equal(h.control.getAttribute('aria-pressed'),'true');assert.equal(h.frames.size,0);h.control.click();assert.equal(h.frames.size,1);
+test('A theme change while paused defers motion and preserves user intent',()=>{
+ const h=harness({article:true});h.settle();h.control.click();h.theme('dark');assert.ok(h.butterfly);assert.equal(h.fireflies.length,0);assert.equal(h.frames.size,0);assert.equal(h.control.getAttribute('aria-pressed'),'true');h.control.click();h.settle();assert.equal(h.fireflies.length,3);
 });
-test('Article visitors fit outside the full article width, even at 1024px',()=>{
+test('Hidden tab freezes entry without time jumps; resumed night flight settles',()=>{
+ const h=harness({dark:true});for(let i=0;i<30;i++)h.step();const before=h.visitors.map(n=>h.position(n));h.visibility(true);h.step(60000);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.deepEqual(h.visitors.map(n=>h.position(n)),before);
+ h.visibility(false);h.step();h.visitors.forEach((v,i)=>assert.ok(Math.hypot(h.position(v).x-before[i].x,h.position(v).y-before[i].y)<12));h.settle();
+});
+test('Pagehide freezes transition; pageshow completes and capability loss cleans up',()=>{
+ const h=harness();h.settle();h.theme('dark');h.window.emit('pagehide');assert.equal(h.frames.size,0);h.visibility(false);assert.equal(h.frames.size,0);h.window.emit('pageshow');h.settle();assert.equal(h.fireflies.length,3);
+ h.capability(false);assert.equal(h.live.length,0);assert.equal(h.frames.size,0);assert.equal(h.timers.size,0);assert.equal(h.watchers,0);assert.equal(h.window.count('scroll'),0);assert.equal(h.document.count('visibilitychange'),0);h.capability(true);h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.window.count('scroll'),1);
+});
+test('Scroll sends visitors on curved flights to fresh heading letters instead of snapping',()=>{
+ const h=harness({dark:true});h.settle();const before=h.visitors.map(n=>h.position(n));h.scrollTo(850);assert.deepEqual(h.visitors.map(n=>h.position(n)),before);h.step();assert.ok(h.visitors.some(n=>n.dataset.flight==='fly'));h.settle();assert.ok(h.visitors.every(n=>n.dataset.perchKind==='letter'));assert.ok(h.visitors.every(n=>n.dataset.perch.startsWith('1:')));
+});
+test('Article title and subheadings use real nested first-line letters for both species',()=>{
  for(const width of [1024,1366]){
-  const h=harness({articlePage:true,width});h.settle();
-  let p=h.position();const size=parseFloat(h.butterfly.style['--visitor-size']);assert.ok(p.x>=0);assert.ok(p.x+size<=(width-940)/2);
-  h.scrollTo(950);h.settle();p=h.position();assert.ok(p.x+size<=(width-940)/2);
-  h.theme('dark');for(let i=0;i<600;i++){h.step();for(const f of h.fireflies){const m=f.style.transform.match(/translate3d\(([-\d.]+)px/);const x=+m[1],sz=parseFloat(f.style['--visitor-size']);assert.ok(x>=0 && x+sz<=width);assert.ok(x+sz<=(width-940)/2 || x>=(width+940)/2);}}
+  const h=harness({article:true,width});assert.ok(!h.selectorUsed.includes('article-footer'));assert.equal(h.control.hidden,false);h.settle();assert.equal(h.butterfly.dataset.perchKind,'letter');assert.ok(h.feet().x>(width-940)/2);assert.ok(Math.abs(h.feet().y-130.4)<.02);
+  h.theme('dark');h.settle();assert.equal(new Set(h.fireflies.map(n=>n.dataset.perch)).size,3);assert.ok(h.fireflies.every(n=>Math.abs(h.feet(n).y-130.4)<.02));h.scrollTo(944.1875);h.settle();assert.ok(h.fireflies.every(n=>n.dataset.perch.startsWith('1:')));assert.ok(h.fireflies.every(n=>Math.abs(h.feet(n).y-66.2125)<.02));
  }
 });
-test('Article compact capability creates no creatures, control, observers or scroll listeners',()=>{
- const h=harness({articlePage:true,capable:false,dark:true});assert.equal(h.created,0);assert.equal(h.live.length,0);assert.equal(h.watchers,0);assert.equal(h.frames.size,0);assert.equal(h.window.count('scroll'),0);assert.equal(h.document.count('visibilitychange'),0);
+test('Perches use visible glyph ink bounds, caching typography outside the flight loop',()=>{
+ const h=harness({dark:true,shortHeading:true});h.settle();const letter=h.fireflies.find(n=>n.dataset.perchKind==='letter');assert.ok(Math.abs(h.feet(letter).y-297)<.02,'Feet must meet ink top at298, not Range box top280');const measured=h.metricReads;h.resize(1366);h.settle();assert.equal(h.metricReads,measured,'Unchanged typography should reuse cached ink metrics');
 });
-console.log(`${count} butterfly checks passed; ${failures} failed.`);process.exitCode=failures?1:0;
+test('A gap in article headings uses quiet margin perches, then returns to letters',()=>{
+ const h=harness({article:true,dark:true});h.settle();h.scrollTo(3100);h.settle();assert.ok(h.fireflies.every(n=>n.dataset.perchKind==='margin'));assert.equal(h.frames.size,0);h.scrollTo(940);h.settle();assert.ok(h.fireflies.every(n=>n.dataset.perchKind==='letter'));
+});
+test('Rest timer moves only one visitor at a time and returns to idle',()=>{
+ const h=harness({dark:true});h.settle();h.step(13100);assert.equal(h.frames.size,1);h.step();assert.equal(h.visitors.filter(n=>n.dataset.flight==='fly').length,1);h.settle();assert.equal(h.frames.size,0);assert.equal(h.timers.size,1);
+});
+test('Paused intent survives capability destroy and recreation',()=>{const h=harness({article:true,dark:true});h.settle();h.control.click();h.capability(false);h.capability(true);assert.equal(h.control.getAttribute('aria-pressed'),'true');assert.equal(h.frames.size,0);assert.ok(h.fireflies.every(n=>n.dataset.paused==='true'));});
+test('Resize remeasures heading perches without duplicating controls',()=>{const h=harness({dark:true});h.settle();h.resize(1024);h.settle();assert.equal(h.fireflies.length,3);assert.equal(h.live.length,5);assert.equal(h.frames.size,0);assert.ok(h.fireflies.every(n=>h.feet(n).x>=0&&h.feet(n).x<=1024));});
+console.log(`${count} companion checks passed; ${failed} failed.`);process.exitCode=failed?1:0;
