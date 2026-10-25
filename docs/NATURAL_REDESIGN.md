@@ -58,3 +58,9 @@ Penerapan:
 - Setelah bagian kirim naskah terdapat bagian “Dari gagasan, menjadi percakapan.” Alurnya Ide Anda → Nalar Hakim → Masyarakat. Garis melengkung dan sinyal yang berkumpul lalu menyebar mengadaptasi konsep Monad yang sebelumnya diterapkan dalam `scripts/signal_field.py`, dengan geometri, palet alam, dan narasi redaksi sendiri. Tidak ada kode, logo, atau aset Monad yang ditambahkan.
 - Bagian tambahan hanya tampil pada desktop >=1024px dengan hover/pointer halus; HP mempertahankan halaman sebelumnya. Desktop reduced-motion dan tanpa JavaScript menampilkan diagram statis. Pengendali tambahan dimuat oleh loader kemampuan yang sudah ada, tanpa pustaka animasi. Sinyal berhenti di luar viewport, saat tab tersembunyi, pagehide, atau saat pengguna menjeda gerak.
 - Pemeriksaan mencakup lifecycle kupu-kupu dan aliran gagasan, tautan/aset hasil build, tampilan browser desktop terang/gelap serta viewport HP. Tidak mengklaim pengujian perangkat fisik.
+
+## Pendamping siang dan malam pada artikel
+- Mode terang menampilkan satu kupu-kupu tembaga. Mode gelap menggantikannya dengan tepat tiga kunang-kunang; pergantian mengikuti tema yang tersimpan maupun tombol tema saat halaman terbuka.
+- Kunang-kunang memiliki badan kecil, antena, sayap tipis, dan cahaya perut keemasan. Lintasan melengkung serta fase cahaya masing-masing berbeda. Posisi pada artikel dibatasi ke sisi kolom untuk menjaga keterbacaan.
+- Semua halaman artikel hasil generator memuat loader desktop yang sama. Artikel mendapat kontrol jeda sendiri; landing tetap menggunakan jeda bersama untuk ilustrasi dan aliran gagasan. Artikel lama yang berupa redirect langsung membuka halaman artikel tujuan.
+- HP, perangkat sentuh, dan reduced-motion tidak memuat pengendali pendamping. Jeda, tab tersembunyi, dan pagehide menghentikan gerak. Isi artikel, referensi, Justitia, serta struktur publikasi tidak diubah.

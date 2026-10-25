@@ -28,7 +28,7 @@ class Page(HTMLParser):
         if tag == 'base' and attrs.get('href'):
             self.base = urljoin(self.base, attrs['href'])
             return
-        for attr in ('href', 'src', 'action'):
+        for attr in ('href', 'src', 'action', 'data-butterfly-src', 'data-desktop-src'):
             if attrs.get(attr):
                 self.links.append(attrs[attr])
 

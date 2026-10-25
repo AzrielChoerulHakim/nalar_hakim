@@ -1,20 +1,28 @@
-/* One decorative visitor. Read layout only on scroll/resize, never every frame. */
+/* Day/night companions. Geometry is read only on scroll/resize, never each frame. */
 (() => {
   'use strict';
   const media = matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  const root = document.documentElement;
   const scene = document.querySelector('[data-nature-scene]');
+  const article = document.querySelector('.article-layout');
   const toggle = scene?.querySelector('[data-nature-toggle]');
-  if (!scene || !toggle || !window.MutationObserver) return;
-  const anchors = [
-    {element: scene.querySelector('svg'), statue: true},
-    ...['#landing-manifest-title', '#landing-channels-title', '#landing-invitation-title', '#idea-flow-title', '.landing-footer-brand'].map(s => ({element: document.querySelector(s)}))
-  ].filter(a => a.element);
-  let butterfly, body, control, watcher, frame = 0, restTimer = 0;
+  if ((!article && (!scene || !toggle)) || !window.MutationObserver) return;
+  const anchors = (article
+    ? [...article.querySelectorAll('.article-header h1,.article-content h2,.article-content h3,.article-footer')].map(element => ({element}))
+    : [{element: scene.querySelector('svg'), statue: true},
+       ...['#landing-manifest-title', '#landing-channels-title', '#landing-invitation-title', '#idea-flow-title', '.landing-footer-brand'].map(s => ({element: document.querySelector(s)}))]
+  ).filter(a => a.element);
+  if (!anchors.length) return;
+  let butterfly, body, control, watcher, themeWatcher, frame = 0, restTimer = 0;
+  let fireflies = [], theme = '', localPaused = false;
   let points = [], active = 0, dirty = true, flying = false, suspended = false;
-  let x = 0, y = 0, vx = 0, vy = 0, last = 0, lastScroll = -1000, wanderEnd = 0, started = 0;
+  let x = 0, y = 0, vx = 0, vy = 0, last = 0, lastScroll = -1000, wanderEnd = 0, started = 0, nightTime = 0;
+  let butterflySize = 64, fireflySize = 52;
+  let leftLane = [36,110], rightLane = [innerWidth-110,innerWidth-36], perchX = 50;
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-  const paused = () => toggle.getAttribute('aria-pressed') === 'true';
+  const paused = () => toggle ? toggle.getAttribute('aria-pressed') === 'true' : localPaused;
   const available = () => media.matches && !document.hidden && !suspended && !paused();
+  const currentTheme = () => root.dataset.theme === 'dark' ? 'dark' : 'light';
   // A shared engraved wing is mirrored within separately hinged groups.
   // Glowing antenna tips use small radial paints, not costly blur filters.
   const wing = `<path d="M48 51C39 33 23 17 9 17C3 17 5 30 8 38C11 48 21 54 30 57C17 54 11 59 13 68C14 72 17 73 18 76C20 79 23 78 25 81C28 83 31 81 34 82C40 81 45 68 48 57Z" fill="#392B24" stroke="#C38843" stroke-width=".65"/>
@@ -68,12 +76,43 @@
       <path d="M48.1 37.8L47.8 38.5M52.1 37.8L51.8 38.5" stroke="#EBD1A2" stroke-width=".6" stroke-linecap="round"/>
     </g>
   </svg>`;
+  function fireflyArt(index) {
+    const glow = `nh-firefly-glow-${index}`;
+    return `<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs>
+      <radialGradient id="${glow}"><stop stop-color="#E9F5A4" stop-opacity=".7"/><stop offset=".25" stop-color="#D8E78A" stop-opacity=".3"/><stop offset=".55" stop-color="#CFD578" stop-opacity=".1"/><stop offset="1" stop-color="#D6E69B" stop-opacity="0"/></radialGradient>
+      </defs><g class="firefly-body"><g class="firefly-lantern"><circle cx="32" cy="39" r="24" fill="url(#${glow})"/></g>
+      <g class="firefly-wing firefly-wing-left"><path d="M30 29C22 21 14 23 17 31C19 36 25 39 30 37Z" fill="#C3DAB5" fill-opacity=".28" stroke="#E0E7BB" stroke-opacity=".45" stroke-width=".45"/><path d="M29 32L19 27M28 34L20 31" fill="none" stroke="#E7EAC1" stroke-opacity=".3" stroke-width=".5"/></g>
+      <g class="firefly-wing firefly-wing-right"><path d="M34 29C42 21 50 23 47 31C45 36 39 39 34 37Z" fill="#C3DAB5" fill-opacity=".28" stroke="#E0E7BB" stroke-opacity=".45" stroke-width=".45"/><path d="M35 32L45 27M36 34L44 31" fill="none" stroke="#E7EAC1" stroke-opacity=".3" stroke-width=".5"/></g>
+      <path d="M30 27Q25 20 25 17M34 27Q39 20 39 17M30 32L26 35L25 39M34 32L38 35L39 39M30 36L27 40M34 36L37 40" fill="none" stroke="#B7C08B" stroke-width=".65" stroke-linecap="round"/>
+      <ellipse cx="32" cy="35" rx="3.3" ry="7" fill="#394A2D" stroke="#C2CB8D" stroke-width=".55"/>
+      <path d="M29.4 34Q32 35 34.6 34M29.5 36Q32 37 34.5 36" stroke="#7C8C52" stroke-width=".65" fill="none"/>
+      <g class="firefly-lantern"><path d="M29 37Q32 35.5 35 37C35 43 29 44 29 37Z" fill="#E1EB8C"/><ellipse cx="32" cy="39" rx="1.7" ry="2.2" fill="#FFF6B7"/></g>
+      <ellipse cx="32" cy="29" rx="3.1" ry="3.5" fill="#7D6939" stroke="#D4BA72" stroke-width=".5"/>
+      <ellipse cx="32" cy="25.6" rx="2.4" ry="2" fill="#29382A"/><circle cx="30.2" cy="25" r=".55" fill="#D3D9A6"/><circle cx="33.8" cy="25" r=".55" fill="#D3D9A6"/>
+      </g></svg>`;
+  }
   function measure() {
     dirty = false;
+    if (article) {
+      const r = article.getBoundingClientRect();
+      // Fit even the 1024px layout gutter; never spill into the title or prose.
+      const gutter = Math.min(r.left, innerWidth-r.right);
+      butterflySize = clamp(gutter-12, 18, 64);
+      fireflySize = Math.min(52,butterflySize);
+      const pad = butterflySize/2 + 5;
+      leftLane = [pad, Math.max(pad, Math.min(180, r.left-pad))];
+      rightLane = [Math.min(innerWidth-pad, Math.max(innerWidth-180, r.right+pad)), innerWidth-pad];
+      perchX = (leftLane[0] + leftLane[1]) / 2;
+      butterfly?.style.setProperty('--visitor-size', `${butterflySize}px`);
+      fireflies.forEach(f => f.node.style.setProperty('--visitor-size', `${fireflySize}px`));
+    } else {
+      leftLane = [36, Math.max(36, Math.min(130, innerWidth * .09))];
+      rightLane = [innerWidth - Math.min(150, innerWidth * .11), innerWidth - 36];
+    }
     points = anchors.map(({element, statue}) => {
       const rect = element.getBoundingClientRect();
       if (statue) return {x: rect.left + rect.width * .46, y: rect.top + rect.height * .142};
-      // Range around the first printed letter; no wrapping spans or layout changes.
+      if (article) return {x: perchX, y: rect.top + 18};
       let node = element;
       while (node.firstChild) node = node.firstChild;
       let r = rect;
@@ -85,21 +124,23 @@
       }
       return {x: r.left + r.width * .52, y: r.top + r.height * .16};
     });
-    // A visible perch remains preferred until it leaves the comfortable frame.
-    const visible = p => p.y > 90 && p.y < innerHeight - 95;
+    const visible = p => p.y > 110 && p.y < innerHeight - 110;
     if (!points[active] || !visible(points[active])) {
       const candidates = points.map((p, i) => ({p, i})).filter(({p}) => visible(p));
       if (candidates.length) active = candidates.reduce((a, b) => Math.abs(a.p.y - innerHeight * .4) < Math.abs(b.p.y - innerHeight * .4) ? a : b).i;
     }
-    const r = toggle.getBoundingClientRect();
-    control.hidden = r.bottom > 0 && r.top < innerHeight;
+    if (toggle) {
+      const r = toggle.getBoundingClientRect();
+      control.hidden = r.bottom > 0 && r.top < innerHeight;
+    } else control.hidden = false;
   }
   function paint(bank = 0) {
-    butterfly.style.transform = `translate3d(${(x - 32).toFixed(2)}px,${(y - 55).toFixed(2)}px,0)`;
+    if (article) x = clamp(x, leftLane[0], leftLane[1]);
+    butterfly.style.transform = `translate3d(${(x - butterflySize/2).toFixed(2)}px,${(y - butterflySize*.86).toFixed(2)}px,0)`;
     body.style.rotate = `${bank.toFixed(2)}deg`;
   }
   function wake() {
-    if (!butterfly || !available() || frame) return;
+    if (!control || !available() || frame) return;
     last = 0;
     frame = requestAnimationFrame(tick);
   }
@@ -107,14 +148,36 @@
     clearTimeout(restTimer);
     restTimer = setTimeout(() => { wanderEnd = performance.now() + 1800; wake(); }, 11000);
   }
+  function nightTarget(index) {
+    const phase = [0.4,2.7,4.9][index], rate = [.19,.145,.173][index];
+    const t = nightTime * rate;
+    const lane = index === 1 ? rightLane : leftLane;
+    const u = .5 + .31 * Math.sin(t + phase) + .13 * Math.sin(t * 1.73 + phase * 2);
+    const v = .5 + .3 * Math.sin(t * .71 + phase) + .1 * Math.sin(t * 1.31 + phase * 1.6);
+    return {x: lane[0] + (lane[1]-lane[0])*u, y: 110 + Math.max(0,innerHeight - 240)*v};
+  }
   function tick(now) {
     frame = 0;
-    if (!available() || !butterfly) return;
+    if (!available() || !control) return;
     if (dirty) measure();
     const dt = Math.min((now - (last || now - 16)) / 1000, .035); last = now;
+    if (theme === 'dark') {
+      nightTime += dt;
+      fireflies.forEach((f, i) => {
+        const target = nightTarget(i), oldX = f.x;
+        const ease = 1 - Math.exp(-dt * 1.5);
+        f.x += (target.x-f.x)*ease; f.y += (target.y-f.y)*ease;
+        // Constrain on resize immediately, while retaining smooth vertical drift.
+        const lane = i === 1 ? rightLane : leftLane;
+        f.x = clamp(f.x,lane[0],lane[1]);
+        f.node.style.transform = `translate3d(${(f.x-fireflySize/2).toFixed(2)}px,${(f.y-fireflySize/2).toFixed(2)}px,0)`;
+        f.body.style.rotate = `${clamp((f.x-oldX)/dt*1.5,-18,18).toFixed(2)}deg`;
+      });
+      frame = requestAnimationFrame(tick); return;
+    }
     const perch = points[active];
-    const targetX = clamp(perch.x, 40, innerWidth - 40);
-    const targetY = clamp(perch.y, 100, innerHeight - 85);
+    const targetX = article ? perchX : clamp(perch.x, 40, innerWidth - 40);
+    const targetY = clamp(perch.y, 110, innerHeight - 110);
     const distance = Math.hypot(targetX - x, targetY - y);
     const idle = now - lastScroll > 260;
     const wandering = now < wanderEnd;
@@ -123,11 +186,9 @@
       clearTimeout(restTimer);
     }
     if (flying) {
-      // A damped flight path preserves velocity when the destination changes.
-      // The sideways breeze fades near landing rather than snapping to scroll.
       const breeze = Math.min(distance / 110, 1);
       const phase = (now - started) / 1000;
-      const gx = targetX + Math.sin(phase * 2.1) * 38 * breeze + (wandering ? Math.sin(now / 480) * 28 : 0);
+      const gx = targetX + Math.sin(phase * 2.1) * (article ? 9 : 38) * breeze + (wandering ? Math.sin(now / 480) * (article ? 8 : 28) : 0);
       const gy = targetY - Math.sin(Math.min(phase / 2, 1) * Math.PI) * 45 * breeze - (wandering ? 32 : 0);
       vx += clamp((gx - x) * 12 - vx * 6.5, -850, 850) * dt;
       vy += clamp((gy - y) * 12 - vy * 6.5, -850, 850) * dt;
@@ -135,15 +196,11 @@
       if (speed > 300) { vx *= 300 / speed; vy *= 300 / speed; }
       x += vx * dt; y += vy * dt;
       paint(clamp(vx * .075, -17, 17));
-      if (distance < 1.8 && Math.hypot(vx, vy) < 5 && idle && !wandering && perch.y > 90 && perch.y < innerHeight - 85) {
+      if (distance < 1.8 && Math.hypot(vx, vy) < 5 && idle && !wandering) {
         x = targetX; y = targetY; vx = vy = 0; flying = false;
         butterfly.dataset.flight = 'rest'; paint();
-        scheduleRest();
+        if (perch.y > 110 && perch.y < innerHeight - 110) scheduleRest();
         return;
-      }
-      // In a gap between headings, hold quietly in the margin until another scroll.
-      if (distance < 2 && idle && !wandering && (perch.y <= 90 || perch.y >= innerHeight - 85)) {
-        butterfly.dataset.flight = 'rest'; flying = false; paint(); return;
       }
     }
     if (!flying) { scheduleRest(); return; }
@@ -152,39 +209,71 @@
   function stop() {
     cancelAnimationFrame(frame); frame = 0; clearTimeout(restTimer); last = 0;
   }
+  function removeVisitors() {
+    stop(); butterfly?.remove(); butterfly = body = undefined;
+    fireflies.forEach(f => f.node.remove()); fireflies = [];
+  }
+  function swapTheme() {
+    if (!control || theme === currentTheme()) {sync(); return;}
+    removeVisitors(); theme = currentTheme(); dirty = true; active = 0; measure();
+    if (theme === 'dark') {
+      nightTime = 0;
+      for (let i = 0; i < 3; i++) {
+        const node = document.createElement('div'); node.className = 'nature-firefly';
+        node.style.setProperty('--visitor-size', `${fireflySize}px`);
+        node.setAttribute('aria-hidden','true'); node.innerHTML = fireflyArt(i);
+        node.style.setProperty('--firefly-delay', `${-i * 1.7}s`);
+        node.style.setProperty('--firefly-period', `${4.7 + i * .9}s`);
+        const p = nightTarget(i);
+        node.style.transform = `translate3d(${(p.x-fireflySize/2).toFixed(2)}px,${(p.y-fireflySize/2).toFixed(2)}px,0)`;
+        document.body.append(node);
+        fireflies.push({node,body:node.querySelector('.firefly-body'),x:p.x,y:p.y});
+      }
+    } else {
+      butterfly = document.createElement('div'); butterfly.className = 'nature-butterfly';
+      butterfly.style.setProperty('--visitor-size', `${butterflySize}px`);
+      butterfly.setAttribute('aria-hidden', 'true'); butterfly.dataset.flight = 'rest'; butterfly.innerHTML = art;
+      document.body.append(butterfly); body = butterfly.querySelector('.butterfly-body');
+      x = article ? perchX : clamp(points[active].x, 40, innerWidth - 40);
+      y = clamp(points[active].y, 110, innerHeight - 110);
+      vx = vy = 0; flying = false; paint();
+      wanderEnd = performance.now() + 900;
+    }
+    sync();
+  }
   function sync() {
-    if (!butterfly) return;
-    butterfly.dataset.paused = String(!available());
+    if (!control) return;
+    if (butterfly) butterfly.dataset.paused = String(!available());
+    fireflies.forEach(f => {f.node.dataset.paused = String(!available());});
     control.textContent = paused() ? '▷ Lanjutkan gerak' : 'Ⅱ Jeda gerak';
     control.setAttribute('aria-pressed', String(paused()));
     control.setAttribute('aria-label', paused() ? 'Lanjutkan animasi alam' : 'Jeda animasi alam');
     if (available()) {dirty = true; wake();} else stop();
   }
-  function onScroll() { dirty = true; lastScroll = performance.now(); wake(); }
+  function onScroll() {dirty = true; lastScroll = performance.now(); wake();}
+  function onHide() {suspended = true; sync();}
+  function onShow() {suspended = false; sync();}
   function destroy() {
-    stop(); watcher?.disconnect();
+    removeVisitors(); watcher?.disconnect(); themeWatcher?.disconnect();
     window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll);
-    butterfly?.remove(); control?.remove(); butterfly = control = body = undefined;
+    window.removeEventListener('pagehide', onHide); window.removeEventListener('pageshow', onShow);
+    document.removeEventListener('visibilitychange', sync);
+    control?.remove(); control = undefined; theme = ''; suspended = false;
   }
   function setup() {
-    if (!media.matches) { destroy(); return; }
-    if (butterfly) {sync(); return;}
-    butterfly = document.createElement('div'); butterfly.className = 'nature-butterfly';
-    butterfly.setAttribute('aria-hidden', 'true'); butterfly.dataset.flight = 'rest'; butterfly.innerHTML = art;
+    if (!media.matches) {destroy(); return;}
+    if (control) {swapTheme(); return;}
     control = document.createElement('button'); control.className = 'nature-page-toggle'; control.type = 'button';
-    control.addEventListener('click', () => toggle.click());
-    document.body.append(butterfly, control); body = butterfly.querySelector('.butterfly-body');
-    active = 0; dirty = true; measure();
-    x = clamp(points[active].x, 40, innerWidth - 40); y = clamp(points[active].y, 100, innerHeight - 85);
-    vx = vy = 0; flying = false; paint();
-    watcher = new MutationObserver(sync); watcher.observe(toggle, {attributes: true, attributeFilter: ['aria-pressed']});
-    window.addEventListener('scroll', onScroll, {passive: true}); window.addEventListener('resize', onScroll);
-    wanderEnd = performance.now() + 900; sync();
+    control.addEventListener('click', () => {if (toggle) toggle.click(); else {localPaused = !localPaused; sync();}});
+    document.body.append(control);
+    if (toggle) {watcher = new MutationObserver(sync); watcher.observe(toggle, {attributes:true,attributeFilter:['aria-pressed']});}
+    themeWatcher = new MutationObserver(swapTheme); themeWatcher.observe(root, {attributes:true,attributeFilter:['data-theme']});
+    window.addEventListener('scroll', onScroll, {passive:true}); window.addEventListener('resize', onScroll);
+    document.addEventListener('visibilitychange', sync);
+    window.addEventListener('pagehide', onHide); window.addEventListener('pageshow', onShow);
+    swapTheme();
   }
   media.addEventListener('change', setup);
-  document.addEventListener('visibilitychange', sync);
-  window.addEventListener('pagehide', () => {suspended = true; sync();});
-  window.addEventListener('pageshow', () => {suspended = false; sync();});
   document.fonts?.ready.then(() => {dirty = true; wake();});
   setup();
 })();
