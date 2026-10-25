@@ -24,4 +24,4 @@ jobs:
       - name: Check preview links and reading anchors
         run: python3 scripts/check-preview.py
       - name: Verify generated preview is current
-        run: git diff --exit-code -- index.html beranda.html cari.html tentang.html 404.html artikel kanal preview sitemap.xml
+        run: git diff --exit-code -- index.html beranda.html cari.html tentang.html kirim-naskah.html kebijakan-redaksi.html 404.html artikel kanal bentuk preview sitemap.xml

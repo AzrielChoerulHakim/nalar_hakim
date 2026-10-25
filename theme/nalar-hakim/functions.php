@@ -1,5 +1,5 @@
 <?php
-/** Theme foundation. Public editorial identity is always Lazarus. */
+/** Theme foundation for a critical legal publication edited by Lazarus. */
 if (!defined('ABSPATH')) { exit; }
 
 function nh_channels() {
@@ -37,6 +37,49 @@ function nh_channel_url($slug) {
     }
     return add_query_arg('category_name', $slug, home_url('/'));
 }
+function nh_editorial_pages() {
+    static $links = null;
+    if (null !== $links) { return $links; }
+    $links = array();
+    foreach (array('kirim-naskah' => 'Kirim Naskah', 'tentang' => 'Tentang', 'kebijakan-redaksi' => 'Kebijakan Redaksi') as $slug => $label) {
+        $page = get_page_by_path($slug, OBJECT, 'page');
+        if (!$page || 'publish' !== $page->post_status || $page->post_password) { continue; }
+        $url = get_permalink($page);
+        if ($url) { $links[] = array('id' => $page->ID, 'label' => $label, 'url' => $url); }
+    }
+    return $links;
+}
+function nh_editorial_links() {
+    foreach (nh_editorial_pages() as $link) {
+        echo '<a href="' . esc_url($link['url']) . '"' . (is_page($link['id']) ? ' aria-current="page"' : '') . '>' . esc_html($link['label']) . '</a> ';
+    }
+}
+// Public attribution belongs to the article, not the WordPress account that uploads it.
+function nh_author_alias($post_id = 0) {
+    $alias = get_post_meta($post_id ?: get_the_ID(), '_nh_author_alias', true);
+    $alias = is_string($alias) ? trim(sanitize_text_field($alias)) : '';
+    return '' !== $alias ? $alias : 'Lazarus';
+}
+function nh_author_alias_box($post) {
+    $alias = get_post_meta($post->ID, '_nh_author_alias', true);
+    wp_nonce_field('nh_save_author_alias_' . $post->ID, 'nh_author_alias_nonce');
+    echo '<p><label for="nh-author-alias">Nama samaran penulis</label></p>';
+    echo '<input type="text" class="widefat" id="nh-author-alias" name="nh_author_alias" value="' . esc_attr(is_string($alias) ? $alias : '') . '" aria-describedby="nh-author-alias-help">';
+    echo '<p id="nh-author-alias-help">Isi nama samaran yang disepakati dengan penulis. Kosong berarti Lazarus; gunakan nilai bawaan hanya untuk tulisan Lazarus. Nama akun WordPress tidak dipakai sebagai byline.</p>';
+}
+add_action('add_meta_boxes_post', function () {
+    add_meta_box('nh-public-author', 'Nama penulis publik', 'nh_author_alias_box', 'post', 'side');
+});
+function nh_save_author_alias($post_id) {
+    if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) { return; }
+    if (!current_user_can('edit_post', $post_id)) { return; }
+    if (!isset($_POST['nh_author_alias_nonce'], $_POST['nh_author_alias']) || !is_string($_POST['nh_author_alias_nonce']) || !is_string($_POST['nh_author_alias'])) { return; }
+    if (!wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nh_author_alias_nonce'])), 'nh_save_author_alias_' . $post_id)) { return; }
+    $alias = trim(sanitize_text_field(wp_unslash($_POST['nh_author_alias'])));
+    if ('' === $alias) { delete_post_meta($post_id, '_nh_author_alias'); }
+    else { update_post_meta($post_id, '_nh_author_alias', wp_slash($alias)); }
+}
+add_action('save_post_post', 'nh_save_author_alias');
 function nh_post_channel() {
     $categories = get_the_category();
     foreach ($categories as $category) {
@@ -62,10 +105,10 @@ function nh_cover($size = 'nh-card', $priority = false) {
         if ($priority) { $attr['fetchpriority'] = 'high'; }
         the_post_thumbnail($size, $attr);
     } else {
-        echo '<span class="cover-placeholder" aria-hidden="true"><span class="cover-orbit"></span><span class="cover-monogram">NH</span><span class="cover-caption">NALAR HAKIM / JURNAL GAGASAN</span></span>';
+        echo '<span class="cover-placeholder" aria-hidden="true"><span class="cover-orbit"></span><span class="cover-monogram">NH</span><span class="cover-caption">NALAR HAKIM / KRITIK HUKUM</span></span>';
     }
 }
-function nh_public_name($name) { return is_admin() ? $name : 'Lazarus'; }
+function nh_public_name($name) { return is_admin() ? $name : nh_author_alias(); }
 add_filter('the_author', 'nh_public_name');
 add_filter('get_the_author_display_name', 'nh_public_name');
 add_filter('get_the_author_user_url', function ($value) { return is_admin() ? $value : home_url('/'); });
@@ -75,11 +118,11 @@ foreach (array('user_email', 'first_name', 'last_name', 'description', 'user_log
 // No public avatar requests (including Gravatar email hashes).
 add_filter('get_avatar', function ($html) { return is_admin() ? $html : ''; });
 add_filter('author_link', function ($url) { return is_admin() ? $url : home_url('/'); });
-add_filter('oembed_response_data', function ($data) {
-    $data['author_name'] = 'Lazarus';
+add_filter('oembed_response_data', function ($data, $post) {
+    $data['author_name'] = nh_author_alias($post->ID);
     $data['author_url'] = home_url('/');
     return $data;
-});
+}, 10, 2);
 add_filter('wp_sitemaps_add_provider', function ($provider, $name) { return 'users' === $name ? false : $provider; }, 10, 2);
 add_action('template_redirect', function () {
     if (is_author()) {

@@ -1,37 +1,44 @@
-# Status pengembangan Nalar Hakim
+# Status Nalar Hakim — perombakan redaksi
 
-Situs statis dan fondasi tema WordPress tersedia. WordPress belum dipasang atau diuji dengan database hidup; konfigurasi dan deployment VPS sengaja ditunda.
+## Implementasi
 
-## Implementasi saat ini
+Situs statis telah diarahkan menjadi publikasi kritik hukum independen. Landing, ruang baca, navigasi, halaman bidang, artikel, pencarian, footer dan metadata mengikuti arah redaksi baru. Empat bentuk publikasi: Telaah, Bedah Putusan & Norma, Esai Pemikiran, Perdebatan. Lima bidang tetap dapat ditelusuri.
 
-- `index.html` menjadi landing page; `beranda.html` menjadi ruang baca dengan lima kanal.
-- Lima artikel lengkap dengan sumber primer disimpan di `content/*.json`. Artikel menampilkan byline Lazarus, label jenis tulisan, ringkasan, tanggal, daftar isi, penanda rujukan dan daftar sumber.
-- Generator menghasilkan 21 halaman HTML, termasuk enam pengalihan alamat artikel lama, serta indeks pencarian dan `sitemap.xml`. Pencarian mencakup isi artikel.
-- Desain editorial datar memakai palet arang, putih tulang, lavender dan sage, dengan padanan krem/ungu/zaitun pada mode terang. Tipografi besar, bidang warna solid dan sampul SVG dua dimensi dipertahankan. Tidak memakai library frontend, font eksternal, 3D atau WebGL.
-- Animasi pembuka singkat dan jaringan sinyal SVG 2D hanya aktif pada layar minimal 1000 px dengan hover dan penunjuk presisi, ketika pengguna tidak meminta pengurangan gerak. Sembilan sinyal bergerak di belakang wordmark; tombol jeda, visibilitas halaman, dan posisi hero mengendalikan geraknya. HP menampilkan garis statis.
-- Masthead desktop diringkas menjadi 80 px dengan enam kanal dalam kolom seimbang setinggi minimal 46 px. Di layar kecil, tab dapat digeser dan tombol tetap minimal 44 px.
-- Label dan metadata minimal 12 px, keterangan 14–16 px, serta isi artikel 19 px desktop/18 px HP. Preferensi tema diterapkan sebelum CSS tampil; aset lokal mendapat fingerprint otomatis setelah build.
-- Penyuntingan situs statis melalui JSON dan generator, tanpa database atau panel admin. Artikel tidak diimpor otomatis ke WordPress.
-- Identitas visual dan fitur situs statis belum dipindahkan seluruhnya ke tema WordPress.
+Halaman baru: `kirim-naskah.html`, `kebijakan-redaksi.html`, serta empat arsip `bentuk/`. `tentang.html` memuat posisi dan cara kerja redaksi. Total 27 HTML, termasuk enam pengalihan historis dengan tujuan tetap. Sitemap mencakup halaman publik baru.
 
-## Pemeriksaan dan publikasi
+Panduan pengiriman menggunakan email baru → lampiran Word → tinjauan Lazarus → keputusan atau revisi melalui email. Tombol mailto memuat penerima dan subjek; lampiran ditambahkan sendiri oleh pengirim. Tombol salin memiliki petunjuk manual bila API clipboard ditolak/tidak tersedia. Tidak ada formulir unggah, backend email, akun kontributor atau notifikasi otomatis. Korespondensi dilakukan manual oleh Lazarus.
 
-Generator memvalidasi kelengkapan struktur artikel, tanggal, ID dan kecocokan penanda dengan daftar sumber. Pemeriksa halaman memeriksa tautan lokal, aset serta tujuan anchor. Kesesuaian sumber dengan klaim hukum tetap memerlukan tinjauan editorial terhadap dokumen aslinya.
+Kelima artikel telah ditulis ulang dengan objek, tesis, lensa teori, sanggahan, batas analisis, rujukan dan catatan perubahan:
 
-CI mencakup lint PHP, pemeriksaan sintaks JavaScript termasuk animasi, pembuatan ZIP tema, pembuatan ulang halaman, pemeriksaan tautan dan perbandingan hasil generator termasuk sitemap. Lint PHP dengan PHP nyata, Theme checks dan deployment GitHub Pages telah berhasil pada revisi sebelumnya; itu belum membuktikan integrasi WordPress berfungsi.
+- Pidana: ukuran keberhasilan dalam publikasi kinerja KPK 22 Desember 2025.
+- Perdata: pemulihan dan bentuk gugatan dalam SEMA 1/2022 B.1.a–b.
+- Agama & Keluarga: Putusan MA 266 K/AG/2010 dan pengakuan kerja perawatan.
+- Filsafat Hukum: MK 257/PUU-XXIII/2025, partisipasi publik dan kewajiban menjelaskan.
+- Hukum & Teknologi: kuasa upgrade, oracle dan persetujuan dalam smart contract.
 
-Pemeriksaan browser revisi ini mencakup landing, ruang baca, pembuka dan isi artikel, pencarian isi/hasil kosong, daftar isi, rujukan/tautan kembali, mode terang/gelap, dan pengalihan alamat lama. Landing serta ruang baca diperiksa pada lebar 320/360/390/768 px; artikel dengan judul terpanjang diperiksa pada 320/360/390 px, tanpa luapan horizontal halaman. Animasi aktif di desktop dan selesai tanpa sisa pemotongan judul; layar kecil tetap statis. Pemeriksaan lokal lulus untuk 21 halaman dan 574 tautan lokal/aset/anchor.
+Dokumen lama dibaca ulang dengan tanggal objek yang jelas; tidak dipresentasikan sebagai kejadian baru. Sumber primer ditelusuri dan batas antara teks dokumen serta kritik penulis dijelaskan. Perdebatan belum memiliki tanggapan terbit dan menampilkan undangan yang jujur.
 
-Revisi jaringan dan navigasi diperiksa pada lebar 320/390/768/960/1366/1920 px; tidak ada luapan horizontal halaman. Panel pencarian tetap berada dalam layar 320/390 px. Jeda/lanjutkan dan jeda saat hero keluar layar diperiksa pada browser. Empat belas pemeriksaan siklus animasi juga lulus untuk preferensi gerak, pointer, visibilitas, pergantian observer, dan bfcache.
+Pemuat JSON menerima lebih dari satu artikel per bidang serta nama samaran masing-masing penulis. Artikel terbaru tampil lebih dahulu. Tidak ada syarat panjang atau jumlah subjudul otomatis; panjang naskah diputuskan redaksi. Validasi tetap memeriksa teks tidak kosong, metadata, format, tanggal dan pasangan penanda/sumber. Identitas privat tidak menjadi field konten.
 
-Audit palet dan keterbacaan mencakup 15 halaman (landing, beranda, pencarian, Tentang, 404, lima kanal dan lima artikel), masing-masing dalam dua tema pada lebar 320 dan 1366 px: total 60 keadaan halaman. Tidak ditemukan teks isi/label terlihat di bawah 12 px, luapan horizontal halaman, atau kontras teks dasar di bawah ambang yang diperiksa (4,5:1 untuk teks biasa; 3:1 untuk teks besar). Pemeriksaan ini tidak merupakan audit aksesibilitas menyeluruh. Panel pencarian dan donasi terbuka, pencarian hasil/nihil, daftar isi, serta rujukan/tautan kembali turut diperiksa. Navigasi juga diperiksa pada 768, 960, 1024 dan 1920 px.
+## Pemeriksaan
 
-Landing beserta seluruh CSS dan JavaScript yang dimuat berjumlah sekitar 76 KB sebelum kompresi (perkiraan gzip sekitar 20 KB), tanpa font eksternal. Ini ukuran berkas, bukan hasil pengukuran Core Web Vitals. Hasil CI serta deployment commit ini tersedia di tab Actions; metrik performa lapangan belum diukur.
+- Generator dan pemeriksaan tautan: **27 halaman, 871 tautan lokal/aset/anchor**.
+- Sintaks JavaScript untuk tema, pencarian dan kedua animasi diperiksa.
+- Tambahan naskah uji di direktori sementara berhasil dimuat sebagai artikel keenam, format Perdebatan dan alias Anonim; dua artikel dalam bidang sama tidak saling menggantikan. Naskah uji tidak masuk repository.
+- Tinjauan sumber terhadap lima file PHP dan penyimpanan alias tidak menemukan masalah material. PHP tidak tersedia di runtime lokal; lint nyata dijalankan melalui workflow GitHub, bukan diklaim dari pemeriksaan lokal.
+- Browser: 21 halaman utama pada dua lebar (320 dan 1366px), masing-masing tema terang/gelap, **84 keadaan halaman**. Tidak ditemukan teks isi/label terlihat di bawah 12px, luapan horizontal halaman, atau kontras teks dasar di bawah ambang yang diperiksa (4,5:1 teks biasa; 3:1 teks besar). Ini bukan audit aksesibilitas menyeluruh.
+- Landing dan panduan juga diperiksa visual pada 320/390/768px. Alamat email didahulukan di layar kecil. Isi artikel tetap 19px desktop/18px HP.
+- Alur navigasi landing → kiriman, ruang baca → artikel, daftar isi, penanda sumber → rujukan → kembali, pencarian “Fuller” (dua artikel), hasil nihil, dan ruang Perdebatan diperiksa.
+- Alamat serta subjek mailto diperiksa tanpa mengirim pesan. Fallback clipboard diperiksa di preview HTTP; pengiriman dan penerimaan email nyata tidak diuji.
 
-QR telah didekode dan cocok dengan alamat donasi. Penyalinan pada HTTPS pernah diperiksa pada revisi sebelumnya; tersedia petunjuk salin manual bila clipboard tidak tersedia.
+Build dan status publikasi setiap commit dapat diperiksa di GitHub Actions. Pembuatan ulang harus menghasilkan HTML/indeks yang identik. Tidak ada pengukuran performa lapangan/Core Web Vitals pada revisi ini.
 
-## VPS dan pekerjaan tersisa
+## Desain
 
-OS **OpenCloudOS 9.6** sudah dikonfirmasi, dengan paket **Nginx 1.29.8**, **PHP 8.3.36** dan **MariaDB 10.11.19** terpasang. Konfigurasi situs dan pemasangan WordPress belum selesai.
+Palet arang/ivory/lavender/sage dan padanan tema terang dipertahankan. Jaringan SVG serta animasi masuk tetap terbatas pada desktop dengan pointer presisi, hover dan tanpa preferensi pengurangan gerak. Kartu bentuk tulisan memperoleh gerak ringan. HP memakai jaringan statis. Tidak ada tambahan library, font eksternal, 3D atau WebGL.
 
-Saat pemasangan WordPress dilanjutkan, terapkan fitur yang belum setara dan jalankan `ACCEPTANCE.md`. Editor, publikasi, pagination, identitas publik dan performa WordPress masih perlu diuji pada instalasi nyata. Hasil build dan deployment setiap revisi tersedia pada GitHub Actions.
+## Batas dan tahap berikutnya
+
+Fondasi WordPress memiliki alias `_nh_author_alias`, byline/feed/oEmbed sesuai alias, serta tautan kondisional ke halaman redaksi yang diterbitkan manual. Kode tidak memakai nama tampilan akun sebagai byline publik. Situs statis tidak diimpor otomatis ke WordPress, dan seluruh fitur visual belum setara. WordPress belum diuji dengan instalasi serta database hidup.
+
+Pemasangan VPS, pemindahan domain dan pembersihan jejak identitas pengelola **ditunda atas keputusan pemilik**. Canonical GitHub Pages dan akun repository dipertahankan. Tidak ada klaim anonimitas teknis mutlak atau bahwa Google telah mengindeks versi ini. Membuat email baru tidak dengan sendirinya menghapus metadata/jejak komunikasi.

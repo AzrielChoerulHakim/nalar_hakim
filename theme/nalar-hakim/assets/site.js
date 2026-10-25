@@ -56,6 +56,22 @@
     });
   });
 
+  document.querySelectorAll('[data-copy-email]').forEach((button) => {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      const status = button.closest('.submission-contact')?.querySelector('[data-email-status]');
+      if (!status) return;
+      button.disabled = true;
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(button.getAttribute('data-copy-email') || '');
+        status.textContent = 'Alamat email disalin.';
+      } catch (_) {
+        status.textContent = 'Pilih alamat email di atas lalu salin secara manual.';
+      } finally { button.disabled = false; }
+    });
+  });
+
   document.querySelectorAll('[data-copy-url]').forEach((button) => {
     button.hidden = false;
     button.addEventListener('click', async () => {

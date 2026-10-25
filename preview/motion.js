@@ -80,7 +80,7 @@
       document.addEventListener('click', onClick, true);
       window.addEventListener('hashchange', onHash);
 
-      const targets = document.querySelectorAll('.landing-manifest-copy,.landing-channel-heading,.landing-channel,.landing-invitation h2,.section-heading,.article-grid > .story-card,.preview-invite,.channel-card,.article-references');
+      const targets = document.querySelectorAll('.landing-manifest-copy,.landing-channel-heading,.landing-channel,.landing-invitation h2,.section-heading,.article-grid > .story-card,.preview-invite,.channel-card,.article-references,.format-card,.editorial-invitation,.debate-invitation,.review-grid > article');
       targets.forEach((element) => {
         if (seen.has(element)) return;
         element.dataset.nhReveal = element.getBoundingClientRect().top > window.innerHeight ? 'below' : 'visible';
@@ -104,7 +104,7 @@
         animate(document.querySelector('.landing-asterisk'), [
           { transform: 'rotate(-50deg) scale(.9)' }, { transform: 'rotate(0) scale(1)' }
         ], 90, 1000);
-        const editorialIntro = document.querySelectorAll('.home-intro .eyebrow,.home-intro h1,.home-intro > p,.archive-header .eyebrow,.archive-header h1,.article-header .eyebrow,.article-header h1,.article-header .article-deck');
+        const editorialIntro = document.querySelectorAll('.home-intro .eyebrow,.home-intro h1,.home-position,.archive-header .eyebrow,.archive-header h1,.article-header .eyebrow,.article-header h1,.article-header .article-deck');
         editorialIntro.forEach((element, index) => animate(element, [{ transform: 'translateY(12px)' }, { transform: 'translateY(0)' }], Math.min(index * 65, 195), 700));
         document.querySelector('.landing-hero-support')?.classList.add('nh-rule-enter');
       }

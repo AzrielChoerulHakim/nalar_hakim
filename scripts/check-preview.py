@@ -34,7 +34,7 @@ class Page(HTMLParser):
 
 
 paths = sorted(ROOT.glob('*.html'))
-for folder in ('artikel', 'kanal'):
+for folder in ('artikel', 'kanal', 'bentuk'):
     paths.extend(sorted((ROOT / folder).rglob('*.html')))
 pages = {p.resolve(): Page(p) for p in paths}
 errors = []

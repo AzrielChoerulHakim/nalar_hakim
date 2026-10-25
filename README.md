@@ -1,76 +1,79 @@
 # Nalar Hakim
 
-Portal hukum beridentitas Web3 yang mengutamakan pembaca HP. Situs statis memuat lima artikel lengkap dengan sumber, satu untuk setiap kanal: Pidana, Perdata, Agama & Keluarga, Filsafat Hukum, serta Hukum & Teknologi.
+Ruang publikasi kritik hukum independen: fenomena aktual dibaca melalui teori, dokumen, dan argumentasi yang terbuka untuk diuji. Identitas penulis ditampilkan sebagai nama samaran; Lazarus mengelola dan menyunting publikasi.
 
-**Alamat GitHub Pages:** https://azrielchoerulhakim.github.io/nalar_hakim/
+**GitHub Pages:** https://azrielchoerulhakim.github.io/nalar_hakim/
 
-Landing page mengantar pembaca ke ruang baca. Artikel memiliki label jenis tulisan, ringkasan, daftar isi, tanggal terbit/pembaruan, penanda rujukan dan daftar sumber. Pencarian mencakup judul, kanal, jenis tulisan dan isi artikel. Situs dapat dibaca tanpa akun; kontennya dikelola melalui berkas JSON di repository.
+## Arah redaksi
 
-**Tema WordPress masih berupa fondasi pengembangan 0.1.0. Belum dipasang di VPS, belum diuji menyeluruh pada WordPress hidup, dan belum setara dengan seluruh fitur situs statis.** Status pemeriksaan serta publikasi revisi terbaru dicatat di [docs/STATUS.md](docs/STATUS.md) dan GitHub Actions.
+Empat bentuk tulisan menjadi navigasi utama: **Telaah**, **Bedah Putusan & Norma**, **Esai Pemikiran**, dan **Perdebatan**. Lima bidang menjadi pintu penelusuran tambahan: Pidana, Perdata, Agama & Keluarga, Filsafat Hukum, serta Hukum & Teknologi.
 
-## Ruang lingkup
+Tulisan memiliki objek yang jelas, tesis, lensa teori, sumber dan ruang sanggahan. Lima tulisan pembuka telah ditulis ulang sesuai arah ini. Halaman Perdebatan menjelaskan bahwa belum ada tanggapan terbit; tidak menampilkan kiriman atau percakapan rekaan.
 
-- Semua byline publik menggunakan **Lazarus**.
-- Kontak publik: **nalar.hakim77@gmail.com**.
-- Donasi manual **Ethereum Mainnet**, tanpa koneksi wallet atau pengiriman transaksi.
-- Alamat: `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`.
-- Tidak ada fitur AI, langganan, akun pembaca, forum, atau layanan backup otomatis.
+## Pengiriman dan keputusan
+
+1. Penulis membuat email baru dan menyiapkan berkas Word `.doc` atau `.docx`.
+2. Naskah dikirim ke **nalar.hakim77@gmail.com**, dengan nama samaran atau Anonim dan sumber rujukan.
+3. Lazarus meninjau: naskah layak diterbitkan, naskah potensial disunting, dan naskah yang jauh dari arah redaksi ditolak.
+4. Keputusan serta pembicaraan revisi disampaikan lewat email pengirim.
+
+`kirim-naskah.html` memuat panduan, tautan `mailto:` dengan subjek siap pakai, dan tombol salin alamat dengan petunjuk manual bila clipboard tidak tersedia. Lampiran ditambahkan oleh pengirim di layanan email. Website tidak mengunggah Word, tidak mengirim email sendiri, dan tidak menyediakan peninjauan/notifikasi otomatis.
+
+Email baru tidak menjamin anonimitas teknis. Website menjelaskan batas tersebut secara ringkas. Naskah mentah, korespondensi dan data pribadi tidak dimasukkan ke repository; hanya karya final yang telah disiapkan untuk publikasi.
+
+**Pembersihan jejak identitas pengelola dan migrasi VPS ditunda sesuai keputusan pemilik.** Canonical, akun repository dan alamat GitHub Pages belum dipindah. Tidak ada klaim bahwa situs sudah dipasang di VPS atau terindeks Google.
 
 ## Isi repository
 
-- `content/*.json`: lima artikel lengkap beserta metadata dan sumbernya.
-- `index.html`: landing page; `beranda.html`: ruang baca.
-- `artikel/`, `kanal/`, `cari.html`, `tentang.html`, `404.html`: halaman hasil generator. Enam alamat artikel lama mengarah ke artikel pengganti.
-- `sitemap.xml`: daftar URL utama yang dihasilkan bersama halaman.
-- `preview/`: aset lokal, indeks pencarian dan perilaku situs statis.
-- `scripts/build-preview.py` dan `scripts/articles.py`: generator halaman dan validasi struktur artikel.
-- `theme/nalar-hakim/`: fondasi tema WordPress; `scripts/package.py` membuat ZIP tema.
-- `scripts/preflight.sh`: pemeriksaan server baca-saja.
-- [docs/INSTALL.md](docs/INSTALL.md): pengelolaan situs statis dan tahap pemasangan WordPress.
-- [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md): pemeriksaan sebelum peluncuran WordPress.
+- `content/*.json`: naskah publik beserta metadata dan sumber.
+- `index.html`: landing; `beranda.html`: ruang baca.
+- `bentuk/`: empat arsip bentuk tulisan; `kanal/`: lima arsip bidang.
+- `artikel/`: artikel dan enam pengalihan alamat lama dengan tujuan tetap.
+- `kirim-naskah.html`, `kebijakan-redaksi.html`, `tentang.html`: pengiriman, pertimbangan Lazarus dan identitas publikasi.
+- `cari.html`, `404.html`, `sitemap.xml`: pencarian lokal, halaman kesalahan dan peta URL.
+- `scripts/build-preview.py`, `articles.py`, `editorial_pages.py`, `landing_page.py`: generator, validasi dan sumber halaman.
+- `preview/`: gaya, ilustrasi SVG dan JavaScript lokal.
+- `theme/nalar-hakim/`: fondasi WordPress; `scripts/package.py` membuat ZIP.
+- [docs/INSTALL.md](docs/INSTALL.md): pengelolaan konten dan pemasangan WordPress.
+- [docs/STATUS.md](docs/STATUS.md): status serta batas pemeriksaan.
 
-## Menyunting artikel
+## Menambahkan tulisan yang telah disetujui
 
-Sunting berkas kanal yang sesuai di `content/`. Setiap artikel berisi `slug`, `channel`, `type`, `title`, `excerpt`, tiga butir `summary`, tanggal `published`/`updated` berformat `YYYY-MM-DD`, `body` berupa HTML, serta `sources` dengan `id`, `title`, `url` dan `note`. Gunakan subjudul `h2`; generator membuat daftar isi dan daftar rujukan. Pertahankan ID penanda yang unik dan tautan ke `#rujukan-N` sesuai sumbernya.
+Tambahkan satu berkas JSON di `content/` dengan nama unik. Tidak lagi dibatasi satu artikel per bidang. Pemuat mengurutkan artikel berdasarkan tanggal terbit terbaru; untuk tanggal sama digunakan urutan bidang dan slug yang stabil.
 
-Buka sumber primer yang ditautkan, periksa bagian yang mendukung klaim, serta tinjau perubahan peraturan atau putusan sebelum menerbitkan pembaruan. Cantumkan tautan dokumen atau halaman spesifik dan catatan bagian yang dirujuk. Pemeriksaan otomatis mencocokkan penanda dengan sumber serta memeriksa struktur artikel dan tautan lokal; pemeriksaan itu tidak menilai kebenaran analisis hukum atau isi situs rujukan.
+Field naskah: `slug`, `channel`, `format`, `type`, `author`, `title`, `excerpt`, `thesis`, `lens`, `object`, tiga butir `summary`, `published`, `updated`, `editorial_revision`, HTML `body`, dan daftar `sources`. Tanggal menggunakan `YYYY-MM-DD`. `author` adalah nama samaran publik; jangan mengisinya dengan identitas privat.
 
-Jalankan dari akar repository:
+`format` menggunakan `telaah`, `bedah`, `esai`, atau `perdebatan`. `type` adalah label tampilannya. `channel` menggunakan salah satu dari lima slug bidang yang ada. Setiap sumber memiliki `id`, `title`, `url`, `note`, tautan `#rujukan-N` dan penanda unik `id="penanda-N"` di dalam naskah. Subjudul `h2` membentuk daftar isi bila terdapat sedikitnya tiga bagian. Panjang tulisan diputuskan redaksi, bukan dipaksakan oleh generator.
+
+Buka sumber yang dirujuk, cocokkan bagian yang mendukung klaim, dan bedakan teks primer dari komentar. Validasi otomatis hanya memeriksa struktur dan hubungan rujukan; tidak membuktikan kebenaran analisis hukum.
 
 ```sh
 python3 scripts/build-preview.py
 python3 scripts/check-preview.py
+node --check theme/nalar-hakim/assets/site.js
 node --check preview/search.js
 node --check preview/motion.js
 node --check preview/signals.js
+python3 scripts/package.py
 ```
 
-Commit sumber dan hasil generator bersama, termasuk halaman HTML, indeks pencarian dan `sitemap.xml`. Jangan menyunting halaman hasil generator secara langsung. Jika slug berubah, perbarui pengalihan alamat lama di generator agar tautan masuk tetap berfungsi. Saat ini pemuat konten menggunakan satu berkas untuk setiap kanal; penambahan jumlah artikel memerlukan penyesuaian pemuat tersebut.
+Commit sumber bersama seluruh hasil generator. Jangan menyunting HTML hasil secara langsung. Slug yang sudah terbit dipertahankan; pengalihan historis tidak berubah saat artikel baru ditambahkan.
 
-## Desain
+## Desain dan pembacaan
 
-Struktur editorial terinspirasi Solana News, garis dan ruang dari Monad, serta keterbacaan dari Ethereum. Implementasi, wordmark dan komponen ditulis khusus untuk Nalar Hakim. Tidak menyertakan logo, ilustrasi atau kode situs referensi.
+Identitas Web3 datar memakai tipografi monumental, garis tegas, ilustrasi SVG dua dimensi dan palet arang/ivory/lavender/sage. Mode terang memakai krem, ungu dan zaitun. Isi artikel 19px desktop/18px HP; label minimum 12px. Pilihan tema diterapkan sebelum CSS tampil. Aset lokal diberi fingerprint otomatis.
 
-Desain memakai tipografi monumental, komposisi asimetris, garis tegas, bidang warna solid dan ilustrasi SVG dua dimensi. Palet gelap: arang `#181A20`, putih tulang `#ECE8E1`, lavender `#AD9BD9` dan sage `#A8BDA0`. Mode terang memakai krem `#F4F1EB`, teks `#22242A`, ungu `#65508F` dan zaitun `#465C40`. Pilihan tema pembaca disimpan dan diterapkan sebelum CSS tampil.
+Animasi judul, kemunculan elemen dan sinyal jaringan hanya aktif pada desktop dengan hover, pointer presisi, serta tanpa preferensi pengurangan gerak. Sinyal dapat dijeda dan berhenti ketika hero tidak terlihat. HP memakai jaringan statis. Tidak ada library frontend, font eksternal, WebGL, 3D atau video latar.
 
-Metadata serta label minimal 12px, navigasi 13px desktop/12px HP, keterangan 14–16px, dan isi artikel 19px desktop/18px HP. Kontras teks dasar diperiksa pada kedua tema. Ukuran tombol utama minimal 44px. Generator memberi fingerprint otomatis pada CSS, JavaScript dan favicon agar revisi aset terbaca oleh pengunjung lama.
+## Donasi
 
-Animasi judul singkat dan jaringan sinyal 2D hanya aktif pada layar minimal 1000 px dengan hover, penunjuk presisi, dan tanpa preferensi pengurangan gerak. Sembilan sinyal berulang di jalur SVG selama hero terlihat; gerak berhenti ketika keluar layar, tab disembunyikan, atau tombol Jeda animasi dipilih. HP menampilkan jaringan statis. Konten terlihat tanpa JavaScript. Tidak ada 3D, WebGL, video latar, library frontend atau unduhan font eksternal.
+- Ethereum Mainnet; tanpa koneksi dompet atau pengiriman transaksi oleh website.
+- Alamat: `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`.
+- QR berisi alamat mentah yang telah dicocokkan; jaringan dipilih pengirim.
+- Membaca dan mengirim naskah tidak dipungut biaya; donasi tidak menentukan keputusan redaksi.
 
-Identitas bersama ada di `preview/identity.css`, halaman pembuka di `scripts/landing_page.py` dan `preview/landing.css`, sampul datar di `scripts/flat_cover.py`, serta animasi pembuka di `preview/motion.js` dan `preview/motion.css`. Jaringan sinyal ditulis khusus di `scripts/signal_field.py`, `preview/signals.js` dan `preview/signals.css`; pola lengkung dan sinyalnya terinspirasi pengamatan visual landing Monad, tanpa mengambil kode atau asetnya.
+## Fondasi WordPress
 
-## WordPress dan identitas
+Tema WordPress **belum dipasang di VPS dan belum setara seluruhnya dengan situs statis**. Field `_nh_author_alias` tersedia untuk nama samaran per artikel; byline, feed dan oEmbed memakai alias, default Lazarus. Halaman pengiriman, Tentang dan kebijakan dibuat manual dan ditautkan bila telah terbit. JSON tidak diimpor otomatis.
 
-Untuk membuat paket tema, jalankan `python3 scripts/package.py`, lalu unggah `dist/nalar-hakim.zip` melalui **Tampilan → Tema → Tambah Tema → Unggah Tema** pada instalasi WordPress yang sudah siap. Artikel JSON tidak diimpor otomatis ke WordPress.
-
-Gunakan nama tampilan akun **Lazarus**, nickname dan slug penulis yang tidak mengandung nama asli. Tema menyamarkan byline dan membatasi beberapa jalur publik penulis, tetapi metadata unggahan, teks dan plugin tetap perlu diperiksa sebelum publikasi. Email kontak memang dimaksudkan untuk tampil publik.
-
-QR donasi sudah didekode dan cocok persis dengan alamat di atas. QR menyimpan alamat mentah; pemilihan jaringan tetap dilakukan pengirim. Label Ethereum Mainnet ditampilkan bersama QR.
-
-## Penyimpanan dan server
-
-Repository memuat kode, dokumentasi, artikel publik dan hasil generator. Akun, database WordPress, unggahan privat, `wp-config.php`, kredensial dan kunci privat tetap di luar Git. Backup dikelola pemilik sendiri.
-
-VPS memakai **OpenCloudOS 9.6** dengan paket **Nginx 1.29.8**, **PHP 8.3.36** dan **MariaDB 10.11.19** terpasang. Konfigurasi situs dan deployment WordPress sengaja ditunda.
-
-Acuan WordPress: [persyaratan sistem](https://wordpress.org/about/requirements/), [pengembangan tema](https://developer.wordpress.org/themes/) dan [pemasangan tema melalui WP-CLI](https://developer.wordpress.org/cli/commands/theme/install/).
+Jalankan `python3 scripts/package.py` untuk membuat paket. Kredensial, database, unggahan privat, korespondensi dan konfigurasi server tetap di luar Git. Backup dikelola pemilik sendiri.

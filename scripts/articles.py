@@ -1,4 +1,4 @@
-"""Load the five hand-edited editorial publications and validate their structure."""
+"""Load editor-approved public manuscripts and validate their structure."""
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
@@ -41,14 +41,18 @@ class Prose(HTMLParser):
 def load_articles(root, channels):
     posts = []
     slugs = set()
-    for index, channel in enumerate(channels, 1):
-        path = Path(root) / 'content' / f'{channel}.json'
+    for path in sorted((Path(root) / 'content').glob('*.json')):
         post = json.loads(path.read_text(encoding='utf-8'))
-        for key in ('slug', 'channel', 'type', 'title', 'excerpt', 'summary', 'published', 'updated', 'body', 'sources'):
+        channel = post.get('channel')
+        for key in ('slug', 'channel', 'type', 'title', 'excerpt', 'summary', 'published', 'updated', 'body', 'sources', 'author', 'format', 'thesis', 'lens', 'object', 'editorial_revision'):
             if not post.get(key):
                 raise ValueError(f'{path.name}: missing {key}')
-        if post['channel'] != channel or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', post['slug']):
+        if channel not in channels or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', post['slug']):
             raise ValueError(f'{path.name}: invalid channel or slug')
+        if post['format'] not in {'telaah', 'bedah', 'esai', 'perdebatan'}:
+            raise ValueError(f'{path.name}: invalid publication format')
+        if not isinstance(post['author'], str) or len(post['author']) > 80:
+            raise ValueError(f'{path.name}: invalid public author alias')
         if post['slug'] in slugs:
             raise ValueError('Duplicate article slug')
         slugs.add(post['slug'])
@@ -60,10 +64,10 @@ def load_articles(root, channels):
         parsed.feed(post['body'])
         post['text'] = ' '.join(' '.join(parsed.words).split())
         post['word_count'] = len(re.findall(r'\b[\w-]+\b', post['text']))
-        if post['word_count'] < 800 or parsed.headings < 4:
-            raise ValueError(f'{path.name}: article is incomplete')
+        if not post['text'].strip():
+            raise ValueError(f'{path.name}: article body is empty')
         source_ids = [str(source['id']) for source in post['sources']]
-        if len(set(source_ids)) != len(source_ids) or len(source_ids) < 2:
+        if len(set(source_ids)) != len(source_ids) or not source_ids:
             raise ValueError(f'{path.name}: invalid sources')
         if set(source_ids) != parsed.references:
             raise ValueError(f'{path.name}: sources and inline citations do not match')
@@ -73,6 +77,9 @@ def load_articles(root, channels):
             if f'penanda-{source["id"]}' not in parsed.ids:
                 raise ValueError(f'{path.name}: missing reference return target')
         post['minutes'] = max(1, ceil(post['word_count'] / 200))
-        post['symbol'] = f'{index:02}'
         posts.append(post)
+    order = {channel: index for index, channel in enumerate(channels)}
+    posts.sort(key=lambda post: (-date.fromisoformat(post['published']).toordinal(), order[post['channel']], post['slug']))
+    for index, post in enumerate(posts, 1):
+        post['symbol'] = f'{index:02}'
     return posts
