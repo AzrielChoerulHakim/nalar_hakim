@@ -21,6 +21,8 @@ jobs:
         run: |
           node --check preview/motion.js
           node --check preview/signals.js
+          node --check preview/nature-scene.js
+          node scripts/check-nature-motion.cjs
       - name: Check preview links and reading anchors
         run: python3 scripts/check-preview.py
       - name: Verify generated preview is current

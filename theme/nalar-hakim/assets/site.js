@@ -9,7 +9,7 @@
   function applyTheme(theme) {
     const light = theme === 'light';
     root.dataset.theme = light ? 'light' : 'dark';
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f4f1eb' : '#181a20');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#F5F6F2' : '#18231E');
     toggles.forEach((button) => {
       button.setAttribute('aria-pressed', String(light));
       button.setAttribute('aria-label', light ? 'Aktifkan mode gelap' : 'Aktifkan mode terang');
@@ -17,9 +17,9 @@
     });
   }
 
-  let savedTheme = 'dark';
+  let savedTheme = 'light';
   try {
-    savedTheme = localStorage.getItem('nalar-hakim-theme') === 'light' ? 'light' : 'dark';
+    savedTheme = localStorage.getItem('nalar-hakim-theme') === 'dark' ? 'dark' : 'light';
   } catch (_) { /* Storage may be disabled. The theme remains usable. */ }
   applyTheme(savedTheme);
 

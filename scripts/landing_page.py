@@ -1,11 +1,11 @@
 """Entry page for Nalar Hakim's independent legal criticism platform."""
 
 
-from signal_field import render_signal_field
+from nature_scene import nature_scene
 
 
 # Apply a saved reading preference before CSS paints, including when storage is blocked.
-THEME_INIT = '''<script>try{if(localStorage.getItem('nalar-hakim-theme')==='light'){document.documentElement.dataset.theme='light';document.querySelector('meta[name="theme-color"]').content='#f4f1eb';}}catch(_){}</script>'''
+THEME_INIT = '''<script>document.documentElement.dataset.theme='light';try{if(localStorage.getItem('nalar-hakim-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(_){}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='dark'?'#18231E':'#F5F6F2';</script>'''
 
 
 def render_landing():
@@ -22,14 +22,14 @@ def render_landing():
 <meta property="og:description" content="Kritik hukum independen atas fenomena aktual. Menguji hukum dengan teori, argumentasi, dan rujukan. Terbuka untuk naskah dengan pseudonim.">
 <meta property="og:url" content="https://azrielchoerulhakim.github.io/nalar_hakim/">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#181a20">
+<meta name="theme-color" content="#F5F6F2">
 __THEME_INIT__
 <link rel="icon" href="preview/favicon.svg" type="image/svg+xml">
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
 <link rel="stylesheet" href="theme/nalar-hakim/style.css">
 <link rel="stylesheet" href="preview/identity.css">
-<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/signals.css">
-<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/signals.js" defer></script>
+<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/natural.css"><link rel="stylesheet" href="preview/nature-scene.css"><link rel="stylesheet" href="preview/natural-landing.css">
+<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/nature-scene.js" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
@@ -41,16 +41,16 @@ __THEME_INIT__
   <section class="landing-hero landing-shell" aria-labelledby="landing-title">
     <div class="landing-running-head"><span>KRITIK HUKUM INDEPENDEN</span><span>TERBUKA UNTUK NASKAH <b aria-hidden="true">✳</b></span></div>
     <div class="landing-hero-stage">
-      __SIGNAL_FIELD__
-      <h1 id="landing-title" aria-label="Nalar Hakim"><span>NALAR</span><span>HAKIM<span class="landing-title-stop">.</span></span></h1>
-      <div class="landing-symbol-panel" aria-hidden="true">
-        <span class="landing-symbol-index">[ NH — 01 ]</span>
-        <svg class="landing-asterisk" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg"><path d="M113 0h34v79l56-56 24 24-56 56h79v34h-79l56 56-24 24-56-56v79h-34v-79l-56 56-24-24 56-56H10v-34h79L33 47l24-24 56 56Z" fill="currentColor"/></svg>
-        <p>FENOMENA. <br>TEORI. <br>KRITIK.</p>
+      <div class="nature-hero-copy">
+        <p class="nature-overline">Ruang bagi pikiran yang merdeka.</p>
+        <h1 id="landing-title" aria-label="Nalar Hakim"><span>NALAR</span><span>HAKIM<span class="landing-title-stop">.</span></span></h1>
+        <h2 class="landing-hero-statement">Hukum layak dipertanyakan.</h2>
+        <p class="landing-hero-caption">Fenomena aktual, diuji dengan teori dan argumentasi hukum.</p>
+        <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true">↗</span></a></div>
       </div>
+      __NATURE_SCENE__
     </div>
-    <div class="landing-hero-support"><div><h2 class="landing-hero-statement">Hukum layak dipertanyakan.</h2><p class="landing-hero-caption">Fenomena aktual, diuji dengan teori dan argumentasi hukum.</p></div><div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Baca telaah</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true">↗</span></a></div></div>
-    <div class="landing-hero-base"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true">↓</span></a><span class="landing-base-end"><button class="signal-toggle" type="button" data-signal-toggle data-paused="false" hidden><span>Jeda animasi</span></button><span>PSEUDONIM / ARGUMENTASI / RUJUKAN</span></span></div>
+    <div class="landing-hero-base"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true">↓</span></a><span class="landing-base-end"><span>PSEUDONIM / ARGUMENTASI / RUJUKAN</span></span></div>
   </section>
 
   <section class="landing-manifest" aria-labelledby="landing-manifest-title"><div class="landing-shell">
@@ -71,4 +71,4 @@ __THEME_INIT__
   <section class="landing-invitation landing-shell" aria-labelledby="landing-invitation-title"><div class="landing-section-top"><p>03 / KIRIM NASKAH</p><span aria-hidden="true">✳</span></div><p class="landing-invitation-kicker">REDAKSI MENERIMA NASKAH.</p><h2 id="landing-invitation-title">AJUKAN<br><span>ARGUMEN.</span></h2><div class="landing-submission-grid"><p>Redaksi menerima Esai, Telaah Fenomena, dan Bedah Putusan atau Norma. Ajukan pembacaan kritis dengan argumentasi dan rujukan yang jelas.</p><ol class="landing-submission-steps"><li><strong>Kirim Word lewat email.</strong><p>Lampirkan berkas .doc atau .docx ke <a href="mailto:nalar.hakim77@gmail.com">nalar.hakim77@gmail.com</a>. Sertakan pseudonim yang ingin dipakai.</p></li><li><strong>Ditinjau oleh Lazarus.</strong><p>Naskah dibaca untuk memeriksa argumentasi, penggunaan teori, dan rujukan.</p></li><li><strong>Keputusan melalui email.</strong><p>Redaksi menyampaikan keputusan atau permintaan revisi melalui email.</p></li></ol></div><a class="landing-final-link" href="kirim-naskah.html"><span>Panduan kirim naskah</span><span aria-hidden="true">↗</span></a></section>
 </main>
 <footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Disunting oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="kirim-naskah.html">Kirim naskah</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Fenomena. Teori. Kritik.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
-</body></html>'''.replace('__SIGNAL_FIELD__', render_signal_field()).replace('__THEME_INIT__', THEME_INIT)
+</body></html>'''.replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT)

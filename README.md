@@ -77,3 +77,9 @@ Animasi judul, kemunculan elemen dan sinyal jaringan hanya aktif pada desktop de
 Tema WordPress **belum dipasang di VPS dan belum setara seluruhnya dengan situs statis**. Field `_nh_author_alias` tersedia untuk nama samaran per artikel; byline, feed dan oEmbed memakai alias, default Lazarus. Halaman pengiriman, Tentang dan kebijakan dibuat manual dan ditautkan bila telah terbit. JSON tidak diimpor otomatis.
 
 Jalankan `python3 scripts/package.py` untuk membuat paket. Kredensial, database, unggahan privat, korespondensi dan konfigurasi server tetap di luar Git. Backup dikelola pemilik sendiri.
+
+## Identitas visual alam
+
+Rencana dan batas implementasi: [docs/NATURAL_REDESIGN.md](docs/NATURAL_REDESIGN.md). Palet putih kabut, hutan, langit dan batu diterapkan pada seluruh halaman statis. Landing memuat ilustrasi Justitia berakar dengan burung, air, dan daun bergerak pada desktop; HP/reduced-motion tetap statis. Pengunjung baru memakai tema terang.
+
+Sumber ilustrasi: `scripts/nature_scene.py`; gaya: `preview/natural.css`, `preview/natural-landing.css`, `preview/nature-scene.css`; kendali gerak: `preview/nature-scene.js`. Uji siklus gerak: `node scripts/check-nature-motion.cjs`.

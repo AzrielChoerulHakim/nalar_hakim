@@ -1,0 +1,42 @@
+/* Flat landscape illustration; movement is opt-in through desktop capability. */
+.nature-scene{--n-forest:#294d3e;--n-ink:#294d3e;--n-sky:#dfeaf0;--n-stone:#d9dcd5;--n-paper:#f5f6f2;--n-soft:#a6b7a6;--n-water:#b5cfd4;margin:0;width:100%;min-width:0;color:var(--n-forest);isolation:isolate}
+:root[data-theme="dark"] .nature-scene{--n-forest:#b7cbb8;--n-ink:#8ea996;--n-sky:#263a3d;--n-stone:#53635b;--n-paper:#c4cec1;--n-soft:#7a9181;--n-water:#3c5d61}
+.nature-art{display:block;width:100%;height:auto;overflow:visible}
+.nature-sky{fill:var(--n-sky)}.nature-sun{fill:var(--n-paper)}
+.nature-clouds{color:var(--n-forest);opacity:.24}.nature-ground{fill:var(--n-stone);opacity:.75}
+.nature-wood{stroke:var(--n-ink)}.nature-leaf{color:var(--n-soft)}
+.nature-birds{color:var(--n-ink)}.nature-water{fill:var(--n-water)}.nature-ripples{color:var(--n-paper)}
+.nature-stones{fill:var(--n-stone);stroke:var(--n-ink)}
+.nature-justitia{stroke:var(--n-ink)}.nature-hair{fill:var(--n-forest)}
+.nature-skin,.nature-robe,.nature-plinth{fill:var(--n-paper)}.nature-blindfold,.nature-pan{fill:var(--n-soft)}
+.nature-shade{fill:var(--n-stone)}.nature-line{stroke:var(--n-ink)}.nature-scale,.nature-sword{color:var(--n-ink);stroke:var(--n-ink)}
+.nature-blade{fill:var(--n-sky)}.nature-roots,.nature-sprouts{color:var(--n-forest)}
+.nature-ground-lines{color:var(--n-soft)}
+.nature-caption{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:10px 12px 0;font:500 13px/1.5 var(--mono,monospace);letter-spacing:.04em;color:var(--muted,#646d66)}
+.nature-toggle{font:inherit;font-size:14px;min-height:44px;border:1px solid var(--line,#d9dcd5);border-radius:99px;padding:7px 13px;background:transparent;color:inherit;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+.nature-toggle[hidden]{display:none}.nature-toggle:hover{background:var(--n-sky);color:var(--n-forest)}.nature-toggle:focus-visible{outline:2px solid var(--n-forest);outline-offset:4px}
+@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .nature-scene[data-motion] .nature-bird{animation:nature-bird-drift 22s ease-in-out infinite;animation-play-state:paused;transform-box:fill-box;transform-origin:center}
+ .nature-scene[data-motion] .nature-bird-two{animation-duration:27s;animation-delay:-7s}.nature-scene[data-motion] .nature-bird-three{animation-duration:31s;animation-delay:-16s}
+ .nature-scene[data-motion] .nature-leaf{animation:nature-leaf-sway 9s ease-in-out infinite;animation-play-state:paused;transform-box:fill-box;transform-origin:bottom center}
+ .nature-scene[data-motion] .nature-leaf-two{animation-delay:-3s;animation-duration:11s}.nature-scene[data-motion] .nature-leaf-three{animation-delay:-5s;animation-duration:13s}
+ .nature-scene[data-motion] .nature-flow{stroke-dasharray:13 20;animation:nature-water-flow 7s linear infinite;animation-play-state:paused}
+ .nature-scene[data-motion] .nature-flow-two{animation-duration:9s;animation-delay:-3s}.nature-scene[data-motion] .nature-flow-three{animation-duration:8s;animation-delay:-5s}
+ .nature-scene[data-motion="running"] .nature-bird,.nature-scene[data-motion="running"] .nature-leaf,.nature-scene[data-motion="running"] .nature-flow{animation-play-state:running}
+}
+@keyframes nature-bird-drift{0%,100%{transform:translate(-12px,3px) rotate(-3deg)}50%{transform:translate(40px,-13px) rotate(3deg)}}
+@keyframes nature-leaf-sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(2deg)}}
+@keyframes nature-water-flow{to{stroke-dashoffset:-132}}
+@media(max-width:600px){.nature-caption{font-size:13px;justify-content:center;text-align:center}.nature-art{max-height:420px}}
+@media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
+
+/* Engraved lines retain definition against the statue in the night palette. */
+:root[data-theme="dark"] .nature-justitia { --n-ink:#294D3E; --n-forest:#294D3E; --n-stone:#A5B5A4; --n-soft:#91A58E; }
+:root[data-theme="dark"] .nature-roots { color:#839E86; }
+@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+ .nature-scene[data-motion] .nature-bird > path { animation:nature-wing 3.2s ease-in-out infinite; animation-play-state:paused; transform-box:fill-box; transform-origin:center; }
+ .nature-scene[data-motion="running"] .nature-bird > path { animation-play-state:running; }
+ .nature-scene .nature-bird-two > path { animation-delay:-1.3s; }
+ .nature-scene .nature-bird-three > path { animation-delay:-2.4s; }
+}
+@keyframes nature-wing { 0%,100%{transform:scaleY(1)}50%{transform:scaleY(.45)} }

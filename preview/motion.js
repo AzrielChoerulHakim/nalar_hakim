@@ -91,10 +91,7 @@
         const titleLines = document.querySelectorAll('.landing-hero h1 > span');
         // Native animations own their cleanup. No CSS class ever hides the title.
         // Slightly expanded clip bounds preserve the oversized letterforms.
-        titleLines.forEach((element, index) => animate(element, [
-          { transform: 'translateY(32px)', clipPath: 'inset(100% -4% -10% -4%)' },
-          { transform: 'translateY(0)', clipPath: 'inset(-10% -4% -10% -4%)' }
-        ], index * 110, 880));
+        // Wordmark remains still; the landscape carries the ambient motion.
         animate(document.querySelector('.landing-running-head'), [
           { opacity: .65, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }
         ], 0, 550);
