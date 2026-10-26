@@ -3,9 +3,14 @@
 ## Tujuan
 Membuat publikasi kritik hukum nyaman ditelusuri dan dibaca, dengan identitas alam yang tetap memiliki konteks hukum. Struktur Esai, Telaah Fenomena, dan Bedah Putusan atau Norma, isi artikel, serta alur kiriman Word lewat email tetap berlaku.
 
+## Penyempurnaan Justitia 26 Oktober 2026
+- Pemeriksaan browser memastikan aset v3 bersih pada palet terang dan gelap, kaki bertumpu pada alas, serta kupu-kupu tetap hinggap di mahkota. Lingkaran cahaya dipindahkan ke ruang kosong di langit agar tidak memotong siluet lengan dan timbangan.
+- Pada viewport HP 390px, ilustrasi tetap utuh tanpa overflow horizontal; gerak statis dan lapisan serangga tidak dibuat. Ini pemeriksaan viewport browser, bukan perangkat fisik.
+- Build memeriksa 21 halaman dan 656 rute/aset/anchor. Perilaku gerak tidak diubah pada penyempurnaan ini.
+
 ## Audit lanjutan 26 Oktober 2026 — perilaku terkini
 - Penyuntingan kedua memperbaiki 32 bagian: 23 kalimat pada lima artikel dan sembilan bagian halaman redaksi/pembuka. Argumen, kutipan, rujukan, judul dan anchor artikel dipertahankan. Alur kiriman kini menyatakan bahwa naskah **yang diterima** akan terbit.
-- Justitia diperhalus melalui penyuntingan aset transparan: kontur, lipatan jubah, tangan, rantai timbangan dan tepi gambar lebih bersih. Aset aktif `preview/justitia-engraving-v2.webp` berukuran sekitar 173 KiB, lebih kecil dari versi sebelumnya. Rincian produksi ada di `ASSET_NOTES.md`.
+- Aset Justitia aktif kini `preview/justitia-engraving-v3.webp` (sekitar 165 KiB), menggantikan v2. Anatomi, lipatan jubah dan genggaman pada gagang pedang diperjelas; gambar dan mask transparansinya memakai aset serta koordinat yang sama. Akar yang naik ke jubah dibuat lebih ramping, dengan warna kayu, gurat memanjang dan bayangan kontak yang terbatas pada patung serta alas. Detail akar tambahan tetap khusus desktop, tanpa animasi atau filter baru. Rincian produksi ada di `ASSET_NOTES.md`.
 - Sungai mendapat lapisan dangkal, tepian basah, dua kilau arus dan dua pusaran kecil. Batu mendapat retakan mineral, lumut dan bidang basah; akar bercabang lebih halus dan pakis bergerak dari pangkal. Daun sedikit berputar ketika bergoyang. Detail lingkungan tambahan tetap khusus desktop; tidak ada pustaka, filter SVG atau loop JavaScript baru.
 - Callback observer reveal yang sudah tidak berlaku kini diabaikan setelah tab tersembunyi atau kemampuan perangkat berubah, sehingga tidak mengganggu observer penggantinya.
 - Validasi kode: 52 skenario animasi lolos; build memeriksa 21 halaman dan 654 rute/aset/anchor. Paket domain dapat dibangun terpisah tanpa mengubah alamat bawaan GitHub Pages. Panduan instalasi ada di `VPS_NALARHAKIM.md`; publikasi ke GitHub tidak berarti VPS atau DNS sudah dikonfigurasi.

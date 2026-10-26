@@ -11,7 +11,7 @@ def nature_scene():
       <!-- Passive definitions do not alter the compact/static illustration. -->
       <clipPath id="nature-sky-atmosphere-clip"><circle cx="284" cy="256" r="218"/></clipPath>
       <clipPath id="nature-stone-atmosphere-clip"><path d="M69 465C69 460 76 456 80 453C84 447 95 445 106 448C117 447 123 452 127 456C134 460 136 466 129 470C120 475 102 476 88 474C78 475 70 471 69 465ZM395 494C397 488 401 484 404 480C409 475 417 473 426 474C436 472 442 478 447 484C453 490 451 498 443 502C436 506 420 508 409 504C401 503 394 499 395 494ZM136 512C137 507 142 504 147 501C153 497 162 498 170 501C177 501 181 506 184 510C190 515 182 521 171 522C160 524 146 522 140 519C136 517 135 514 136 512ZM364 558C365 551 372 547 377 543C384 538 394 539 402 542C410 544 412 549 416 553C422 559 416 565 407 568C398 571 385 571 376 567C369 566 363 563 364 558Z"/></clipPath>
-      <mask id="nature-portrait-atmosphere-mask" maskUnits="userSpaceOnUse" x="98" y="65" width="274" height="411" style="mask-type:alpha"><image href="preview/justitia-engraving-v2.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/></mask>
+      <mask id="nature-portrait-atmosphere-mask" maskUnits="userSpaceOnUse" x="98" y="65" width="274" height="411" style="mask-type:alpha"><image href="preview/justitia-engraving-v3.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/></mask>
       <radialGradient id="nature-cloud-soft"><stop offset="0" stop-color="#F5F6F2" stop-opacity=".8"/><stop offset=".62" stop-color="#F5F6F2" stop-opacity=".42"/><stop offset="1" stop-color="#F5F6F2" stop-opacity="0"/></radialGradient>
       <radialGradient id="nature-leaf-shadow-soft"><stop offset="0" stop-color="#294D3E" stop-opacity=".78"/><stop offset=".55" stop-color="#294D3E" stop-opacity=".5"/><stop offset="1" stop-color="#294D3E" stop-opacity="0"/></radialGradient>
       <radialGradient id="nature-leaf-light-soft"><stop offset="0" stop-color="#FFFFF0" stop-opacity=".7"/><stop offset=".58" stop-color="#FFFFF0" stop-opacity=".35"/><stop offset="1" stop-color="#FFFFF0" stop-opacity="0"/></radialGradient>
@@ -19,6 +19,8 @@ def nature_scene():
       <linearGradient id="nature-sky-depth" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--n-sky-high)"/><stop offset="1" stop-color="var(--n-sky-low)"/></linearGradient>
       <linearGradient id="nature-stone-depth" x1="0" y1="0" x2=".65" y2="1"><stop stop-color="var(--n-rock-light)"/><stop offset=".55" stop-color="var(--n-rock-mid)"/><stop offset="1" stop-color="var(--n-rock-dark)"/></linearGradient>
       <linearGradient id="nature-bark-depth" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="var(--n-bark-light)"/><stop offset=".45" stop-color="var(--n-bark-mid)"/><stop offset="1" stop-color="var(--n-bark-dark)"/></linearGradient>
+      <linearGradient id="nature-root-depth" x1="0" y1="0" x2=".45" y2="1"><stop stop-color="var(--n-root-light)"/><stop offset=".4" stop-color="var(--n-root-mid)"/><stop offset="1" stop-color="var(--n-root-dark)"/></linearGradient>
+      <clipPath id="nature-root-surface-clip"><use href="#nature-root-main"/><use href="#nature-root-ground"/></clipPath>
       <linearGradient id="nature-foliage-depth" x1="0" y1="0" x2="1" y2=".65"><stop stop-color="var(--n-leaf-light)"/><stop offset=".48" stop-color="var(--n-leaf-mid)"/><stop offset="1" stop-color="var(--n-leaf-dark)"/></linearGradient>
       <linearGradient id="nature-water-depth" x1="0" y1="0" x2=".55" y2="1"><stop stop-color="var(--n-water-deep)"/><stop offset=".43" stop-color="var(--n-water-light)"/><stop offset="1" stop-color="var(--n-water-deep)"/></linearGradient>
       <linearGradient id="nature-channel-depth" x1="0" y1="0" x2=".25" y2="1"><stop stop-color="var(--n-water-channel)" stop-opacity=".14"/><stop offset=".42" stop-color="var(--n-water-channel)" stop-opacity=".43"/><stop offset="1" stop-color="var(--n-water-channel)" stop-opacity=".08"/></linearGradient>
@@ -42,7 +44,7 @@ def nature_scene():
       </g>
     </defs>
     <circle class="nature-sky" cx="284" cy="256" r="218"/>
-    <circle class="nature-sun" cx="156" cy="147" r="34"/>
+    <circle class="nature-sun" cx="334" cy="105" r="23"/>
     <g class="nature-clouds" fill="none" stroke="currentColor" stroke-width="1">
       <path class="nature-compact-detail" d="M67 193H150M96 186H178M362 149H444M386 156H465"/>
       <g class="nature-desktop-detail nature-horizon-wisps" stroke-width=".65" stroke-linecap="round">
@@ -277,7 +279,7 @@ def nature_scene():
     <!-- A soft contact shadow seats the plinth in the bank without blurring its engraving. -->
     <ellipse class="nature-desktop-detail" cx="253" cy="466" rx="90" ry="11" fill="url(#nature-plinth-shadow)"/>
     <!-- Original detailed 2D illustration, isolated from animated scenery. -->
-    <image class="nature-justitia-portrait" href="preview/justitia-engraving-v2.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
+    <image class="nature-justitia-portrait" href="preview/justitia-engraving-v3.webp" x="98" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
     <!-- The portrait alpha clips dappled light exactly to robe, face and plinth. -->
     <g class="nature-desktop-atmosphere nature-atmosphere-portrait" mask="url(#nature-portrait-atmosphere-mask)" aria-hidden="true">
       <g class="nature-dapple-drift nature-dapple-portrait" fill="url(#nature-leaf-shadow-soft)">
@@ -296,11 +298,16 @@ def nature_scene():
         <ellipse cx="272" cy="424" rx="27" ry="13" transform="rotate(-35 272 424)"/>
       </g>
     </g>
-    <!-- Tapered, branching roots: broad at the tree, fine where they climb the stone. -->
+    <!-- A narrow cast edge is clipped to the statue: roots rest on the robe and plinth. -->
+    <g class="nature-desktop-detail nature-root-contact" mask="url(#nature-portrait-atmosphere-mask)" fill="none" stroke-linecap="round" aria-hidden="true">
+      <path d="M387 446C359 441 344 428 325 423C309 418 298 417 286 417C269 418 250 410 243 403C235 393 242 384 251 379C260 373 271 368 273 359C274 348 261 342 254 335C249 330 249 322 254 314" transform="translate(1.2 1.8)" stroke-width="3.8"/>
+      <path d="M324 460C304 462 290 452 274 450C258 446 247 450 235 455C219 463 207 470 189 474M244 409C231 415 227 424 217 431C207 438 190 439 177 445" transform="translate(.7 1.8)" stroke-width="3"/>
+    </g>
+    <!-- The woody root narrows as it climbs; small shoulders break the ribbon-like outline. -->
     <g class="nature-roots" stroke-linecap="round" stroke-linejoin="round">
       <g class="nature-root-wood" fill="currentColor" stroke="none">
-        <path d="M491 456C469 440 449 439 426 443C411 446 402 441 387 440C363 437 350 426 328 419C312 414 301 412 287 413C271 414 255 407 247 402C239 397 240 389 246 383C255 374 269 374 274 361C278 351 270 341 262 337C254 332 251 325 253 318L259 304C249 312 245 320 247 329C248 336 256 342 263 348C272 357 265 365 255 371C245 376 237 382 236 392C235 402 244 410 256 414C270 420 282 420 294 419C314 418 328 425 344 432C359 439 373 447 389 449C403 450 414 452 429 448C451 444 471 449 491 456Z"/>
-        <path d="M391 444C364 446 347 456 322 457C304 458 293 450 275 447C257 442 245 445 233 451C219 458 205 467 188 471L134 480C156 481 174 477 191 476C211 474 222 464 239 457C251 452 260 451 275 454C291 457 305 465 324 463C347 460 369 451 391 444Z"/>
+        <path id="nature-root-main" d="M491 456C469 441 449 440 427 443L420 445C409 446 400 442 387 441C365 439 350 428 329 421L319 418C308 415 299 414 287 415C271 416 256 409 247 402L244 398C241 392 244 387 249 383C259 376 270 372 274 363L275 358C275 350 269 344 261 338L256 334C251 329 251 323 254 317L259 304C252 313 248 320 249 327L251 333C253 339 261 343 267 350C273 358 268 365 261 370L254 374C246 379 240 384 239 391L239 397C241 405 247 409 257 413L267 417C276 420 285 419 295 419C313 419 328 426 344 433L354 437C367 444 377 448 390 449L403 450C414 451 420 450 430 448C451 445 471 450 491 456Z"/>
+        <path id="nature-root-ground" d="M391 444C365 447 347 456 324 458L314 457C300 456 289 450 275 448L266 446C252 445 244 449 234 453L223 459C212 465 201 469 188 472L163 477L134 480C154 480 175 478 190 476L200 475C213 472 225 463 238 458L248 454C257 452 264 452 275 454L284 457C297 461 308 464 323 463L336 461C356 457 373 449 391 444Z"/>
         <path d="M320 459C309 472 297 478 280 480C264 482 253 478 241 480L206 484C224 484 237 482 249 484C265 487 279 486 292 482C307 477 316 469 320 459Z"/>
         <path d="M354 452C367 461 375 464 391 465L419 473C411 468 402 463 391 461C374 458 364 456 354 452Z"/>
         <path d="M248 406C233 407 226 416 216 425C209 433 194 434 181 439C164 446 151 452 141 460C159 452 170 447 184 443C198 439 212 439 221 430C232 417 237 413 248 406Z"/>
@@ -318,6 +325,16 @@ def nature_scene():
       </g>
       <g class="nature-root-fibers" fill="none" stroke-width=".65">
         <path d="M145 480L132 484L125 483M160 488L151 494M209 484L200 489L194 489M260 494L251 498M445 468L453 471M367 419L376 419M217 306L213 296M259 304L260 296M303 318L309 311M314 399L322 403M183 457L174 461"/>
+      </g>
+      <g class="nature-desktop-detail nature-root-surface" clip-path="url(#nature-root-surface-clip)" fill="none">
+        <path class="nature-root-groove" d="M481 452C463 446 448 444 431 447L423 449M413 449L403 447M390 446C374 444 362 438 349 432M339 429C326 424 314 419 301 418M290 418C276 419 261 414 251 408M245 403C237 396 242 387 248 383M254 379C263 374 273 366 273 358M272 355C270 348 262 343 258 339M253 334Q249 327 252 321"/>
+        <path class="nature-root-ridge-long" d="M474 448C461 444 450 443 439 445M427 445L418 447M400 444L390 443M379 443C368 441 357 434 348 430M334 424L322 420M311 417L300 416M281 417C269 415 258 411 249 404M242 399Q239 392 244 387M249 381C258 375 267 371 271 362M270 351L262 343M254 333L252 328"/>
+        <path class="nature-root-groove" d="M370 450C353 457 337 460 324 461L315 460M307 460L296 457M284 454C270 449 258 449 248 452M239 455L227 461M218 467L205 472M195 474L180 477"/>
+        <path class="nature-root-ridge-long" d="M363 452L349 457M338 459L326 460M312 458L300 456M289 453L277 450M269 449Q256 446 245 451M237 455L229 459M219 465L209 470M198 473L189 475"/>
+        <path class="nature-root-knot" d="M257 409Q261 407 266 413Q261 414 257 409ZM345 431Q350 429 354 435Q349 435 345 431ZM300 457Q304 454 310 460Q305 461 300 457ZM420 446Q424 444 430 447"/>
+      </g>
+      <g class="nature-desktop-detail nature-root-tips" fill="none">
+        <path d="M258 337C251 336 245 332 242 327L239 321M270 367Q278 365 282 359L284 353M245 387Q239 383 238 376L234 370M321 421Q327 417 331 410L335 405M236 455Q235 448 229 444L223 442"/>
       </g>
     </g>
     <g class="nature-desktop-detail nature-root-engraving" fill="none" stroke-linecap="round" stroke-width=".5">

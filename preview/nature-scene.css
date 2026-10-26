@@ -109,6 +109,7 @@
   --n-sky-high:#D9E7E9;--n-sky-low:#EFF1E5;
   --n-rock-light:#E9EBDF;--n-rock-mid:#C4CCB9;--n-rock-dark:#849783;
   --n-bark-light:#A6AD8D;--n-bark-mid:#7C8D6E;--n-bark-dark:#4D6953;
+  --n-root-light:#A29C7E;--n-root-mid:#7D8065;--n-root-dark:#59654F;
   --n-leaf-light:#CAD3AF;--n-leaf-mid:#91AE7C;--n-leaf-dark:#537B54;
   --n-water-deep:#86AFB1;--n-water-light:#CADDD4;--n-water-channel:#426F70;
   --n-bank-light:#DCE3CF;--n-bank-dark:#B2C1A3;
@@ -117,6 +118,7 @@
   --n-sky-high:#233A3C;--n-sky-low:#34483D;
   --n-rock-light:#9AA991;--n-rock-mid:#6C8370;--n-rock-dark:#3C5749;
   --n-bark-light:#A3B18F;--n-bark-mid:#7A9274;--n-bark-dark:#415E49;
+  --n-root-light:#999D82;--n-root-mid:#75846D;--n-root-dark:#4D634E;
   --n-leaf-light:#B3C5A2;--n-leaf-mid:#7C9D73;--n-leaf-dark:#42664A;
   --n-water-deep:#315C5C;--n-water-light:#638A7C;--n-water-channel:#142F31;
   --n-bank-light:#435D45;--n-bank-dark:#283D31;
@@ -133,8 +135,8 @@
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-3 .nature-leaf-blade,
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-7 .nature-leaf-blade,
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-10 .nature-leaf-blade{fill:url(#nature-foliage-depth);fill-opacity:.88}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-wood{fill:url(#nature-bark-depth)}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-bark{stroke:var(--n-rock-light);stroke-width:.55;opacity:.6}
+ .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-wood{fill:url(#nature-root-depth);stroke:var(--n-root-dark);stroke-width:.32;stroke-opacity:.24}
+ .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-bark{stroke:var(--n-root-light);stroke-width:.48;opacity:.48}
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-fibers{opacity:.6;stroke-width:.55}
  .nature-tree-body{fill:url(#nature-bark-depth)}
  .nature-tree-ridge{fill:none;stroke:var(--n-rock-light);opacity:.65}
@@ -170,10 +172,16 @@
  .nature-rock-mineral{fill:none;stroke:var(--n-rock-light);stroke-width:.65;opacity:.85}
  .nature-rock-grain{fill:none;stroke:var(--n-bark-dark);stroke-width:.7;opacity:.4}
  .nature-rock-lichen{fill:none;stroke:var(--n-leaf-light);stroke-width:1.3;opacity:.84}
- .nature-root-engraving{stroke:var(--n-bark-dark);opacity:.5}
- .nature-root-radicle{fill:url(#nature-bark-depth);stroke:none}
- .nature-root-filament{fill:none;stroke:var(--n-bark-mid);stroke-width:.55;opacity:.75}
- .nature-root-ridge{fill:none;stroke:var(--n-rock-light);stroke-width:.5;opacity:.65}
+ .nature-root-contact{stroke:#314333;opacity:.26}
+ :root[data-theme="dark"] .nature-root-contact{opacity:.23}
+ .nature-root-groove{stroke:var(--n-root-dark);stroke-width:1.05;opacity:.75}
+ .nature-root-ridge-long{stroke:var(--n-root-light);stroke-width:.6;opacity:.75}
+ .nature-root-knot{stroke:var(--n-root-dark);stroke-width:.5;opacity:.65}
+ .nature-root-tips{stroke:var(--n-root-mid);stroke-width:.65;opacity:.75}
+ .nature-root-engraving{stroke:var(--n-root-dark);opacity:.38}
+ .nature-root-radicle{fill:url(#nature-root-depth);stroke:none}
+ .nature-root-filament{fill:none;stroke:var(--n-root-mid);stroke-width:.55;opacity:.75}
+ .nature-root-ridge{fill:none;stroke:var(--n-root-light);stroke-width:.5;opacity:.65}
  .nature-fern-blade{fill:url(#nature-foliage-depth);stroke:var(--n-bark-dark);stroke-width:.35;stroke-opacity:.5}
  .nature-fern-stem{fill:none;stroke:var(--n-bark-dark);stroke-width:.55;opacity:.65}
  .nature-terrain-etch{stroke:var(--n-bark-mid);opacity:.42}
