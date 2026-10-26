@@ -3,6 +3,13 @@
 ## Tujuan
 Membuat publikasi kritik hukum nyaman ditelusuri dan dibaca, dengan identitas alam yang tetap memiliki konteks hukum. Struktur Esai, Telaah Fenomena, dan Bedah Putusan atau Norma, isi artikel, serta alur kiriman Word lewat email tetap berlaku.
 
+## Rekonstruksi lingkungan 26 Oktober 2026
+- Batu, tepian sungai, pohon, dan akar digambar ulang sebagai SVG. Batu memakai siluet dan bidang cahaya yang berbeda; seluruh alas patung kini bertumpu pada tanah, sementara sungai melewati sisi kanannya dan melebar ke depan.
+- Cabang bertaper dan terhubung ke tangkai daun. Daun asimetris dikelompokkan dengan variasi ukuran, arah, dan kedalaman. Akar berwarna kayu; lilitan dibatasi pada jubah bagian bawah agar bentuk patung tetap terbaca.
+- Bentuk dan pencahayaan dasar yang sama berlaku di desktop dan HP. HP tetap statis, tanpa lapisan serangga atau pustaka tambahan; detail guratan halus dan gerak hanya aktif pada perangkat desktop yang memenuhi pengaturan gerak.
+
+- Pemeriksaan browser: palet terang/gelap di desktop; viewport HP 320, 390, dan 430px tanpa overflow, dengan animasi daun/air nonaktif dan tanpa lapisan serangga. SVG turun dari 396 menjadi 341 elemen; tidak ada gambar raster, filter blur, atau JavaScript tambahan. Validasi memeriksa 21 halaman dan 688 rute/aset/anchor; 30 skenario gerak terkait serta 13 tes ekspor VPS lolos.
+
 ## Penyempurnaan Justitia 26 Oktober 2026
 - Pemeriksaan browser memastikan aset v3 bersih pada palet terang dan gelap, kaki bertumpu pada alas, serta kupu-kupu tetap hinggap di mahkota. Lingkaran cahaya dipindahkan ke ruang kosong di langit agar tidak memotong siluet lengan dan timbangan.
 - Pada viewport HP 390px, ilustrasi tetap utuh tanpa overflow horizontal; gerak statis dan lapisan serangga tidak dibuat. Ini pemeriksaan viewport browser, bukan perangkat fisik.

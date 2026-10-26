@@ -68,17 +68,6 @@
 @media(max-width:600px){.nature-art{max-height:420px}}
 @media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
 
-/* Engraved lines retain definition against the statue in the night palette. */
-:root[data-theme="dark"] .nature-justitia { --n-ink:#294D3E; --n-forest:#294D3E; --n-stone:#A5B5A4; --n-soft:#91A58E; }
-:root[data-theme="dark"] .nature-roots { color:#839E86; }
-
-/* Bark stays quieter than the detailed figure; fine roots taper into the ground. */
-.nature-roots{color:#657C64}
-.nature-root-bark{stroke:#BCC7AC;opacity:.7}
-.nature-root-fibers{stroke:currentColor;opacity:.8}
-:root[data-theme="dark"] .nature-roots{color:#6F896F}
-:root[data-theme="dark"] .nature-root-bark{stroke:#C0CAB0;opacity:.65}
-
 /* Atmosphere is absent from compact/touch/reduced-motion output, preserving its image. */
 .nature-desktop-atmosphere{display:none;pointer-events:none}
 .nature-atmosphere-clouds{opacity:.46}
@@ -101,88 +90,79 @@
 @keyframes nature-cloud-passage{0%{transform:translate(-77px,2px);opacity:0}12%,83%{opacity:1}100%{transform:translate(81px,-5px);opacity:0}}
 @keyframes nature-dapple-passage{0%,100%{transform:translate(-7px,-4px) rotate(-1deg)}28%{transform:translate(3px,2px) rotate(.5deg)}57%{transform:translate(11px,8px) rotate(1.5deg)}82%{transform:translate(0px,3px) rotate(.25deg)}}
 
-/* The compact illustration keeps its original shapes, paint and static image.
-   Engraved scenery appears only after desktop capability is confirmed. */
+
+/* Fine scene details are optional; the natural silhouette remains on every device. */
 .nature-desktop-detail{display:none;pointer-events:none}
+.nature-feather-etch{fill:none;stroke:var(--n-paper);stroke-width:.45;opacity:.4}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene{
-  --n-sky-high:#D9E7E9;--n-sky-low:#EFF1E5;
-  --n-rock-light:#E9EBDF;--n-rock-mid:#C4CCB9;--n-rock-dark:#849783;
-  --n-bark-light:#A6AD8D;--n-bark-mid:#7C8D6E;--n-bark-dark:#4D6953;
-  --n-root-light:#A29C7E;--n-root-mid:#7D8065;--n-root-dark:#59654F;
-  --n-leaf-light:#CAD3AF;--n-leaf-mid:#91AE7C;--n-leaf-dark:#537B54;
-  --n-water-deep:#86AFB1;--n-water-light:#CADDD4;--n-water-channel:#426F70;
-  --n-bank-light:#DCE3CF;--n-bank-dark:#B2C1A3;
- }
- :root[data-theme="dark"] .nature-scene{
-  --n-sky-high:#233A3C;--n-sky-low:#34483D;
-  --n-rock-light:#9AA991;--n-rock-mid:#6C8370;--n-rock-dark:#3C5749;
-  --n-bark-light:#A3B18F;--n-bark-mid:#7A9274;--n-bark-dark:#415E49;
-  --n-root-light:#999D82;--n-root-mid:#75846D;--n-root-dark:#4D634E;
-  --n-leaf-light:#B3C5A2;--n-leaf-mid:#7C9D73;--n-leaf-dark:#42664A;
-  --n-water-deep:#315C5C;--n-water-light:#638A7C;--n-water-channel:#142F31;
-  --n-bank-light:#435D45;--n-bank-dark:#283D31;
- }
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-detail{display:inline}
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-compact-detail{display:none}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-sky{fill:url(#nature-sky-depth)}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-sun{opacity:.75}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-ground{fill:url(#nature-bank-depth);opacity:.85}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-water{fill:url(#nature-water-depth)}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-ripples{opacity:.52;stroke-width:.85}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-blade{fill:url(#nature-foliage-depth);stroke:var(--n-bark-dark);stroke-width:.55;stroke-opacity:.6}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-vein{stroke:var(--n-bark-dark);stroke-width:.5;opacity:.62}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-3 .nature-leaf-blade,
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-7 .nature-leaf-blade,
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-leaf-10 .nature-leaf-blade{fill:url(#nature-foliage-depth);fill-opacity:.88}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-wood{fill:url(#nature-root-depth);stroke:var(--n-root-dark);stroke-width:.32;stroke-opacity:.24}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-bark{stroke:var(--n-root-light);stroke-width:.48;opacity:.48}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-root-fibers{opacity:.6;stroke-width:.55}
- .nature-tree-body{fill:url(#nature-bark-depth)}
- .nature-tree-ridge{fill:none;stroke:var(--n-rock-light);opacity:.65}
- .nature-tree-etch{fill:none;stroke:var(--n-bark-dark);opacity:.65}
- .nature-twigs{fill:none;stroke:var(--n-bark-dark);opacity:.85}
- .nature-leaf-fold{fill:var(--n-bark-dark);opacity:.1;stroke:none}
- .nature-leaf-etch{fill:none;stroke:var(--n-leaf-light);stroke-width:.55;opacity:.7}
- .nature-leaf-back{opacity:.82}
- .nature-feather-etch{fill:none;stroke:var(--n-paper);stroke-width:.45;opacity:.4}
- .nature-bank-silt{fill:url(#nature-bank-depth);opacity:.8}
- .nature-bank-contour{stroke:var(--n-bark-mid);opacity:.45}
- .nature-bank-moss{fill:var(--n-leaf-mid);opacity:.52}
- .nature-bank-grass{stroke:var(--n-bark-dark);opacity:.65}
- .nature-pebbles{fill:url(#nature-stone-depth);stroke:var(--n-bark-dark);stroke-width:.35;stroke-opacity:.5}
- .nature-pebble-ridge{stroke:var(--n-rock-light);stroke-opacity:.8;stroke-width:.55}
- .nature-water-shallows{stroke:var(--n-water-light);opacity:.22}
- .nature-water-reflection{stroke:var(--n-paper);opacity:.65}
- .nature-water-engraving{stroke:var(--n-bark-dark);opacity:.24}
- .nature-water-channel{fill:url(#nature-channel-depth);stroke:none}
- .nature-water-shore{stroke:var(--n-water-channel);opacity:.26}
- .nature-water-edge-light{stroke:var(--n-rock-light);opacity:.66}
- .nature-water-caustic{stroke:var(--n-paper);opacity:.72}
- .nature-bank-eddies{stroke:var(--n-paper);opacity:.66}
- .nature-stone-wake{stroke:var(--n-paper);stroke-width:.75;opacity:.62}
- .nature-stone-contact{fill:var(--n-bark-dark);opacity:.12}
- .nature-rock-body{fill:url(#nature-stone-depth);stroke:var(--n-bark-dark);stroke-width:.6;stroke-opacity:.58}
- .nature-rock-shade{fill:var(--n-bark-dark);opacity:.13;stroke:none}
- .nature-rock-highlight{fill:var(--n-rock-light);opacity:.56;stroke:none}
- .nature-rock-etch{fill:none;stroke:var(--n-bark-dark);stroke-width:.55;opacity:.48}
- .nature-moss{fill:var(--n-leaf-mid);opacity:.7;stroke:none}
- .nature-rock-wet{fill:var(--n-water-channel);opacity:.18;stroke:none}
- .nature-rock-seam{fill:none;stroke:var(--n-rock-dark);stroke-width:.7;opacity:.62}
- .nature-rock-mineral{fill:none;stroke:var(--n-rock-light);stroke-width:.65;opacity:.85}
- .nature-rock-grain{fill:none;stroke:var(--n-bark-dark);stroke-width:.7;opacity:.4}
- .nature-rock-lichen{fill:none;stroke:var(--n-leaf-light);stroke-width:1.3;opacity:.84}
- .nature-root-contact{stroke:#314333;opacity:.26}
- :root[data-theme="dark"] .nature-root-contact{opacity:.23}
- .nature-root-groove{stroke:var(--n-root-dark);stroke-width:1.05;opacity:.75}
- .nature-root-ridge-long{stroke:var(--n-root-light);stroke-width:.6;opacity:.75}
- .nature-root-knot{stroke:var(--n-root-dark);stroke-width:.5;opacity:.65}
- .nature-root-tips{stroke:var(--n-root-mid);stroke-width:.65;opacity:.75}
- .nature-root-engraving{stroke:var(--n-root-dark);opacity:.38}
- .nature-root-radicle{fill:url(#nature-root-depth);stroke:none}
- .nature-root-filament{fill:none;stroke:var(--n-root-mid);stroke-width:.55;opacity:.75}
- .nature-root-ridge{fill:none;stroke:var(--n-root-light);stroke-width:.5;opacity:.65}
- .nature-fern-blade{fill:url(#nature-foliage-depth);stroke:var(--n-bark-dark);stroke-width:.35;stroke-opacity:.5}
- .nature-fern-stem{fill:none;stroke:var(--n-bark-dark);stroke-width:.55;opacity:.65}
- .nature-terrain-etch{stroke:var(--n-bark-mid);opacity:.42}
 }
+
+/* A quiet sky and warm mineral shadows unite the engraving on both layouts. */
+.nature-scene{--n-sky-high:#DDE8E8;--n-sky-low:#EDF0E4;--n-bark-dark:#665E4F}
+:root[data-theme="dark"] .nature-scene{--n-sky-high:#253C3F;--n-sky-low:#33463C;--n-bark-dark:#293B31}
+.nature-sky{fill:url(#nature-sky-depth)}
+.nature-sun{opacity:.75}
+
+/* A tapering tree and small botanical leaves share their geometry on every screen. */
+.nature-scene{--nh-tree-lit:#B0A78B;--nh-tree-mid:#8D8970;--nh-tree-dark:#5C6553;--nh-leaf-lit:#D0D5B7;--nh-leaf-mid:#9BAE88;--nh-leaf-dark:#648164;--nh-leaf-vein:#526B50}
+:root[data-theme="dark"] .nature-scene{--nh-tree-lit:#AAA991;--nh-tree-mid:#858B73;--nh-tree-dark:#526652;--nh-leaf-lit:#ADBD99;--nh-leaf-mid:#819C79;--nh-leaf-dark:#4D7255;--nh-leaf-vein:#C0CBA9}
+.nh-tree-wood{fill:url(#nh-tree-bark);stroke:var(--nh-tree-dark);stroke-width:.35;stroke-opacity:.5}
+.nh-tree-twig{fill:none;stroke:var(--nh-tree-mid);stroke-width:.85;stroke-linecap:round;stroke-linejoin:round}
+.nh-tree-ridge{fill:none;stroke:var(--nh-tree-lit);stroke-width:.7;opacity:.72}
+.nh-tree-grain{fill:none;stroke:var(--nh-tree-dark);stroke-width:.5;opacity:.6}
+.nh-tree-leaf-face{fill:url(#nh-tree-leaf-tone);stroke:var(--nh-leaf-dark);stroke-opacity:.5;stroke-width:.42}
+.nh-tree-leaf-fold{fill:var(--nh-leaf-dark);opacity:.14;stroke:none}
+.nh-tree-leaf-vein{fill:none;stroke:var(--nh-leaf-vein);stroke-width:.45;stroke-linecap:round;stroke-linejoin:round;opacity:.48}
+.nh-tree-leaf-shadow{opacity:.75}
+.nh-tree .nature-leaf{transform-box:view-box;transform-origin:0px 0px}
+
+
+/* The creek and stone silhouettes stay coherent on every screen; only tiny marks are optional. */
+.nature-scene{--nh-bank-light:#dce0d1;--nh-bank-mid:#c7cdb9;--nh-bank-shadow:#929c84;--nh-water-light:#bfd2cd;--nh-water-mid:#9ebebc;--nh-water-deep:#7ca6aa;--nh-water-channel:#486f72;--nh-water-glint:#f0f4e8;--nh-rock-light:#ddd9c8;--nh-rock-mid:#adb3a5;--nh-rock-dark:#77867a;--nh-rock-line:#667264;--nh-moss:#71815e}
+:root[data-theme="dark"] .nature-scene{--nh-bank-light:#435344;--nh-bank-mid:#344737;--nh-bank-shadow:#26382c;--nh-water-light:#66847b;--nh-water-mid:#476f6c;--nh-water-deep:#32575a;--nh-water-channel:#213e40;--nh-water-glint:#bacdbb;--nh-rock-light:#a9ae9b;--nh-rock-mid:#7e8c7b;--nh-rock-dark:#4b6153;--nh-rock-line:#344b3e;--nh-moss:#819070}
+.nh-bank{fill:url(#nh-creek-bank)}
+.nh-bank-right{opacity:.92}
+.nh-bank-top{fill:var(--nh-bank-light);opacity:.7}
+.nh-bank-cut{fill:var(--nh-bank-shadow);opacity:.5}
+.nh-creek{fill:url(#nh-creek-water)}
+.nh-creek-depth{fill:var(--nh-water-channel);opacity:.12}
+.nh-creek-shallow{stroke:var(--nh-water-glint);opacity:.1}
+.nh-creek-silt{fill:var(--nh-bank-light);opacity:.47}
+.nh-creek-reflection,.nh-creek-glass,.nh-creek-edge{fill:none;stroke:var(--nh-water-glint);stroke-width:.65;opacity:.48}
+.nh-creek-glass{stroke-width:.45;opacity:.45}
+.nh-creek-edge{opacity:.45;stroke-width:.55}
+.nh-creek-motion{stroke:var(--nh-water-glint);stroke-width:.45;opacity:.34}
+.nh-creek-motion .nature-flow{stroke-dasharray:8 25}
+.nh-creek-motion .nature-current-trace{stroke-dasharray:8 62;opacity:.7}
+.nh-creek-motion .nature-eddy{stroke-width:.6;opacity:.6}
+.nh-stone-contact{fill:var(--nh-rock-line);opacity:.16}
+.nh-rock{fill:url(#nh-rock-face);stroke:var(--nh-rock-line);stroke-opacity:.55;stroke-width:.65}
+.nh-rock-top{fill:var(--nh-rock-light);opacity:.74}
+.nh-rock-side{fill:var(--nh-rock-dark);opacity:.4}
+.nh-rock-seam{fill:none;stroke:var(--nh-rock-line);stroke-width:.75;opacity:.62}
+.nh-stone-moss{fill:var(--nh-moss);opacity:.67}
+.nh-rock-waterline{fill:var(--nh-water-channel);opacity:.25}
+.nh-stone-mineral{fill:none;stroke:var(--nh-rock-light);stroke-width:.65;opacity:.75}
+.nh-stone-grain{fill:none;stroke:var(--nh-rock-line);stroke-width:1;opacity:.48}
+.nh-bank-pebbles{fill:var(--nh-rock-mid);stroke:var(--nh-rock-line);stroke-width:.45;stroke-opacity:.5}
+.nh-pebble-light{fill:none;stroke:var(--nh-rock-light);stroke-width:.6;stroke-opacity:.85}
+.nh-bank-grass{fill:none;stroke:var(--nh-moss);stroke-width:.85;opacity:.68}
+.nh-bank-etch{fill:none;stroke:var(--nh-bank-shadow);stroke-width:.65;opacity:.6}
+
+
+/* Roots use earth and bark colours, distinct from the foliage on every viewport. */
+.nature-scene{--nh-root-lit:#b8a688;--nh-root-mid:#8f8068;--nh-root-shade:#625f4b;--nh-root-line:#4f513e;--nh-root-climb-lit:#a39377;--nh-root-climb-mid:#776b53;--nh-root-climb-shade:#50513f;--nh-sedge:#7c916c}
+:root[data-theme="dark"] .nature-scene{--nh-root-lit:#b7aa8c;--nh-root-mid:#8b856e;--nh-root-shade:#555e4b;--nh-root-line:#394936;--nh-root-climb-lit:#ab9d7e;--nh-root-climb-mid:#7b775e;--nh-root-climb-shade:#46513d;--nh-sedge:#859b73}
+.nh-root-body{fill:url(#nh-root-wood);stroke:var(--nh-root-line);stroke-width:.3;stroke-opacity:.4}
+.nh-root-ridge{fill:none;stroke:var(--nh-root-lit);stroke-width:.75;opacity:.8}
+.nh-root-grain{fill:none;stroke:var(--nh-root-line);stroke-width:.55;opacity:.66}
+.nh-root-fine{stroke:var(--nh-root-mid);stroke-width:.65;opacity:.8}
+.nh-root-ground-shadow{fill:var(--nh-root-line);opacity:.13}
+.nh-root-contact{fill:var(--nh-root-line);opacity:.28}
+.nh-root-sedges{fill:var(--nh-sedge);opacity:.85}
+
+.nh-root-climber{fill:url(#nh-root-climber-wood)}
+.nh-root-climb-ridge{opacity:.55}
+
