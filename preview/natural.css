@@ -97,6 +97,7 @@ h1,h2,h3,h4 { font-weight:600; }
 .story-image .cover-art { transition:none; }
 .story-image:hover .cover-art { opacity:.85; }
 .archive-header { border-bottom:1px solid var(--line); padding-bottom:35px; }
+.archive-header > .back-link + .eyebrow { display:block; }
 .archive-header h1 { font-size:clamp(40px,5.1vw,68px); line-height:1.12; font-weight:600; letter-spacing:-.04em; text-transform:none; }
 .archive-header .section-intro { font-size:18px; line-height:1.75; }
 .archive-header + .article-grid > .story-card:only-child h3 { font-size:clamp(28px,2.8vw,39px); font-weight:600; line-height:1.25; }
