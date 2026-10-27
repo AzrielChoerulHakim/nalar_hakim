@@ -93,7 +93,7 @@ test('Mobile, unsupported and unrelated pages create no visitors or frame work',
  for(const config of [{capable:false},{hasScene:false},{hasObserver:false},{article:true,capable:false}]){const h=harness(config);assert.equal(h.created,0);assert.equal(h.frames.size,0);assert.equal(h.watchers,0);}
 });
 test('Butterfly enters from outside then rests on Justitia with an idle RAF',()=>{
- const h=harness();assert.ok(h.position().x<0);h.settle();assert.equal(h.butterfly.dataset.flight,'rest');assert.equal(h.butterfly.dataset.perchKind,'statue');assert.ok(Math.abs(h.feet().x-880)<.02);assert.equal(h.frames.size,0);assert.equal(h.timers.size,1);
+ const h=harness();assert.ok(h.position().x<0);h.settle();assert.equal(h.butterfly.dataset.flight,'rest');assert.equal(h.butterfly.dataset.perchKind,'statue');assert.ok(Math.abs(h.feet().x-907.678571)<.02);assert.equal(h.frames.size,0);assert.equal(h.timers.size,1);
 });
 test('Theme handoff waits for complete sideways departure before other species enters',()=>{
  const h=harness();h.settle();const old=h.butterfly;h.theme('dark');assert.equal(h.butterfly,old);assert.equal(old.dataset.phase,'exiting');assert.equal(h.fireflies.length,0);

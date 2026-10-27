@@ -164,8 +164,9 @@
     targets = chosen;
     statuePoint = undefined;
     if (statue) {
-      const r=statue.getBoundingClientRect(), y=r.top+r.height*.142;
-      if (y>=80 && y<innerHeight-100) statuePoint={x:r.left+r.width*.46,y,kind:'statue',key:'statue'};
+      // Crown point in the 560 × 500 scene, following the recentered portrait.
+      const r=statue.getBoundingClientRect(), y=r.top+r.height*(82.36/500);
+      if (y>=80 && y<innerHeight-100) statuePoint={x:r.left+r.width*(288.6/560),y,kind:'statue',key:'statue'};
     }
   }
   function marginTarget(index,size) {

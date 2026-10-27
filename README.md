@@ -82,6 +82,6 @@ Jalankan `python3 scripts/package.py` untuk membuat paket. Kredensial, database,
 
 ## Identitas visual alam
 
-Rencana dan batas implementasi: [docs/NATURAL_REDESIGN.md](docs/NATURAL_REDESIGN.md). Palet putih kabut, hutan, langit dan batu diterapkan pada seluruh halaman statis. Landing memuat ilustrasi Justitia berakar dengan burung, air, dan daun bergerak pada desktop; HP/reduced-motion tetap statis. Pengunjung baru memakai tema terang.
+Rencana dan batas implementasi: [docs/NATURAL_REDESIGN.md](docs/NATURAL_REDESIGN.md). Palet putih kabut, hutan, langit dan batu diterapkan pada seluruh halaman statis. Halaman pembuka memuat ilustrasi Justitia dengan latar langit dan burung. Pohon, akar, bebatuan, sungai, dan keterangan gambar telah dihapus. Burung dan awan bergerak pada desktop; HP serta perangkat dengan pengurangan gerak tetap statis. Pengunjung baru memakai tema terang.
 
 Sumber ilustrasi: `scripts/nature_scene.py`; gaya: `preview/natural.css`, `preview/natural-landing.css`, `preview/nature-scene.css`; kendali gerak: `preview/nature-scene.js`. Uji siklus gerak: `node scripts/check-nature-motion.cjs`.

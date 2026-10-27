@@ -970,29 +970,15 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
 }
 
 /* Source: preview/nature-scene.css */
-/* Engraved landscape; desktop motion follows viewport and device preferences. */
-.nature-scene{--n-forest:#294d3e;--n-ink:#294d3e;--n-sky:#dfeaf0;--n-stone:#d9dcd5;--n-paper:#f5f6f2;--n-soft:#a6b7a6;--n-water:#b5cfd4;margin:0;width:100%;min-width:0;color:var(--n-forest);isolation:isolate}
-:root[data-theme="dark"] .nature-scene{--n-forest:#b7cbb8;--n-ink:#8ea996;--n-sky:#263a3d;--n-stone:#53635b;--n-paper:#c4cec1;--n-soft:#7a9181;--n-water:#3c5d61}
+/* Engraved Justitia and a quiet sky; desktop motion follows viewport preferences. */
+.nature-scene{--n-forest:#294d3e;--n-ink:#294d3e;--n-paper:#f5f6f2;--n-sky-high:#DDE8E8;--n-sky-low:#EDF0E4;--n-shadow:#665E4F;margin:0;width:100%;min-width:0;color:var(--n-forest);isolation:isolate}
+:root[data-theme="dark"] .nature-scene{--n-forest:#b7cbb8;--n-ink:#8ea996;--n-paper:#c4cec1;--n-sky-high:#253C3F;--n-sky-low:#33463C;--n-shadow:#293B31}
 .nature-art{display:block;width:100%;height:auto;overflow:visible}
-.nature-sky{fill:var(--n-sky)}.nature-sun{fill:var(--n-paper)}
-.nature-clouds{color:var(--n-forest);opacity:.24}.nature-ground{fill:var(--n-stone);opacity:.75}
-.nature-wood{stroke:var(--n-ink)}.nature-leaf{color:var(--n-soft)}
-.nature-birds{color:var(--n-ink)}.nature-water{fill:var(--n-water)}.nature-ripples{color:var(--n-paper)}
-.nature-stones{fill:var(--n-stone);stroke:var(--n-ink)}
-.nature-justitia{stroke:var(--n-ink)}.nature-hair{fill:var(--n-forest)}
-.nature-skin,.nature-robe,.nature-plinth{fill:var(--n-paper)}.nature-blindfold,.nature-pan{fill:var(--n-soft)}
-.nature-shade{fill:var(--n-stone)}.nature-line{stroke:var(--n-ink)}.nature-scale,.nature-sword{color:var(--n-ink);stroke:var(--n-ink)}
-.nature-blade{fill:var(--n-sky)}.nature-roots,.nature-sprouts{color:var(--n-forest)}
-.nature-ground-lines{color:var(--n-soft)}
-.nature-caption{padding:12px 12px 0;font:400 13px/1.6 var(--sans,Arial,sans-serif);letter-spacing:.01em;color:var(--muted,#646d66);text-align:center}
-/* Local leaf coordinates keep the petiole fixed while the blade bends. */
-.nature-leaf-blade{fill:var(--n-soft);stroke:var(--n-ink);stroke-width:.35;stroke-opacity:.3}
-.nature-leaf-vein{fill:none;stroke:var(--n-ink);stroke-width:.55;opacity:.42}
-.nature-leaf-3 .nature-leaf-blade,.nature-leaf-7 .nature-leaf-blade,.nature-leaf-10 .nature-leaf-blade{fill:var(--n-soft);fill-opacity:.83}
-.nature-birds{opacity:.85}
+.nature-sky{fill:url(#nature-sky-depth)}
+.nature-sun{fill:var(--n-paper);opacity:.75}
+.nature-clouds{color:var(--n-forest);opacity:.24}
+.nature-birds{color:var(--n-ink);opacity:.85}
 .nature-wing{transform-box:view-box;transform-origin:2px 1px}
-.nature-leaf{transform-box:view-box;transform-origin:0px 0px}
-.nature-canopy{transform-box:view-box;transform-origin:492px 455px}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
  .nature-scene[data-motion] .nature-bird{animation:nature-bird-flight 31s linear infinite;animation-play-state:paused}
  .nature-scene[data-motion] .nature-bird-two{animation-duration:37s;animation-delay:-10s}
@@ -1001,21 +987,7 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
  .nature-scene[data-motion] .nature-wing-far{animation-name:nature-wing-far}
  .nature-scene[data-motion] .nature-bird-two .nature-wing{animation-delay:-2.2s;animation-duration:7.2s}
  .nature-scene[data-motion] .nature-bird-three .nature-wing{animation-delay:-4.1s;animation-duration:6s}
- .nature-scene[data-motion] .nature-canopy{animation:nature-canopy-breeze 17s ease-in-out infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-leaf{animation:nature-leaf-breeze 17s ease-in-out infinite;animation-delay:var(--leaf-delay,0s);animation-play-state:paused}
- .nature-scene[data-motion] :is(.nature-leaf-2,.nature-leaf-5,.nature-leaf-8){animation-duration:18.4s}
- .nature-scene[data-motion] :is(.nature-leaf-3,.nature-leaf-7,.nature-leaf-11){animation-duration:16.2s}
- .nature-scene[data-motion] .nature-leaf-rich{animation-duration:19.6s}
- .nature-scene[data-motion] .nature-leaf-back{animation-duration:21s}
- .nature-scene[data-motion] .nature-flow{stroke-dasharray:13 20;animation:nature-water-flow 7s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-flow-two{animation-duration:9s;animation-delay:-3s}.nature-scene[data-motion] .nature-flow-three{animation-duration:8s;animation-delay:-5s}
- .nature-scene[data-motion] .nature-current-trace{stroke-dasharray:12 58;animation:nature-current-glint 15s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-current-trace-two{stroke-dasharray:8 62;animation-duration:19s;animation-delay:-8s}
- .nature-scene[data-motion] .nature-eddy{stroke-dasharray:8 25;animation:nature-bank-eddy 12s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-eddy-two{animation-duration:16s;animation-delay:-7s}
- .nature-scene[data-motion] .nature-fern{transform-box:view-box;transform-origin:0 0;animation:nature-fern-breeze 19s ease-in-out infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-fern-two{animation-duration:23s;animation-delay:-11s}
- .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing,.nature-canopy,.nature-leaf,.nature-flow,.nature-current-trace,.nature-eddy,.nature-fern){animation-play-state:running}
+ .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing){animation-play-state:running}
 }
 /* Travel in one direction. Reset happens only while the tiny silhouette is invisible. */
 @keyframes nature-bird-flight{
@@ -1030,113 +1002,29 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
 /* Two short wing beats give way to a longer glide. The shoulders stay attached. */
 @keyframes nature-wing-near{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(-16deg) scaleY(.24)}20%{transform:rotate(7deg) scaleY(1.16)}40%,84%{transform:rotate(2deg) scaleY(.92)}}
 @keyframes nature-wing-far{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(16deg) scaleY(.24)}20%{transform:rotate(-7deg) scaleY(1.16)}40%,84%{transform:rotate(-2deg) scaleY(.92)}}
-@keyframes nature-canopy-breeze{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-.35deg)}46%{transform:rotate(.65deg)}61%{transform:rotate(.25deg)}79%{transform:rotate(-.3deg)}}
-@keyframes nature-leaf-breeze{0%,100%{transform:rotate(0deg) scaleX(1) skewX(0deg)}16%{transform:rotate(calc(var(--leaf-turn)*-.35)) scaleX(.98) skewX(-.5deg)}34%{transform:rotate(calc(var(--leaf-turn)*.45)) scaleX(.97) skewX(.5deg)}46%{transform:rotate(var(--leaf-turn)) scaleX(.93) skewX(1deg)}59%{transform:rotate(calc(var(--leaf-turn)*.3)) scaleX(.98) skewX(.2deg)}73%{transform:rotate(calc(var(--leaf-turn)*-.45)) scaleX(.96) skewX(-.7deg)}87%{transform:rotate(calc(var(--leaf-turn)*.2)) scaleX(1) skewX(.3deg)}}
-@keyframes nature-water-flow{to{stroke-dashoffset:-132}}
-/* Dash periods divide the offsets exactly, so the current never jumps at a loop. */
-@keyframes nature-current-glint{to{stroke-dashoffset:-140}}
-@keyframes nature-bank-eddy{to{stroke-dashoffset:-66}}
-@keyframes nature-fern-breeze{0%,100%{transform:rotate(0deg) skewX(0deg)}23%{transform:rotate(-1.2deg) skewX(-.5deg)}48%{transform:rotate(2.5deg) skewX(1deg)}68%{transform:rotate(.8deg) skewX(.3deg)}84%{transform:rotate(-.8deg) skewX(-.4deg)}}
 @media(max-width:600px){.nature-art{max-height:420px}}
 @media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
 
-/* Atmosphere is absent from compact/touch/reduced-motion output, preserving its image. */
+/* Moving clouds are absent from compact, touch and reduced-motion output. */
 .nature-desktop-atmosphere{display:none;pointer-events:none}
 .nature-atmosphere-clouds{opacity:.46}
-.nature-atmosphere-portrait{opacity:.16}
-.nature-atmosphere-stones{opacity:.2}
-.nature-dapple-light{opacity:.6}
 :root[data-theme="dark"] .nature-atmosphere-clouds{opacity:.11}
-:root[data-theme="dark"] .nature-atmosphere-portrait{opacity:.13}
-:root[data-theme="dark"] .nature-atmosphere-stones{opacity:.15}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-atmosphere{display:block}
  .nature-scene[data-motion] .nature-cloud-drift{animation:nature-cloud-passage 82s linear infinite;animation-play-state:paused}
  .nature-scene[data-motion] .nature-cloud-drift-one{animation-delay:-21s}
  .nature-scene[data-motion] .nature-cloud-drift-two{animation-duration:89s;animation-delay:-53s}
- .nature-scene[data-motion] .nature-dapple-drift{animation:nature-dapple-passage 73s ease-in-out infinite;animation-play-state:paused;transform-box:view-box;transform-origin:270px 340px}
- .nature-scene[data-motion] .nature-dapple-stones{animation-duration:81s;animation-delay:-17s}
- .nature-scene[data-motion] .nature-dapple-light{animation-duration:67s;animation-delay:-29s}
- .nature-scene[data-motion="running"] :is(.nature-cloud-drift,.nature-dapple-drift){animation-play-state:running}
+ .nature-scene[data-motion="running"] .nature-cloud-drift{animation-play-state:running}
 }
 @keyframes nature-cloud-passage{0%{transform:translate(-77px,2px);opacity:0}12%,83%{opacity:1}100%{transform:translate(81px,-5px);opacity:0}}
-@keyframes nature-dapple-passage{0%,100%{transform:translate(-7px,-4px) rotate(-1deg)}28%{transform:translate(3px,2px) rotate(.5deg)}57%{transform:translate(11px,8px) rotate(1.5deg)}82%{transform:translate(0px,3px) rotate(.25deg)}}
 
-
-/* Fine scene details are optional; the natural silhouette remains on every device. */
+/* Fine sky and feather details are optional. */
 .nature-desktop-detail{display:none;pointer-events:none}
 .nature-feather-etch{fill:none;stroke:var(--n-paper);stroke-width:.45;opacity:.4}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-detail{display:inline}
  .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-compact-detail{display:none}
 }
-
-/* A quiet sky and warm mineral shadows unite the engraving on both layouts. */
-.nature-scene{--n-sky-high:#DDE8E8;--n-sky-low:#EDF0E4;--n-bark-dark:#665E4F}
-:root[data-theme="dark"] .nature-scene{--n-sky-high:#253C3F;--n-sky-low:#33463C;--n-bark-dark:#293B31}
-.nature-sky{fill:url(#nature-sky-depth)}
-.nature-sun{opacity:.75}
-
-/* A tapering tree and small botanical leaves share their geometry on every screen. */
-.nature-scene{--nh-tree-lit:#B0A78B;--nh-tree-mid:#8D8970;--nh-tree-dark:#5C6553;--nh-leaf-lit:#D0D5B7;--nh-leaf-mid:#9BAE88;--nh-leaf-dark:#648164;--nh-leaf-vein:#526B50}
-:root[data-theme="dark"] .nature-scene{--nh-tree-lit:#AAA991;--nh-tree-mid:#858B73;--nh-tree-dark:#526652;--nh-leaf-lit:#ADBD99;--nh-leaf-mid:#819C79;--nh-leaf-dark:#4D7255;--nh-leaf-vein:#C0CBA9}
-.nh-tree-wood{fill:url(#nh-tree-bark);stroke:var(--nh-tree-dark);stroke-width:.35;stroke-opacity:.5}
-.nh-tree-twig{fill:none;stroke:var(--nh-tree-mid);stroke-width:.85;stroke-linecap:round;stroke-linejoin:round}
-.nh-tree-ridge{fill:none;stroke:var(--nh-tree-lit);stroke-width:.7;opacity:.72}
-.nh-tree-grain{fill:none;stroke:var(--nh-tree-dark);stroke-width:.5;opacity:.6}
-.nh-tree-leaf-face{fill:url(#nh-tree-leaf-tone);stroke:var(--nh-leaf-dark);stroke-opacity:.5;stroke-width:.42}
-.nh-tree-leaf-fold{fill:var(--nh-leaf-dark);opacity:.14;stroke:none}
-.nh-tree-leaf-vein{fill:none;stroke:var(--nh-leaf-vein);stroke-width:.45;stroke-linecap:round;stroke-linejoin:round;opacity:.48}
-.nh-tree-leaf-shadow{opacity:.75}
-.nh-tree .nature-leaf{transform-box:view-box;transform-origin:0px 0px}
-
-
-/* The creek and stone silhouettes stay coherent on every screen; only tiny marks are optional. */
-.nature-scene{--nh-bank-light:#dce0d1;--nh-bank-mid:#c7cdb9;--nh-bank-shadow:#929c84;--nh-water-light:#bfd2cd;--nh-water-mid:#9ebebc;--nh-water-deep:#7ca6aa;--nh-water-channel:#486f72;--nh-water-glint:#f0f4e8;--nh-rock-light:#ddd9c8;--nh-rock-mid:#adb3a5;--nh-rock-dark:#77867a;--nh-rock-line:#667264;--nh-moss:#71815e}
-:root[data-theme="dark"] .nature-scene{--nh-bank-light:#435344;--nh-bank-mid:#344737;--nh-bank-shadow:#26382c;--nh-water-light:#66847b;--nh-water-mid:#476f6c;--nh-water-deep:#32575a;--nh-water-channel:#213e40;--nh-water-glint:#bacdbb;--nh-rock-light:#a9ae9b;--nh-rock-mid:#7e8c7b;--nh-rock-dark:#4b6153;--nh-rock-line:#344b3e;--nh-moss:#819070}
-.nh-bank{fill:url(#nh-creek-bank)}
-.nh-bank-right{opacity:.92}
-.nh-bank-top{fill:var(--nh-bank-light);opacity:.7}
-.nh-bank-cut{fill:var(--nh-bank-shadow);opacity:.5}
-.nh-creek{fill:url(#nh-creek-water)}
-.nh-creek-depth{fill:var(--nh-water-channel);opacity:.12}
-.nh-creek-shallow{stroke:var(--nh-water-glint);opacity:.1}
-.nh-creek-silt{fill:var(--nh-bank-light);opacity:.47}
-.nh-creek-reflection,.nh-creek-glass,.nh-creek-edge{fill:none;stroke:var(--nh-water-glint);stroke-width:.65;opacity:.48}
-.nh-creek-glass{stroke-width:.45;opacity:.45}
-.nh-creek-edge{opacity:.45;stroke-width:.55}
-.nh-creek-motion{stroke:var(--nh-water-glint);stroke-width:.45;opacity:.34}
-.nh-creek-motion .nature-flow{stroke-dasharray:8 25}
-.nh-creek-motion .nature-current-trace{stroke-dasharray:8 62;opacity:.7}
-.nh-creek-motion .nature-eddy{stroke-width:.6;opacity:.6}
-.nh-stone-contact{fill:var(--nh-rock-line);opacity:.16}
-.nh-rock{fill:url(#nh-rock-face);stroke:var(--nh-rock-line);stroke-opacity:.55;stroke-width:.65}
-.nh-rock-top{fill:var(--nh-rock-light);opacity:.74}
-.nh-rock-side{fill:var(--nh-rock-dark);opacity:.4}
-.nh-rock-seam{fill:none;stroke:var(--nh-rock-line);stroke-width:.75;opacity:.62}
-.nh-stone-moss{fill:var(--nh-moss);opacity:.67}
-.nh-rock-waterline{fill:var(--nh-water-channel);opacity:.25}
-.nh-stone-mineral{fill:none;stroke:var(--nh-rock-light);stroke-width:.65;opacity:.75}
-.nh-stone-grain{fill:none;stroke:var(--nh-rock-line);stroke-width:1;opacity:.48}
-.nh-bank-pebbles{fill:var(--nh-rock-mid);stroke:var(--nh-rock-line);stroke-width:.45;stroke-opacity:.5}
-.nh-pebble-light{fill:none;stroke:var(--nh-rock-light);stroke-width:.6;stroke-opacity:.85}
-.nh-bank-grass{fill:none;stroke:var(--nh-moss);stroke-width:.85;opacity:.68}
-.nh-bank-etch{fill:none;stroke:var(--nh-bank-shadow);stroke-width:.65;opacity:.6}
-
-
-/* Roots use earth and bark colours, distinct from the foliage on every viewport. */
-.nature-scene{--nh-root-lit:#b8a688;--nh-root-mid:#8f8068;--nh-root-shade:#625f4b;--nh-root-line:#4f513e;--nh-root-climb-lit:#a39377;--nh-root-climb-mid:#776b53;--nh-root-climb-shade:#50513f;--nh-sedge:#7c916c}
-:root[data-theme="dark"] .nature-scene{--nh-root-lit:#b7aa8c;--nh-root-mid:#8b856e;--nh-root-shade:#555e4b;--nh-root-line:#394936;--nh-root-climb-lit:#ab9d7e;--nh-root-climb-mid:#7b775e;--nh-root-climb-shade:#46513d;--nh-sedge:#859b73}
-.nh-root-body{fill:url(#nh-root-wood);stroke:var(--nh-root-line);stroke-width:.3;stroke-opacity:.4}
-.nh-root-ridge{fill:none;stroke:var(--nh-root-lit);stroke-width:.75;opacity:.8}
-.nh-root-grain{fill:none;stroke:var(--nh-root-line);stroke-width:.55;opacity:.66}
-.nh-root-fine{stroke:var(--nh-root-mid);stroke-width:.65;opacity:.8}
-.nh-root-ground-shadow{fill:var(--nh-root-line);opacity:.13}
-.nh-root-contact{fill:var(--nh-root-line);opacity:.28}
-.nh-root-sedges{fill:var(--nh-sedge);opacity:.85}
-
-.nh-root-climber{fill:url(#nh-root-climber-wood)}
-.nh-root-climb-ridge{opacity:.55}
 
 /* Source: preview/natural-landing.css */
 /* A quiet editorial clearing: expressive identity, still reading surfaces. */
