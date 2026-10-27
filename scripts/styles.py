@@ -8,10 +8,10 @@ from pathlib import Path
 
 BASE = ('theme/nalar-hakim/style.css', 'preview/identity.css')
 PUBLICATION = BASE + tuple('preview/' + name + '.css' for name in (
-    'preview', 'editorial', 'redaksi', 'motion', 'natural', 'donation-networks'))
+    'preview', 'editorial', 'redaksi', 'motion', 'natural', 'donation-networks', 'icons'))
 LANDING = BASE + tuple('preview/' + name + '.css' for name in (
     'landing', 'motion', 'natural', 'nature-scene', 'natural-landing',
-    'butterfly', 'scroll-story', 'idea-flow'))
+    'butterfly', 'scroll-story', 'idea-flow', 'icons'))
 
 
 def build_styles(root: Path):

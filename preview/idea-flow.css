@@ -16,7 +16,7 @@
  .idea-flow-nodes{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;text-align:center}
  .idea-node{position:relative;justify-self:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
  .idea-source,.idea-destination{padding:24px 27px;background:var(--flow-surface);border-radius:50%;min-width:205px;min-height:140px}
- .idea-node-number{color:var(--muted);font:12px/1.5 var(--mono);letter-spacing:.04em}
+ .idea-node-number{color:var(--muted);font:12px/1.5 var(--ui-font);letter-spacing:.04em}
  .idea-node h3{margin:10px 0 14px;font:500 30px/1.1 var(--font);letter-spacing:-.025em;color:var(--text)}
  .idea-node-point{display:block;width:7px;height:7px;border-radius:50%;background:var(--flow-copper);box-shadow:0 0 0 5px color-mix(in srgb,var(--flow-copper) 12%,transparent)}
  .idea-hub{width:204px;height:204px;border-radius:50%;background:#294D3E;border:1px solid #73927C;box-shadow:0 0 0 9px var(--flow-surface),0 0 0 10px #78988750}

@@ -15,7 +15,7 @@
 .landing-primary .landing-button-arrow { font-size:24px; }
 .landing-secondary { border-color:var(--line); }
 .landing-hero-base { margin-top:0; }
-.landing-running-head,.landing-header nav,.landing-hero-base,.landing-section-top { font-size:13px; }
+.landing-running-head,.landing-header nav,.landing-hero-base,.landing-section-top { font:500 13px/1.6 var(--ui-font); letter-spacing:.025em; }
 .landing-running-head b { font-size:20px; }
 .landing-manifest { margin-top:0; padding:70px 0; border-bottom:1px solid var(--line); }
 .landing-manifest-grid { grid-template-columns:.75fr 1.5fr; gap:60px; }
@@ -25,7 +25,7 @@
 .landing-manifest-lead { font-size:19px; max-width:50ch; line-height:1.75; letter-spacing:0; }
 .landing-manifest-notes { border-color:var(--line); }
 .landing-manifest-notes p { font-size:16px; line-height:1.7; }
-.landing-manifest-notes span { font-size:13px; }
+.landing-manifest-notes span { font:500 13px/1.6 var(--ui-font); }
 .landing-channels { padding:50px 0 28px; }
 .landing-channel-heading h2 { font-size:clamp(32px,4vw,54px); line-height:1.08; font-weight:600; letter-spacing:-.04em; }
 .landing-channel { border-color:var(--line); min-height:120px; }
@@ -35,7 +35,7 @@
 .landing-channel-arrow { font-size:32px; color:var(--accent); }
 .landing-invitation { padding-block:55px 65px; }
 .landing-invitation h2 { font-family:Georgia,'Times New Roman',serif; font-weight:400; font-size:clamp(55px,8vw,105px); line-height:.98; letter-spacing:-.055em; }
-.landing-invitation-kicker { font-size:13px; }
+.landing-invitation-kicker { font:500 13px/1.6 var(--ui-font); }
 .landing-final-link { border-width:1px; border-color:var(--line); font-size:27px; }
 .landing-submission-steps,.landing-footer p { font-size:16px; }
 .landing-submission-grid > p { line-height:1.75; letter-spacing:0; }

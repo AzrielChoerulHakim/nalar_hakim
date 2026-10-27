@@ -15,7 +15,7 @@ html[data-theme="light"] .signal-strands { opacity:.26; }
 html[data-theme="light"] .signal-tail { opacity:.36; }
 .landing-hero-base { align-items:center; padding-block:12px; min-height:70px; }
 .landing-base-end { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:10px 20px; }
-.signal-toggle { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:9px 12px; border:1px solid var(--line); border-radius:0; background:var(--bg); color:var(--muted); cursor:pointer; font:12px/1.5 var(--mono); }
+.signal-toggle { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:9px 12px; border:1px solid var(--line); border-radius:0; background:var(--bg); color:var(--muted); cursor:pointer; font:12px/1.5 var(--ui-font); }
 .signal-toggle::before { content:'Ⅱ'; color:var(--accent); font:14px/1 var(--font); }
 .signal-toggle[data-paused="true"]::before { content:'▷'; }
 .signal-toggle:hover { border-color:var(--accent); color:var(--text); }

@@ -11,6 +11,7 @@ from flat_cover import render_cover
 from articles import load_articles
 from site_config import SITE, SITE_PATH
 from styles import build_styles
+from icons import render_navigation_icons
 from editorial_pages import FORMATS, form_links, invitation, about_page, submission_page, policy_page
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -221,6 +222,7 @@ for written in WRITTEN:
    asset=(dest.parent/url).resolve()
   if not asset.is_relative_to(ROOT) or not asset.is_file(): return match.group(0)
   return match.group(1)+url+'?v='+sha256(asset.read_bytes()).hexdigest()[:10]+match.group(3)
- html=re.sub(r'((?:href|src)=")([^"?]+\.(?:css|js|svg|webp))(")',version_asset,dest.read_text(encoding='utf-8'))
+ html=render_navigation_icons(dest.read_text(encoding='utf-8'))
+ html=re.sub(r'((?:href|src)=")([^"?]+\.(?:css|js|svg|webp))(")',version_asset,html)
  dest.write_text(html,encoding='utf-8')
 print(f'Built {len(WRITTEN)} HTML pages, {len(POSTS)} articles, search index and sitemap')

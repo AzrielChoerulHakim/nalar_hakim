@@ -17,7 +17,7 @@
   --cover-stone:#cbc6bb;
   --cover-lilac:#d5cee1;
   --font:Arial,Helvetica,sans-serif;
-  --mono:ui-monospace,"Cascadia Code","SFMono-Regular",Consolas,monospace;
+  --ui-font:var(--font);
   --max-width:1440px;
   --gutter:clamp(20px,3.5vw,64px);
 }

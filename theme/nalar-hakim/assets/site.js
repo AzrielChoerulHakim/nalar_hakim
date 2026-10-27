@@ -32,6 +32,47 @@
     });
   });
 
+  // Static pages already contain SVG icons. Apply the same treatment to links
+  // produced by the article admin or legacy theme, without altering prose.
+  function decorateNavigation() {
+    if (!document.createTreeWalker || !document.createElementNS) return;
+    const arrows = {
+      '→': ['right', 'M5 12h14M12 5l7 7-7 7'],
+      '←': ['left', 'M19 12H5M12 5l-7 7 7 7'],
+      '↑': ['up', 'M12 19V5M5 12l7-7 7 7'],
+      '↓': ['down', 'M12 5v14M5 12l7 7 7-7'],
+      '↗': ['up-right', 'M6 18 18 6M6 6h12v12'],
+      '↘': ['down-right', 'M6 6l12 12M6 18h12V6'],
+      '↙': ['down-left', 'M18 6 6 18M18 18H6V6'],
+      '↖': ['up-left', 'M18 18 6 6M18 6H6v12']
+    };
+    const candidates = new Set();
+    document.querySelectorAll('a,button,summary,.rail-arrow,.format-arrow,.eyebrow,.landing-section-top > [aria-hidden]').forEach((scope) => {
+      const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+      for (let text = walker.nextNode(); text; text = walker.nextNode()) {
+        const parent = text.parentElement;
+        if (!/[→←↑↓↗↘↙↖]/.test(text.data) || !parent || parent.closest('svg,script,style,pre,code,textarea,math,template')) continue;
+        if (parent.closest('.article-content,.admin-prose') && !parent.closest('.article-references .reference-return,.article-references [aria-hidden]')) continue;
+        if (parent.closest('h1,h2,h3,h4,h5,h6') && !parent.closest('[aria-hidden="true"]')) continue;
+        candidates.add(text);
+      }
+    });
+    for (const text of candidates) {
+      const fragment = document.createDocumentFragment();
+      for (const part of text.data.split(/([→←↑↓↗↘↙↖])/)) {
+        if (!Object.hasOwn(arrows, part)) { fragment.append(document.createTextNode(part)); continue; }
+        const [direction, pathData] = arrows[part];
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const attributes = {class:`nh-icon nh-icon-${direction}`,viewBox:'0 0 24 24',width:'20',height:'20',fill:'none',stroke:'currentColor','stroke-width':'1.6','stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true',focusable:'false'};
+        Object.entries(attributes).forEach(([key, value]) => svg.setAttribute(key, value));
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathData); svg.append(path); fragment.append(svg);
+      }
+      text.replaceWith(fragment);
+    }
+  }
+  decorateNavigation();
+
   document.querySelectorAll('[data-copy-address]').forEach((button) => {
     button.hidden = false;
     button.addEventListener('click', async () => {

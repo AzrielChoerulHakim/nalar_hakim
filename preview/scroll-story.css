@@ -198,7 +198,7 @@
   html.nh-scroll-story .scroll-chapters a:last-child { border-right:0; }
   html.nh-scroll-story .scroll-chapter-number {
     color:var(--muted);
-    font:12px/1.4 var(--mono,monospace);
+    font:12px/1.4 var(--ui-font,sans-serif);
   }
   html.nh-scroll-story .scroll-chapter-label { min-width:0; }
   html.nh-scroll-story .scroll-chapters a:is(.is-current,[aria-current="true"],[aria-current="location"],[aria-current="page"]) {

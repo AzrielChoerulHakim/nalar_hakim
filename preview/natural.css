@@ -26,6 +26,7 @@
   --cover-lilac:#344039;
   --max-width:1320px;
   --font:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --ui-font:var(--font);
   --reading-font:"Source Serif 4",Georgia,"Times New Roman",serif;
   --reading-size:20px;
   --reading-leading:1.8;
@@ -60,7 +61,7 @@ body { color:var(--text); background:var(--bg); font-family:var(--font); }
 a { text-underline-offset:.2em; }
 :focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
 h1,h2,h3,h4 { font-weight:600; }
-.eyebrow { font-size:13px; line-height:1.6; letter-spacing:.045em; }
+.eyebrow { font:500 13px/1.6 var(--ui-font); letter-spacing:.035em; }
 .brand-mark { background:var(--accent); }
 .brand-mark::after { background:var(--muted); }
 .site-header,.publication-nav { border-color:var(--line); }
@@ -71,7 +72,7 @@ h1,h2,h3,h4 { font-weight:600; }
 .site-header .brand-name { overflow-wrap:anywhere; }
 .header-actions { min-width:0; max-width:100%; margin-left:auto; flex-wrap:wrap; }
 .site-header .brand-name { font-size:27px; font-weight:700; letter-spacing:-.025em; }
-.site-header .brand-caption,.header-note { font-size:13px; letter-spacing:.035em; }
+.site-header .brand-caption,.header-note { font:500 13px/1.5 var(--ui-font); letter-spacing:.025em; }
 .header-actions > .theme-toggle,.header-actions > details > summary { font:14px/1.4 var(--font); min-height:44px; }
 .header-actions .search-form { border:1px solid var(--control-line); width:min(360px,calc(100vw - var(--gutter) * 2)); }
 .header-actions .search-submit { font-size:14px; }
