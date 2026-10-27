@@ -970,61 +970,34 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
 }
 
 /* Source: preview/nature-scene.css */
-/* Engraved Justitia and a quiet sky; desktop motion follows viewport preferences. */
-.nature-scene{--n-forest:#294d3e;--n-ink:#294d3e;--n-paper:#f5f6f2;--n-sky-high:#DDE8E8;--n-sky-low:#EDF0E4;--n-shadow:#665E4F;margin:0;width:100%;min-width:0;color:var(--n-forest);isolation:isolate}
-:root[data-theme="dark"] .nature-scene{--n-forest:#b7cbb8;--n-ink:#8ea996;--n-paper:#c4cec1;--n-sky-high:#253C3F;--n-sky-low:#33463C;--n-shadow:#293B31}
+/* Original engraved balance. No scenery or companion styles belong here. */
+.nature-scene{margin:0;width:100%;min-width:0;isolation:isolate}
+.scale-scene{--scale-ink:#344d3e;--scale-face:#c8bb8b;--scale-light:#ede5c7;--scale-shade:#9b946d;--scale-line:#6b7256;position:relative;color:var(--scale-ink)}
+:root[data-theme="dark"] .scale-scene{--scale-ink:#c4cdb5;--scale-face:#aaa882;--scale-light:#e3dfbd;--scale-shade:#737b5e;--scale-line:#c1c8aa}
 .nature-art{display:block;width:100%;height:auto;overflow:visible}
-.nature-sky{fill:url(#nature-sky-depth)}
-.nature-sun{fill:var(--n-paper);opacity:.75}
-.nature-clouds{color:var(--n-forest);opacity:.24}
-.nature-birds{color:var(--n-ink);opacity:.85}
-.nature-wing{transform-box:view-box;transform-origin:2px 1px}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene[data-motion] .nature-bird{animation:nature-bird-flight 31s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-bird-two{animation-duration:37s;animation-delay:-10s}
- .nature-scene[data-motion] .nature-bird-three{animation-duration:41s;animation-delay:-22s}
- .nature-scene[data-motion] .nature-wing{animation:nature-wing-near 6.6s ease-in-out infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-wing-far{animation-name:nature-wing-far}
- .nature-scene[data-motion] .nature-bird-two .nature-wing{animation-delay:-2.2s;animation-duration:7.2s}
- .nature-scene[data-motion] .nature-bird-three .nature-wing{animation-delay:-4.1s;animation-duration:6s}
- .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing){animation-play-state:running}
-}
-/* Travel in one direction. Reset happens only while the tiny silhouette is invisible. */
-@keyframes nature-bird-flight{
- 0%{transform:translate(-42px,6px);opacity:0}
- 7%{opacity:.9}
- 30%{transform:translate(5px,-5px);opacity:.9}
- 55%{transform:translate(58px,-14px);opacity:.9}
- 78%{transform:translate(103px,-17px);opacity:.9}
- 92%{opacity:0}
- 100%{transform:translate(142px,-12px);opacity:0}
-}
-/* Two short wing beats give way to a longer glide. The shoulders stay attached. */
-@keyframes nature-wing-near{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(-16deg) scaleY(.24)}20%{transform:rotate(7deg) scaleY(1.16)}40%,84%{transform:rotate(2deg) scaleY(.92)}}
-@keyframes nature-wing-far{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(16deg) scaleY(.24)}20%{transform:rotate(-7deg) scaleY(1.16)}40%,84%{transform:rotate(-2deg) scaleY(.92)}}
-@media(max-width:600px){.nature-art{max-height:420px}}
-@media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
-
-/* Moving clouds are absent from compact, touch and reduced-motion output. */
-.nature-desktop-atmosphere{display:none;pointer-events:none}
-.nature-atmosphere-clouds{opacity:.46}
-:root[data-theme="dark"] .nature-atmosphere-clouds{opacity:.11}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-atmosphere{display:block}
- .nature-scene[data-motion] .nature-cloud-drift{animation:nature-cloud-passage 82s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-cloud-drift-one{animation-delay:-21s}
- .nature-scene[data-motion] .nature-cloud-drift-two{animation-duration:89s;animation-delay:-53s}
- .nature-scene[data-motion="running"] .nature-cloud-drift{animation-play-state:running}
-}
-@keyframes nature-cloud-passage{0%{transform:translate(-77px,2px);opacity:0}12%,83%{opacity:1}100%{transform:translate(81px,-5px);opacity:0}}
-
-/* Fine sky and feather details are optional. */
-.nature-desktop-detail{display:none;pointer-events:none}
-.nature-feather-etch{fill:none;stroke:var(--n-paper);stroke-width:.45;opacity:.4}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-detail{display:inline}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-compact-detail{display:none}
-}
+.scale-art{stroke:var(--scale-ink);stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
+.scale-metal,.scale-finial,.scale-bearing,.scale-pivot{fill:url(#nh-scale-metal)}
+.scale-base-face,.scale-pan-bowl{fill:url(#nh-scale-bowl)}
+.scale-base-step,.scale-collar,.scale-pivot-inner{fill:var(--scale-face)}
+.scale-column-shade,.scale-pan-shade{fill:var(--scale-shade);stroke:none;opacity:.42}
+.scale-highlight{fill:none;stroke:var(--scale-light);stroke-width:1.25;opacity:.9}
+.scale-fine,.scale-base-hatching,.scale-beam-etch{fill:none;stroke:var(--scale-line);stroke-width:.6;opacity:.78}
+.scale-base-hatching{opacity:.4}
+.scale-beam-etch{opacity:.55}
+.scale-chains{fill:none;stroke:var(--scale-ink);stroke-width:1.05}
+.scale-chain-etch{stroke:var(--scale-line);stroke-width:.7;opacity:.8}
+.scale-chain-light{stroke:var(--scale-light);stroke-width:.6}
+.scale-pan-rim{fill:var(--scale-face);stroke-width:1.2}
+.scale-pan-foot{fill:none;stroke-width:1.1}
+.scale-balance{transform-box:view-box;transform-origin:288.6px 160px}
+.scale-hanger{transform-box:view-box;transform-origin:0 0}
+.scale-replay{position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:0;background:none;padding:7px 12px;color:var(--muted);font:400 12px/1.5 var(--ui-font);white-space:nowrap;text-underline-offset:4px;cursor:pointer}
+.scale-replay:hover{text-decoration:underline;color:var(--text)}
+.scale-replay:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.scale-replay:disabled{cursor:default;text-decoration:none;opacity:.6}
+.scale-replay[hidden]{display:none}
+@media(max-width:600px){.nature-art{max-height:420px}.scale-replay{font-size:11px;padding:5px 8px}}
+@media(prefers-reduced-motion:reduce){.scale-replay{display:none}.scale-scene *{animation:none!important;transition:none!important}}
 
 /* Source: preview/natural-landing.css */
 /* A quiet editorial clearing: expressive identity, still reading surfaces. */
@@ -1466,4 +1439,147 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
   background:currentColor;
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 18 18 6M6 6h12v12' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 18 18 6M6 6h12v12' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* Source: preview/editorial-motion.css */
+/* Small editorial accents. Content and identity remain visible without JavaScript. */
+[data-brand-reveal] .brand-mark {
+  background:none; clip-path:none; overflow:visible; transform:none;
+}
+[data-brand-reveal] .brand-mark::before,
+[data-brand-reveal] .brand-mark::after {
+  content:""; position:absolute; inset:0; width:100%; height:100%;
+  border:0; transform:none; background:var(--accent);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 26'%3E%3Cpath d='M2 22V4l11 18V4m0 9h9M22 4v18' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='miter'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 26'%3E%3Cpath d='M2 22V4l11 18V4m0 9h9M22 4v18' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='miter'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+[data-brand-reveal] .brand-mark::after { background:var(--muted); opacity:0; }
+.nh-brand-wordmark { position:relative; }
+.nh-brand-accent {
+  position:absolute; inset:0; color:var(--accent); opacity:0;
+  pointer-events:none; user-select:none; white-space:inherit;
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  [data-brand-reveal] .brand-mark::after {
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path 240ms ease,opacity 180ms ease;
+  }
+  .nh-brand-accent {
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path 480ms cubic-bezier(.22,.65,.3,1),opacity 180ms ease;
+  }
+  [data-brand-reveal]:is(:hover,:focus-visible) .brand-mark::after {
+    clip-path:inset(0); opacity:.8;
+  }
+  [data-brand-reveal]:is(:hover,:focus-visible) .nh-brand-accent {
+    clip-path:inset(0); opacity:1; transition-delay:100ms;
+  }
+}
+
+/* The original border keeps its geometry. Its ink is replaced only after setup. */
+[data-ink-divider] { position:relative; }
+[data-ink-divider="bottom"][data-editorial-ink] { border-bottom-color:transparent; }
+[data-ink-divider="top"][data-editorial-ink] { border-top-color:transparent; }
+.nh-ink-divider {
+  position:absolute; inset-inline:0; bottom:-1px; height:1px;
+  pointer-events:none; overflow:hidden;
+}
+[data-ink-divider="top"] > .nh-ink-divider { top:-1px; bottom:auto; }
+.nh-ink-divider::before {
+  content:""; position:absolute; inset:0; background:var(--line);
+  transform:scaleX(1); transform-origin:left center;
+}
+
+/* A single image window accompanies an existing excerpt, without breaking its words. */
+.quote-portal {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(160px,240px);
+  align-items:center; gap:clamp(28px,6vw,96px); padding-block:64px;
+  color:var(--text); border-bottom:1px solid var(--line);
+}
+.quote-portal-copy { min-width:0; max-width:850px; }
+.quote-portal .eyebrow { margin:0 0 22px; color:var(--muted); }
+.quote-portal blockquote { margin:0; padding:0; border:0; background:none; }
+.quote-portal blockquote p {
+  margin:0; font-family:var(--reading-font,Georgia,serif);
+  font-size:clamp(24px,2.6vw,36px); font-weight:400; line-height:1.48;
+  letter-spacing:-.025em; overflow-wrap:break-word; text-wrap:pretty;
+}
+.quote-portal-source { margin:24px 0 0; font:400 14px/1.65 var(--ui-font); color:var(--muted); }
+.quote-portal-source a { text-decoration-thickness:1px; text-underline-offset:4px; }
+.quote-portal .quote-portal-media {
+  --cover-bg:var(--cover-violet); --cover-accent:var(--cover-sage);
+  display:block; position:relative; min-width:0; width:100%;
+  aspect-ratio:1/1; padding:0; border:0; border-radius:0;
+  overflow:hidden; background:var(--cover-bg);
+  color:var(--cover-ink); text-decoration:none; isolation:isolate;
+}
+.quote-portal-media .cover-placeholder {
+  position:absolute; inset:0; display:block;
+}
+.quote-portal-media .cover-art,
+.quote-portal-media > :is(svg,img) {
+  display:block; width:100%; height:100%; object-fit:contain; object-position:center;
+}
+.quote-portal-media .cover-art { position:absolute; inset:0; }
+.quote-portal-media:focus-visible { outline-offset:6px; }
+@media (prefers-reduced-motion:no-preference) {
+  .nh-ink-divider[data-editorial-state="pending"]::before { transform:scaleX(0); }
+  .nh-ink-divider[data-editorial-state="revealing"]::before { animation:nh-ink-draw 720ms cubic-bezier(.22,.65,.3,1) both; }
+  .quote-portal-media[data-editorial-state="pending"] { clip-path:inset(0 49%); opacity:.45; }
+  .quote-portal-media[data-editorial-state="revealing"] { animation:nh-portal-open 740ms cubic-bezier(.22,.65,.3,1) both; }
+}
+@keyframes nh-ink-draw { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+@keyframes nh-portal-open { from { clip-path:inset(0 49%); opacity:.45; } to { clip-path:inset(0); opacity:1; } }
+@media(max-width:720px) {
+  .quote-portal { grid-template-columns:minmax(0,1fr); gap:28px; padding-block:40px; }
+  .quote-portal blockquote p { font-size:clamp(24px,5.5vw,30px); line-height:1.5; }
+  .quote-portal .eyebrow { margin-bottom:16px; }
+  .quote-portal-source { margin-top:19px; }
+  .quote-portal .quote-portal-media { width:min(100%,220px); justify-self:end; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .nh-ink-divider::before,.quote-portal-media,.nh-brand-accent,[data-brand-reveal] .brand-mark::after {
+    animation:none!important; transition:none!important;
+  }
+  .nh-ink-divider::before { transform:none!important; }
+  .quote-portal-media { clip-path:none!important; opacity:1!important; }
+}
+@media print {
+  .nh-brand-accent { display:none; }
+  .quote-portal-media { clip-path:none!important; opacity:1!important; }
+  .nh-ink-divider::before { transform:none!important; }
+}
+
+/* Source: preview/article-transitions.css */
+/* Progressive enhancement for full-document navigation; the page itself stays live. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+/* Only the selected cover receives a name. No page snapshot hides text or controls. */
+:root { view-transition-name: none; }
+::view-transition {
+  pointer-events: none;
+  /* Only the destination cover's visible rectangle can receive the overlay. */
+  clip-path: inset(var(--nh-cover-top, 0px) var(--nh-cover-right, 0px)
+    var(--nh-cover-bottom, 0px) var(--nh-cover-left, 0px));
+}
+::view-transition-group(nh-article-cover) {
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(.22,.68,.2,1);
+  overflow: hidden;
+}
+::view-transition-old(nh-article-cover),
+::view-transition-new(nh-article-cover) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: var(--nh-cover-position, 50% 50%);
+  mix-blend-mode: normal;
+  animation-duration: 360ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  ::view-transition-group(nh-article-cover),
+  ::view-transition-old(nh-article-cover),
+  ::view-transition-new(nh-article-cover) { animation: none; }
 }

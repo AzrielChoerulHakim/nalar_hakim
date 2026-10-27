@@ -23,6 +23,10 @@ jobs:
           node --check preview/signals.js
           node --check preview/nature-scene.js
           node scripts/check-nature-motion.cjs
+          node --check preview/editorial-motion.js
+          node scripts/check-editorial-motion.cjs
+          node --check preview/article-transitions.js
+          node scripts/check-article-transitions.cjs
           node --check preview/desktop-nature.js
           node --check preview/butterfly.js
           node scripts/check-butterfly.cjs

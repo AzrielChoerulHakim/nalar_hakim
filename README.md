@@ -63,9 +63,9 @@ Commit sumber bersama seluruh hasil generator. Jangan menyunting HTML hasil seca
 
 ## Desain dan pembacaan
 
-Identitas alam memakai warna putih kabut, hutan, langit dan batu. Judul memakai font sistem; isi artikel memakai Georgia 20px desktop/19px HP dengan jarak baris 1,8. Pilihan tema diterapkan sebelum CSS tampil. Aset lokal diberi fingerprint otomatis.
+Identitas memakai warna putih kabut, hutan, langit dan batu. Judul serta label memakai font sistem proporsional; isi artikel memakai Source Serif 4 lokal dengan fallback Georgia, 20px desktop/19px HP dan jarak baris 1,8. Pilihan tema diterapkan sebelum CSS tampil. Aset lokal diberi fingerprint otomatis.
 
-Animasi berjalan otomatis pada desktop dengan hover, pointer presisi, serta tanpa preferensi pengurangan gerak. Tidak ada tombol jeda. Ilustrasi dan aliran gagasan berhenti saat keluar viewport; semua gerak berhenti saat tab tersembunyi. Mode terang memakai satu kupu-kupu, mode gelap tiga kunang-kunang, dengan pergantian keluar–masuk berurutan dan titik hinggap pada judul. HP tetap statis. Tidak ada library frontend, font eksternal, WebGL, 3D atau video latar.
+Gerak pendamping yang sudah ada berjalan otomatis pada desktop dengan hover, pointer presisi, serta tanpa preferensi pengurangan gerak. Mode terang memakai satu kupu-kupu, mode gelap tiga kunang-kunang, dengan pergantian keluar–masuk dan perilaku hinggap sebelumnya. Implementasi serta aturan mobile pendamping tidak diubah oleh revisi hero. Tidak ada framework animasi, font eksternal, WebGL, 3D atau video latar. Siklus timbangan dan aksen editorial dijelaskan di bawah.
 
 ## Donasi
 
@@ -82,6 +82,8 @@ Jalankan `python3 scripts/package.py` untuk membuat paket. Kredensial, database,
 
 ## Identitas visual alam
 
-Rencana dan batas implementasi: [docs/NATURAL_REDESIGN.md](docs/NATURAL_REDESIGN.md). Palet putih kabut, hutan, langit dan batu diterapkan pada seluruh halaman statis. Halaman pembuka memuat ilustrasi Justitia dengan latar langit dan burung. Pohon, akar, bebatuan, sungai, dan keterangan gambar telah dihapus. Burung dan awan bergerak pada desktop; HP serta perangkat dengan pengurangan gerak tetap statis. Pengunjung baru memakai tema terang.
+Riwayat desain: [docs/NATURAL_REDESIGN.md](docs/NATURAL_REDESIGN.md). Revisi terbaru dan batas pengujiannya: [docs/HERO_MOTION_REVIEW.md](docs/HERO_MOTION_REVIEW.md). Hero sekarang memakai timbangan SVG orisinal sebagai satu-satunya ilustrasi utama; figur Justitia dan seluruh pemandangan tidak lagi dirender. Kupu-kupu serta kunang-kunang tetap memakai implementasi sebelumnya. Pengunjung baru memakai tema terang.
+
+Timbangan terbentuk, melakukan ayunan kecil yang mereda, lalu diam. Tombol ulang mendukung keyboard dan tidak menumpuk siklus. Divider terpilih dan satu portal cover di kutipan muncul sekali. Aksen NH membuka ke wordmark pada hover/fokus desktop tanpa menggeser navigasi. Semua tambahan menghormati reduced-motion dan memiliki keadaan statis tanpa JavaScript. Transisi cover memakai navigasi dokumen native bila browser mendukung, termasuk markup artikel hasil admin; fallback tetap berupa tautan biasa.
 
 Sumber ilustrasi: `scripts/nature_scene.py`; gaya: `preview/natural.css`, `preview/natural-landing.css`, `preview/nature-scene.css`; kendali gerak: `preview/nature-scene.js`. Uji siklus gerak: `node scripts/check-nature-motion.cjs`.

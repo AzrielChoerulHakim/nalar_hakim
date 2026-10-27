@@ -4,13 +4,14 @@
 from html import escape
 from nature_scene import nature_scene
 from idea_flow import render_idea_flow
+from flat_cover import render_cover
 
 
 # Apply a saved reading preference before CSS paints, including when storage is blocked.
 THEME_INIT = '''<script>document.documentElement.dataset.theme='light';try{if(localStorage.getItem('nalar-hakim-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(_){}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='dark'?'#18231E':'#F5F6F2';</script>'''
 
 
-def render_landing(site_url='https://azrielchoerulhakim.github.io/nalar_hakim/'):
+def render_landing(site_url='https://azrielchoerulhakim.github.io/nalar_hakim/', featured_post=None):
     return '''<!doctype html>
 <html lang="id">
 <head>
@@ -29,13 +30,13 @@ __THEME_INIT__
 <link rel="icon" href="preview/favicon.svg" type="image/svg+xml">
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
 <link rel="stylesheet" href="preview/landing-bundle.css">
-<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/nature-scene.js" defer></script><script src="preview/desktop-nature.js" data-butterfly-src="preview/butterfly.js" defer></script><script src="preview/desktop-nature.js" data-desktop-src="preview/scroll-story.js" defer></script>
+<script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/editorial-motion.js" defer></script><script src="preview/article-transitions.js" defer blocking="render"></script><script src="preview/nature-scene.js" defer></script><script src="preview/desktop-nature.js" data-butterfly-src="preview/butterfly.js" defer></script><script src="preview/desktop-nature.js" data-desktop-src="preview/scroll-story.js" defer></script>
 <script src="preview/desktop-nature.js" data-desktop-src="preview/idea-flow.js" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
 <header class="landing-header landing-shell">
-  <a class="landing-brand" href="index.html" aria-label="Nalar Hakim — halaman awal"><span class="brand-mark" aria-hidden="true"></span><span>NALAR HAKIM<span class="landing-dot">.</span></span></a>
+  <a class="landing-brand" data-brand-reveal href="index.html" aria-label="Nalar Hakim — halaman awal"><span class="brand-mark" aria-hidden="true"></span><span>NALAR HAKIM<span class="landing-dot">.</span></span></a>
   <nav aria-label="Navigasi utama"><a class="landing-about-link" href="tentang.html">Tentang</a><a class="landing-submit-link" href="kirim-naskah.html">Kirim naskah</a><a class="landing-nav-enter" href="beranda.html">Ruang baca <span aria-hidden="true">↗</span></a></nav>
 </header>
 <main id="main-content" class="landing-main">
@@ -51,10 +52,11 @@ __THEME_INIT__
       </div>
       __NATURE_SCENE__
     </div>
-    <div class="landing-hero-base"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true">↓</span></a><span class="landing-base-end"><span>NAMA SAMARAN / TANPA BIAYA / TERBUKA</span></span></div>
+    <div class="landing-hero-base" data-ink-divider="bottom"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true">↓</span></a><span class="landing-base-end"><span>NAMA SAMARAN / TANPA BIAYA / TERBUKA</span></span></div>
   </section>
 
-  <section id="sikap" class="landing-manifest" aria-labelledby="landing-manifest-title"><div class="landing-shell">
+  __QUOTE_PORTAL__
+  <section id="sikap" class="landing-manifest" data-ink-divider="bottom" aria-labelledby="landing-manifest-title"><div class="landing-shell">
     <div class="landing-section-top"><p>01 / SIKAP REDAKSI</p><span aria-hidden="true">+</span></div>
     <div class="landing-manifest-grid"><div class="landing-question" aria-hidden="true">[?]</div><div class="landing-manifest-copy"><h2 id="landing-manifest-title">Nama disamarkan.<br><span>Argumen diuji.</span></h2><p class="landing-manifest-lead">Anda tidak perlu mencantumkan nama asli, gelar, atau tempat bekerja untuk mengirim tulisan. Redaksi membaca apa yang Anda ajukan: persoalannya, alasan di balik pendapatnya, dan sumber yang mendukungnya.</p><div class="landing-manifest-notes"><p><span>01 — ALASAN YANG JELAS</span>Jelaskan apa yang Anda persoalkan dan mengapa. Pakai teori jika membantu pembaca memahami argumen, bukan sekadar menambah nama tokoh.</p><p><span>02 — SUMBER YANG BISA DICEK</span>Tautkan aturan, putusan, data, atau bacaan yang Anda gunakan. Pembaca perlu tahu dari mana sebuah pernyataan berasal.</p></div></div></div>
   </div></section>
@@ -73,4 +75,19 @@ __THEME_INIT__
 __IDEA_FLOW__
 </main>
 <footer class="landing-footer landing-shell"><div class="landing-footer-top"><div><a class="landing-footer-brand" href="index.html">NALAR HAKIM<span>.</span></a><p>Disunting oleh Lazarus.</p></div><div class="landing-footer-links"><a href="tentang.html">Tentang Nalar Hakim</a><a href="kirim-naskah.html">Kirim naskah</a><a href="mailto:nalar.hakim77@gmail.com">Hubungi redaksi ↗</a><button type="button" class="theme-toggle" data-theme-toggle hidden>Terang</button></div></div><div class="landing-footer-bottom"><span>© 2026 Nalar Hakim</span><span>Nama samaran. Bebas dibaca.</span><a href="#main-content">Kembali ke atas ↑</a></div></footer>
-</body></html>'''.replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT).replace('__IDEA_FLOW__', render_idea_flow()).replace('__SITE_URL__', escape(site_url, quote=True))
+</body></html>'''.replace('__QUOTE_PORTAL__', render_quote_portal(featured_post)).replace('__NATURE_SCENE__', nature_scene()).replace('__THEME_INIT__', THEME_INIT).replace('__IDEA_FLOW__', render_idea_flow()).replace('__SITE_URL__', escape(site_url, quote=True))
+
+
+def render_quote_portal(post):
+    """Quote the existing manuscript verbatim; never invent a public attribution."""
+    if not post:
+        return ''
+    href = 'artikel/' + post['slug'] + '/'
+    title = escape(post['title'])
+    quote = escape(post['thesis'])
+    author = escape(post.get('author', 'Lazarus'))
+    cover = render_cover(post['format'])
+    return f'''<section class="quote-portal landing-shell" data-quote-portal data-ink-divider="bottom" aria-labelledby="quote-portal-title">
+  <div class="quote-portal-copy"><h2 class="eyebrow" id="quote-portal-title">DARI RUANG BACA</h2><blockquote cite="{href}"><p>{quote}</p></blockquote><p class="quote-portal-source">{author} · <a href="{href}">{title}</a></p></div>
+  <a class="quote-portal-media story-image tone-{post['format']}" href="{href}" aria-label="Baca {escape(post['title'], quote=True)}"><span class="cover-placeholder" aria-hidden="true">{cover}</span></a>
+</section>'''

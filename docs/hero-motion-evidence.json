@@ -1,0 +1,918 @@
+{
+  "baseline": "9374e76384adfba193ab09e6d1b65ee262c49797",
+  "release": "1501284628f5573fb806",
+  "layout": [
+    {
+      "path": "index.html",
+      "content": false,
+      "cover": false,
+      "hero": true,
+      "icons": 13,
+      "scrollWidth": 305,
+      "title": "NALARHAKIM.",
+      "clientWidth": 305,
+      "viewport": 320
+    },
+    {
+      "path": "beranda.html",
+      "content": false,
+      "cover": false,
+      "hero": false,
+      "icons": 17,
+      "scrollWidth": 305,
+      "title": "Ruangbaca.",
+      "clientWidth": 305,
+      "viewport": 320
+    },
+    {
+      "path": "artikel/hukum-yang-sah-belum-tentu-adil/",
+      "content": true,
+      "cover": true,
+      "hero": false,
+      "icons": 17,
+      "scrollWidth": 305,
+      "title": "“Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik",
+      "clientWidth": 305,
+      "viewport": 320
+    },
+    {
+      "path": "artikel/uji-admin-hero/",
+      "content": true,
+      "cover": true,
+      "hero": false,
+      "icons": 7,
+      "scrollWidth": 305,
+      "title": "Naskah uji panel admin",
+      "clientWidth": 305,
+      "viewport": 320
+    },
+    {
+      "path": "artikel/uji-admin-tanpa-sampul/",
+      "content": true,
+      "cover": false,
+      "hero": false,
+      "icons": 7,
+      "scrollWidth": 305,
+      "title": "Naskah uji tanpa sampul",
+      "clientWidth": 305,
+      "viewport": 320
+    },
+    {
+      "path": "index.html",
+      "content": false,
+      "cover": false,
+      "hero": true,
+      "icons": 13,
+      "scrollWidth": 375,
+      "title": "NALARHAKIM.",
+      "clientWidth": 375,
+      "viewport": 390
+    },
+    {
+      "path": "beranda.html",
+      "content": false,
+      "cover": false,
+      "hero": false,
+      "icons": 17,
+      "scrollWidth": 375,
+      "title": "Ruangbaca.",
+      "clientWidth": 375,
+      "viewport": 390
+    },
+    {
+      "path": "artikel/hukum-yang-sah-belum-tentu-adil/",
+      "content": true,
+      "cover": true,
+      "hero": false,
+      "icons": 17,
+      "scrollWidth": 375,
+      "title": "“Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik",
+      "clientWidth": 375,
+      "viewport": 390
+    },
+    {
+      "viewport": 390,
+      "path": "artikel/uji-admin-hero/",
+      "clientWidth": 375,
+      "content": true,
+      "cover": true,
+      "icons": 7,
+      "scrollWidth": 375,
+      "title": "Naskah uji panel admin"
+    },
+    {
+      "viewport": 390,
+      "path": "artikel/uji-admin-tanpa-sampul/",
+      "clientWidth": 375,
+      "content": true,
+      "cover": false,
+      "icons": 7,
+      "scrollWidth": 375,
+      "title": "Naskah uji tanpa sampul"
+    },
+    {
+      "viewport": 768,
+      "path": "index.html",
+      "clientWidth": 753,
+      "content": false,
+      "cover": false,
+      "icons": 13,
+      "scrollWidth": 753,
+      "title": "NALARHAKIM."
+    },
+    {
+      "viewport": 768,
+      "path": "beranda.html",
+      "clientWidth": 753,
+      "content": false,
+      "cover": false,
+      "icons": 17,
+      "scrollWidth": 753,
+      "title": "Ruangbaca."
+    },
+    {
+      "viewport": 768,
+      "path": "artikel/hukum-yang-sah-belum-tentu-adil/",
+      "clientWidth": 753,
+      "content": true,
+      "cover": true,
+      "icons": 17,
+      "scrollWidth": 753,
+      "title": "“Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik"
+    },
+    {
+      "viewport": 768,
+      "path": "artikel/uji-admin-hero/",
+      "clientWidth": 753,
+      "content": true,
+      "cover": true,
+      "icons": 7,
+      "scrollWidth": 753,
+      "title": "Naskah uji panel admin"
+    },
+    {
+      "viewport": 768,
+      "path": "artikel/uji-admin-tanpa-sampul/",
+      "clientWidth": 753,
+      "content": true,
+      "cover": false,
+      "icons": 7,
+      "scrollWidth": 753,
+      "title": "Naskah uji tanpa sampul"
+    },
+    {
+      "viewport": 1440,
+      "path": "index.html",
+      "clientWidth": 1425,
+      "content": false,
+      "cover": false,
+      "icons": 13,
+      "scrollWidth": 1425,
+      "title": "NALARHAKIM."
+    },
+    {
+      "viewport": 1440,
+      "path": "beranda.html",
+      "clientWidth": 1425,
+      "content": false,
+      "cover": false,
+      "icons": 17,
+      "scrollWidth": 1425,
+      "title": "Ruangbaca."
+    },
+    {
+      "viewport": 1440,
+      "path": "artikel/hukum-yang-sah-belum-tentu-adil/",
+      "clientWidth": 1425,
+      "content": true,
+      "cover": true,
+      "icons": 17,
+      "scrollWidth": 1425,
+      "title": "“Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik"
+    },
+    {
+      "viewport": 1440,
+      "path": "artikel/uji-admin-hero/",
+      "clientWidth": 1425,
+      "content": true,
+      "cover": true,
+      "icons": 7,
+      "scrollWidth": 1425,
+      "title": "Naskah uji panel admin"
+    },
+    {
+      "viewport": 1440,
+      "path": "artikel/uji-admin-tanpa-sampul/",
+      "clientWidth": 1425,
+      "content": true,
+      "cover": false,
+      "icons": 7,
+      "scrollWidth": 1425,
+      "title": "Naskah uji tanpa sampul"
+    }
+  ],
+  "performance": [
+    {
+      "label": "before",
+      "path": "/before/index.html",
+      "run": "mvr6q88c",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.7,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 311575,
+      "transferredBytes": 26968,
+      "resourceCount": 7,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 375,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "static",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 0
+    },
+    {
+      "label": "after",
+      "path": "/after/index.html",
+      "run": "mvr6qcxe",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.8,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 233262,
+      "transferredBytes": 30283,
+      "resourceCount": 9,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 375,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 1
+    },
+    {
+      "label": "before",
+      "path": "/before/index.html",
+      "run": "mvr6qhnm",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.8,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 24568,
+      "transferredBytes": 2400,
+      "resourceCount": 7,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 375,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "static",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 0
+    },
+    {
+      "label": "after",
+      "path": "/after/index.html",
+      "run": "mvr6qmc3",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.7,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 103543,
+      "transferredBytes": 3000,
+      "resourceCount": 10,
+      "resourcesWithZeroTransfer": 1,
+      "horizontalOverflow": false,
+      "documentWidth": 375,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 1
+    },
+    {
+      "label": "before",
+      "path": "/before/index.html",
+      "run": "mvr6qr2f",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5001,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 24568,
+      "transferredBytes": 2400,
+      "resourceCount": 7,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 375,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "static",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 0
+    },
+    {
+      "label": "after",
+      "path": "/after/index.html",
+      "run": "mvr6qvqf",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.5,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 103543,
+      "transferredBytes": 3000,
+      "resourceCount": 10,
+      "resourcesWithZeroTransfer": 1,
+      "horizontalOverflow": false,
+      "documentWidth": 375,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 1
+    },
+    {
+      "label": "before",
+      "path": "/before/index.html",
+      "run": "mvr6rbl5",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.7,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 220661,
+      "transferredBytes": 3300,
+      "resourceCount": 10,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 1425,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 0
+    },
+    {
+      "label": "after",
+      "path": "/after/index.html",
+      "run": "mvr6rgck",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.7,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 130870,
+      "transferredBytes": 3900,
+      "resourceCount": 13,
+      "resourcesWithZeroTransfer": 1,
+      "horizontalOverflow": false,
+      "documentWidth": 1425,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 1
+    },
+    {
+      "label": "before",
+      "path": "/before/index.html",
+      "run": "mvr6rl2t",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.7,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 193334,
+      "transferredBytes": 3300,
+      "resourceCount": 10,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 1425,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 0
+    },
+    {
+      "label": "after",
+      "path": "/after/index.html",
+      "run": "mvr6rpt4",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.7,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 103543,
+      "transferredBytes": 3900,
+      "resourceCount": 13,
+      "resourcesWithZeroTransfer": 1,
+      "horizontalOverflow": false,
+      "documentWidth": 1425,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 1
+    },
+    {
+      "label": "before",
+      "path": "/before/index.html",
+      "run": "mvr6rujf",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.8,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 193334,
+      "transferredBytes": 3300,
+      "resourceCount": 10,
+      "resourcesWithZeroTransfer": 0,
+      "horizontalOverflow": false,
+      "documentWidth": 1425,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 0
+    },
+    {
+      "label": "after",
+      "path": "/after/index.html",
+      "run": "mvr6rz9v",
+      "method": "QA-only observer in same-origin iframe; 5 s window; cache state is browser-managed; no network/CPU throttling",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "motion": "browser preference",
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "capabilities": {
+        "secure": false,
+        "pageswap": true,
+        "pagereveal": true,
+        "navigation": true
+      },
+      "elapsedMs": 5000.8,
+      "fcpMs": null,
+      "lcpMs": null,
+      "cls": 0,
+      "longTaskExcessMs": 0,
+      "longTaskCount": 0,
+      "encodedBytes": 103543,
+      "transferredBytes": 3900,
+      "resourceCount": 13,
+      "resourcesWithZeroTransfer": 1,
+      "horizontalOverflow": false,
+      "documentWidth": 1425,
+      "errors": [],
+      "resourcesFailed": [],
+      "covers": [],
+      "scaleState": "running",
+      "transitions": [
+        {
+          "type": "pagereveal",
+          "active": false
+        }
+      ],
+      "portalCount": 1
+    }
+  ],
+  "asset_inventory": {
+    "measurement_kind": "Static on-disk byte inventory of homepage dependency sets; not observed network transfer or timing",
+    "baseline_commit": "9374e76384adfba193ab09e6d1b65ee262c49797",
+    "after_release_id": "1501284628f5573fb806",
+    "before": {
+      "direct_assets": [
+        {
+          "path": "index.html",
+          "kind": "html",
+          "bytes": 23302
+        },
+        {
+          "path": "preview/desktop-nature.js",
+          "kind": "javascript",
+          "bytes": 683
+        },
+        {
+          "path": "preview/favicon.svg",
+          "kind": "favicon",
+          "bytes": 222
+        },
+        {
+          "path": "preview/justitia-engraving-v3.webp",
+          "kind": "image",
+          "bytes": 168766
+        },
+        {
+          "path": "preview/landing-bundle.css",
+          "kind": "css",
+          "bytes": 97668
+        },
+        {
+          "path": "preview/motion.js",
+          "kind": "javascript",
+          "bytes": 6605
+        },
+        {
+          "path": "preview/nature-scene.js",
+          "kind": "javascript",
+          "bytes": 1526
+        },
+        {
+          "path": "theme/nalar-hakim/assets/site.js",
+          "kind": "javascript",
+          "bytes": 6407
+        }
+      ],
+      "desktop_optional_assets": [
+        {
+          "path": "preview/butterfly.js",
+          "kind": "javascript",
+          "bytes": 20239
+        },
+        {
+          "path": "preview/idea-flow.js",
+          "kind": "javascript",
+          "bytes": 1509
+        },
+        {
+          "path": "preview/scroll-story.js",
+          "kind": "javascript",
+          "bytes": 5579
+        }
+      ],
+      "initial_mobile_or_non_capable_bytes": 305179,
+      "initial_motion_capable_desktop_bytes": 332506,
+      "direct_asset_count": 8,
+      "desktop_unique_asset_count": 11,
+      "direct_bytes_by_kind": {
+        "html": 23302,
+        "javascript": 15221,
+        "favicon": 222,
+        "image": 168766,
+        "css": 97668
+      }
+    },
+    "after": {
+      "direct_assets": [
+        {
+          "path": "index.html",
+          "kind": "html",
+          "bytes": 26017
+        },
+        {
+          "path": "preview/article-transitions.js",
+          "kind": "javascript",
+          "bytes": 5991
+        },
+        {
+          "path": "preview/desktop-nature.js",
+          "kind": "javascript",
+          "bytes": 683
+        },
+        {
+          "path": "preview/editorial-motion.js",
+          "kind": "javascript",
+          "bytes": 3161
+        },
+        {
+          "path": "preview/favicon.svg",
+          "kind": "favicon",
+          "bytes": 222
+        },
+        {
+          "path": "preview/fonts/source-serif-4-regular.woff2",
+          "kind": "font",
+          "bytes": 76260
+        },
+        {
+          "path": "preview/landing-bundle.css",
+          "kind": "css",
+          "bytes": 102663
+        },
+        {
+          "path": "preview/motion.js",
+          "kind": "javascript",
+          "bytes": 6605
+        },
+        {
+          "path": "preview/nature-scene.js",
+          "kind": "javascript",
+          "bytes": 4209
+        },
+        {
+          "path": "theme/nalar-hakim/assets/site.js",
+          "kind": "javascript",
+          "bytes": 6407
+        }
+      ],
+      "desktop_optional_assets": [
+        {
+          "path": "preview/butterfly.js",
+          "kind": "javascript",
+          "bytes": 20239
+        },
+        {
+          "path": "preview/idea-flow.js",
+          "kind": "javascript",
+          "bytes": 1509
+        },
+        {
+          "path": "preview/scroll-story.js",
+          "kind": "javascript",
+          "bytes": 5579
+        }
+      ],
+      "initial_mobile_or_non_capable_bytes": 232218,
+      "initial_motion_capable_desktop_bytes": 259545,
+      "direct_asset_count": 10,
+      "desktop_unique_asset_count": 13,
+      "direct_bytes_by_kind": {
+        "html": 26017,
+        "javascript": 27056,
+        "favicon": 222,
+        "font": 76260,
+        "css": 102663
+      }
+    },
+    "delta": {
+      "mobile_or_non_capable": {
+        "bytes": -72961,
+        "percent": -23.91,
+        "before_kib": 298.03,
+        "after_kib": 226.78
+      },
+      "motion_capable_desktop": {
+        "bytes": -72961,
+        "percent": -21.94,
+        "before_kib": 324.71,
+        "after_kib": 253.46
+      }
+    },
+    "assumptions": [
+      "Counts UTF-8 HTML, the linked landing CSS bundle, unique external scripts, referenced SVG image resources, favicon and fonts used by homepage text. Inline SVG, data-URL masks, inline scripts and styles are already counted inside their containing files.",
+      "The same desktop-nature.js is referenced by three script tags, but its bytes are counted once. Execution count is outside this inventory.",
+      "Source Serif 4 regular (400 normal), 76260 bytes, is included in the after total because .quote-portal blockquote p uses --reading-font at font-weight 400. It is absent from baseline homepage use. Other three declared font faces are not counted because no homepage element requests them.",
+      "Motion-capable desktop includes butterfly.js, scroll-story.js and idea-flow.js loaded by desktop-nature.js at min-width 1024px with fine pointer, hover and no reduced-motion. Non-capable/mobile totals exclude those optional loads. Both include the loader itself.",
+      "Assumes one full cold resource acquisition and no duplicate network bodies for a repeated URL; not a claim about any particular cache, prefetch, request deduplication implementation, or live server.",
+      "Uses uncompressed file sizes. HTTP compression, headers, TLS, redirects, timing, CDN behavior and cache hits are not modeled. WOFF2 and WebP are already encoded file formats, but their actual transfer was not observed.",
+      "Favicon is included in both totals although browser favicon fetch policy can differ. Subtract its listed size from both for a document-resource estimate without favicon.",
+      "All viewport-width variants share these static resources. A mobile simulation with a desktop pointer is still non-capable below 1024px; desktop with reduced-motion uses the non-capable set.",
+      "QA wrapper/probe and administrative fixtures are excluded. Unreferenced legacy Justitia image files retained in release are excluded; only the baseline-referenced v3 image is counted."
+    ]
+  },
+  "additional_observations": [
+    {
+      "context": "extra desktop reload outside paired series",
+      "cls": 0.004673,
+      "source": "visible QA result during capture",
+      "attribution": "not captured"
+    },
+    {
+      "context": "subsequent desktop reload",
+      "cls": 1.3394890735610957e-05,
+      "source": "layout-shift entry",
+      "attribution": "quote bottom-of-viewport rect moved from y995.515625 to y991.515625 at130.3ms"
+    }
+  ]
+}

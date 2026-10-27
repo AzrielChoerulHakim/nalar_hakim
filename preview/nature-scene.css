@@ -1,55 +1,28 @@
-/* Engraved Justitia and a quiet sky; desktop motion follows viewport preferences. */
-.nature-scene{--n-forest:#294d3e;--n-ink:#294d3e;--n-paper:#f5f6f2;--n-sky-high:#DDE8E8;--n-sky-low:#EDF0E4;--n-shadow:#665E4F;margin:0;width:100%;min-width:0;color:var(--n-forest);isolation:isolate}
-:root[data-theme="dark"] .nature-scene{--n-forest:#b7cbb8;--n-ink:#8ea996;--n-paper:#c4cec1;--n-sky-high:#253C3F;--n-sky-low:#33463C;--n-shadow:#293B31}
+/* Original engraved balance. No scenery or companion styles belong here. */
+.nature-scene{margin:0;width:100%;min-width:0;isolation:isolate}
+.scale-scene{--scale-ink:#344d3e;--scale-face:#c8bb8b;--scale-light:#ede5c7;--scale-shade:#9b946d;--scale-line:#6b7256;position:relative;color:var(--scale-ink)}
+:root[data-theme="dark"] .scale-scene{--scale-ink:#c4cdb5;--scale-face:#aaa882;--scale-light:#e3dfbd;--scale-shade:#737b5e;--scale-line:#c1c8aa}
 .nature-art{display:block;width:100%;height:auto;overflow:visible}
-.nature-sky{fill:url(#nature-sky-depth)}
-.nature-sun{fill:var(--n-paper);opacity:.75}
-.nature-clouds{color:var(--n-forest);opacity:.24}
-.nature-birds{color:var(--n-ink);opacity:.85}
-.nature-wing{transform-box:view-box;transform-origin:2px 1px}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene[data-motion] .nature-bird{animation:nature-bird-flight 31s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-bird-two{animation-duration:37s;animation-delay:-10s}
- .nature-scene[data-motion] .nature-bird-three{animation-duration:41s;animation-delay:-22s}
- .nature-scene[data-motion] .nature-wing{animation:nature-wing-near 6.6s ease-in-out infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-wing-far{animation-name:nature-wing-far}
- .nature-scene[data-motion] .nature-bird-two .nature-wing{animation-delay:-2.2s;animation-duration:7.2s}
- .nature-scene[data-motion] .nature-bird-three .nature-wing{animation-delay:-4.1s;animation-duration:6s}
- .nature-scene[data-motion="running"] :is(.nature-bird,.nature-wing){animation-play-state:running}
-}
-/* Travel in one direction. Reset happens only while the tiny silhouette is invisible. */
-@keyframes nature-bird-flight{
- 0%{transform:translate(-42px,6px);opacity:0}
- 7%{opacity:.9}
- 30%{transform:translate(5px,-5px);opacity:.9}
- 55%{transform:translate(58px,-14px);opacity:.9}
- 78%{transform:translate(103px,-17px);opacity:.9}
- 92%{opacity:0}
- 100%{transform:translate(142px,-12px);opacity:0}
-}
-/* Two short wing beats give way to a longer glide. The shoulders stay attached. */
-@keyframes nature-wing-near{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(-16deg) scaleY(.24)}20%{transform:rotate(7deg) scaleY(1.16)}40%,84%{transform:rotate(2deg) scaleY(.92)}}
-@keyframes nature-wing-far{0%,8%,32%,100%{transform:rotate(0deg) scaleY(1)}14%,26%{transform:rotate(16deg) scaleY(.24)}20%{transform:rotate(-7deg) scaleY(1.16)}40%,84%{transform:rotate(-2deg) scaleY(.92)}}
-@media(max-width:600px){.nature-art{max-height:420px}}
-@media(prefers-reduced-motion:reduce){.nature-scene *{animation:none!important;transition:none!important}}
-
-/* Moving clouds are absent from compact, touch and reduced-motion output. */
-.nature-desktop-atmosphere{display:none;pointer-events:none}
-.nature-atmosphere-clouds{opacity:.46}
-:root[data-theme="dark"] .nature-atmosphere-clouds{opacity:.11}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-atmosphere{display:block}
- .nature-scene[data-motion] .nature-cloud-drift{animation:nature-cloud-passage 82s linear infinite;animation-play-state:paused}
- .nature-scene[data-motion] .nature-cloud-drift-one{animation-delay:-21s}
- .nature-scene[data-motion] .nature-cloud-drift-two{animation-duration:89s;animation-delay:-53s}
- .nature-scene[data-motion="running"] .nature-cloud-drift{animation-play-state:running}
-}
-@keyframes nature-cloud-passage{0%{transform:translate(-77px,2px);opacity:0}12%,83%{opacity:1}100%{transform:translate(81px,-5px);opacity:0}}
-
-/* Fine sky and feather details are optional. */
-.nature-desktop-detail{display:none;pointer-events:none}
-.nature-feather-etch{fill:none;stroke:var(--n-paper);stroke-width:.45;opacity:.4}
-@media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-desktop-detail{display:inline}
- .nature-scene:is([data-motion="running"],[data-motion="paused"]) .nature-compact-detail{display:none}
-}
+.scale-art{stroke:var(--scale-ink);stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
+.scale-metal,.scale-finial,.scale-bearing,.scale-pivot{fill:url(#nh-scale-metal)}
+.scale-base-face,.scale-pan-bowl{fill:url(#nh-scale-bowl)}
+.scale-base-step,.scale-collar,.scale-pivot-inner{fill:var(--scale-face)}
+.scale-column-shade,.scale-pan-shade{fill:var(--scale-shade);stroke:none;opacity:.42}
+.scale-highlight{fill:none;stroke:var(--scale-light);stroke-width:1.25;opacity:.9}
+.scale-fine,.scale-base-hatching,.scale-beam-etch{fill:none;stroke:var(--scale-line);stroke-width:.6;opacity:.78}
+.scale-base-hatching{opacity:.4}
+.scale-beam-etch{opacity:.55}
+.scale-chains{fill:none;stroke:var(--scale-ink);stroke-width:1.05}
+.scale-chain-etch{stroke:var(--scale-line);stroke-width:.7;opacity:.8}
+.scale-chain-light{stroke:var(--scale-light);stroke-width:.6}
+.scale-pan-rim{fill:var(--scale-face);stroke-width:1.2}
+.scale-pan-foot{fill:none;stroke-width:1.1}
+.scale-balance{transform-box:view-box;transform-origin:288.6px 160px}
+.scale-hanger{transform-box:view-box;transform-origin:0 0}
+.scale-replay{position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:0;background:none;padding:7px 12px;color:var(--muted);font:400 12px/1.5 var(--ui-font);white-space:nowrap;text-underline-offset:4px;cursor:pointer}
+.scale-replay:hover{text-decoration:underline;color:var(--text)}
+.scale-replay:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.scale-replay:disabled{cursor:default;text-decoration:none;opacity:.6}
+.scale-replay[hidden]{display:none}
+@media(max-width:600px){.nature-art{max-height:420px}.scale-replay{font-size:11px;padding:5px 8px}}
+@media(prefers-reduced-motion:reduce){.scale-replay{display:none}.scale-scene *{animation:none!important;transition:none!important}}

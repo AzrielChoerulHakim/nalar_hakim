@@ -15,14 +15,14 @@
 <script>document.documentElement.dataset.theme='light';try{if(localStorage.getItem('nalar-hakim-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(_){}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='dark'?'#18231E':'#F5F6F2';</script>
 <link rel="icon" href="preview/favicon.svg?v=1be2a7a97c" type="image/svg+xml">
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
-<link rel="stylesheet" href="preview/landing-bundle.css?v=65b0c90f52">
-<script src="theme/nalar-hakim/assets/site.js?v=e37ec5650c" defer></script><script src="preview/motion.js?v=00fbe5e89f" defer></script><script src="preview/nature-scene.js?v=14fc5b234a" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-butterfly-src="preview/butterfly.js?v=6554dacd34" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-desktop-src="preview/scroll-story.js?v=57cb68e903" defer></script>
+<link rel="stylesheet" href="preview/landing-bundle.css?v=0d0383a820">
+<script src="theme/nalar-hakim/assets/site.js?v=e37ec5650c" defer></script><script src="preview/motion.js?v=00fbe5e89f" defer></script><script src="preview/editorial-motion.js?v=e8adc699cc" defer></script><script src="preview/article-transitions.js?v=20f5630832" defer blocking="render"></script><script src="preview/nature-scene.js?v=d31d4c51d9" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-butterfly-src="preview/butterfly.js?v=6554dacd34" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-desktop-src="preview/scroll-story.js?v=57cb68e903" defer></script>
 <script src="preview/desktop-nature.js?v=40aeaa265f" data-desktop-src="preview/idea-flow.js?v=c50aa3ea58" defer></script>
 </head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
 <header class="landing-header landing-shell">
-  <a class="landing-brand" href="index.html" aria-label="Nalar Hakim — halaman awal"><span class="brand-mark" aria-hidden="true"></span><span>NALAR HAKIM<span class="landing-dot">.</span></span></a>
+  <a class="landing-brand" data-brand-reveal href="index.html" aria-label="Nalar Hakim — halaman awal"><span class="brand-mark" aria-hidden="true"></span><span>NALAR HAKIM<span class="landing-dot">.</span></span></a>
   <nav aria-label="Navigasi utama"><a class="landing-about-link" href="tentang.html">Tentang</a><a class="landing-submit-link" href="kirim-naskah.html">Kirim naskah</a><a class="landing-nav-enter" href="beranda.html">Ruang baca <span aria-hidden="true"><svg class="nh-icon nh-icon-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></nav>
 </header>
 <main id="main-content" class="landing-main">
@@ -36,60 +36,97 @@
         <p class="landing-hero-caption">Baca esai, telaah peristiwa, dan kritik atas putusan hukum tanpa biaya. Anda juga dapat mengirim tulisan dengan nama samaran.</p>
         <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true"><svg class="nh-icon nh-icon-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true"><svg class="nh-icon nh-icon-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></div>
       </div>
-      <figure class="nature-scene" data-nature-scene data-motion="static">
-  <svg class="nature-art" viewBox="0 0 560 500" role="img" aria-labelledby="nature-title nature-desc" xmlns="http://www.w3.org/2000/svg">
-    <title id="nature-title">Dewi Justitia</title>
-    <desc id="nature-desc">Ilustrasi Dewi Justitia bertutup mata, membawa timbangan dan pedang, dengan burung di langit.</desc>
+      <figure class="nature-scene scale-scene" data-nature-scene data-scale-scene data-motion="static">
+  <svg class="nature-art scale-art" viewBox="0 0 560 500" role="img" aria-labelledby="nature-title nature-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="nature-title">Timbangan Nalar Hakim</title>
+    <desc id="nature-desc">Timbangan dengan dua piringan seimbang, digambar dengan garis dan detail ukiran.</desc>
     <defs>
-      <clipPath id="nature-sky-atmosphere-clip"><circle cx="284" cy="256" r="218"/></clipPath>
-      <radialGradient id="nature-cloud-soft"><stop offset="0" stop-color="#F5F6F2" stop-opacity=".8"/><stop offset=".62" stop-color="#F5F6F2" stop-opacity=".42"/><stop offset="1" stop-color="#F5F6F2" stop-opacity="0"/></radialGradient>
-      <linearGradient id="nature-sky-depth" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--n-sky-high)"/><stop offset="1" stop-color="var(--n-sky-low)"/></linearGradient>
-      <radialGradient id="nature-plinth-shadow"><stop stop-color="var(--n-shadow)" stop-opacity=".3"/><stop offset=".55" stop-color="var(--n-shadow)" stop-opacity=".14"/><stop offset="1" stop-color="var(--n-shadow)" stop-opacity="0"/></radialGradient>
+      <linearGradient id="nh-scale-metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="var(--scale-shade)"/><stop offset=".22" stop-color="var(--scale-face)"/><stop offset=".49" stop-color="var(--scale-light)"/><stop offset=".7" stop-color="var(--scale-face)"/><stop offset="1" stop-color="var(--scale-shade)"/></linearGradient>
+      <linearGradient id="nh-scale-bowl" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--scale-light)"/><stop offset=".42" stop-color="var(--scale-face)"/><stop offset="1" stop-color="var(--scale-shade)"/></linearGradient>
     </defs>
-    <circle class="nature-sky" cx="284" cy="256" r="218"/>
-    <circle class="nature-sun" cx="365" cy="105" r="23"/>
-    <g class="nature-clouds" fill="none" stroke="currentColor" stroke-width="1">
-      <path class="nature-compact-detail" d="M67 193H150M96 186H178M362 149H444M386 156H465"/>
-      <g class="nature-desktop-detail nature-horizon-wisps" stroke-width=".65" stroke-linecap="round">
-        <path d="M73 196C95 192 106 196 128 193S161 193 177 190M87 201C111 199 120 202 141 199M360 151C385 147 398 153 422 149S448 151 466 148M387 157C408 155 433 159 451 155M82 344C108 338 124 343 146 340M362 361C395 354 420 360 454 351"/>
-      </g>
+    <g class="scale-base" data-scale-reveal="base">
+      <path class="scale-metal" d="M228 422H349L357 433H220Z"/>
+      <path class="scale-base-face" d="M209 433H368L376 446H201Z"/>
+      <path class="scale-base-step" d="M200 446H377V454H200Z"/>
+      <path class="scale-highlight" d="M215 435H362M205 448H372"/>
+      <path class="scale-fine" d="M218 440H359M211 451H366M235 425H341"/>
+      <path class="scale-base-hatching" d="M211 437L207 443M219 437L215 443M227 437L223 443M235 437L231 443M243 437L239 443M251 437L247 443M259 437L255 443M267 437L263 443M275 437L271 443M283 437L279 443M291 437L287 443M299 437L295 443M307 437L303 443M315 437L311 443M323 437L319 443M331 437L327 443M339 437L335 443M347 437L343 443M355 437L351 443M363 437L359 443"/>
     </g>
-    <!-- Desktop-only translucent wisps pass behind the complete foreground. -->
-    <g class="nature-desktop-atmosphere nature-atmosphere-clouds" clip-path="url(#nature-sky-atmosphere-clip)" aria-hidden="true">
-      <g class="nature-cloud-drift nature-cloud-drift-one" fill="url(#nature-cloud-soft)">
-        <ellipse cx="200" cy="117" rx="100" ry="22"/><ellipse cx="170" cy="110" rx="40" ry="24"/><ellipse cx="225" cy="108" rx="48" ry="28"/>
-      </g>
-      <g class="nature-cloud-drift nature-cloud-drift-two" fill="url(#nature-cloud-soft)">
-        <ellipse cx="380" cy="190" rx="108" ry="21"/><ellipse cx="355" cy="181" rx="43" ry="27"/><ellipse cx="407" cy="185" rx="37" ry="24"/>
-      </g>
+    <g class="scale-column" data-scale-reveal="column">
+      <path class="scale-metal" d="M273 421C276 411 279 402 279 390L282 168H295L298 390C298 402 301 411 304 421Z"/>
+      <path class="scale-column-shade" d="M291 183L294 390Q294 408 300 419H292L287 184Z"/>
+      <path class="scale-highlight" d="M285 188L282 391Q282 407 279 417"/>
+      <path class="scale-fine" d="M288 196V386M280 399H297M277 411H301"/>
+      <path class="scale-collar" d="M278 171H299V178H278ZM276 390H301V397H276ZM270 416H307V423H270Z"/>
+      <path class="scale-metal" d="M284 88H293L297 121L294 153H283L280 121Z"/>
+      <path class="scale-highlight" d="M285 95L284 123L286 149"/>
+      <path class="scale-fine" d="M283 116H294M283 125H294M284 136H293"/>
+      <path class="scale-finial" d="M288.6 82.36C283 86 280 90 281 94C282 98 286 100 288.6 100C292 100 296 98 297 94C298 90 294 86 288.6 82.36Z"/>
+      <path class="scale-highlight" d="M288 87Q283 91 285 95"/>
     </g>
-    <!-- Silhouettes have a body, forked tail and independent shoulder-hinged wings. -->
-    <g class="nature-birds" fill="currentColor" stroke="none">
-      <g class="nature-bird nature-bird-one"><g transform="translate(90 70) scale(1)">
-        <path class="nature-bird-body" d="M-4 1Q-1 -2 3 -1L5 -3L7 -2L6 0L9 1L5 2Q1 5-3 3L-8 6L-6 2L-9 0Z"/>
-        <g class="nature-wing nature-wing-near"><path class="nature-compact-detail" d="M1 1C-6 -4-14 -9-25 -8L-18 -5L-20 -4C-11 -4-8 1-3 3Z"/><path class="nature-desktop-detail" d="M1 1C-5 -3-13 -8-25 -8L-21 -5L-23 -4L-18 -3L-20 -1L-15 -1L-16 1L-11 1L-11 3Q-6 2-3 4Z"/><path class="nature-desktop-detail nature-feather-etch" d="M-3 1Q-12 -4-19 -4M-8 1L-15 -2"/></g>
-        <g class="nature-wing nature-wing-far"><path class="nature-compact-detail" d="M2 1C7 -8 16 -13 26 -12L21 -9L23 -8C14 -7 10 -3 5 3Z"/><path class="nature-desktop-detail" d="M2 1C6 -7 15 -13 26 -12L23 -9L25 -8L21 -7L22 -5L18 -4L18 -2L14 -1Q10 0 5 3Z"/><path class="nature-desktop-detail nature-feather-etch" d="M6 0Q13 -8 22 -9M11 -3L17 -5"/></g>
-      </g></g>
-      <g class="nature-bird nature-bird-two"><g transform="translate(151 52) scale(0.76)">
-        <path class="nature-bird-body" d="M-4 1Q-1 -2 3 -1L5 -3L7 -2L6 0L9 1L5 2Q1 5-3 3L-8 6L-6 2L-9 0Z"/>
-        <g class="nature-wing nature-wing-near"><path class="nature-compact-detail" d="M1 1C-6 -4-14 -9-25 -8L-18 -5L-20 -4C-11 -4-8 1-3 3Z"/><path class="nature-desktop-detail" d="M1 1C-5 -3-13 -8-25 -8L-21 -5L-23 -4L-18 -3L-20 -1L-15 -1L-16 1L-11 1L-11 3Q-6 2-3 4Z"/><path class="nature-desktop-detail nature-feather-etch" d="M-3 1Q-12 -4-19 -4M-8 1L-15 -2"/></g>
-        <g class="nature-wing nature-wing-far"><path class="nature-compact-detail" d="M2 1C7 -8 16 -13 26 -12L21 -9L23 -8C14 -7 10 -3 5 3Z"/><path class="nature-desktop-detail" d="M2 1C6 -7 15 -13 26 -12L23 -9L25 -8L21 -7L22 -5L18 -4L18 -2L14 -1Q10 0 5 3Z"/><path class="nature-desktop-detail nature-feather-etch" d="M6 0Q13 -8 22 -9M11 -3L17 -5"/></g>
-      </g></g>
-      <g class="nature-bird nature-bird-three"><g transform="translate(205 69) scale(0.63)">
-        <path class="nature-bird-body" d="M-4 1Q-1 -2 3 -1L5 -3L7 -2L6 0L9 1L5 2Q1 5-3 3L-8 6L-6 2L-9 0Z"/>
-        <g class="nature-wing nature-wing-near"><path class="nature-compact-detail" d="M1 1C-6 -4-14 -9-25 -8L-18 -5L-20 -4C-11 -4-8 1-3 3Z"/><path class="nature-desktop-detail" d="M1 1C-5 -3-13 -8-25 -8L-21 -5L-23 -4L-18 -3L-20 -1L-15 -1L-16 1L-11 1L-11 3Q-6 2-3 4Z"/><path class="nature-desktop-detail nature-feather-etch" d="M-3 1Q-12 -4-19 -4M-8 1L-15 -2"/></g>
-        <g class="nature-wing nature-wing-far"><path class="nature-compact-detail" d="M2 1C7 -8 16 -13 26 -12L21 -9L23 -8C14 -7 10 -3 5 3Z"/><path class="nature-desktop-detail" d="M2 1C6 -7 15 -13 26 -12L23 -9L25 -8L21 -7L22 -5L18 -4L18 -2L14 -1Q10 0 5 3Z"/><path class="nature-desktop-detail nature-feather-etch" d="M6 0Q13 -8 22 -9M11 -3L17 -5"/></g>
-      </g></g>
+    <g class="scale-balance" data-scale-balance="">
+      <g class="scale-beam" data-scale-reveal="beam">
+        <path class="scale-metal" d="M128 157Q146 153 164 155L267 153L279 147H298L310 153L413 155Q431 153 449 157L449 165Q431 162 413 163L310 168L298 173H279L267 168L164 163Q146 162 128 165Z"/>
+        <path class="scale-highlight" d="M143 158L266 157L280 151H297L311 157L434 158"/>
+        <path class="scale-fine" d="M151 161L267 163M310 163L426 161M278 156L298 166M280 165L297 156"/>
+        <path class="scale-beam-etch" d="M175 158V162M185 158V163M195 158V163M205 158V163M215 157V164M225 157V164M235 157V164M245 157V164M332 157V164M342 157V164M352 157V164M362 157V164M372 158V163M382 158V163M392 158V163M402 158V162"/>
+        <ellipse class="scale-bearing" cx="134.6" cy="160" rx="6" ry="6"/>
+        <ellipse class="scale-bearing" cx="442.6" cy="160" rx="6" ry="6"/>
+        <circle class="scale-pivot" cx="288.6" cy="160" r="12"/>
+        <circle class="scale-pivot-inner" cx="288.6" cy="160" r="6"/>
+        <path class="scale-highlight" d="M282 156Q285 151 290 153"/>
+      </g>
+      <g transform="translate(134.6 160)"><g class="scale-hanger scale-hanger-left" data-scale-hanger="">
+          <g class="scale-chains" data-scale-reveal="chains">
+            <ellipse cx="0" cy="7" rx="4" ry="6"/>
+            <path d="M-2 13L-49 132M2 13L49 132M0 14V132"/>
+            <path class="scale-chain-etch" d="M-5 25L-9 27M-10 38L-14 40M-15 51L-19 53M-20 64L-24 66M-25 77L-29 79M-30 90L-34 92M-35 103L-39 105M-40 116L-44 118M5 25L9 27M10 38L14 40M15 51L19 53M20 64L24 66M25 77L29 79M30 90L34 92M35 103L39 105M40 116L44 118"/>
+            <path class="scale-chain-light" d="M1 18V127"/>
+          </g>
+          <g class="scale-pan" data-scale-reveal="pans">
+            <path class="scale-pan-bowl" d="M-60 134C-49 157-28 167 0 167C28 167 49 157 60 134Z"/>
+            <path class="scale-pan-shade" d="M-51 141C-37 158-17 161 0 161C18 161 37 156 51 141C34 146 18 149 0 149C-18 149-34 146-51 141Z"/>
+            <ellipse class="scale-pan-rim" cx="0" cy="134" rx="61" ry="6"/>
+            <path class="scale-fine" d="M-44 148Q0 171 44 148M-30 154L-27 158M-18 159L-16 162M18 159L16 162M30 154L27 158"/>
+            <path class="scale-highlight" d="M-46 132Q0 126 46 132"/>
+            <path class="scale-pan-foot" d="M-8 168H8M-5 171H5"/>
+          </g>
+        </g></g>
+      <g transform="translate(442.6 160)"><g class="scale-hanger scale-hanger-right" data-scale-hanger="">
+          <g class="scale-chains" data-scale-reveal="chains">
+            <ellipse cx="0" cy="7" rx="4" ry="6"/>
+            <path d="M-2 13L-49 132M2 13L49 132M0 14V132"/>
+            <path class="scale-chain-etch" d="M-5 25L-9 27M-10 38L-14 40M-15 51L-19 53M-20 64L-24 66M-25 77L-29 79M-30 90L-34 92M-35 103L-39 105M-40 116L-44 118M5 25L9 27M10 38L14 40M15 51L19 53M20 64L24 66M25 77L29 79M30 90L34 92M35 103L39 105M40 116L44 118"/>
+            <path class="scale-chain-light" d="M1 18V127"/>
+          </g>
+          <g class="scale-pan" data-scale-reveal="pans">
+            <path class="scale-pan-bowl" d="M-60 134C-49 157-28 167 0 167C28 167 49 157 60 134Z"/>
+            <path class="scale-pan-shade" d="M-51 141C-37 158-17 161 0 161C18 161 37 156 51 141C34 146 18 149 0 149C-18 149-34 146-51 141Z"/>
+            <ellipse class="scale-pan-rim" cx="0" cy="134" rx="61" ry="6"/>
+            <path class="scale-fine" d="M-44 148Q0 171 44 148M-30 154L-27 158M-18 159L-16 162M18 159L16 162M30 154L27 158"/>
+            <path class="scale-highlight" d="M-46 132Q0 126 46 132"/>
+            <path class="scale-pan-foot" d="M-8 168H8M-5 171H5"/>
+          </g>
+        </g></g>
     </g>
-    <ellipse cx="284" cy="466" rx="90" ry="11" fill="url(#nature-plinth-shadow)"/>
-    <image class="nature-justitia-portrait" href="preview/justitia-engraving-v3.webp?v=dde56009bd" x="129" y="65" width="274" height="411" preserveAspectRatio="xMidYMid meet"/>
   </svg>
+  <button class="scale-replay" type="button" data-scale-replay hidden>Ulangi gerak timbangan</button>
 </figure>
     </div>
-    <div class="landing-hero-base"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true"><svg class="nh-icon nh-icon-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span></a><span class="landing-base-end"><span>NAMA SAMARAN / TANPA BIAYA / TERBUKA</span></span></div>
+    <div class="landing-hero-base" data-ink-divider="bottom"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true"><svg class="nh-icon nh-icon-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span></a><span class="landing-base-end"><span>NAMA SAMARAN / TANPA BIAYA / TERBUKA</span></span></div>
   </section>
 
-  <section id="sikap" class="landing-manifest" aria-labelledby="landing-manifest-title"><div class="landing-shell">
+  <section class="quote-portal landing-shell" data-quote-portal data-ink-divider="bottom" aria-labelledby="quote-portal-title">
+  <div class="quote-portal-copy"><h2 class="eyebrow" id="quote-portal-title">DARI RUANG BACA</h2><blockquote cite="artikel/hukum-yang-sah-belum-tentu-adil/"><p>Penolakan permohonan dalam Putusan MK 257/PUU-XXIII/2025 dapat dibenarkan tanpa menganggap persoalan selesai, sebab hak mendapat penjelasan membutuhkan hubungan yang dapat diperiksa antara masukan publik, pertimbangan pembentuk hukum, dan keputusan yang diambil.</p></blockquote><p class="quote-portal-source">Lazarus · <a href="artikel/hukum-yang-sah-belum-tentu-adil/">“Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik</a></p></div>
+  <a class="quote-portal-media story-image tone-esai" href="artikel/hukum-yang-sah-belum-tentu-adil/" aria-label="Baca “Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik"><span class="cover-placeholder" aria-hidden="true"><svg class="cover-art" viewBox="0 0 800 400" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><circle cx="288" cy="200" r="148" fill="currentColor"/>
+<circle cx="504" cy="200" r="148" fill="var(--cover-bg)" stroke="currentColor" stroke-width="10"/>
+<circle cx="504" cy="200" r="106" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="504" cy="200" r="64" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M68 200H752M400 22V378" stroke="currentColor" stroke-width="2"/>
+<path d="M256 200H320M288 168V232" stroke="var(--cover-bg)" stroke-width="10"/>
+<path d="M480 200H528M504 176V224" stroke="currentColor" stroke-width="8"/></svg></span></a>
+</section>
+  <section id="sikap" class="landing-manifest" data-ink-divider="bottom" aria-labelledby="landing-manifest-title"><div class="landing-shell">
     <div class="landing-section-top"><p>01 / SIKAP REDAKSI</p><span aria-hidden="true">+</span></div>
     <div class="landing-manifest-grid"><div class="landing-question" aria-hidden="true">[?]</div><div class="landing-manifest-copy"><h2 id="landing-manifest-title">Nama disamarkan.<br><span>Argumen diuji.</span></h2><p class="landing-manifest-lead">Anda tidak perlu mencantumkan nama asli, gelar, atau tempat bekerja untuk mengirim tulisan. Redaksi membaca apa yang Anda ajukan: persoalannya, alasan di balik pendapatnya, dan sumber yang mendukungnya.</p><div class="landing-manifest-notes"><p><span>01 — ALASAN YANG JELAS</span>Jelaskan apa yang Anda persoalkan dan mengapa. Pakai teori jika membantu pembaca memahami argumen, bukan sekadar menambah nama tokoh.</p><p><span>02 — SUMBER YANG BISA DICEK</span>Tautkan aturan, putusan, data, atau bacaan yang Anda gunakan. Pembaca perlu tahu dari mana sebuah pernyataan berasal.</p></div></div></div>
   </div></section>
