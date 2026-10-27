@@ -23,41 +23,28 @@
   const currentTheme = () => root.dataset.theme === 'dark' ? 'dark' : 'light';
   // A shared engraved wing is mirrored within separately hinged groups.
   // Glowing antenna tips use small radial paints, not costly blur filters.
-  const wing = `<path d="M48 51C39 33 23 17 9 17C3 17 5 30 8 38C11 48 21 54 30 57C17 54 11 59 13 68C14 72 17 73 18 76C20 79 23 78 25 81C28 83 31 81 34 82C40 81 45 68 48 57Z" fill="#392B24" stroke="#C38843" stroke-width=".65"/>
-    <path d="M47 51C36 32 21 22 10 21C8 28 13 43 22 48C30 53 37 55 47 55Z" fill="url(#nh-butter-copper)"/>
-    <path d="M47 57C33 53 18 57 17 63C17 69 23 76 29 77C36 79 44 68 47 57Z" fill="url(#nh-butter-honey)"/>
-    <g fill="none" stroke="#493024" stroke-width=".95" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M47 53Q29 37 10 23M46 53Q26 43 13 34M46 54L20 46M44 51Q30 34 24 26M35 42L34 36M26 38L23 30M24 43L20 39M19 32L14 32M43 56Q30 61 18 62M44 57Q31 66 24 74M45 57Q39 69 32 77M46 57Q44 70 39 73M32 61L28 57M32 65L30 71M23 61L21 66"/>
+  const wing = `<path d="M48 51C42 35 29 17 13 10C8 8 5 10 6 17C7 34 16 49 32 56C21 54 16 58 18 65C19 70 23 71 25 74C28 78 31 76 34 77C41 75 46 65 48 57Z" fill="url(#nh-butter-copper)" stroke="#71543C" stroke-width=".8" stroke-linejoin="round"/>
+    <path d="M47 56C34 54 22 57 21 63C20 68 26 73 31 74C37 74 44 65 47 56Z" fill="url(#nh-butter-honey)"/>
+    <path d="M45 48C35 30 22 18 10 13C12 28 19 41 30 47C36 50 41 52 46 53Z" fill="#E6C991" opacity=".24"/>
+    <g fill="none" stroke="#785A3D" stroke-width=".72" stroke-linecap="round" stroke-linejoin="round" opacity=".72">
+      <path d="M47 53C34 40 22 24 10 14M46 54Q25 46 13 29M34 39Q30 26 22 18M45 57Q32 59 22 64M45 58Q37 67 31 74"/>
     </g>
-    <g fill="none" stroke="#FFD58C" stroke-width=".4" opacity=".7">
-      <path d="M44 50L13 24M43 52L16 35M41 53L23 46M42 58L20 63M42 59L27 72M44 59L34 74"/>
-      <path d="M17 27L18 30M20 28L22 32M26 33L28 37M31 35L33 38M20 37L22 40M27 43L30 45M34 46L36 47M23 58L26 59M21 66L24 65M28 66L30 64M32 71L34 68M36 64L38 62" opacity=".65"/>
-    </g>
-    <g fill="#FFF3D6">
-      <ellipse cx="10" cy="19" rx="1.8" ry=".8" transform="rotate(12 10 19)"/>
-      <ellipse cx="17" cy="21" rx="1.8" ry=".9" transform="rotate(28 17 21)"/>
-      <ellipse cx="24" cy="25" rx="1.6" ry=".8" transform="rotate(38 24 25)"/>
-      <ellipse cx="7.5" cy="26" rx=".8" ry="1.4"/>
-      <ellipse cx="9.2" cy="32" rx=".8" ry="1.5" transform="rotate(-20 9.2 32)"/>
-      <ellipse cx="12" cy="39" rx=".9" ry="1.5" transform="rotate(-30 12 39)"/>
-      <ellipse cx="16.5" cy="45" rx=".9" ry="1.4" transform="rotate(-42 16.5 45)"/>
-      <ellipse cx="23" cy="50.3" rx="1.4" ry=".8" transform="rotate(27 23 50.3)"/>
-      <ellipse cx="15.2" cy="62" rx=".8" ry="1.3"/>
-      <ellipse cx="17.2" cy="68" rx=".9" ry="1.4" transform="rotate(-32 17.2 68)"/>
-      <ellipse cx="21.6" cy="73.4" rx="1.5" ry=".9" transform="rotate(38 21.6 73.4)"/>
-      <ellipse cx="27.4" cy="78.2" rx="1.5" ry=".8" transform="rotate(17 27.4 78.2)"/>
-      <ellipse cx="33.6" cy="78.6" rx="1.4" ry=".8" transform="rotate(-20 33.6 78.6)"/>
-      <ellipse cx="39" cy="74.2" rx=".8" ry="1.3" transform="rotate(34 39 74.2)"/>
+    <path d="M12 17C16 31 23 41 33 47M25 64Q26 68 30 70" fill="none" stroke="#F1DFC0" stroke-width=".65" opacity=".7" stroke-linecap="round"/>
+    <g fill="#F0DDAD" opacity=".86">
+      <ellipse cx="9.5" cy="18" rx=".8" ry="1.7" transform="rotate(-14 9.5 18)"/>
+      <ellipse cx="13.5" cy="31" rx=".75" ry="1.6" transform="rotate(-24 13.5 31)"/>
+      <ellipse cx="22.5" cy="46.5" rx="1.5" ry=".7" transform="rotate(32 22.5 46.5)"/>
+      <ellipse cx="25.5" cy="71.3" rx="1.25" ry=".7" transform="rotate(30 25.5 71.3)"/>
     </g>`;
-  const antenna = `<path d="M48 39C46 29 41 17 35 9" fill="none" stroke="#67482D" stroke-width="1.1"/>
-    <path d="M48 39C46 29 41 17 35 9" fill="none" stroke="#F6BF65" stroke-width=".45"/>
-    <g class="butterfly-glow"><circle cx="34.6" cy="8.5" r="6.8" fill="url(#nh-butter-glow)"/><ellipse cx="34.6" cy="8.5" rx="1.3" ry="2.5" transform="rotate(-30 34.6 8.5)" fill="#FFC96B"/><ellipse cx="34.4" cy="8.3" rx=".65" ry="1.6" transform="rotate(-30 34.4 8.3)" fill="#FFF8DC"/></g>`;
+  const antenna = `<path d="M48 39C46 29 41 17 35 9" fill="none" stroke="#695239" stroke-width="1.25" stroke-linecap="round"/>
+    <path d="M48 39C46 29 41 17 35 9" fill="none" stroke="#DBC395" stroke-width=".4"/>
+    <g class="butterfly-glow"><circle cx="34.6" cy="8.5" r="3" fill="url(#nh-butter-glow)"/><ellipse cx="34.6" cy="8.5" rx="1.15" ry="2.25" transform="rotate(-30 34.6 8.5)" fill="#947044"/><ellipse cx="34.4" cy="8.3" rx=".55" ry="1.4" transform="rotate(-30 34.4 8.3)" fill="#EAD8AE"/></g>`;
   const art = `<svg viewBox="0 0 100 96" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id="nh-butter-copper" x1="1" y1="1" x2="0" y2="0"><stop stop-color="#F9C66A"/><stop offset=".45" stop-color="#F19830"/><stop offset=".8" stop-color="#D66A20"/><stop offset="1" stop-color="#B94E1C"/></linearGradient>
-      <linearGradient id="nh-butter-honey" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#FBD47A"/><stop offset=".5" stop-color="#EB8C2B"/><stop offset="1" stop-color="#BD541F"/></linearGradient>
-      <radialGradient id="nh-butter-glow"><stop stop-color="#FFE4A0" stop-opacity=".85"/><stop offset=".28" stop-color="#FFCA63" stop-opacity=".45"/><stop offset="1" stop-color="#F2A63F" stop-opacity="0"/></radialGradient>
-      <linearGradient id="nh-butter-body"><stop stop-color="#211B18"/><stop offset=".45" stop-color="#89603A"/><stop offset=".65" stop-color="#503322"/><stop offset="1" stop-color="#241C18"/></linearGradient>
+      <linearGradient id="nh-butter-copper" x1="1" y1="1" x2="0" y2="0"><stop stop-color="#D6AF72"/><stop offset=".5" stop-color="#BF8A4E"/><stop offset="1" stop-color="#A36940"/></linearGradient>
+      <linearGradient id="nh-butter-honey" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#DCC18B"/><stop offset=".6" stop-color="#C59A61"/><stop offset="1" stop-color="#AF7947"/></linearGradient>
+      <radialGradient id="nh-butter-glow"><stop stop-color="#E9D3A3" stop-opacity=".25"/><stop offset=".4" stop-color="#D8B573" stop-opacity=".12"/><stop offset="1" stop-color="#BA8B51" stop-opacity="0"/></radialGradient>
+      <linearGradient id="nh-butter-body"><stop stop-color="#4B3C2F"/><stop offset=".42" stop-color="#A08252"/><stop offset=".62" stop-color="#735A3C"/><stop offset="1" stop-color="#44372B"/></linearGradient>
     </defs>
     <g class="butterfly-body">
       <g class="butterfly-wing butterfly-left">${wing}</g>
@@ -65,13 +52,13 @@
       <g fill="none" stroke="#765132" stroke-width=".8" stroke-linecap="round"><path d="M48 47L43 51L41 59M52 47L57 51L59 59M48 53L43 61L44 72M52 53L57 61L56 72M48 58L46 73L44 86M52 58L54 73L56 86"/></g>
       <g class="butterfly-antenna butterfly-antenna-left">${antenna}</g>
       <g class="butterfly-antenna butterfly-antenna-right"><g transform="translate(100 0) scale(-1 1)">${antenna}</g></g>
-      <path d="M47 52C44 62 47 76 50 80C53 76 56 62 53 52Z" fill="url(#nh-butter-body)" stroke="#2F251C" stroke-width=".6"/>
-      <path d="M46.7 59Q50 61 53.3 59M46.8 64Q50 66 53.2 64M47.4 69Q50 71 52.6 69M48.2 74Q50 75.5 51.8 74" fill="none" stroke="#D69A50" stroke-width=".75"/>
-      <ellipse cx="50" cy="48" rx="4.3" ry="8" fill="url(#nh-butter-body)" stroke="#C3914E" stroke-width=".7"/>
-      <path d="M47 42L45.6 45M47 46L45.3 48M47 50L45.5 53M53 42L54.4 45M53 46L54.7 48M53 50L54.5 53" stroke="#C3914E" stroke-width=".55"/>
-      <ellipse cx="50" cy="39" rx="3.1" ry="3.3" fill="#68462C"/>
-      <ellipse cx="47.7" cy="39" rx="1.4" ry="2" fill="#241E19"/><ellipse cx="52.3" cy="39" rx="1.4" ry="2" fill="#241E19"/>
-      <path d="M48.1 37.8L47.8 38.5M52.1 37.8L51.8 38.5" stroke="#EBD1A2" stroke-width=".6" stroke-linecap="round"/>
+      <path d="M46.7 52C44.8 62 47 76 50 80C53 76 55.2 62 53.3 52Z" fill="url(#nh-butter-body)" stroke="#493D2E" stroke-width=".75"/>
+      <path d="M47.2 61Q50 62.5 52.8 61M47.6 67Q50 68.5 52.4 67M48.5 73Q50 74 51.5 73" fill="none" stroke="#CCB37D" stroke-width=".65"/>
+      <ellipse cx="50" cy="48" rx="4.4" ry="8" fill="url(#nh-butter-body)" stroke="#DCC797" stroke-width=".75"/>
+      <path d="M49 42Q48 48 49 54" fill="none" stroke="#E6D6B0" stroke-width=".8" opacity=".8" stroke-linecap="round"/>
+      <ellipse cx="50" cy="39" rx="3.2" ry="3.4" fill="#715638" stroke="#D2BC89" stroke-width=".55"/>
+      <ellipse cx="47.7" cy="39" rx="1.15" ry="1.8" fill="#44392D"/><ellipse cx="52.3" cy="39" rx="1.15" ry="1.8" fill="#44392D"/>
+      <path d="M48.1 37.8L47.8 38.5M52.1 37.8L51.8 38.5" stroke="#EBDABB" stroke-width=".6" stroke-linecap="round"/>
     </g>
   </svg>`;
   function fireflyArt(index) {

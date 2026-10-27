@@ -30,6 +30,7 @@ jobs:
           node --check preview/desktop-nature.js
           node --check preview/butterfly.js
           node scripts/check-butterfly.cjs
+          node scripts/check-butterfly-art.cjs
           node --check preview/scroll-story.js
           node scripts/check-scroll-story.cjs
           node --check preview/idea-flow.js

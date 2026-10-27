@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 36" fill="none">
+  <!-- Compact root: fewer branches, generous separation at its actual small size. -->
+  <path d="M3 4C22 3 35 9 48 18C63 29 80 29 104 32C80 31 62 31 47 20C34 11 21 5 3 4Z" fill="#000"/>
+  <path d="M24 7C25 14 20 19 13 24M44 16C49 10 57 9 67 10M61 25C58 30 52 32 46 33M82 29C88 24 93 19 98 18" stroke="#000" stroke-width=".8" stroke-linecap="round"/>
+  <path d="M20 19L21 27M54 11L57 4M93 21L101 25" stroke="#000" stroke-width=".45" stroke-linecap="round"/>
+</svg>
