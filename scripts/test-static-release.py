@@ -132,6 +132,21 @@ class StaticReleaseTest(unittest.TestCase):
             for block in __import__('re').findall(r'<script type="application/ld\+json">(.*?)</script>', page.read_text()):
                 self.assertTrue(json.loads(block)['mainEntityOfPage'].startswith('https://nalarhakim.com/'))
 
+    def test_bundled_reading_fonts_resolve_inside_release(self):
+        """Catch missing licences or broken relative font URLs after bundling."""
+        import re
+        public = self.bundle / 'public'
+        for filename in ('publication.css', 'landing-bundle.css'):
+            stylesheet = public / 'preview' / filename
+            fonts = re.findall(r'url\("([^\"]+\.woff2)"\)', stylesheet.read_text())
+            self.assertTrue(fonts, filename)
+            for url in fonts:
+                font = (stylesheet.parent / url).resolve()
+                self.assertTrue(font.is_relative_to(public), url)
+                self.assertEqual(font.read_bytes()[:4], b'wOF2', url)
+        for filename in ('OFL.txt', 'PROVENANCE.txt'):
+            self.assertTrue((public / 'preview/fonts' / filename).stat().st_size > 0)
+
     def assert_error_page_links(self, public, site_url):
         metadata = Metadata(public / '404.html')
         site = urlsplit(site_url)

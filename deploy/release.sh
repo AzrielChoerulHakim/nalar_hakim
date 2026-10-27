@@ -15,6 +15,7 @@ while IFS= read -r line; do
     [[ "$name" != *'/.'* && "$name" != *'//'* ]] || fail 'Path checksum tidak sah.'
     case "$name" in
         public/*.html|public/robots.txt|public/sitemap.xml) ;;
+        public/preview/fonts/OFL.txt|public/preview/fonts/PROVENANCE.txt) ;;
         public/preview/*)
             case "$name" in *.css|*.js|*.svg|*.webp|*.png|*.jpg|*.jpeg|*.avif|*.woff|*.woff2) ;; *) fail "Aset tidak diizinkan: $name" ;; esac ;;
         public/theme/nalar-hakim/style.css|public/theme/nalar-hakim/assets/site.js) ;;

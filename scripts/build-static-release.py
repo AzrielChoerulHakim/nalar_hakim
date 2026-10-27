@@ -26,7 +26,7 @@ def copy_file(source, destination):
 
 
 def asset_files(root):
-    return [p for p in (root / 'preview').rglob('*') if p.is_file() and p.suffix in ASSET_TYPES]
+    return [p for p in (root / 'preview').rglob('*') if p.is_file() and (p.suffix in ASSET_TYPES or (p.name in {'OFL.txt', 'PROVENANCE.txt'} and p.parent.name == 'fonts'))]
 
 
 def build_release(output, site_url):

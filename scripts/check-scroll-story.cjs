@@ -183,7 +183,7 @@ test('Queued reveal callbacks cannot affect a replacement observer after visibil
  newObserver.callback([entry]);
  assert.equal(animations.length,1,'The old callback must not mark the target as already seen');assert.equal(newObserver.unobserved.length,1);
 });
-test('Compact category navigation reveals new context without moving or restoring the page',()=>{
+test('Wrapped category navigation never overrides native scroll or history positions',()=>{
  function navigation({offset=400,width=180,viewport=320,total=800,position=0,type='navigate',ready='interactive'}={}){
   let writes=0;
   const current={getBoundingClientRect:()=>({left:20+offset-position,right:20+offset-position+width,width})};
@@ -194,14 +194,14 @@ test('Compact category navigation reveals new context without moving or restorin
   vm.runInNewContext(fs.readFileSync(path.join(base,'theme/nalar-hakim/assets/site.js'),'utf8'),{window,document,localStorage:{getItem:()=>null}});
   return {document,window,strip,get writes(){return writes;}};
  }
- const hidden=navigation();assert.equal(hidden.strip.scrollLeft,260);assert.equal(hidden.writes,1);
+ const hidden=navigation();assert.equal(hidden.strip.scrollLeft,0);assert.equal(hidden.writes,0);
  const visible=navigation({offset:40});assert.equal(visible.strip.scrollLeft,0);assert.equal(visible.writes,0);
  const desktop=navigation({viewport:900,total:900});assert.equal(desktop.writes,0);
- const wide=navigation({width:380});assert.equal(wide.strip.scrollLeft,400,'A long category must expose its beginning');
+ const wide=navigation({width:380});assert.equal(wide.strip.scrollLeft,0,'Categories wrap in CSS instead of scrolling automatically');
  const restored=navigation({position:90});assert.equal(restored.strip.scrollLeft,90);assert.equal(restored.writes,0);
  for(const type of ['back_forward','reload']){const h=navigation({type});assert.equal(h.writes,0,type);}
- const pending=navigation({ready:'loading'});assert.equal(pending.writes,0);pending.document.emit('DOMContentLoaded');assert.equal(pending.strip.scrollLeft,260);
+ const pending=navigation({ready:'loading'});assert.equal(pending.writes,0);pending.document.emit('DOMContentLoaded');assert.equal(pending.strip.scrollLeft,0);
  hidden.strip.scrollLeft=75;hidden.window.emit('pageshow',{persisted:true});hidden.window.emit('resize');
- assert.equal(hidden.strip.scrollLeft,75,'History restoration and resize must retain the reader\'s position');assert.equal(hidden.writes,2);
+ assert.equal(hidden.strip.scrollLeft,75,'History restoration and resize must retain the reader\'s position');assert.equal(hidden.writes,1);
 });
 console.log(`${passed} scroll-story checks passed; ${failed} failed.`);process.exitCode=failed?1:0;

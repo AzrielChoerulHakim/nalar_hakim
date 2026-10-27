@@ -1,0 +1,36 @@
+Source Serif 4 — locally hosted reading fonts
+
+Copyright 2014–2023 Adobe. Licensed under SIL Open Font License 1.1.
+See OFL.txt for the unmodified upstream copyright notice and license.
+
+Upstream repository: https://github.com/adobe-fonts/source-serif
+Pinned upstream commit: 80d3f8894c09c937bebfa9011247d2e1c79fd6f4
+Distribution: WOFF2/TTF (static fonts)
+
+These files are original upstream WOFF2 binaries, renamed only for URL
+consistency. No glyphs, metadata, outlines, hinting, or font names were modified.
+Regular and italic are weight 400; semibold and semibold italic are weight 600.
+The regular fonts contain 920 Unicode mappings; italics contain 919.
+Latin, accented Latin, smart quotes, en/em dashes, ellipsis, and every character
+in the repository's existing article bodies were verified against the cmap.
+
+Source URLs and SHA-256 hashes:
+
+source-serif-4-regular.woff2
+https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/WOFF2/TTF/SourceSerif4-Regular.ttf.woff2
+SHA-256: 6b053e98f0838afe81f3e784727be4583a7c13bb42f198dc5202ecffee0aaee0
+
+source-serif-4-italic.woff2
+https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/WOFF2/TTF/SourceSerif4-It.ttf.woff2
+SHA-256: ca3b17ed1e3e668ffd9e03385cfd46e1b095df783de53710d25d41241496026b
+
+source-serif-4-semibold.woff2
+https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/WOFF2/TTF/SourceSerif4-Semibold.ttf.woff2
+SHA-256: 457a13ac92e977d82e376038a2daac7fdb5433610910bf5787bdf6c1c3781865
+
+source-serif-4-semibold-italic.woff2
+https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/WOFF2/TTF/SourceSerif4-SemiboldIt.ttf.woff2
+SHA-256: a49ea2a227bc8d6c56691203b1f456f80802368a9b7c3c577408859c408a4062
+
+License source:
+https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/LICENSE.md

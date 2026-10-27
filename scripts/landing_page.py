@@ -28,11 +28,8 @@ def render_landing(site_url='https://azrielchoerulhakim.github.io/nalar_hakim/')
 __THEME_INIT__
 <link rel="icon" href="preview/favicon.svg" type="image/svg+xml">
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
-<link rel="stylesheet" href="theme/nalar-hakim/style.css">
-<link rel="stylesheet" href="preview/identity.css">
-<link rel="stylesheet" href="preview/landing.css"><link rel="stylesheet" href="preview/motion.css"><link rel="stylesheet" href="preview/natural.css"><link rel="stylesheet" href="preview/nature-scene.css"><link rel="stylesheet" href="preview/natural-landing.css"><link rel="stylesheet" href="preview/butterfly.css"><link rel="stylesheet" href="preview/scroll-story.css">
+<link rel="stylesheet" href="preview/landing-bundle.css">
 <script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/nature-scene.js" defer></script><script src="preview/desktop-nature.js" data-butterfly-src="preview/butterfly.js" defer></script><script src="preview/desktop-nature.js" data-desktop-src="preview/scroll-story.js" defer></script>
-<link rel="stylesheet" href="preview/idea-flow.css">
 <script src="preview/desktop-nature.js" data-desktop-src="preview/idea-flow.js" defer></script>
 </head>
 <body class="nh-landing">
@@ -49,7 +46,7 @@ __THEME_INIT__
         <div class="nature-overline">Nama samaran. Tulisan terbuka.</div>
         <h1 id="landing-title" aria-label="Nalar Hakim"><span>NALAR</span><span>HAKIM<span class="landing-title-stop">.</span></span></h1>
         <h2 class="landing-hero-statement">Hukum layak dipertanyakan.</h2>
-        <p class="landing-hero-caption">Nalar Hakim adalah platform tulisan hukum yang menjawab dua persoalan: <strong>anonimitas sebagai perlindungan identitas penulis</strong> dan <strong>akses masyarakat luas terhadap tulisan tanpa biaya</strong>. Anda dapat menulis dengan nama samaran dan mengirim naskah lewat email, tanpa biaya, akun, atau administrasi berbelit. Semua artikel dapat dibaca gratis; setiap naskah tetap ditinjau redaksi sebelum terbit.</p>
+        <p class="landing-hero-caption">Baca esai, telaah peristiwa, dan kritik atas putusan hukum tanpa biaya. Anda juga dapat mengirim tulisan dengan nama samaran.</p>
         <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true">↗</span></a></div>
       </div>
       __NATURE_SCENE__
