@@ -2,7 +2,7 @@
 
 
 from html import escape
-from nature_scene import nature_scene
+from cubist_scale import nature_scene
 from idea_flow import render_idea_flow
 from flat_cover import render_cover
 

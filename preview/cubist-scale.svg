@@ -1,0 +1,90 @@
+<svg class="nature-art scale-art cubist-scale" viewBox="0 0 560 500" role="img" aria-labelledby="nature-title nature-desc" xmlns="http://www.w3.org/2000/svg" style="stroke:#283c33;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round">
+  <title id="nature-title">Timbangan Nalar Hakim — kubisme surealis</title>
+  <desc id="nature-desc">Timbangan dengan bidang geometris berwarna oker, terakota, hijau, dan gading. Dua piringan bersudut menggantung pada poros berbentuk mata. Aktifkan gambar untuk satu gerak menimbang.</desc>
+  <!-- New artwork. The coordinate system, joints and finial preserve the existing motion. -->
+  <g class="scale-base">
+    <path fill="#728d77" d="M208 431 275 414 350 422 373 444 290 457 206 447Z"/>
+    <path fill="#e5d8b8" d="M208 431 284 425 350 422 323 438 244 442Z"/>
+    <path fill="#c7924c" d="m244 442 79-4 50 6-83 13-84-10Z"/>
+    <path fill="#355b50" d="m323 438 27-16 23 22-83 13Z"/>
+    <path fill="none" stroke="#efe1c0" stroke-width="1.3" d="m218 443 25 3 43 6m47-14 16 3"/>
+    <path fill="#ba6a4d" d="m255 424 20-30 24-1 31 30-46 9Z"/>
+    <path fill="#dfc795" d="m275 394 9 38 46-9-31-30Z"/>
+    <path fill="none" stroke-width="1.4" d="m267 414 6 4m0-13 7 15m22-15 8 13"/>
+  </g>
+  <g class="scale-column">
+    <path fill="#d7b774" d="m275 175 28 1 6 66-16 38 15 63-9 52-24-1 3-77-10-49 11-42Z"/>
+    <path fill="#e9ddbd" d="m275 175 14 5-10 46-11 42 19 15 6-3 16-38-6-66Z"/>
+    <path fill="#b36b50" d="m289 180 14-4 6 66-22-11Z"/>
+    <path fill="#759080" d="m268 268 19-37 6 49-15 37Z"/>
+    <path fill="#e8d8b0" d="m278 317 15-37 15 63-27 17-6 34Z"/>
+    <path fill="#456a5b" d="m281 360 27-17-9 52-24-1Z"/>
+    <path fill="none" stroke-width="1.2" d="m280 195 2 12m-7 46 9 8m-8-1 8 8m-8-1 8 8m2 29 5 13m-10 17 5 15m4 29 8-19"/>
+    <!-- The small head is a sculptural finial; its tip is the butterfly's existing perch. -->
+    <path fill="#e4d3ac" d="m288.6 82.36-11.6 15.64 12 8 12-12Z"/>
+    <path fill="#b8664d" d="m288.6 82.36.4 23.64 12-12Z"/>
+    <path fill="#c69b57" d="m278 98-10 24 11 25 20 4 11-22-13-25Z"/>
+    <path fill="#e8dcbf" d="m278 98 9 10-1 18 12 7-19 14-11-25Z"/>
+    <path fill="#618476" d="m287 108 10-4 13 25-11 22-13-25 12 7Z"/>
+    <path fill="none" d="m274 116 9-3m4 13 11 7-8 3m-11 5 7 1"/>
+    <path fill="#283c33" stroke="none" d="m276 118 5-1-1 6-3-1Z"/>
+  </g>
+  <g class="scale-balance" data-scale-balance="">
+    <g class="scale-beam">
+      <path fill="#d2aa63" d="m134.6 160 57.4-20 54 9 37-7 17 5 52-15 48 20 42.6 8-44.6 15-48-14-50 12-23-3-36 6-52-13Z"/>
+      <path fill="#e9dbb7" d="m134.6 160 57.4-20 54 9-57 14Z"/>
+      <path fill="#b9664c" d="m192 140 49 36 42-34-37 7Z"/>
+      <path fill="#809b86" d="m189 163 52 13-19-19Z"/>
+      <path fill="#466d5c" d="m300 147 52-15-2 29-50 12Z"/>
+      <path fill="#e5d2a6" d="m352 132 46 43 44.6-15-42.6-8Z"/>
+      <path fill="#bf8247" d="m352 132-2 29 48 14Z"/>
+      <path fill="none" stroke-width="1.3" d="m153 157 22-7m40-4 10 13m-5-13 10 14m135-17 13 5m-8 3 13 5m-8 3 12 5"/>
+      <path fill="#e8d8b1" d="m134.6 151-7.6 8 7.6 10 7.4-10Z"/>
+      <path fill="#c99551" d="m442.6 151-7.6 9 7.6 9 7.4-9Z"/>
+      <circle cx="134.6" cy="160" r="2.4" fill="#283c33" stroke="none"/>
+      <circle cx="442.6" cy="160" r="2.4" fill="#283c33" stroke="none"/>
+    </g>
+    <g transform="translate(134.6 160)">
+      <g class="scale-hanger scale-hanger-left" data-scale-hanger="">
+        <g fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M0 0-7 21-19 53-26 77-41 108-58 141M0 0 8 25 21 56 31 81 41 107 56 136M0 0 2 40-3 83 1 139"/>
+          <path stroke-width="1" d="m-7 21 7 4m-19 28 6 4m-13 20 6 4m-21 27 6 4m43-87-6 3m19 28-6 3m16 22-6 3m16 23-6 3"/>
+        </g>
+        <g class="scale-pan">
+          <path fill="#d3ad64" d="m-68 140 45-14 88 10-13 30-47 18-49-19Z"/>
+          <path fill="#e8d9b3" d="m-68 140 45-14 88 10-43 15-43 1Z"/>
+          <path fill="#3d6456" d="m-49 140 29-7 66 5-27 7-38 1Z"/>
+          <path fill="#bc6b50" d="m-68 140 47 12 26 32-49-19Z"/>
+          <path fill="#e4c88d" d="m-21 152 43-1 30 15-47 18Z"/>
+          <path fill="#7d9680" d="m22 151 43-15-13 30Z"/>
+          <path fill="none" stroke-width="1.3" d="m-48 152 8 10m-2-8 9 11m-2-10 8 11m33 6 21-7"/>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(442.6 160)">
+      <g class="scale-hanger scale-hanger-right" data-scale-hanger="">
+        <g fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M0 0-9 23-22 55-34 91-52 134M0 0 8 28 22 58 36 95 58 143M0 0-3 43 3 87-1 138"/>
+          <path stroke-width="1" d="m-9 23 7 3m-20 29 6 3m-18 33 6 3m42-66-6 3m20 27-6 3m20 34-6 3"/>
+        </g>
+        <g class="scale-pan">
+          <path fill="#c19451" d="m-65 134 53-9 81 18-26 24-51 16-38-21Z"/>
+          <path fill="#e8d9b6" d="m-65 134 53-9 81 18-42 10-42-9Z"/>
+          <path fill="#496d5e" d="m-44 135 32-4 58 13-20 3-36-8Z"/>
+          <path fill="#9aaa89" d="m-65 134 50 10 7 39-38-21Z"/>
+          <path fill="#d1aa66" d="m-15 144 42 9 16 14-51 16Z"/>
+          <path fill="#b9674e" d="m27 153 42-10-26 24-51 16Z"/>
+          <path fill="none" stroke-width="1.3" d="m-47 146 8 14m-2-12 8 15m-2-13 8 15m38 7 19-7"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="scale-fixed-pivot">
+    <path fill="#e9dcbb" d="M267 160 281 145 297 145 310 160 298 175 280 174Z"/>
+    <path fill="#bf704e" d="m289 145 8 0 13 15-12 15-9-3Z"/>
+    <path fill="#e8d8b0" d="M273 160Q287 148 303 160Q288 174 273 160Z"/>
+    <path fill="#334f41" d="M290 153Q297 160 290 167Q282 161 290 153Z"/>
+    <path stroke="#f2e6c9" stroke-width="1.2" d="m290 156-1 5"/>
+    <path fill="none" stroke-width="1.2" d="m276 153 5-4m17 18 4-4"/>
+  </g>
+</svg>
