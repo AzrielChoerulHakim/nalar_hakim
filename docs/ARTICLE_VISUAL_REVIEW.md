@@ -1,6 +1,8 @@
 # Review halaman artikel dan aset kupu-kupu
 
-Perubahan disimpan pada branch lokal `review/article-botanical-refinement`, berdasarkan `f8eec8a4b0357a32d56ab1bd00ed7130832cf2da`; commit yang memuat dokumen ini adalah hasil review lokal. Belum dipush. Tidak ada deployment ke VPS, perubahan DNS/server, atau publikasi artikel percobaan. Perubahan lokal ini belum dinyatakan tampil di website live.
+Batch artikel dan kupu-kupu ini sudah digabung ke `main` melalui commit [`01f6b06155f8fbd38504fb08276a70129d220fea`](https://github.com/AzrielChoerulHakim/nalar_hakim/commit/01f6b06155f8fbd38504fb08276a70129d220fea), dengan isi yang identik dengan commit review lokal `0ced9e9`. Pemeriksaan GitHub dan publikasi GitHub Pages berhasil. Dasar perbandingannya adalah `f8eec8a4b0357a32d56ab1bd00ed7130832cf2da`. Tidak ada deployment ke VPS, perubahan DNS/server, atau publikasi artikel percobaan; status GitHub Pages ini tidak berarti `nalarhakim.com` sudah diperbarui.
+
+Dokumen ini merekam implementasi dan hasil uji batch tersebut. Angka pengujian serta perbandingan sebelum/sesudah di bawah merupakan bukti historis batch ini, bukan hasil pengujian ulang setiap revisi berikutnya.
 
 ## Implementasi
 

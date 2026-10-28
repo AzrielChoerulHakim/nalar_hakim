@@ -5,11 +5,11 @@
       !('onpagereveal' in window) || !window.CSS?.supports('view-transition-name', 'nh-article-cover')) return;
   window.__nhCoverTransitions = true;
 
-  const key = 'nh-cover-transition-v1';
-  const clipProperties = ['--nh-cover-top', '--nh-cover-right', '--nh-cover-bottom', '--nh-cover-left'];
+  const key = 'nh-cover-transition-v2';
   const preference = matchMedia('(prefers-reduced-motion: reduce)');
   const root = document.documentElement;
-  let selected, named, previousName, transition, generation = 0;
+  let selected, transition, generation = 0;
+  let names = [], styles = [];
 
   function url(value) {
     try {
@@ -22,18 +22,20 @@
   function clearRecord() { try { sessionStorage.removeItem(key); } catch (_) {} }
   function reset() {
     generation++;
-    if (named) named.style.viewTransitionName = previousName;
-    named = undefined;
+    for (const {node, value} of names) node.style.viewTransitionName = value;
+    for (const {node, property, value} of styles) node.style[property] = value;
+    for (const {node, hadStyle} of names) if (!hadStyle && !node.getAttribute('style')) node.removeAttribute('style');
+    names = []; styles = [];
     root.style.removeProperty('--nh-cover-position');
-    for (const property of clipProperties) root.style.removeProperty(property);
+    root.style.removeProperty('--nh-cover-reading-inset');
+    root.style.removeProperty('--nh-cover-type-keyline');
   }
   function skip(active) {
     active?.ready?.catch(() => {});
     active?.skipTransition();
   }
-  function visible(element) {
-    const rect = element.getBoundingClientRect();
-    // A useful visible slice is enough; wholly offscreen covers keep normal navigation.
+  function visible(rect) {
+    // A useful visible slice is enough; wholly offscreen covers keep native navigation.
     return Math.min(rect.right, innerWidth) - Math.max(rect.left, 0) >= 24 &&
       Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0) >= 24;
   }
@@ -43,29 +45,68 @@
     return (hash >>> 0).toString(36);
   }
   function cover(frame) {
-    if (!frame || !visible(frame)) return null;
+    if (!frame || !visible(frame.getBoundingClientRect())) return null;
     const image = frame.matches('img') ? frame : frame.querySelector('img');
     if (image) {
-      // Do not decode, preload, or postpone navigation for a slow/broken cover.
+      // Never decode, preload, or postpone navigation for a slow/broken cover.
       if (!image.complete || !image.naturalWidth || !image.naturalHeight) return null;
-      return {frame, id: 'image:' + image.src, position: getComputedStyle(image).objectPosition};
+      const rect = image.getBoundingClientRect();
+      if (!visible(rect)) return null;
+      return {node:image, kind:'image', id:'image:' + (image.currentSrc || image.src),
+        position:getComputedStyle(image).objectPosition};
     }
     const drawing = frame.querySelector('svg.cover-art');
     if (!drawing) return null;
-    return {frame, id: 'drawing:' + fingerprint(drawing.outerHTML.replace(/\s+/g, ' ')), position: '50% 50%'};
+    const viewBox = drawing.getAttribute('viewBox')?.trim().split(/[\s,]+/).map(Number);
+    const align = drawing.getAttribute('preserveAspectRatio');
+    if (!viewBox || viewBox.length !== 4 || !viewBox.every(Number.isFinite) ||
+        viewBox[2] <= 0 || viewBox[3] <= 0 || (align && align !== 'xMidYMid meet')) return null;
+    const rect = drawing.getBoundingClientRect();
+    const ratio = Math.min(rect.width / viewBox[2], rect.height / viewBox[3]);
+    const width = viewBox[2] * ratio, height = viewBox[3] * ratio;
+    const painted = {left:rect.left + (rect.width - width) / 2,
+      top:rect.top + (rect.height - height) / 2, width, height};
+    painted.right = painted.left + width; painted.bottom = painted.top + height;
+    if (!visible(painted) || !drawing.parentElement) return null;
+    // The SVG meets its box without cropping. Snapshot its painted bounds, not
+    // the wider article frame: a 2:1 drawing then remains 2:1 throughout the move.
+    return {node:drawing, kind:'drawing', id:'drawing:' + fingerprint(drawing.outerHTML.replace(/\s+/g, ' ')),
+      position:'50% 50%', painted};
   }
-  function mark(item, active, clip = false) {
+  function name(node, value) {
+    if (!node) return;
+    names.push({node, value:node.style.viewTransitionName, hadStyle:node.hasAttribute('style')});
+    node.style.viewTransitionName = value;
+  }
+  function normalizeDrawing(item) {
+    if (!item.painted) return;
+    const parent = item.node.parentElement.getBoundingClientRect();
+    const values = {left:item.painted.left - parent.left + 'px', top:item.painted.top - parent.top + 'px',
+      width:item.painted.width + 'px', height:item.painted.height + 'px', right:'auto', bottom:'auto'};
+    for (const [property, value] of Object.entries(values)) {
+      styles.push({node:item.node, property, value:item.node.style[property]});
+      item.node.style[property] = value;
+    }
+  }
+  function mark(item, active, incoming = false) {
     transition = active;
     const current = generation;
-    named = item.frame; previousName = named.style.viewTransitionName;
-    named.style.viewTransitionName = 'nh-article-cover';
+    name(item.node, 'nh-article-cover');
+    normalizeDrawing(item);
     root.style.setProperty('--nh-cover-position', item.position);
-    if (clip) {
-      // Clip the overlay, not its image: the moving cover never paints over article text.
-      const rect = item.frame.getBoundingClientRect();
-      const insets = [Math.max(0, rect.top), Math.max(0, innerWidth - rect.right),
-        Math.max(0, innerHeight - rect.bottom), Math.max(0, rect.left)];
-      clipProperties.forEach((property, index) => root.style.setProperty(property, `${insets[index]}px`));
+    if (incoming) {
+      // A one-pixel paper keyline keeps small header text legible where the
+      // moving illustration passes behind it. No blur, filter or layout change.
+      root.style.setProperty('--nh-cover-type-keyline', '1px 0 0 var(--bg), -1px 0 0 var(--bg), 0 1px 0 var(--bg), 0 -1px 0 var(--bg)');
+      // The heading stays opaque, static and above the moving graphic. It is
+      // named only on this incoming article, never on ordinary menu navigation.
+      name(document.querySelector('.article-layout > .article-header'), 'nh-article-heading');
+      // Protect caption/prose/footnotes, rather than clipping away the entire
+      // journey above the destination cover (which looked like a mere fade-in).
+      const reading = [...document.querySelectorAll('.article-layout > .article-cover > figcaption, .article-layout > .article-content')]
+        .map(node => node.getBoundingClientRect().top).filter(Number.isFinite);
+      const boundary = Math.max(0, Math.min(innerHeight, ...reading));
+      root.style.setProperty('--nh-cover-reading-inset', innerHeight - boundary + 'px');
     }
     active.ready?.catch(() => {});
     const finish = () => {
@@ -98,8 +139,8 @@
     selected = undefined;
     if (!item) { skip(active); return; }
     try {
-      sessionStorage.setItem(key, JSON.stringify({from: url(location.href), to: target,
-        id: item.id, position: item.position, time: Date.now()}));
+      sessionStorage.setItem(key, JSON.stringify({from:url(location.href), to:target,
+        id:item.id, kind:item.kind, position:item.position, time:Date.now()}));
     } catch (_) { skip(active); return; }
     mark(item, active);
   });
@@ -119,7 +160,7 @@
     }
     const container = document.querySelector('.article-layout > .article-cover');
     const item = cover(container?.querySelector('.story-image, img'));
-    if (!item || item.id !== record.id || item.position !== record.position) { skip(active); return; }
+    if (!item || item.id !== record.id || item.kind !== record.kind || item.position !== record.position) { skip(active); return; }
     mark(item, active, true);
   });
 

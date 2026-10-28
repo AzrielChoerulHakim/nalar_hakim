@@ -15,8 +15,8 @@
 <script>document.documentElement.dataset.theme='light';try{if(localStorage.getItem('nalar-hakim-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(_){}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='dark'?'#18231E':'#F5F6F2';</script>
 <link rel="icon" href="preview/favicon.svg?v=1be2a7a97c" type="image/svg+xml">
 <title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
-<link rel="stylesheet" href="preview/landing-bundle.css?v=0d0383a820">
-<script src="theme/nalar-hakim/assets/site.js?v=e37ec5650c" defer></script><script src="preview/motion.js?v=00fbe5e89f" defer></script><script src="preview/editorial-motion.js?v=e8adc699cc" defer></script><script src="preview/article-transitions.js?v=20f5630832" defer blocking="render"></script><script src="preview/nature-scene.js?v=d31d4c51d9" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-butterfly-src="preview/butterfly.js?v=c20ed791c3" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-desktop-src="preview/scroll-story.js?v=57cb68e903" defer></script>
+<link rel="stylesheet" href="preview/landing-bundle.css?v=9d71d6a116">
+<script src="theme/nalar-hakim/assets/site.js?v=e37ec5650c" defer></script><script src="preview/motion.js?v=00fbe5e89f" defer></script><script src="preview/editorial-motion.js?v=e8adc699cc" defer></script><script src="preview/article-transitions.js?v=25b3d5fbf5" defer blocking="render"></script><script src="preview/nature-scene.js?v=d7149579c0" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-butterfly-src="preview/butterfly.js?v=c20ed791c3" defer></script><script src="preview/desktop-nature.js?v=40aeaa265f" data-desktop-src="preview/scroll-story.js?v=57cb68e903" defer></script>
 <script src="preview/desktop-nature.js?v=40aeaa265f" data-desktop-src="preview/idea-flow.js?v=c50aa3ea58" defer></script>
 </head>
 <body class="nh-landing">
@@ -37,80 +37,106 @@
         <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true"><svg class="nh-icon nh-icon-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true"><svg class="nh-icon nh-icon-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a></div>
       </div>
       <figure class="nature-scene scale-scene" data-nature-scene data-scale-scene data-motion="static">
+  <button class="scale-trigger" type="button" data-scale-replay aria-label="Gerakkan timbangan Nalar Hakim" aria-disabled="true">
   <svg class="nature-art scale-art" viewBox="0 0 560 500" role="img" aria-labelledby="nature-title nature-desc" xmlns="http://www.w3.org/2000/svg">
     <title id="nature-title">Timbangan Nalar Hakim</title>
-    <desc id="nature-desc">Timbangan dengan dua piringan seimbang, digambar dengan garis dan detail ukiran.</desc>
+    <desc id="nature-desc">Timbangan kuningan dengan poros, rantai beruas, dan dua piringan seimbang. Aktifkan gambar untuk satu gerak menimbang.</desc>
     <defs>
-      <linearGradient id="nh-scale-metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="var(--scale-shade)"/><stop offset=".22" stop-color="var(--scale-face)"/><stop offset=".49" stop-color="var(--scale-light)"/><stop offset=".7" stop-color="var(--scale-face)"/><stop offset="1" stop-color="var(--scale-shade)"/></linearGradient>
-      <linearGradient id="nh-scale-bowl" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--scale-light)"/><stop offset=".42" stop-color="var(--scale-face)"/><stop offset="1" stop-color="var(--scale-shade)"/></linearGradient>
+      <linearGradient id="nh-scale-metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="var(--scale-shade)"/><stop offset=".18" stop-color="var(--scale-face)"/><stop offset=".39" stop-color="var(--scale-light)"/><stop offset=".55" stop-color="var(--scale-face)"/><stop offset=".82" stop-color="var(--scale-shade)"/><stop offset="1" stop-color="var(--scale-face)"/></linearGradient>
+      <linearGradient id="nh-scale-beam" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--scale-light)"/><stop offset=".3" stop-color="var(--scale-face)"/><stop offset="1" stop-color="var(--scale-shade)"/></linearGradient>
+      <radialGradient id="nh-scale-bowl" cx="32%" cy="8%" r="95%"><stop stop-color="var(--scale-light)"/><stop offset=".42" stop-color="var(--scale-face)"/><stop offset=".86" stop-color="var(--scale-shade)"/><stop offset="1" stop-color="var(--scale-deep)"/></radialGradient>
+      <linearGradient id="nh-scale-interior" x1="0" y1="0" x2="0" y2="1"><stop stop-color="var(--scale-shade)"/><stop offset=".55" stop-color="var(--scale-face)"/><stop offset="1" stop-color="var(--scale-light)"/></linearGradient>
+      <path id="nh-scale-link-open" d="M0-4C1.65-4 1.65 4 0 4C-1.65 4-1.65-4 0-4Z"/>
+      <path id="nh-scale-link-edge" d="M0-4C.65-2.4.65 2.4 0 4C-.65 2.4-.65-2.4 0-4Z"/>
     </defs>
-    <g class="scale-base" data-scale-reveal="base">
-      <path class="scale-metal" d="M228 422H349L357 433H220Z"/>
-      <path class="scale-base-face" d="M209 433H368L376 446H201Z"/>
-      <path class="scale-base-step" d="M200 446H377V454H200Z"/>
-      <path class="scale-highlight" d="M215 435H362M205 448H372"/>
-      <path class="scale-fine" d="M218 440H359M211 451H366M235 425H341"/>
-      <path class="scale-base-hatching" d="M211 437L207 443M219 437L215 443M227 437L223 443M235 437L231 443M243 437L239 443M251 437L247 443M259 437L255 443M267 437L263 443M275 437L271 443M283 437L279 443M291 437L287 443M299 437L295 443M307 437L303 443M315 437L311 443M323 437L319 443M331 437L327 443M339 437L335 443M347 437L343 443M355 437L351 443M363 437L359 443"/>
+    <g class="scale-base">
+      <path class="scale-base-face" d="M201 439C208 431 240 426 288.6 426C337 426 370 431 377 439V448C368 457 209 457 201 448Z"/>
+      <ellipse class="scale-base-top" cx="288.6" cy="438" rx="88" ry="13"/>
+      <path class="scale-fine" d="M206 448C236 457 343 457 372 448M211 445L211 448M222 448L222 451M234 450L234 453M247 451L247 454M261 452V455M316 452V455M331 451V454M346 450V453M359 448V451M369 445V448"/>
+      <path class="scale-metal" d="M225 426C232 420 253 416 288.6 416C324 416 346 420 352 426L359 435C338 446 239 446 218 435Z"/>
+      <ellipse class="scale-base-top" cx="288.6" cy="425" rx="63" ry="9"/>
+      <path class="scale-highlight" d="M221 435C237 442 277 444 308 442M208 438C221 434 238 432 253 432"/>
+      <path class="scale-base-etch" d="M320 438L324 435M329 437L332 434M337 436L340 433M345 434L347 431M230 434L232 430M239 436L240 432"/>
     </g>
-    <g class="scale-column" data-scale-reveal="column">
-      <path class="scale-metal" d="M273 421C276 411 279 402 279 390L282 168H295L298 390C298 402 301 411 304 421Z"/>
-      <path class="scale-column-shade" d="M291 183L294 390Q294 408 300 419H292L287 184Z"/>
-      <path class="scale-highlight" d="M285 188L282 391Q282 407 279 417"/>
-      <path class="scale-fine" d="M288 196V386M280 399H297M277 411H301"/>
-      <path class="scale-collar" d="M278 171H299V178H278ZM276 390H301V397H276ZM270 416H307V423H270Z"/>
-      <path class="scale-metal" d="M284 88H293L297 121L294 153H283L280 121Z"/>
-      <path class="scale-highlight" d="M285 95L284 123L286 149"/>
-      <path class="scale-fine" d="M283 116H294M283 125H294M284 136H293"/>
-      <path class="scale-finial" d="M288.6 82.36C283 86 280 90 281 94C282 98 286 100 288.6 100C292 100 296 98 297 94C298 90 294 86 288.6 82.36Z"/>
-      <path class="scale-highlight" d="M288 87Q283 91 285 95"/>
+    <g class="scale-column">
+      <path class="scale-metal" d="M267 416C272 410 278 405 279 395L282 176H295L298 395C299 405 305 410 310 416L308 422C299 426 279 426 269 422Z"/>
+      <path class="scale-column-shade" d="M291 181L294 394C295 406 301 414 306 420L296 421C291 409 289 400 289 386Z"/>
+      <path class="scale-highlight" d="M285 188L282 389C282 402 278 410 274 416"/>
+      <path class="scale-fine" d="M288 196L287 385M292 203L294 384M279 404C284 407 294 407 300 404M274 414C283 418 298 418 306 414"/>
+      <path class="scale-collar" d="M277 386Q288.6 390 300 386V393Q288.6 398 277 393ZM276 173Q288.6 177 301 173V181Q288.6 185 276 181Z"/>
+      <path class="scale-highlight" d="M279 389Q287 392 294 391M278 177Q287 180 294 179"/>
+      <path class="scale-metal" d="M283 98H294C294 111 299 115 297 127L294 151H283L280 127C278 115 283 111 283 98Z"/>
+      <path class="scale-fine" d="M281 119Q288.6 122 296 119M282 126Q288.6 129 295 126M283 137H294"/>
+      <path class="scale-highlight" d="M285 103C285 113 282 117 284 127L286 144"/>
+      <path class="scale-finial" d="M288.6 82.36C284 85 279 91 281 95C283 100 294 100 296 95C298 91 293 85 288.6 82.36Z"/>
+      <path class="scale-highlight" d="M287 87C283 90 283 94 286 95"/>
+      <path class="scale-collar" d="M281 98Q288.6 101 296 98V103Q288.6 106 281 103Z"/>
+      <path class="scale-fixed-bracket" d="M279 145L274 151V172Q288.6 185 303 172V151L298 145L296 170Q288.6 176 281 170Z"/>
     </g>
     <g class="scale-balance" data-scale-balance="">
-      <g class="scale-beam" data-scale-reveal="beam">
-        <path class="scale-metal" d="M128 157Q146 153 164 155L267 153L279 147H298L310 153L413 155Q431 153 449 157L449 165Q431 162 413 163L310 168L298 173H279L267 168L164 163Q146 162 128 165Z"/>
-        <path class="scale-highlight" d="M143 158L266 157L280 151H297L311 157L434 158"/>
-        <path class="scale-fine" d="M151 161L267 163M310 163L426 161M278 156L298 166M280 165L297 156"/>
-        <path class="scale-beam-etch" d="M175 158V162M185 158V163M195 158V163M205 158V163M215 157V164M225 157V164M235 157V164M245 157V164M332 157V164M342 157V164M352 157V164M362 157V164M372 158V163M382 158V163M392 158V163M402 158V162"/>
-        <ellipse class="scale-bearing" cx="134.6" cy="160" rx="6" ry="6"/>
-        <ellipse class="scale-bearing" cx="442.6" cy="160" rx="6" ry="6"/>
-        <circle class="scale-pivot" cx="288.6" cy="160" r="12"/>
-        <circle class="scale-pivot-inner" cx="288.6" cy="160" r="6"/>
-        <path class="scale-highlight" d="M282 156Q285 151 290 153"/>
+      <g class="scale-beam">
+        <path class="scale-beam-face" d="M130 155C169 156 221 147 263 145L278 151H299L314 145C356 147 408 156 447 155L449 164C405 162 356 159 315 166L300 173H277L262 166C221 159 172 162 128 164Z"/>
+        <path class="scale-beam-shadow" d="M133 161C179 158 219 155 263 160L278 166H299L314 160C358 155 398 158 444 161L449 164C405 162 356 159 315 166L300 173H277L262 166C221 159 172 162 128 164Z"/>
+        <path class="scale-highlight" d="M143 157C182 156 227 149 261 148L275 154M302 154L316 148C351 149 395 156 435 157"/>
+        <path class="scale-beam-etch" d="M155 160L165 158M175 159L185 156M197 157L207 154M219 156L229 152M242 156L251 151M326 151L335 156M348 152L358 156M370 154L380 157M392 156L402 159M412 158L422 160"/>
+        <path class="scale-fine" d="M156 162C193 161 226 158 263 164M314 164C351 158 384 161 421 162"/>
+        <ellipse class="scale-bearing" cx="134.6" cy="160" rx="6.2" ry="7"/>
+        <ellipse class="scale-bearing" cx="442.6" cy="160" rx="6.2" ry="7"/>
+        <ellipse class="scale-bearing-inset" cx="134.6" cy="160" rx="2.7" ry="3.4"/>
+        <ellipse class="scale-bearing-inset" cx="442.6" cy="160" rx="2.7" ry="3.4"/>
       </g>
       <g transform="translate(134.6 160)"><g class="scale-hanger scale-hanger-left" data-scale-hanger="">
-          <g class="scale-chains" data-scale-reveal="chains">
-            <ellipse cx="0" cy="7" rx="4" ry="6"/>
-            <path d="M-2 13L-49 132M2 13L49 132M0 14V132"/>
-            <path class="scale-chain-etch" d="M-5 25L-9 27M-10 38L-14 40M-15 51L-19 53M-20 64L-24 66M-25 77L-29 79M-30 90L-34 92M-35 103L-39 105M-40 116L-44 118M5 25L9 27M10 38L14 40M15 51L19 53M20 64L24 66M25 77L29 79M30 90L34 92M35 103L39 105M40 116L44 118"/>
-            <path class="scale-chain-light" d="M1 18V127"/>
+          <g class="scale-pan">
+            <path class="scale-pan-bowl" d="M-64 139C-59 159-36 177 0 179C36 177 59 159 64 139Z"/>
+            <path class="scale-pan-shadow" d="M-58 148C-39 162-17 169 6 168C28 167 48 158 59 147C45 167 25 177 0 179C-27 177-46 165-58 148Z"/>
+            <path class="scale-pan-etch" d="M-50 151C-34 166-17 172 0 173M-39 158C-27 169-14 173-4 175M-25 165L-19 171M28 166L23 172M43 156L38 162M11 174L16 172"/>
+            <path class="scale-highlight" d="M-55 147C-46 157-32 165-22 167M-16 169L-9 171"/>
+            <ellipse class="scale-pan-rim" cx="0" cy="139" rx="64" ry="11"/>
+            <ellipse class="scale-pan-interior" cx="0" cy="138" rx="59" ry="7.8"/>
+            <path class="scale-pan-etch" d="M-49 136C-25 130 24 130 49 136M-37 139C-18 135 18 135 37 139"/>
+            <path class="scale-highlight" d="M-60 141C-38 150 28 151 53 144"/>
+            <path class="scale-fine" d="M-6 178Q0 181 6 178"/>
           </g>
-          <g class="scale-pan" data-scale-reveal="pans">
-            <path class="scale-pan-bowl" d="M-60 134C-49 157-28 167 0 167C28 167 49 157 60 134Z"/>
-            <path class="scale-pan-shade" d="M-51 141C-37 158-17 161 0 161C18 161 37 156 51 141C34 146 18 149 0 149C-18 149-34 146-51 141Z"/>
-            <ellipse class="scale-pan-rim" cx="0" cy="134" rx="61" ry="6"/>
-            <path class="scale-fine" d="M-44 148Q0 171 44 148M-30 154L-27 158M-18 159L-16 162M18 159L16 162M30 154L27 158"/>
-            <path class="scale-highlight" d="M-46 132Q0 126 46 132"/>
-            <path class="scale-pan-foot" d="M-8 168H8M-5 171H5"/>
+          <g class="scale-chains">
+            <path class="scale-hook" d="M-1 1C-6 4-5 12-1 14C4 15 5 8 2 6"/>
+            <g class="scale-chain scale-chain-back"><use href="#nh-scale-link-open" transform="translate(0.00 18.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 26.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 34.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 41.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 49.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 57.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 64.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 72.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 80.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 87.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 95.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 103.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 110.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 118.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 126.17) rotate(-0.00) scale(1 1.050)"/></g>
+            <g class="scale-chain"><use href="#nh-scale-link-open" transform="translate(-3.59 17.91) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-6.78 25.72) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-9.97 33.53) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-13.16 41.34) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-16.34 49.16) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-19.53 56.97) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-22.72 64.78) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-25.91 72.59) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-29.09 80.41) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-32.28 88.22) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-35.47 96.03) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-38.66 103.84) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-41.84 111.66) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-45.03 119.47) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-48.22 127.28) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-51.41 135.09) rotate(22.20) scale(1 1.156)"/></g>
+            <g class="scale-chain"><use href="#nh-scale-link-open" transform="translate(3.59 17.91) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(6.78 25.72) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(9.97 33.53) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(13.16 41.34) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(16.34 49.16) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(19.53 56.97) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(22.72 64.78) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(25.91 72.59) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(29.09 80.41) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(32.28 88.22) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(35.47 96.03) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(38.66 103.84) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(41.84 111.66) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(45.03 119.47) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(48.22 127.28) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(51.41 135.09) rotate(-22.20) scale(1 1.156)"/></g>
+            <ellipse class="scale-attachment" cx="-53" cy="139" rx="2.4" ry="3.2" transform="rotate(-23 -53 139)"/>
+            <ellipse class="scale-attachment" cx="53" cy="139" rx="2.4" ry="3.2" transform="rotate(23 53 139)"/>
           </g>
         </g></g>
       <g transform="translate(442.6 160)"><g class="scale-hanger scale-hanger-right" data-scale-hanger="">
-          <g class="scale-chains" data-scale-reveal="chains">
-            <ellipse cx="0" cy="7" rx="4" ry="6"/>
-            <path d="M-2 13L-49 132M2 13L49 132M0 14V132"/>
-            <path class="scale-chain-etch" d="M-5 25L-9 27M-10 38L-14 40M-15 51L-19 53M-20 64L-24 66M-25 77L-29 79M-30 90L-34 92M-35 103L-39 105M-40 116L-44 118M5 25L9 27M10 38L14 40M15 51L19 53M20 64L24 66M25 77L29 79M30 90L34 92M35 103L39 105M40 116L44 118"/>
-            <path class="scale-chain-light" d="M1 18V127"/>
+          <g class="scale-pan">
+            <path class="scale-pan-bowl" d="M-64 139C-59 159-36 177 0 179C36 177 59 159 64 139Z"/>
+            <path class="scale-pan-shadow" d="M-58 148C-39 162-17 169 6 168C28 167 48 158 59 147C45 167 25 177 0 179C-27 177-46 165-58 148Z"/>
+            <path class="scale-pan-etch" d="M-50 151C-34 166-17 172 0 173M-39 158C-27 169-14 173-4 175M-25 165L-19 171M28 166L23 172M43 156L38 162M11 174L16 172"/>
+            <path class="scale-highlight" d="M-55 147C-46 157-32 165-22 167M-16 169L-9 171"/>
+            <ellipse class="scale-pan-rim" cx="0" cy="139" rx="64" ry="11"/>
+            <ellipse class="scale-pan-interior" cx="0" cy="138" rx="59" ry="7.8"/>
+            <path class="scale-pan-etch" d="M-49 136C-25 130 24 130 49 136M-37 139C-18 135 18 135 37 139"/>
+            <path class="scale-highlight" d="M-60 141C-38 150 28 151 53 144"/>
+            <path class="scale-fine" d="M-6 178Q0 181 6 178"/>
           </g>
-          <g class="scale-pan" data-scale-reveal="pans">
-            <path class="scale-pan-bowl" d="M-60 134C-49 157-28 167 0 167C28 167 49 157 60 134Z"/>
-            <path class="scale-pan-shade" d="M-51 141C-37 158-17 161 0 161C18 161 37 156 51 141C34 146 18 149 0 149C-18 149-34 146-51 141Z"/>
-            <ellipse class="scale-pan-rim" cx="0" cy="134" rx="61" ry="6"/>
-            <path class="scale-fine" d="M-44 148Q0 171 44 148M-30 154L-27 158M-18 159L-16 162M18 159L16 162M30 154L27 158"/>
-            <path class="scale-highlight" d="M-46 132Q0 126 46 132"/>
-            <path class="scale-pan-foot" d="M-8 168H8M-5 171H5"/>
+          <g class="scale-chains">
+            <path class="scale-hook" d="M-1 1C-6 4-5 12-1 14C4 15 5 8 2 6"/>
+            <g class="scale-chain scale-chain-back"><use href="#nh-scale-link-open" transform="translate(0.00 18.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 26.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 34.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 41.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 49.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 57.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 64.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 72.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 80.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 87.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 95.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 103.17) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 110.83) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-edge" transform="translate(0.00 118.50) rotate(-0.00) scale(1 1.050)"/><use href="#nh-scale-link-open" transform="translate(0.00 126.17) rotate(-0.00) scale(1 1.050)"/></g>
+            <g class="scale-chain"><use href="#nh-scale-link-open" transform="translate(-3.59 17.91) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-6.78 25.72) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-9.97 33.53) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-13.16 41.34) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-16.34 49.16) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-19.53 56.97) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-22.72 64.78) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-25.91 72.59) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-29.09 80.41) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-32.28 88.22) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-35.47 96.03) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-38.66 103.84) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-41.84 111.66) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-45.03 119.47) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(-48.22 127.28) rotate(22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(-51.41 135.09) rotate(22.20) scale(1 1.156)"/></g>
+            <g class="scale-chain"><use href="#nh-scale-link-open" transform="translate(3.59 17.91) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(6.78 25.72) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(9.97 33.53) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(13.16 41.34) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(16.34 49.16) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(19.53 56.97) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(22.72 64.78) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(25.91 72.59) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(29.09 80.41) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(32.28 88.22) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(35.47 96.03) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(38.66 103.84) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(41.84 111.66) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(45.03 119.47) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-open" transform="translate(48.22 127.28) rotate(-22.20) scale(1 1.156)"/><use href="#nh-scale-link-edge" transform="translate(51.41 135.09) rotate(-22.20) scale(1 1.156)"/></g>
+            <ellipse class="scale-attachment" cx="-53" cy="139" rx="2.4" ry="3.2" transform="rotate(-23 -53 139)"/>
+            <ellipse class="scale-attachment" cx="53" cy="139" rx="2.4" ry="3.2" transform="rotate(23 53 139)"/>
           </g>
         </g></g>
     </g>
+    <g class="scale-fixed-pivot">
+      <circle class="scale-pivot" cx="288.6" cy="160" r="12.5"/>
+      <circle class="scale-pivot-ring" cx="288.6" cy="160" r="9.4"/>
+      <circle class="scale-pivot-inner" cx="288.6" cy="160" r="4.7"/>
+      <path class="scale-fine" d="M286 162.6L291.2 157.4"/>
+      <path class="scale-highlight" d="M280 158C282 151 290 149 295 154"/>
+    </g>
   </svg>
-  <button class="scale-replay" type="button" data-scale-replay hidden>Ulangi gerak timbangan</button>
+  </button>
 </figure>
     </div>
     <div class="landing-hero-base" data-ink-divider="bottom"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true"><svg class="nh-icon nh-icon-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span></a><span class="landing-base-end"><span>NAMA SAMARAN / TANPA BIAYA / TERBUKA</span></span></div>

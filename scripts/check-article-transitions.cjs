@@ -15,26 +15,49 @@ function target(properties = {}) {
   });
 }
 function style() { return {viewTransitionName: '', setProperty(key, value) { this[key] = value; }, removeProperty(key) { delete this[key]; }}; }
+function styled(properties = {}) {
+  const attributes = new Map();
+  return Object.assign({style: style(),
+    hasAttribute(name) { return attributes.has(name); },
+    getAttribute(name) { return attributes.get(name) || null; },
+    setAttribute(name, value) { attributes.set(name, value); },
+    removeAttribute(name) { attributes.delete(name); }}, properties);
+}
 const articleURL = 'https://nalarhakim.test/artikel/contoh/';
 function frame({image = false, ready = true, visible = true, id = 'same', detail = false} = {}) {
-  const imageNode = {complete: ready, naturalWidth: ready ? 1600 : 0, naturalHeight: ready ? 1000 : 0,
-    src: 'https://nalarhakim.test/media/' + id + '.webp'};
-  const node = {
-    style: style(),
+  const imageNode = styled({complete: ready, naturalWidth: ready ? 1600 : 0, naturalHeight: ready ? 1000 : 0,
+    src: 'https://nalarhakim.test/media/' + id + '.webp'});
+  const drawing = styled({outerHTML:'<svg class="cover-art" viewBox="0 0 800 400">' + id + '</svg>'});
+  drawing.setAttribute('viewBox', '0 0 800 400');
+  const node = styled({
     matches(selector) { return detail && image && selector === 'img'; },
-    querySelector(selector) { return selector === 'img' ? (image ? imageNode : null) : selector === 'svg.cover-art' && !image ? {outerHTML: '<svg class="cover-art">' + id + '</svg>'} : null; },
+    querySelector(selector) { return selector === 'img' ? (image ? imageNode : null) : selector === 'svg.cover-art' && !image ? drawing : null; },
     getBoundingClientRect() { return {left: 30, right: 330, top: visible ? 150 : 1000, bottom: visible ? 330 : 1180, width: 300, height: 180}; },
     getAttribute(name) { return name === 'href' ? articleURL : null; }
-  };
-  return detail && image ? Object.assign(node, imageNode) : node;
+  });
+  drawing.parentElement = node;
+  drawing.getBoundingClientRect = () => node.getBoundingClientRect();
+  imageNode.getBoundingClientRect = () => node.getBoundingClientRect();
+  node.art = image ? imageNode : drawing;
+  if (detail && image) {
+    for (const key of ['complete', 'naturalWidth', 'naturalHeight', 'src']) node[key] = imageNode[key];
+    node.art = node;
+  }
+  return node;
 }
 function harness({supported = true, article = false, storage = new Map(), blocked = false,
   image = false, ready = true, visible = true, id = 'same', reduced = false, navigationType = 'push', from} = {}) {
   const preference = target({matches: reduced});
   const graphic = frame({image, ready, visible, id, detail: article});
   const articleContainer = {querySelector() { return graphic; }};
+  const heading = styled();
+  const reading = {getBoundingClientRect:() => ({top:1200})};
   const document = target({documentElement: {style: style()}, querySelector(selector) {
+    if (selector === '.article-layout > .article-header') return article ? heading : null;
     assert.equal(selector, '.article-layout > .article-cover'); return article ? articleContainer : null;
+  }, querySelectorAll(selector) {
+    assert.equal(selector, '.article-layout > .article-cover > figcaption, .article-layout > .article-content');
+    return article ? [reading] : [];
   }});
   const window = target({CSS: {supports: () => true}, navigation: {activation: {navigationType, from: from ? {url: from} : undefined}}});
   if (supported) { window.onpageswap = null; window.onpagereveal = null; }
@@ -49,7 +72,7 @@ function harness({supported = true, article = false, storage = new Map(), blocke
   const anchor = {href: articleURL, target: '', hasAttribute: () => false, closest: () => card};
   const click = overrides => document.emit('click', {button: 0, defaultPrevented: false,
     target: {closest: () => anchor}, ...overrides});
-  return {window, document, graphic, storage, preference, anchor, click,
+  return {window, document, graphic, heading, reading, storage, preference, anchor, click,
     swap(active, type = 'push') { window.emit('pageswap', {viewTransition: active, activation: {navigationType: type, entry: {url: articleURL}}}); },
     reveal(active) { window.emit('pagereveal', {viewTransition: active}); },
     rerun() { vm.runInNewContext(source, context); }};
@@ -66,45 +89,56 @@ test('Unsupported browsers add no listeners or navigation side effects', () => {
 });
 test('A card link stays a native navigation and names only its loaded cover', async () => {
   const h = harness(); const active = transition(); h.click();
-  assert.equal(h.graphic.style.viewTransitionName, ''); h.swap(active);
-  assert.equal(h.graphic.style.viewTransitionName, 'nh-article-cover'); assert.equal(active.skips, 0);
+  assert.equal(h.graphic.art.style.viewTransitionName, ''); h.swap(active);
+  assert.equal(h.graphic.art.style.viewTransitionName, 'nh-article-cover'); assert.equal(active.skips, 0);
   assert.equal(h.storage.size, 1); active.finish(); await Promise.resolve();
-  assert.equal(h.graphic.style.viewTransitionName, '');
+  assert.equal(h.graphic.art.style.viewTransitionName, '');
 });
 test('A matching incoming SVG and a loaded admin image both continue the cover', async () => {
   for (const image of [false, true]) {
     const outgoing = harness({image}); outgoing.click(); outgoing.swap(transition());
     const incoming = harness({article: true, image, storage: outgoing.storage, from: 'https://nalarhakim.test/beranda.html'});
     const active = transition(); incoming.reveal(active);
-    assert.equal(incoming.graphic.style.viewTransitionName, 'nh-article-cover'); assert.equal(active.skips, 0);
-    assert.equal(incoming.storage.size, 0); active.finish(); await Promise.resolve(); assert.equal(incoming.graphic.style.viewTransitionName, '');
+    assert.equal(incoming.graphic.art.style.viewTransitionName, 'nh-article-cover'); assert.equal(active.skips, 0);
+    assert.equal(incoming.storage.size, 0); active.finish(); await Promise.resolve(); assert.equal(incoming.graphic.art.style.viewTransitionName, '');
   }
 });
-test('Partial covers animate inside the destination rectangle and clean up every inset', async () => {
+test('Partial covers retain their travel above the destination and clean up temporary geometry', async () => {
   const outgoing = harness();
   outgoing.graphic.getBoundingClientRect = () => ({left: 30, right: 330, top: -50, bottom: 130, width: 300, height: 180});
   outgoing.click(); const before = transition(); outgoing.swap(before);
-  assert.equal(before.skips, 0); assert.equal(outgoing.document.documentElement.style['--nh-cover-top'], undefined);
+  assert.equal(before.skips, 0); assert.equal(outgoing.document.documentElement.style['--nh-cover-reading-inset'], undefined);
   const incoming = harness({article: true, storage: outgoing.storage});
   incoming.graphic.getBoundingClientRect = () => ({left: 30, right: 330, top: 850, bottom: 1030, width: 300, height: 180});
   const active = transition(); incoming.reveal(active);
   const styles = incoming.document.documentElement.style;
-  assert.equal(active.skips, 0); assert.equal(incoming.graphic.style.viewTransitionName, 'nh-article-cover');
-  assert.equal(styles['--nh-cover-top'], '850px'); assert.equal(styles['--nh-cover-right'], '870px');
-  assert.equal(styles['--nh-cover-bottom'], '0px'); assert.equal(styles['--nh-cover-left'], '30px');
+  assert.equal(active.skips, 0); assert.equal(incoming.graphic.art.style.viewTransitionName, 'nh-article-cover');
+  assert.equal(styles['--nh-cover-top'], undefined);
+  assert.equal(styles['--nh-cover-reading-inset'], '0px');
+  assert.equal(incoming.graphic.art.style.width, '300px');
+  assert.equal(incoming.graphic.art.style.height, '150px');
+  assert.equal(incoming.graphic.art.style.top, '15px');
+  assert.equal(incoming.heading.style.viewTransitionName, 'nh-article-heading');
   active.finish(); await Promise.resolve();
-  for (const edge of ['top', 'right', 'bottom', 'left']) assert.equal(styles['--nh-cover-' + edge], undefined);
-  assert.equal(incoming.graphic.style.viewTransitionName, '');
+  assert.equal(styles['--nh-cover-reading-inset'], undefined);
+  assert.equal(styles['--nh-cover-type-keyline'], undefined);
+  for (const property of ['top', 'right', 'bottom', 'left', 'width', 'height']) assert.equal(incoming.graphic.art.style[property], undefined);
+  assert.equal(incoming.heading.style.viewTransitionName, '');
+  assert.equal(incoming.graphic.art.style.viewTransitionName, '');
 });
-test('Clipping stays within the viewport and reduced motion removes it immediately', () => {
+test('Only the reading region is protected; reduced motion releases every snapshot immediately', () => {
   const outgoing = harness(); outgoing.click(); outgoing.swap(transition());
   const incoming = harness({article: true, storage: outgoing.storage});
   incoming.graphic.getBoundingClientRect = () => ({left: -50, right: 250, top: 150, bottom: 330, width: 300, height: 180});
+  incoming.reading.getBoundingClientRect = () => ({top:500});
   const active = transition(); incoming.reveal(active);
   const styles = incoming.document.documentElement.style;
-  assert.equal(active.skips, 0); assert.equal(styles['--nh-cover-left'], '0px'); assert.equal(styles['--nh-cover-bottom'], '570px');
+  assert.equal(active.skips, 0); assert.equal(styles['--nh-cover-reading-inset'], '400px');
+  assert.equal(styles['--nh-cover-left'], undefined);
   incoming.preference.matches = true; incoming.preference.emit('change'); assert.equal(active.skips, 1);
-  for (const edge of ['top', 'right', 'bottom', 'left']) assert.equal(styles['--nh-cover-' + edge], undefined);
+  assert.equal(styles['--nh-cover-reading-inset'], undefined);
+  assert.equal(styles['--nh-cover-type-keyline'], undefined);
+  assert.equal(incoming.heading.style.viewTransitionName, '');
 });
 test('Less than 24 visible pixels in either axis uses normal navigation', () => {
   for (const rect of [
@@ -124,7 +158,7 @@ test('Modifier clicks, new tabs, downloads and cancelled clicks do not opt in', 
 });
 test('Keyboard activation uses the same native-link path; coverless articles fall back', () => {
   const keyboard = harness(); keyboard.click({detail: 0}); const active = transition(); keyboard.swap(active);
-  assert.equal(active.skips, 0); assert.equal(keyboard.graphic.style.viewTransitionName, 'nh-article-cover');
+  assert.equal(active.skips, 0); assert.equal(keyboard.graphic.art.style.viewTransitionName, 'nh-article-cover');
   const noCover = harness(); noCover.anchor.closest = () => ({querySelector: () => null}); noCover.click();
   const missing = transition(); noCover.swap(missing); assert.equal(missing.skips, 1);
   const outgoing = harness(); outgoing.click(); outgoing.swap(transition());
@@ -135,7 +169,7 @@ test('Direct links, reloads and history traversal retain normal rendering', () =
   const direct = harness({article: true}); const active = transition(); direct.reveal(active); assert.equal(active.skips, 1);
   const outgoing = harness(); outgoing.click(); outgoing.swap(transition());
   const back = harness({article: true, storage: outgoing.storage, navigationType: 'traverse'}); const history = transition(); back.reveal(history); assert.equal(history.skips, 1);
-  const stale = harness({article: true}); stale.storage.set('nh-cover-transition-v1', JSON.stringify({to: articleURL, from: 'https://nalarhakim.test/beranda.html', time: Date.now() - 10001})); const reload = transition(); stale.reveal(reload); assert.equal(reload.skips, 1);
+  const stale = harness({article: true}); stale.storage.set('nh-cover-transition-v2', JSON.stringify({to: articleURL, from: 'https://nalarhakim.test/beranda.html', time: Date.now() - 10001})); const reload = transition(); stale.reveal(reload); assert.equal(reload.skips, 1);
 });
 test('Slow or broken images, offscreen covers and differing graphics skip without waiting', () => {
   for (const options of [{image: true, ready: false}, {visible: false}]) {
@@ -148,15 +182,73 @@ test('Slow or broken images, offscreen covers and differing graphics skip withou
 });
 test('Blocked storage and reduced motion immediately fall back', () => {
   for (const options of [{blocked: true}, {reduced: true}]) {
-    const h = harness(options); h.click(); const active = transition(); h.swap(active); assert.equal(active.skips, 1); assert.equal(h.graphic.style.viewTransitionName, '');
+    const h = harness(options); h.click(); const active = transition(); h.swap(active); assert.equal(active.skips, 1); assert.equal(h.graphic.art.style.viewTransitionName, '');
   }
   const h = harness(); h.click(); const active = transition(); h.swap(active); h.preference.matches = true; h.preference.emit('change');
-  assert.equal(active.skips, 1); assert.equal(h.graphic.style.viewTransitionName, '');
+  assert.equal(active.skips, 1); assert.equal(h.graphic.art.style.viewTransitionName, '');
 });
 test('Rapid clicks keep one cover name and setup is idempotent', () => {
   const h = harness(); h.click(); h.click(); const active = transition(); h.swap(active);
-  assert.equal(h.graphic.style.viewTransitionName, 'nh-article-cover'); assert.equal(h.storage.size, 1);
+  assert.equal(h.graphic.art.style.viewTransitionName, 'nh-article-cover'); assert.equal(h.storage.size, 1);
   const count = h.window.listeners + h.document.listeners; h.rerun(); assert.equal(h.window.listeners + h.document.listeners, count);
+});
+test('A 2:1 thumbnail and 3.2:1 article frame keep the same undistorted SVG paint ratio', async () => {
+  const outgoing = harness();
+  outgoing.graphic.getBoundingClientRect = () => ({left:80, right:680, top:350, bottom:650, width:600, height:300});
+  outgoing.click(); outgoing.swap(transition());
+  assert.equal(outgoing.graphic.style.viewTransitionName, ''); // no badge/frame snapshot
+  assert.equal(outgoing.graphic.art.style.viewTransitionName, 'nh-article-cover');
+  assert.equal(outgoing.graphic.art.style.width, '600px');
+  assert.equal(outgoing.graphic.art.style.height, '300px');
+  const incoming = harness({article:true, storage:outgoing.storage});
+  incoming.graphic.getBoundingClientRect = () => ({left:120, right:1060, top:672, bottom:965.75, width:940, height:293.75});
+  const active = transition(); incoming.reveal(active);
+  assert.equal(active.skips, 0);
+  assert.equal(incoming.graphic.art.style.width, '587.5px');
+  assert.equal(incoming.graphic.art.style.height, '293.75px');
+  assert.equal(incoming.graphic.art.style.left, '176.25px');
+  assert.equal(incoming.graphic.art.style.top, '0px');
+  assert.equal(parseFloat(incoming.graphic.art.style.width) / parseFloat(incoming.graphic.art.style.height), 2);
+  active.finish(); await Promise.resolve();
+  assert.equal(incoming.graphic.art.style.width, undefined);
+  assert.equal(incoming.graphic.art.style.left, undefined);
+});
+test('Caption/prose boundaries and incoming header protect reading without hiding the source path', () => {
+  const outgoing = harness(); outgoing.click(); outgoing.swap(transition());
+  const incoming = harness({article:true, storage:outgoing.storage});
+  incoming.document.querySelectorAll = () => [
+    {getBoundingClientRect:() => ({top:650})},
+    {getBoundingClientRect:() => ({top:700})}
+  ];
+  incoming.reveal(transition());
+  assert.equal(incoming.document.documentElement.style['--nh-cover-reading-inset'], '250px');
+  assert.equal(incoming.document.documentElement.style['--nh-cover-top'], undefined);
+  assert.equal(incoming.heading.style.viewTransitionName, 'nh-article-heading');
+  assert.equal(incoming.document.documentElement.style['--nh-cover-type-keyline'], '1px 0 0 var(--bg), -1px 0 0 var(--bg), 0 1px 0 var(--bg), 0 -1px 0 var(--bg)');
+  const css = fs.readFileSync(path.join(__dirname, '../preview/article-transitions.css'), 'utf8');
+  assert.match(css, /::view-transition-old\(nh-article-cover\)\s*\{\s*display:none/);
+  assert.match(css, /::view-transition-new\(nh-article-cover\)\s*\{[^}]*animation:none;[^}]*opacity:1;/);
+  assert.match(css, /::view-transition-group\(nh-article-heading\)\s*\{\s*z-index:2;\s*animation:none;/);
+});
+test('Unsupported SVG alignment and a letterboxed graphic outside the viewport use a clean fallback', () => {
+  const aligned = harness(); aligned.graphic.art.setAttribute('preserveAspectRatio', 'none');
+  aligned.click(); const invalid = transition(); aligned.swap(invalid);
+  assert.equal(invalid.skips, 1); assert.equal(aligned.storage.size, 0);
+  const letterbox = harness();
+  // The frame is visible but its actual drawing is well below the viewport.
+  letterbox.graphic.getBoundingClientRect = () => ({left:30, right:330, top:850, bottom:1850, width:300, height:1000});
+  letterbox.click(); const absent = transition(); letterbox.swap(absent);
+  assert.equal(absent.skips, 1); assert.equal(letterbox.graphic.art.style.viewTransitionName, '');
+});
+test('Cleanup restores prior inline geometry and snapshot names', async () => {
+  const h = harness();
+  h.graphic.art.style.width = '100%';
+  h.graphic.art.style.viewTransitionName = 'existing-name';
+  h.click(); const active = transition(); h.swap(active);
+  assert.equal(h.graphic.art.style.width, '300px');
+  active.finish(); await Promise.resolve();
+  assert.equal(h.graphic.art.style.width, '100%');
+  assert.equal(h.graphic.art.style.viewTransitionName, 'existing-name');
 });
 (async () => {
   let failures = 0;

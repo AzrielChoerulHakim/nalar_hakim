@@ -1,16 +1,16 @@
-/* One finite weighing cycle. Static HTML is the complete fallback. */
+/* The full balance is static by default. Activation weighs once, then rests. */
 (() => {
   'use strict';
   const scene = document.querySelector('[data-scale-scene]');
   if (!scene || scene.dataset.scaleInitialized || !window.IntersectionObserver) return;
   const balance = scene.querySelector('[data-scale-balance]');
   const hangers = [...scene.querySelectorAll('[data-scale-hanger]')];
-  const replay = scene.querySelector('[data-scale-replay]');
-  if (!balance?.animate || hangers.length !== 2) return;
+  const trigger = scene.querySelector('[data-scale-replay]');
+  if (!trigger || !balance?.animate || hangers.length !== 2 || hangers.some(node => !node.animate)) return;
   scene.dataset.scaleInitialized = 'true';
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   let observer, inView = false, suspended = false, generation = 0, observerEpoch = 0;
-  let played = false, running = false, animations = [];
+  let running = false, animations = [];
 
   const stop = () => {
     generation++;
@@ -18,38 +18,27 @@
     animations = [];
     running = false;
     scene.dataset.motion = 'static';
-    if (replay) replay.disabled = false;
+    trigger.setAttribute('aria-disabled', String(preference.matches || suspended));
   };
   const play = () => {
     if (running || suspended || !inView || document.hidden || preference.matches) return;
-    played = true;
     running = true;
     scene.dataset.motion = 'running';
-    if (replay) replay.disabled = true;
+    // Keep the native button focused; the guard ignores repeat activations.
+    trigger.setAttribute('aria-disabled', 'true');
     const current = ++generation;
     try {
       const animate = (node, frames, timing) => {
         const animation = node.animate(frames, timing);
         animations.push(animation);
-        // Cancellation is safe even if a later API call throws mid-sequence.
         animation.finished.catch(() => {});
-        return animation;
       };
-      const parts = [['base', 0], ['column', 120], ['beam', 320], ['chains', 470], ['pans', 600]];
-      for (const [part, delay] of parts) {
-        for (const node of scene.querySelectorAll(`[data-scale-reveal="${part}"]`)) {
-          animate(node, [
-            {opacity:0, clipPath:part === 'chains' ? 'inset(0 0 100% 0)' : 'inset(100% 0 0 0)'},
-            {opacity:1, clipPath:'inset(0% 0 0 0)'}
-          ], {duration:650, delay, easing:'cubic-bezier(.2,.65,.25,1)', fill:'backwards'});
-        }
-      }
-      // Each suspension counter-rotates at the bearing, keeping both pans level.
-      // Synchronised keyframes share a start time; there is no per-frame JS loop.
-      const angles = [0, -3.8, 2.1, -.85, .25, 0];
-      const offsets = [0, .22, .46, .68, .86, 1];
-      const frames = sign => angles.map((angle, index) => ({transform:`rotate(${angle * sign}deg)`, offset:offsets[index], easing:'ease-in-out'}));
-      const timing = {duration:2400, delay:1150, fill:'none'};
+      // Counter-rotation at each bearing keeps gravity vertical. The fixed
+      // column, axle, pedestal and every filled surface are never revealed again.
+      const angles = [0, -4.5, 2.15, -.72, .14, 0];
+      const offsets = [0, .23, .48, .71, .88, 1];
+      const frames = sign => angles.map((angle, index) => ({transform:'rotate(' + angle * sign + 'deg)', offset:offsets[index], easing:'ease-in-out'}));
+      const timing = {duration:2200, fill:'none'};
       animate(balance, frames(1), timing);
       for (const hanger of hangers) animate(hanger, frames(-1), timing);
       const start = document.timeline?.currentTime;
@@ -57,9 +46,7 @@
       Promise.all(animations.map(animation => animation.finished)).then(() => {
         if (current === generation) stop();
       }).catch(() => { if (current === generation) stop(); });
-    } catch (_) {
-      stop();
-    }
+    } catch (_) { stop(); }
   };
   const setup = () => {
     const currentObserver = ++observerEpoch;
@@ -67,7 +54,6 @@
     observer = undefined;
     inView = false;
     stop();
-    if (replay) replay.hidden = preference.matches;
     if (suspended || preference.matches) return;
     observer = new IntersectionObserver(entries => {
       if (suspended || currentObserver !== observerEpoch) return;
@@ -75,17 +61,12 @@
       if (!entry) return;
       inView = entry.isIntersecting;
       if (!inView) stop();
-      else if (!played) play();
     }, {threshold:0.12});
     observer.observe(scene);
   };
-  const visibility = () => {
-    if (document.hidden) stop();
-    else if (!played) play();
-  };
-  replay?.addEventListener('click', play);
+  trigger.addEventListener('click', play);
   preference.addEventListener('change', setup);
-  document.addEventListener('visibilitychange', visibility);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
   window.addEventListener('pagehide', () => {
     suspended = true;
     observerEpoch++;

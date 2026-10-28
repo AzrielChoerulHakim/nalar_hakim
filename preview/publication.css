@@ -1361,35 +1361,49 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
 }
 
 /* Source: preview/article-transitions.css */
-/* Progressive enhancement for full-document navigation; the page itself stays live. */
+/* Progressive enhancement for full-document navigation; no page-wide crossfade. */
 @media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; }
+  @view-transition { navigation:auto; }
 }
-/* Only the selected cover receives a name. No page snapshot hides text or controls. */
-:root { view-transition-name: none; }
+:root { view-transition-name:none; }
+/* Only a valid incoming cover transition supplies this temporary keyline.
+   Keep the smaller deck/byline/navigation text distinct from passing artwork. */
+.article-layout > .article-header :is(.article-deck,.article-byline,.story-meta,.back-link) {
+  text-shadow:var(--nh-cover-type-keyline, none);
+}
 ::view-transition {
-  pointer-events: none;
-  /* Only the destination cover's visible rectangle can receive the overlay. */
-  clip-path: inset(var(--nh-cover-top, 0px) var(--nh-cover-right, 0px)
-    var(--nh-cover-bottom, 0px) var(--nh-cover-left, 0px));
+  pointer-events:none;
+  /* Cover motion can travel from its actual thumbnail position. Caption and
+     reading content below remain uncovered and immediately available. */
+  clip-path:inset(0 0 var(--nh-cover-reading-inset, 0px) 0);
 }
 ::view-transition-group(nh-article-cover) {
-  animation-duration: 360ms;
-  animation-timing-function: cubic-bezier(.22,.68,.2,1);
-  overflow: hidden;
+  z-index:1;
+  animation-duration:420ms;
+  animation-timing-function:cubic-bezier(.22,.68,.2,1);
+  overflow:hidden;
 }
-::view-transition-old(nh-article-cover),
+::view-transition-old(nh-article-cover) { display:none; }
 ::view-transition-new(nh-article-cover) {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: var(--nh-cover-position, 50% 50%);
-  mix-blend-mode: normal;
-  animation-duration: 360ms;
+  width:100%; height:100%;
+  /* A full incoming photo reproduces the thumbnail crop, then uncrops toward
+     the article. Normalized SVG boxes keep their intrinsic aspect ratio. */
+  object-fit:cover;
+  object-position:var(--nh-cover-position, 50% 50%);
+  mix-blend-mode:normal;
+  animation:none;
+  opacity:1;
+}
+/* Incoming header only: no movement/fade and no duplicate old title. */
+::view-transition-group(nh-article-heading) { z-index:2; animation:none; }
+::view-transition-old(nh-article-heading) { display:none; }
+::view-transition-new(nh-article-heading) {
+  animation:none; opacity:1; mix-blend-mode:normal;
 }
 @media (prefers-reduced-motion: reduce) {
-  @view-transition { navigation: none; }
+  @view-transition { navigation:none; }
   ::view-transition-group(nh-article-cover),
-  ::view-transition-old(nh-article-cover),
-  ::view-transition-new(nh-article-cover) { animation: none; }
+  ::view-transition-new(nh-article-cover),
+  ::view-transition-group(nh-article-heading),
+  ::view-transition-new(nh-article-heading) { animation:none; }
 }

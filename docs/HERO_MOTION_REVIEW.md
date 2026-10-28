@@ -1,6 +1,8 @@
 # Review hero dan gerak editorial
 
-Status: implementasi di branch lokal `review/hero-editorial-motion`, berdasarkan `9374e76384adfba193ab09e6d1b65ee262c49797`. Tidak dipush, tidak dipasang ke VPS, dan tidak mengubah DNS atau produksi. Workflow yang terlihat hanya menjalankan pemeriksaan; konfigurasi publikasi eksternal belum diasumsikan aman untuk push.
+Batch hero dan gerak editorial ini sudah digabung ke `main` melalui commit [`f8eec8a4b0357a32d56ab1bd00ed7130832cf2da`](https://github.com/AzrielChoerulHakim/nalar_hakim/commit/f8eec8a4b0357a32d56ab1bd00ed7130832cf2da), dengan isi yang identik dengan commit review lokal `bb9a060`. Pemeriksaan GitHub dan publikasi GitHub Pages berhasil. Dasar perbandingannya adalah `9374e76384adfba193ab09e6d1b65ee262c49797`. Tidak ada deployment ke VPS atau perubahan DNS/server; publikasi GitHub Pages tidak memperbarui `nalarhakim.com` secara otomatis.
+
+Dokumen ini adalah catatan historis batch pertama. Deskripsi reveal timbangan, tombol ulang, dan pemotongan transisi cover di bawah merekam perilaku pada commit tersebut; revisi lanjutannya mengikuti kode dan laporan pengujian terbaru. Angka tes serta pengukuran di sini tidak diklaim sebagai pengujian ulang revisi berikutnya.
 
 ## Perubahan
 
@@ -65,6 +67,6 @@ Paket preview berisi `public/` hasil exporter tanpa probe QA atau fixture artike
 python3 -m http.server 8000 --bind 127.0.0.1 --directory public
 ```
 
-Buka `http://127.0.0.1:8000/`. Reload untuk melihat reveal; tombol **Ulangi gerak timbangan** memainkan satu siklus. Scroll ke kutipan dan batas bagian; fokus/hover logo; masuk ruang baca lalu pilih cover artikel. Browser yang tidak mendukung transisi dokumen tetap membuka artikel biasa. Jangan mengaktifkan paket ini di produksi sebelum review.
+Buka `http://127.0.0.1:8000/`. Pada paket historis batch pertama, reload menampilkan reveal dan tombol **Ulangi gerak timbangan** memainkan satu siklus. Scroll ke kutipan dan batas bagian; fokus/hover logo; masuk ruang baca lalu pilih cover artikel. Browser yang tidak mendukung transisi dokumen tetap membuka artikel biasa. Petunjuk ini khusus paket batch pertama; untuk revisi terbaru, ikuti perilaku dan laporan yang menyertai revisi itu. Publikasi GitHub Pages sudah dilakukan, sedangkan pemasangan ke VPS tetap terpisah.
 
 Screenshot desktop/mobile tersedia terpisah. Capture video otomatis tidak cukup stabil untuk rekaman yang dapat diandalkan; paket preview menjadi cara meninjau gerak pada kecepatan aslinya.
