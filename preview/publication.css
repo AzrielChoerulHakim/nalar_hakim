@@ -1169,8 +1169,8 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
 [data-brand-reveal] .brand-mark::after {
   content:""; position:absolute; inset:0; width:100%; height:100%;
   border:0; transform:none; background:var(--accent);
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 26'%3E%3Cpath d='M2 22V4l11 18V4m0 9h9M22 4v18' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='miter'/%3E%3C/svg%3E") center/contain no-repeat;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 26'%3E%3Cpath d='M2 22V4l11 18V4m0 9h9M22 4v18' fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='miter'/%3E%3C/svg%3E") center/contain no-repeat;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 26'%3E%3Cpath d='M1 23V3h2.3l8.7 15V3h2v9l7 .5V3h2v20h-2v-8.5l-7-.5v9h-2L3 7.7V23Z' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 26'%3E%3Cpath d='M1 23V3h2.3l8.7 15V3h2v9l7 .5V3h2v20h-2v-8.5l-7-.5v9h-2L3 7.7V23Z' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 [data-brand-reveal] .brand-mark::after { background:var(--muted); opacity:0; }
 .nh-brand-wordmark { position:relative; }
@@ -1406,4 +1406,53 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
   ::view-transition-new(nh-article-cover),
   ::view-transition-group(nh-article-heading),
   ::view-transition-new(nh-article-heading) { animation:none; }
+}
+
+/* Source: preview/cubist-editorial.css */
+/* Three quiet layout accents. Text geometry, custom photos and transition
+   surfaces keep their existing reading order and animation rules. */
+.story-image:has(.cover-art), .quote-portal-media:has(.cover-art) {
+  background:#E9DFC9;
+}
+.cover-art, .story-image:hover .cover-art { opacity:1; }
+
+/* One offset field for the leading card and the first card in a group.
+   The effect belongs to the fallback image, never the text or a custom photo. */
+@media(min-width:761px) {
+  .lead-story > .story-image:has(.cover-art),
+  .article-grid > .story-card:first-child > .story-image:has(.cover-art) {
+    width:calc(100% - 8px);
+    margin-inline-start:8px;
+    box-shadow:-8px -6px 0 #B28A47;
+  }
+}
+
+/* A single cut-paper mark at the opening of a main reading section. */
+.latest-section > .section-heading h2::before,
+.landing-channels .landing-section-top > p:first-child::before {
+  content:""; display:block; width:28px; height:7px; margin-bottom:12px;
+  background:#A6533D; clip-path:polygon(0 24%,85% 0,100% 68%,8% 100%);
+  pointer-events:none;
+}
+:root[data-theme="dark"] .latest-section > .section-heading h2::before,
+:root[data-theme="dark"] .landing-channels .landing-section-top > p:first-child::before {
+  background:#B28A47;
+}
+
+/* Slightly inset metadata creates an asymmetrical header while title, cover
+   and reading column retain their original bounds, crop and DOM sequence. */
+@media(min-width:900px) {
+  .article-layout > .article-header > .story-meta,
+  .article-layout > .article-header > .article-byline {
+    padding-inline-start:18px;
+    border-inline-start:2px solid var(--line);
+  }
+}
+@media print {
+  .lead-story > .story-image:has(.cover-art),
+  .article-grid > .story-card:first-child > .story-image:has(.cover-art) {
+    width:100%; margin-inline-start:0; box-shadow:none;
+  }
+  .latest-section > .section-heading h2::before,
+  .landing-channels .landing-section-top > p:first-child::before { display:none; }
 }

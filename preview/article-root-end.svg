@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 204" fill="none">
-  <!-- A separate, shorter root counterweight; not a reflected copy. -->
-  <path d="M98 4C86 24 82 47 85 67C89 92 77 111 65 130C53 151 31 169 7 180C31 167 51 150 63 129C75 110 86 91 82 68C79 47 83 24 98 4Z" fill="#000"/>
-  <path d="M85 46C74 40 72 29 67 21M84 77C94 72 98 65 100 54M80 99C66 90 53 91 42 82M68 124C76 130 81 141 81 153M51 147C41 138 35 125 24 122M32 164C36 176 32 187 24 199" stroke="#000" stroke-width=".9" stroke-linecap="round"/>
-  <path d="M73 35L65 38M91 72L95 81M61 92C62 82 58 72 51 67M51 88L38 94M77 138L89 139M81 148L76 160M35 134L24 137M28 126L29 114M34 182L42 188M14 177L13 188" stroke="#000" stroke-width=".5" stroke-linecap="round"/>
+  <!-- Independent counter-root; a few joints, never a border or reflected frame. -->
+  <path d="m98 4-9 22-7 22 4 25-5 25-15 31-19 24-20 17-20 10 18-12 20-18 18-23 15-30 5-24-4-25 7-23Z" fill="#000"/>
+  <path d="m82 48-9-12-6-15m19 52 9-7 5-12m-19 44-18-8-12-1-9-7m24 47 11 9 4 15m-34 0-12-19-11-12m3 48 7 12-4 8-6 9" stroke="#000" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m73 36-8 2m30 28v15m-32 9-4-15-8-8m0 22-13 5m39 44 12 1m-8 14-5 7m-41-26-11 3m4-11 1-12m5 68 8 6m-28-11-1 11" stroke="#000" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m79 49 5 9 2 15-5-6Zm-16 78 4 2-7 11-5 3Z" fill="#000"/>
 </svg>

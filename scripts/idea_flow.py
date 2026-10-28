@@ -6,8 +6,15 @@ def render_idea_flow():
     for index in range(13):
         start = 24 + index * 28
         end = 360 - start + 24
-        curve = (f'M -30 {start} C 200 {start} 350 192 600 192 '
-                 f'C 850 192 1000 {end} 1230 {end}')
+        # Broad directional folds, with softened joints for the existing packets.
+        knee = round(start + (192 - start) * .12, 2)
+        shoulder = round(start + (192 - start) * .86, 2)
+        far_shoulder = round(end + (192 - end) * .86, 2)
+        far_knee = round(end + (192 - end) * .12, 2)
+        curve = (f'M -30 {start} L 155 {start} Q 170 {start} 185 {knee} '
+                 f'L 395 {shoulder} Q 430 192 470 192 L 730 192 '
+                 f'Q 770 192 805 {far_shoulder} L 1015 {far_knee} '
+                 f'Q 1030 {end} 1045 {end} L 1230 {end}')
         strands.append(f'<path d="{curve}"/>')
         if index % 2 == 0:
             delay = index * -.71

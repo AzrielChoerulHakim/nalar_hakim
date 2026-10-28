@@ -1,7 +1,7 @@
 /* This additional chapter never changes compact or touch layouts. */
 .idea-flow{display:none}
 @media(min-width:1024px) and (hover:hover) and (pointer:fine){
- .idea-flow{display:block;--flow-line:#628774;--flow-copper:#C57735;--flow-surface:#F5F6F2;padding-block:54px 94px;border-top:1px solid var(--line)}
+ .idea-flow{display:block;--flow-line:#628774;--flow-copper:#B28A47;--flow-surface:#F5F6F2;padding-block:54px 94px;border-top:1px solid var(--line)}
  .idea-flow-heading{display:flex;justify-content:space-between;align-items:end;gap:60px;margin:58px 0 12px}
  .idea-flow-heading h2{margin:0;color:var(--accent);font:500 clamp(40px,4.5vw,66px)/1.09 var(--font);letter-spacing:-.035em}
  .idea-flow-heading h2 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.045em}
@@ -18,13 +18,15 @@
  .idea-source,.idea-destination{padding:24px 27px;background:var(--flow-surface);border-radius:50%;min-width:205px;min-height:140px}
  .idea-node-number{color:var(--muted);font:12px/1.5 var(--ui-font);letter-spacing:.04em}
  .idea-node h3{margin:10px 0 14px;font:500 30px/1.1 var(--font);letter-spacing:-.025em;color:var(--text)}
- .idea-node-point{display:block;width:7px;height:7px;border-radius:50%;background:var(--flow-copper);box-shadow:0 0 0 5px color-mix(in srgb,var(--flow-copper) 12%,transparent)}
- .idea-hub{width:204px;height:204px;border-radius:50%;background:#294D3E;border:1px solid #73927C;box-shadow:0 0 0 9px var(--flow-surface),0 0 0 10px #78988750}
- .idea-hub h3{margin:9px 0 13px;font-size:37px;font-weight:700;line-height:.96;letter-spacing:-.065em;color:#F5F6F2}
- .idea-hub h3 span{color:#E9AC60}
- .idea-hub .idea-node-number{color:#C6D7C9;font-size:11px}
- .idea-hub-rule{height:1px;width:24px;background:#E9AC60;opacity:.8}
- .idea-hub-orbit{position:absolute;inset:-24px;border-radius:50%;border:1px solid var(--flow-line);opacity:.15;pointer-events:none}
+ .idea-node-point{display:block;width:7px;height:7px;background:var(--flow-copper);clip-path:polygon(12% 8%,82% 0,100% 76%,32% 100%,0 57%)}
+ .idea-destination .idea-node-point{background:#A6533D}
+ .idea-hub{width:204px;height:204px;isolation:isolate;background:none;border:1px solid transparent}
+ .idea-hub::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 204 204'%3E%3Cpath d='M24 9 165 3 200 55 188 182 54 201 4 154 9 55Z' fill='%23263F35' stroke='%23252B28' stroke-width='2'/%3E%3Cpath d='m165 3 35 52-28-12Z' fill='%23B28A47'/%3E%3Cpath d='m4 154 50 47-25-45Z' fill='%23A6533D'/%3E%3Cpath d='m24 9 141-6m23 179-134 19' fill='none' stroke='%23E9DFC9' stroke-width='1' opacity='.55'/%3E%3C/svg%3E") center/contain no-repeat}
+ .idea-hub h3{margin:9px 0 13px;font-size:37px;font-weight:700;line-height:.96;letter-spacing:-.065em;color:#E9DFC9}
+ .idea-hub h3 span{color:#B28A47}
+ .idea-hub .idea-node-number{color:#E9DFC9;font-size:11px}
+ .idea-hub-rule{height:1px;width:24px;background:#B28A47;opacity:.8}
+ .idea-hub-orbit{position:absolute;inset:-24px;background:var(--flow-line);opacity:.15;pointer-events:none;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 252'%3E%3Cpath d='m29 10 175-7 44 64-15 158-166 23-62-58 6-123Z' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 252'%3E%3Cpath d='m29 10 175-7 44 64-15 158-166 23-62-58 6-123Z' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E") center/contain no-repeat}
  .idea-flow-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:55px;list-style:none;margin:0;padding:0;text-align:center}
  .idea-flow-notes li{padding:0 12px}
  .idea-flow-notes strong{font-size:16px;font-weight:600;color:var(--text)}
@@ -34,8 +36,7 @@
  .idea-flow-bottom a{display:inline-flex;align-items:center;gap:35px;color:var(--accent);font-size:14px;text-decoration:none;min-height:44px}
  .idea-flow-bottom a:hover{text-decoration:underline;text-underline-offset:5px}
  .idea-flow-bottom a:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
- :root[data-theme="dark"] .idea-flow{--flow-surface:#18231E;--flow-line:#95B49D;--flow-copper:#E7AA62}
- :root[data-theme="dark"] .idea-hub{background:#294435;border-color:#779580}
+ :root[data-theme="dark"] .idea-flow{--flow-surface:#18231E;--flow-line:#95B49D;--flow-copper:#B28A47}
  :root[data-theme="dark"] .idea-strands{opacity:.4}
 }
 @media(min-width:1024px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
