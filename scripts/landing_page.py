@@ -21,14 +21,14 @@ def render_landing(site_url='https://azrielchoerulhakim.github.io/nalar_hakim/',
 <meta name="description" content="Tulisan hukum dengan nama samaran, terbuka untuk dibaca siapa saja secara gratis. Kirim naskah tanpa biaya atau administrasi berbelit.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nalar Hakim">
-<meta property="og:title" content="Nalar Hakim — Hukum Layak Dipertanyakan">
+<meta property="og:title" content="Nalar Hakim — Hukum Selalu Tidak Pernah Selesai">
 <meta property="og:description" content="Tulisan hukum dengan nama samaran, terbuka untuk dibaca siapa saja secara gratis. Kirim naskah tanpa biaya atau administrasi berbelit.">
 <meta property="og:url" content="__SITE_URL__">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#F5F6F2">
 __THEME_INIT__
 <link rel="icon" href="preview/favicon.svg" type="image/svg+xml">
-<title>Nalar Hakim — Hukum Layak Dipertanyakan</title>
+<title>Nalar Hakim — Hukum Selalu Tidak Pernah Selesai</title>
 <link rel="stylesheet" href="preview/landing-bundle.css">
 <script src="theme/nalar-hakim/assets/site.js" defer></script><script src="preview/motion.js" defer></script><script src="preview/editorial-motion.js" defer></script><script src="preview/article-transitions.js" defer blocking="render"></script><script src="preview/nature-scene.js" defer></script><script src="preview/desktop-nature.js" data-butterfly-src="preview/butterfly.js" defer></script><script src="preview/desktop-nature.js" data-desktop-src="preview/scroll-story.js" defer></script>
 <script src="preview/desktop-nature.js" data-desktop-src="preview/idea-flow.js" defer></script>
@@ -41,13 +41,13 @@ __THEME_INIT__
 </header>
 <main id="main-content" class="landing-main">
   <section class="landing-hero landing-shell" aria-labelledby="landing-title">
-    <div class="landing-running-head"><span>KRITIK HUKUM INDEPENDEN</span><span>TERBUKA UNTUK NASKAH <b aria-hidden="true">✳</b></span></div>
+    <div class="landing-running-head"><span>RUANG BACA SEMUA</span><span>RUANG TULIS MERDEKA <b aria-hidden="true">✳</b></span></div>
     <div class="landing-hero-stage">
       <div class="nature-hero-copy">
         <div class="nature-overline">Nama samaran. Tulisan terbuka.</div>
         <h1 id="landing-title" aria-label="Nalar Hakim"><span>NALAR</span><span>HAKIM<span class="landing-title-stop">.</span></span></h1>
-        <h2 class="landing-hero-statement">Hukum layak dipertanyakan.</h2>
-        <p class="landing-hero-caption">Baca esai, telaah peristiwa, dan kritik atas putusan hukum tanpa biaya. Anda juga dapat mengirim tulisan dengan nama samaran.</p>
+        <h2 class="landing-hero-statement">Hukum selalu tidak pernah selesai.</h2>
+        <p class="landing-hero-caption">Baca esai, telaah peristiwa, dan kritik atas putusan hukum tanpa biaya. Anda juga dapat mengirim tulisan tanpa nama, gelar, jabatan, dan instansi.</p>
         <div class="landing-hero-actions"><a class="landing-primary" href="beranda.html"><span>Masuk ruang baca</span><span class="landing-button-arrow" aria-hidden="true">↗</span></a><a class="landing-secondary" href="kirim-naskah.html"><span>Kirim naskah</span><span aria-hidden="true">↗</span></a></div>
       </div>
       __NATURE_SCENE__
