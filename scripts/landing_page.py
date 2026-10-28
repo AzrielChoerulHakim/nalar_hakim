@@ -52,7 +52,7 @@ __THEME_INIT__
       </div>
       __NATURE_SCENE__
     </div>
-    <div class="landing-hero-base" data-ink-divider="bottom"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true">↓</span></a><span class="landing-base-end"><span>NAMA SAMARAN / TANPA BIAYA / TERBUKA</span></span></div>
+    <div class="landing-hero-base" data-ink-divider="bottom"><a class="landing-forms-link" href="#bentuk">TIGA BENTUK TULISAN <span aria-hidden="true">↓</span></a><span class="landing-base-end"><span>TANPA NAMA / TANPA BIAYA / TERBUKA</span></span></div>
   </section>
 
   __QUOTE_PORTAL__
