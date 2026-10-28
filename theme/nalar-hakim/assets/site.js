@@ -73,6 +73,12 @@
   }
   decorateNavigation();
 
+  // Format guards for the three donation address types; not on-chain verification.
+  const addressPatterns = {
+    bitcoin: /^bc1p[qpzry9x8gf2tvdw0s3jn54khce6mua7l]{58}$/,
+    evm: /^0x[0-9a-fA-F]{40}$/,
+    solana: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/
+  };
   document.querySelectorAll('[data-copy-address]').forEach((button) => {
     button.hidden = false;
     button.addEventListener('click', async () => {
@@ -80,9 +86,10 @@
       const status = scope?.querySelector('[data-copy-status]');
       const network = button.getAttribute('data-copy-network') || 'Ethereum Mainnet';
       const address = button.getAttribute('data-copy-address') || '';
+      const addressType = button.getAttribute('data-copy-type') || 'evm';
       if (!status) return;
       status.textContent = '';
-      if (!/^0x[0-9a-fA-F]{40}$/.test(address)) {
+      if (!Object.hasOwn(addressPatterns, addressType) || !addressPatterns[addressType].test(address)) {
         status.textContent = 'Alamat tidak dapat disalin. Hubungi redaksi.';
         return;
       }

@@ -17,7 +17,7 @@
 - [ ] Panduan kiriman menjelaskan file Word melalui email dan peninjauan Lazarus; tidak mengesankan naskah terkirim hanya dengan membuka aplikasi email.
 - [ ] Kontak koreksi faktual meminta bagian yang keliru dan sumber pembanding.
 - [ ] Salin alamat berhasil pada HTTPS dan memberi pesan jujur saat clipboard ditolak.
-- [ ] Alamat ETH, BSC, dan Robinhood tepat `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`; label serta status salin terpisah dan tidak ada gambar QR.
+- [ ] Tiga alamat donasi sesuai README: Bitcoin Taproot, EVM (ETH / BNB / Robinhood / Hyper EVM / Polygon / Morph / Arbitrum), dan Solana. Teks alamat sama persis dengan hasil tombol salin masing-masing; tidak ada gambar QR.
 - [ ] Kontak menuju nalar.hakim77@gmail.com.
 
 ## Tampilan dan performa

@@ -23,7 +23,11 @@ def date_label(value):
  year,month,day=value.split('-')
  return f'{int(day)} {MONTHS[int(month)-1]} {year}'
 
-WALLET = '0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE'
+DONATION_WALLETS = [
+ ('bitcoin', 'Bitcoin Taproot', 'BTC · Bitcoin Taproot', 'bc1pagek4l0vhqhy4xf4v3d64hn8lnf6ypr2af70u4kd60fmungd2feqdz6q6a'),
+ ('evm', 'EVM', 'ETH / BNB / Robinhood / Hyper EVM / Polygon / Morph / Arbitrum', '0xe82b862329546cdb1BFE2ebe0f7Fa73f18Ca159c'),
+ ('solana', 'Solana', 'SOL · Solana', 'BL3AkK7X327vLPLdE5GgQhGrVMvHFcaQxK7a1kS7LnAr'),
+]
 EMAIL = 'nalar.hakim77@gmail.com'
 WRITTEN = []
 
@@ -46,8 +50,7 @@ def header(prefix, selected=''):
 <header class="site-header"><div class="container header-inner"><a class="brand" data-brand-reveal href="{prefix}index.html" aria-label="Nalar Hakim — halaman awal"><span class="brand-mark" aria-hidden="true"></span><span><span class="brand-name">NALAR HAKIM<span class="brand-dot">.</span></span><span class="brand-caption">KRITIK HUKUM INDEPENDEN</span></span></a><div class="header-actions"><a class="header-note" href="{prefix}tentang.html">ARAH REDAKSI ↗</a><button class="theme-toggle" data-theme-toggle type="button" hidden>Terang</button><details><summary>Cari ↗</summary>{search_form(prefix)}</details></div></div><nav class="publication-nav" aria-label="Navigasi redaksi"><div class="container">{nav}</div></nav></header>'''
 
 def donation(prefix):
- networks = [('Ethereum Mainnet', 'ETH · Ethereum Mainnet'), ('BSC', 'BSC'), ('Robinhood', 'Robinhood')]
- rows = ''.join(f'<section class="donation-network" aria-label="Donasi melalui {e(network)}"><h3 class="network-label">{e(label)}</h3><code class="wallet-address">{WALLET}</code><button class="copy-button" type="button" data-copy-address="{WALLET}" data-copy-network="{e(network)}" aria-label="Salin alamat {e(network)}" hidden>Salin alamat</button><span data-copy-status role="status" aria-live="polite"></span></section>' for network,label in networks)
+ rows = ''.join(f'<section class="donation-network" aria-label="Donasi melalui {e(network)}"><h3 class="network-label">{e(label)}</h3><code class="wallet-address">{e(address)}</code><button class="copy-button" type="button" data-copy-address="{e(address)}" data-copy-type="{kind}" data-copy-network="{e(network)}" aria-label="Salin alamat {e(network)}" hidden>Salin alamat</button><span data-copy-status role="status" aria-live="polite"></span></section>' for kind,network,label,address in DONATION_WALLETS)
  return f'''<details class="donation"><summary><span><span class="eyebrow">TETAP TERBUKA UNTUK SEMUA</span><span class="donation-title">Dukung Nalar Hakim</span></span></summary><div class="donation-content donation-addresses"><p>Jika ingin membantu biaya pengelolaan Nalar Hakim, Anda dapat memberi dukungan sukarela melalui alamat berikut.</p><div class="donation-networks">{rows}</div><p class="donation-note">Donasi sukarela. Semua tulisan tetap bebas dibaca.</p></div></details>'''
 
 def footer(prefix):

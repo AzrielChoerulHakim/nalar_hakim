@@ -69,9 +69,10 @@ Gerak pendamping yang sudah ada berjalan otomatis pada desktop dengan hover, poi
 
 ## Donasi
 
-- Label Ethereum Mainnet, BSC, dan Robinhood; tanpa koneksi dompet atau pengiriman transaksi oleh website.
-- Alamat: `0x39fbbC339D69ae2F8B671f7fE1D356086137e2bE`.
-- Alamat teks dan tombol salin terpisah untuk setiap label; tidak ada gambar QR.
+- Bitcoin Taproot: `bc1pagek4l0vhqhy4xf4v3d64hn8lnf6ypr2af70u4kd60fmungd2feqdz6q6a`.
+- ETH / BNB / Robinhood / Hyper EVM / Polygon / Morph / Arbitrum: `0xe82b862329546cdb1BFE2ebe0f7Fa73f18Ca159c`.
+- Solana: `BL3AkK7X327vLPLdE5GgQhGrVMvHFcaQxK7a1kS7LnAr`.
+- Tiga alamat teks dengan tombol salin masing-masing; tanpa gambar QR, koneksi dompet, atau pengiriman transaksi oleh website.
 - Membaca dan mengirim naskah tidak dipungut biaya; donasi tidak menentukan keputusan redaksi.
 
 ## Fondasi WordPress
