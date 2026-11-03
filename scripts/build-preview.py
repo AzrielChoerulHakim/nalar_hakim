@@ -75,7 +75,9 @@ def page(path, title, body, selected='', extra='', description='', post=None):
 
 def meta(p,prefix='',article=False):
  date='' if article else f'<time datetime="{p["published"]}">{date_label(p["published"])}</time>'
- return f'<div class="story-meta"><a class="article-type" href="{prefix}bentuk/{p['format']}/">{e(p["code"])}</a>{date}<span>{p["minutes"]} menit baca</span></div>'
+ format_slug = p['format']
+ code = e(p['code'])
+ return f'<div class="story-meta"><a class="article-type" href="{prefix}bentuk/{format_slug}/">{code}</a>{date}<span>{p["minutes"]} menit baca</span></div>'
 
 
 def publication_dates(p):
