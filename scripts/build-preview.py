@@ -90,7 +90,7 @@ def cover(p,prefix='',tag='a'):
  # Existing category artwork remains the fallback for manuscripts without one.
  image_path = f'preview/covers/{p["slug"]}.webp'
  if (ROOT / image_path).is_file():
-  art = f'<img class="cover-art" src="{prefix}{image_path}" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center">'
+  art = f'<img class="editorial-cover-image" src="{prefix}{image_path}" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center">'
   return f'<{tag} class="story-image tone-{p["format"]}" {target}><span class="cover-placeholder" aria-hidden="true">{art}</span></{tag}>'
  return f'<{tag} class="story-image tone-{p["format"]}" {target}><span class="cover-placeholder" aria-hidden="true">{render_cover(p["format"])}<span class="cover-symbol">{p["symbol"]}</span><span class="cover-caption">NALAR HAKIM / {e(p["type"].upper())}</span></span></{tag}>'
 
