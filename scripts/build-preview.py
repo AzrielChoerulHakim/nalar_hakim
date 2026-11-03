@@ -75,7 +75,7 @@ def page(path, title, body, selected='', extra='', description='', post=None):
 
 def meta(p,prefix='',article=False):
  date='' if article else f'<time datetime="{p["published"]}">{date_label(p["published"])}</time>'
- return f'<div class="story-meta"><a class="article-type" href="{prefix}bentuk/{p['format']}/">{e(p["type"])}</a>{date}<span>{p["minutes"]} menit baca</span></div>'
+ return f'<div class="story-meta"><a class="article-type" href="{prefix}bentuk/{p['format']}/">{e(p["code"])}</a>{date}<span>{p["minutes"]} menit baca</span></div>'
 
 
 def publication_dates(p):
@@ -163,7 +163,7 @@ page('cari.html','Cari Tulisan',search,extra='<script src="preview/search.js" de
 missing=f'''<main id="main-content" class="container"><section class="empty-state"><span class="eyebrow">404 / HALAMAN TIDAK DITEMUKAN</span><h1>Halaman tidak ditemukan.</h1><p>Tautannya mungkin berubah atau alamatnya keliru. Buka ruang baca untuk mencari tulisan yang Anda maksud.</p><a class="read-link" href="{SITE_PATH}beranda.html">Kembali ke ruang baca</a></section></main>'''
 page('404.html','Halaman tidak ditemukan',missing)
 
-index=[{'text':p['text'],'minutes':p['minutes'],'date':p['published'],'dateLabel':date_label(p['published']),'title':p['title'],'type':p['type'],'formatUrl':'bentuk/'+p['format']+'/','lens':p.get('lens',''),'object':p.get('object',''),'excerpt':p['excerpt'],'url':article_url(p)} for p in POSTS]
+index=[{'text':p['text'],'minutes':p['minutes'],'date':p['published'],'dateLabel':date_label(p['published']),'title':p['title'],'type':p['type'],'formatUrl':'bentuk/'+p['format']+'/','lens':p.get('lens',''),'object':p.get('object',''),'excerpt':p['excerpt'],'url':article_url(p),'code':p['code']} for p in POSTS]
 search_js='''/* Search the published articles locally, without tracking or external services. */
 (() => {
  'use strict';
@@ -176,13 +176,13 @@ search_js='''/* Search the published articles locally, without tracking or exter
  const normalize = value => value.toLocaleLowerCase('id').normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '');
  function render(query) {
   const terms = normalize(query.trim()).split(/\\s+/).filter(Boolean);
-  const matches = entries.filter(entry => terms.every(term => normalize(entry.title+' '+entry.type+' '+entry.excerpt+' '+entry.lens+' '+entry.object+' '+entry.text).includes(term)));
+  const matches = entries.filter(entry => terms.every(term => normalize(entry.title+' '+entry.type+' '+entry.code+' '+entry.excerpt+' '+entry.lens+' '+entry.object+' '+entry.text).includes(term)));
   results.replaceChildren();
   status.textContent = query.trim() ? `${matches.length} tulisan untuk “${query.trim()}”.` : `${matches.length} tulisan tersedia.`;
   for (const entry of matches) {
    const card = document.createElement('article'); card.className = 'story-card search-result';
    const meta = document.createElement('div'); meta.className = 'story-meta';
-   const kind = document.createElement('a'); kind.className='article-type'; kind.href=entry.formatUrl; kind.textContent=entry.type;
+   const kind = document.createElement('a'); kind.className='article-type'; kind.href=entry.formatUrl; kind.textContent=entry.code;
    const date = document.createElement('time'); date.dateTime=entry.date; date.textContent=entry.dateLabel;
    const duration = document.createElement('span'); duration.textContent=entry.minutes+' menit baca';
    meta.append(kind,date,duration);

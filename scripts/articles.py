@@ -41,9 +41,10 @@ class Prose(HTMLParser):
 def load_articles(root, formats):
     posts = []
     slugs = set()
+    article_numbers = set()
     for path in sorted((Path(root) / 'content').glob('*.json')):
         post = json.loads(path.read_text(encoding='utf-8'))
-        for key in ('slug', 'title', 'excerpt', 'summary', 'published', 'updated', 'body', 'sources', 'author', 'format', 'thesis', 'lens', 'object', 'editorial_revision'):
+        for key in ('slug', 'title', 'excerpt', 'summary', 'published', 'updated', 'body', 'sources', 'author', 'format', 'thesis', 'lens', 'object', 'editorial_revision', 'number'):
             if not post.get(key):
                 raise ValueError(f'{path.name}: missing {key}')
         if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', post['slug']):
@@ -52,6 +53,15 @@ def load_articles(root, formats):
             raise ValueError(f'{path.name}: invalid publication format')
         if 'channel' in post:
             raise ValueError(f'{path.name}: obsolete classification field')
+        number = post['number']
+        if isinstance(number, bool) or not isinstance(number, int) or number < 1:
+            raise ValueError(f'{path.name}: invalid article number')
+        issue_key = (post['format'], number)
+        if issue_key in article_numbers:
+            raise ValueError(f'{path.name}: duplicate article number in format')
+        article_numbers.add(issue_key)
+        prefix = {'esai': 'Esai', 'telaah': 'Telaah', 'bedah': 'Bedah'}[post['format']]
+        post['code'] = f'{prefix}/{number:02d}/'
         post['type'] = formats[post['format']][0]
         if not isinstance(post['author'], str) or len(post['author']) > 80:
             raise ValueError(f'{path.name}: invalid public author alias')

@@ -41,7 +41,7 @@ Email baru tidak menjamin anonimitas teknis. Website menjelaskan batas tersebut 
 
 ## Menambahkan tulisan yang telah disetujui
 
-Tambahkan satu berkas JSON di `content/` dengan nama unik. Setiap bentuk dapat memuat banyak tulisan. Pemuat mengurutkan artikel berdasarkan tanggal terbit terbaru; untuk tanggal sama digunakan urutan slug yang stabil.
+Tambahkan satu berkas JSON di `content/` dengan nama unik. Setiap naskah wajib menyimpan `number` (bilangan bulat positif), unik untuk masing-masing `format`. Nomor terbit bersifat permanen; gunakan nomor berikutnya saat menambah artikel agar nomor lama tidak berubah. Kode publik tampil sebagai `Esai/01/`, `Telaah/01/`, atau `Bedah/01/` sebelum judul tanpa mengubah URL. Setiap bentuk dapat memuat banyak tulisan. Pemuat mengurutkan artikel berdasarkan tanggal terbit terbaru; untuk tanggal sama digunakan urutan slug yang stabil.
 
 Field naskah: `slug`, `format`, `author`, `title`, `excerpt`, `thesis`, `lens`, `object`, tiga butir `summary`, `published`, `updated`, `editorial_revision`, HTML `body`, dan daftar `sources`. Tanggal menggunakan `YYYY-MM-DD`. `author` adalah nama samaran publik; jangan mengisinya dengan identitas privat.
 

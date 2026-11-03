@@ -88,6 +88,6 @@ def render_quote_portal(post):
     author = escape(post.get('author', 'Lazarus'))
     cover = render_cover(post['format'])
     return f'''<section class="quote-portal landing-shell" data-quote-portal data-ink-divider="bottom" aria-labelledby="quote-portal-title">
-  <div class="quote-portal-copy"><h2 class="eyebrow" id="quote-portal-title">DARI RUANG BACA</h2><blockquote cite="{href}"><p>{quote}</p></blockquote><p class="quote-portal-source">{author} · <a href="{href}">{title}</a></p></div>
+  <div class="quote-portal-copy"><h2 class="eyebrow" id="quote-portal-title">DARI RUANG BACA</h2><blockquote cite="{href}"><p>{quote}</p></blockquote><p class="quote-portal-source">{author} · {escape(post['code'])} · <a href="{href}">{title}</a></p></div>
   <a class="quote-portal-media story-image tone-{post['format']}" href="{href}" aria-label="Baca {escape(post['title'], quote=True)}"><span class="cover-placeholder" aria-hidden="true">{cover}</span></a>
 </section>'''
