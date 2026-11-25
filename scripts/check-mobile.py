@@ -4,7 +4,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from functools import partial
 from threading import Thread
 from playwright.sync_api import sync_playwright
-import json, os, subprocess, tempfile
+import json, os, subprocess, tempfile, base64
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -140,7 +140,7 @@ with tempfile.TemporaryDirectory() as tmp:
             assert final in ('matrix(1, 0, 0, 1, 0, 0)','none'),final
             record(p,'index.html',w,h,'balance-settled')
             p.emulate_media(reduced_motion='reduce')
-            assert scene.get_attribute('data-mobile-scroll') is None
+            p.wait_for_function("!document.querySelector('.scale-scene').hasAttribute('data-mobile-scroll')")
             assert beam.evaluate("e=>getComputedStyle(e).transform") in ('none','matrix(1, 0, 0, 1, 0, 0)')
             p.emulate_media(reduced_motion='no-preference')
             p.goto(url+'beranda.html')
@@ -153,7 +153,7 @@ with tempfile.TemporaryDirectory() as tmp:
             assert img.evaluate("e=>getComputedStyle(e).transform") in ('none','matrix(1, 0, 0, 1, 0, 0)')
             record(p,'beranda.html',w,h,'cover-settled')
             p.emulate_media(reduced_motion='reduce')
-            assert img.evaluate("e=>getComputedStyle(e).animationName")=='none'
+            p.wait_for_function("getComputedStyle(document.querySelector('.lead-story .story-image img')).animationName==='none'")
             print('EDITORIAL MOTION PASS',w,h,a,b,final,flush=True)
             ctx.close()
         for w in (320,390):
@@ -170,6 +170,17 @@ with tempfile.TemporaryDirectory() as tmp:
             assert p.locator('#search-results').inner_text().strip()
             print('SEARCH PASS',w,flush=True)
             ctx.close()
+        # Compact rendered evidence in the job log for visual inspection, in addition to PNG artifacts.
+        ctx=browser.new_context(viewport={'width':390,'height':844},has_touch=True,is_mobile=True,reduced_motion='reduce')
+        p=ctx.new_page()
+        for label,path in [('landing','index.html'),('reading-room','beranda.html'),('article',route)]:
+            p.goto(url+path)
+            p.evaluate('document.fonts.ready')
+            p.locator('img').evaluate_all("(imgs)=>imgs.forEach(i=>i.loading='eager')")
+            p.evaluate("Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))")
+            data=base64.b64encode(p.screenshot(type='jpeg',quality=55,animations='disabled')).decode()
+            for i in range(0,len(data),8000): print('VISUAL '+label+' '+str(i//8000)+' '+data[i:i+8000],flush=True)
+        ctx.close()
         browser.close()
     server.shutdown()
 (OUT/'geometry.json').write_text(json.dumps({'rows':rows,'flags':errors,'manualVisualReview':'required'},ensure_ascii=False,indent=2))
