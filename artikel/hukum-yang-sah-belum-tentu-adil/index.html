@@ -35,6 +35,13 @@
  :is(.landing-primary,.landing-secondary,.landing-nav-enter,.editorial-button,.theme-toggle,.search-submit,.copy-button):active{transform:scale(.98)}
 }
 @media(prefers-reduced-motion:reduce){.nh-reading-rail{display:none!important}}
+/* A short editorial balance settling into place on mobile. Existing art only. */
+@media(max-width:767px) and (prefers-reduced-motion:no-preference),(max-width:1024px) and (pointer:coarse) and (prefers-reduced-motion:no-preference){
+ .scale-scene[data-mobile-settle] .scale-balance{animation:nh-mobile-balance 2200ms ease-in-out both}
+ .scale-scene[data-mobile-settle] .scale-hanger{animation:nh-mobile-counterweight 2200ms ease-in-out both}
+ @keyframes nh-mobile-balance{0%{transform:rotate(-8deg)}30%{transform:rotate(7deg)}57%{transform:rotate(-4deg)}79%{transform:rotate(2deg)}100%{transform:rotate(0deg)}}
+ @keyframes nh-mobile-counterweight{0%{transform:rotate(8deg)}30%{transform:rotate(-7deg)}57%{transform:rotate(4deg)}79%{transform:rotate(-2deg)}100%{transform:rotate(0deg)}}
+}
 </style><script>
 /* S01 / Reading progress, bounded to the published article, not the footer. */
 (() => {
