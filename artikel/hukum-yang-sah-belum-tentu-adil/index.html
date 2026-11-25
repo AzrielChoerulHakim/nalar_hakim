@@ -35,7 +35,63 @@
  :is(.landing-primary,.landing-secondary,.landing-nav-enter,.editorial-button,.theme-toggle,.search-submit,.copy-button):active{transform:scale(.98)}
 }
 @media(prefers-reduced-motion:reduce){.nh-reading-rail{display:none!important}}
-</style></head><body><a class="skip-link" href="#main-content">Langsung ke konten</a>
+</style><script>
+/* S01 / Reading progress, bounded to the published article, not the footer. */
+(() => {
+  'use strict';
+  function init() {
+    const article = document.querySelector('main.single-main article.article-layout');
+    const body = article?.querySelector('.article-content');
+    if (!article || !body) return;
+    const mobile = matchMedia('(max-width:767px), (max-width:1024px) and (pointer:coarse)');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const rail = document.createElement('div');
+    rail.className = 'nh-reading-rail';
+    rail.setAttribute('aria-hidden','true');
+    document.body.append(rail);
+    let frame = 0, listening = false;
+    const update = () => {
+      frame = 0;
+      const start = article.getBoundingClientRect().top + window.scrollY;
+      const end = body.getBoundingClientRect().bottom + window.scrollY;
+      const span = end - start - window.innerHeight;
+      const value = span > 0 ? Math.max(0, Math.min(1, (window.scrollY - start) / span)) : 0;
+      rail.style.setProperty('--nh-reading-progress', String(value));
+      rail.toggleAttribute('data-active', listening && span > 0 && window.scrollY >= start && window.scrollY < end);
+    };
+    const schedule = () => { if (listening && !frame) frame = requestAnimationFrame(update); };
+    const observer = typeof ResizeObserver === 'function' ? new ResizeObserver(schedule) : null;
+    function sync() {
+      const enabled = mobile.matches && !reduce.matches;
+      if (enabled === listening) { schedule(); return; }
+      listening = enabled;
+      if (enabled) {
+        window.addEventListener('scroll', schedule, {passive:true});
+        window.addEventListener('resize', schedule, {passive:true});
+        window.addEventListener('pageshow', schedule);
+        observer?.observe(article);
+        schedule();
+      } else {
+        window.removeEventListener('scroll', schedule);
+        window.removeEventListener('resize', schedule);
+        window.removeEventListener('pageshow', schedule);
+        observer?.disconnect();
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        rail.removeAttribute('data-active');
+      }
+    }
+    for (const query of [mobile, reduce]) {
+      if (query.addEventListener) query.addEventListener('change', sync);
+      else query.addListener(sync);
+    }
+    document.fonts?.ready.then(schedule);
+    sync();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script></head><body><a class="skip-link" href="#main-content">Langsung ke konten</a>
 <header class="site-header"><div class="container header-inner"><a class="brand" href="../../index.html" aria-label="Nalar Hakim — halaman awal"><span><span class="brand-name">NALAR HAKIM<span class="brand-dot">.</span></span></span></a><div class="header-actions"><a class="header-note" href="../../tentang.html">Tentang </a><button class="theme-toggle" data-theme-toggle type="button" hidden>Terang</button><details><summary>Cari </summary><form class="search-form" action="../../cari.html" method="get"><label><span class="screen-reader-text">Cari tulisan</span><input type="search" name="q" placeholder="Cari gagasan, pasal, atau topik…" maxlength="120"></label><button class="search-submit" type="submit">Cari</button></form></details></div></div><nav class="publication-nav" aria-label="Navigasi redaksi"><div class="container"><a href="../../beranda.html">Ruang baca</a><a href="../../bentuk/esai/" aria-current="page">Esai</a><a href="../../bentuk/telaah/">Telaah Fenomena</a><a href="../../bentuk/bedah/">Bedah Putusan atau Norma</a><a href="../../kirim-naskah.html">Kirim naskah</a></div></nav></header><main id="main-content" class="container single-main"><article class="article-layout"><header class="article-header"><a class="back-link" href="../../bentuk/esai/"> Kembali ke Esai</a><div class="story-meta"><a class="article-type" href="../../bentuk/esai/">Esai/01/</a><span>6 menit baca</span></div><h1>“Dapat menjelaskan” bukan izin untuk diam: menguji alasan MK tentang partisipasi publik</h1><p class="article-deck">Putusan MK 257/PUU-XXIII/2025 mempertahankan norma penjelasan kepada publik. Melalui Fuller, esai ini menguji apakah penegasan hak sudah memberi pegangan untuk menilai pelaksanaannya.</p><div class="article-byline"><span>Oleh <strong>Lazarus</strong></span><div class="article-dates"><span>Terbit <time datetime="2026-10-25">25 Okt 2026</time></span><span>Diperbarui <time datetime="2026-10-26">26 Okt 2026</time></span></div></div></header><figure class="article-cover"><div class="story-image tone-esai" aria-hidden="true"><span class="cover-placeholder" aria-hidden="true"><img class="editorial-cover-image" src="../../preview/covers/hukum-yang-sah-belum-tentu-adil.webp?v=453778bfe1" alt="" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center"></span></div></figure><div class="article-content"><aside class="argument-frame" aria-labelledby="tesis-artikel"><span class="eyebrow" id="tesis-artikel">TESIS UTAMA</span><p>Penolakan permohonan dalam Putusan MK 257/PUU-XXIII/2025 dapat dibenarkan tanpa menganggap persoalan selesai, sebab hak mendapat penjelasan membutuhkan hubungan yang dapat diperiksa antara masukan publik, pertimbangan pembentuk hukum, dan keputusan yang diambil.</p><dl><div><dt>Objek</dt><dd>Frasa “dapat menjelaskan” dalam Pasal 96 ayat (8) UU 12/2011 sebagaimana diubah dengan UU 13/2022, melalui Putusan MK 257/PUU-XXIII/2025 yang diucapkan 2 Februari 2026.</dd></div><div><dt>Lensa</dt><dd>Moralitas internal hukum Lon L. Fuller, khususnya hubungan antara pedoman yang diumumkan dan tindakan penyelenggara hukum, diterapkan sebagai kritik atas pelaksanaan hak partisipasi.</dd></div></dl></aside><aside class="article-summary" aria-labelledby="ringkasan-artikel"><h2 id="ringkasan-artikel">Pokok pembahasan</h2><ul><li>MK menolak permohonan perubahan frasa “dapat menjelaskan” pada 2 Februari 2026, sekaligus mempertahankan hak publik untuk mendapat penjelasan.</li><li>Dengan membaca Fuller, persoalan utamanya ialah kesesuaian antara hak yang dijanjikan dan proses yang dapat diperiksa, bukan sekadar pilihan kata.</li><li>Penjelasan menurut pokok persoalan dapat menjaga akuntabilitas tanpa mewajibkan penerimaan semua usulan; ukuran yang diajukan di sini merupakan argumentasi editorial, bukan amar MK.</li></ul></aside><details class="article-toc" open><summary>Daftar isi <span class="toc-summary-note">6 bagian</span></summary><nav aria-label="Daftar isi artikel"><ol><li><a href="#bagian-objek-sengketa-hak-yang-bertemu-kata-dapat">Objek sengketa: hak yang bertemu kata “dapat”</a></li><li><a href="#bagian-apa-yang-sebenarnya-diputus-pada-2026">Apa yang sebenarnya diputus pada 2026?</a></li><li><a href="#bagian-memakai-fuller-sebagai-alat-uji">Memakai Fuller sebagai alat uji</a></li><li><a href="#bagian-dari-hak-didengar-menuju-alasan-yang-dapat-diperiksa">Dari hak didengar menuju alasan yang dapat diperiksa</a></li><li><a href="#bagian-sanggahan-terkuat-legislasi-tidak-boleh-lumpuh">Sanggahan terkuat: legislasi tidak boleh lumpuh</a></li><li><a href="#bagian-batas-kritik-dan-pekerjaan-yang-masih-terbuka">Batas kritik dan pekerjaan yang masih terbuka</a></li></ol></nav></details><p>Pada 2 Februari 2026, Mahkamah Konstitusi menolak seluruh permohonan dalam perkara Nomor 257/PUU-XXIII/2025. Perkara ini mempersoalkan frasa “dapat menjelaskan” dalam ketentuan tentang tanggapan pembentuk peraturan atas masukan masyarakat. MK mempertahankan norma itu sambil menegaskan bahwa hak partisipasi, termasuk hak mendapat penjelasan, tidak boleh dihapus oleh pembacaannya.<sup class="reference-marker"><a href="#rujukan-1" id="penanda-1" aria-label="Lihat rujukan 1">[1]</a></sup></p>
 <p>Karena itu, putusan ini tidak layak diringkas sebagai izin bagi pembentuk hukum untuk diam. Namun, mempertahankan hak dalam penafsiran belum menyelesaikan persoalan pelaksanaannya. Hak mendapat penjelasan baru memiliki daya koreksi apabila masyarakat dapat memeriksa hubungan antara masukan mereka, pertimbangan pembentuk hukum, dan keputusan yang akhirnya dipilih. Kepastian tentang keberlakuan norma perlu disertai kepastian tentang cara menagih pelaksanaannya.</p>
 <h2 id="bagian-objek-sengketa-hak-yang-bertemu-kata-dapat">Objek sengketa: hak yang bertemu kata “dapat”</h2>

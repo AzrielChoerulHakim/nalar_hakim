@@ -7,6 +7,7 @@ from pathlib import Path
 
 RULES = json.loads(Path(__file__).with_name("reading-cleanup.json").read_text(encoding="utf-8"))
 STYLE = Path(__file__).with_name("reading-cleanup.css").read_text(encoding="utf-8")
+PROGRESS = Path(__file__).with_name("reading-progress.js").read_text(encoding="utf-8")
 CASUAL_PAGES = ["index.html","tentang.html","kirim-naskah.html","kebijakan-redaksi.html"]
 
 def clean_reading_ui(html, path):
@@ -16,4 +17,5 @@ def clean_reading_ui(html, path):
     if path in CASUAL_PAGES:
         chunks = re.split(r'(<blockquote\b[\s\S]*?</blockquote>)', html)
         html = ''.join(part if i % 2 else re.sub(r'\bAnda\b', 'kamu', part) for i, part in enumerate(chunks))
-    return html.replace('</head>', '<style>\n' + STYLE + '</style></head>', 1)
+    motion = '<script>\n' + PROGRESS + '</script>' if path.startswith('artikel/') else ''
+    return html.replace('</head>', '<style>\n' + STYLE + '</style>' + motion + '</head>', 1)

@@ -16,7 +16,9 @@ jobs:
       - name: Build static preview
         run: python3 scripts/build-preview.py
       - name: Check preview JavaScript
-        run: node --check preview/search.js
+        run: |
+          node --check preview/search.js
+          node --check scripts/reading-progress.js
       - name: Check retired public motion and navigation
         run: python3 scripts/check-reading-cleanup.py
       - name: Check preview links and reading anchors

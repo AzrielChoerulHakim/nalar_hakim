@@ -1,0 +1,67 @@
+{
+  "project": {
+    "name": "Nalar Hakim",
+    "audience": "Pembaca esai, telaah dan bedah hukum",
+    "readerJobs": [
+      "Mengetahui posisi dalam artikel panjang tanpa kehilangan fokus"
+    ],
+    "constraints": [
+      "mobile only",
+      "no new SVG",
+      "native scroll",
+      "no hidden prose"
+    ],
+    "baseline": "semantic-document"
+  },
+  "evidence": [
+    {
+      "id": "source-01",
+      "claim": "Five published long-form articles include references and headings.",
+      "source": "artikel/*/index.html at 5e93c99",
+      "status": "verified",
+      "tags": [
+        "long-form-content",
+        "verified-sections"
+      ]
+    }
+  ],
+  "selections": [
+    {
+      "systemId": "reading-progress-rail",
+      "why": "Long-form articles benefit from a subtle indication of remaining reading.",
+      "readerBenefit": "Locate progress without opening another control.",
+      "implementation": "Passive scroll and requestAnimationFrame; 3px noninteractive CSS transform at viewport edge; article-bound geometry; no library.",
+      "stateSource": "Scroll position between article start and end of article-content, minus viewport height.",
+      "sourceBasis": "docs-reviewed",
+      "sourceDescription": "Lazarus Scroll Director S01 implementation recipe",
+      "evidenceIds": [
+        "source-01"
+      ],
+      "nonTransferable": [
+        "demo palette",
+        "demo layout"
+      ],
+      "rejectionConsidered": "S09 parallax and S13 text disclosure interfere with long-form reading and lack an evidence need.",
+      "fallback": {
+        "noJs": "Full article, references, navigation and anchors remain.",
+        "reducedMotion": "Rail hidden; no text movement.",
+        "mobile": "3px at top, no pointer events; disabled on desktop."
+      }
+    }
+  ],
+  "rejectedAlternatives": [
+    {
+      "systemId": "depth-parallax-theatre",
+      "reason": "Decorative movement does not help legal reading."
+    },
+    {
+      "systemId": "typographic-disclosure",
+      "reason": "No delay or hidden words permitted."
+    }
+  ],
+  "qa": {
+    "reviewedCommit": "",
+    "environment": "Chromium CI; screenshots and geometry; human inspection pending",
+    "checks": []
+  }
+}

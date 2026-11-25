@@ -21,7 +21,7 @@ def measure(page):
     return page.evaluate("""() => {
       const w=document.documentElement.clientWidth;
       const overflow=document.documentElement.scrollWidth-w;
-      const visible=e=>{const b=e.getBoundingClientRect(),s=getComputedStyle(e);return b.width>0&&b.height>0&&s.visibility!=='hidden'&&s.display!=='none'};
+      const visible=e=>{const closed=e.closest('details:not([open])');if(closed&&!e.closest('summary'))return false;const b=e.getBoundingClientRect(),s=getComputedStyle(e);return b.width>0&&b.height>0&&s.visibility!=='hidden'&&s.display!=='none'};
       const clipping=[...document.querySelectorAll('main h1,main h2,main h3,main p,nav a,header a,header button,header summary,footer a,main button,main input')].filter(visible).filter(e=>{const b=e.getBoundingClientRect();return b.left < -2 || b.right > w+2 || ((getComputedStyle(e).overflowX==='hidden'||getComputedStyle(e).overflowX==='clip')&&e.scrollWidth>e.clientWidth+2)}).map(e=>({tag:e.tagName,text:e.textContent.trim().slice(0,90),left:Math.round(e.getBoundingClientRect().left),right:Math.round(e.getBoundingClientRect().right)}));
       const broken=[...document.images].filter(e=>e.complete&&!e.naturalWidth).map(e=>e.getAttribute('src'));
       return {overflow,clipping,broken,bodyFont:getComputedStyle(document.querySelector('.article-content')||document.body).fontSize,fonts:document.fonts.status};
@@ -79,6 +79,46 @@ with tempfile.TemporaryDirectory() as tmp:
                 elif route in ('index.html','beranda.html'):
                     shot(page,f'{name}-{w}x{h}.png')
             context.close()
+        route=next(p for p in PAGES if p.startswith('artikel/'))
+        for w,h in [(320,800),(390,844),(844,390)]:
+            ctx=browser.new_context(viewport={'width':w,'height':h},has_touch=True,is_mobile=True,reduced_motion='no-preference')
+            p=ctx.new_page()
+            p.goto(url+route)
+            p.evaluate('document.fonts.ready')
+            rail=p.locator('.nh-reading-rail')
+            assert rail.count()==1
+            def move(fraction):
+                p.evaluate("""f=>{const a=document.querySelector('main.single-main article.article-layout'),b=a.querySelector('.article-content');const start=a.getBoundingClientRect().top+scrollY,end=b.getBoundingClientRect().bottom+scrollY;scrollTo(0,start+Math.max(0,end-start-innerHeight)*f)}""",fraction)
+                p.wait_for_timeout(180)
+                return float(rail.evaluate("(e)=>e.style.getPropertyValue('--nh-reading-progress')"))
+            first=move(.25); mid=move(.65); back=move(.30); end=move(1)
+            assert 0.18<first<.32 and .58<mid<.72 and .23<back<.37 and end>.98,(w,first,mid,back,end)
+            assert rail.is_visible()
+            assert rail.evaluate("e=>getComputedStyle(e).pointerEvents")=='none'
+            record(p,route,w,h,'motion-end')
+            move(.5)
+            shot(p,f'reading-rail-{w}x{h}.png')
+            p.emulate_media(reduced_motion='reduce')
+            assert not rail.is_visible()
+            p.emulate_media(reduced_motion='no-preference')
+            move(.5)
+            assert rail.is_visible()
+            p.set_viewport_size({'width':1440,'height':900})
+            p.wait_for_timeout(120)
+            assert not rail.is_visible()
+            p.set_viewport_size({'width':w,'height':h})
+            p.wait_for_timeout(120)
+            move(.5)
+            assert rail.is_visible()
+            print('MOTION PASS',w,h,first,mid,back,end,flush=True)
+            ctx.close()
+        ctx=browser.new_context(viewport={'width':320,'height':800},java_script_enabled=False)
+        p=ctx.new_page()
+        p.goto(url+route)
+        assert p.locator('main article h1').is_visible()
+        assert p.locator('#sumber-rujukan').count()==1
+        assert p.locator('.nh-reading-rail').count()==0
+        ctx.close()
         browser.close()
     server.shutdown()
 (OUT/'geometry.json').write_text(json.dumps({'rows':rows,'flags':errors,'manualVisualReview':'required'},ensure_ascii=False,indent=2))
