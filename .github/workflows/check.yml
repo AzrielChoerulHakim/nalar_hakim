@@ -19,6 +19,7 @@ jobs:
         run: |
           node --check preview/search.js
           node --check scripts/reading-progress.js
+          node --check scripts/mobile-balance.js
       - name: Check retired public motion and navigation
         run: python3 scripts/check-reading-cleanup.py
       - name: Check preview links and reading anchors

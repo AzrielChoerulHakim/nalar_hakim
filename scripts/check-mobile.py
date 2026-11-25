@@ -119,6 +119,29 @@ with tempfile.TemporaryDirectory() as tmp:
         assert p.locator('#sumber-rujukan').count()==1
         assert p.locator('.nh-reading-rail').count()==0
         ctx.close()
+        for w,h in [(320,800),(390,844),(844,390)]:
+            ctx=browser.new_context(viewport={'width':w,'height':h},has_touch=True,is_mobile=True,reduced_motion='no-preference')
+            p=ctx.new_page()
+            p.goto(url+'index.html')
+            scene=p.locator('.scale-scene')
+            scene.scroll_into_view_if_needed()
+            p.wait_for_function("document.querySelector('.scale-scene').hasAttribute('data-mobile-settle')")
+            beam=p.locator('.scale-balance')
+            assert beam.evaluate("e=>getComputedStyle(e).animationName")=='nh-mobile-balance'
+            p.wait_for_timeout(350)
+            a=beam.evaluate("e=>getComputedStyle(e).transform")
+            shot(p,f'balance-mid-{w}x{h}.png')
+            p.wait_for_timeout(500)
+            b=beam.evaluate("e=>getComputedStyle(e).transform")
+            assert a!=b,(w,a,b)
+            p.wait_for_timeout(1500)
+            final=beam.evaluate("e=>getComputedStyle(e).transform")
+            assert final in ('matrix(1, 0, 0, 1, 0, 0)','none'),final
+            record(p,'index.html',w,h,'balance-settled')
+            p.emulate_media(reduced_motion='reduce')
+            assert beam.evaluate("e=>getComputedStyle(e).animationName")=='none'
+            print('BALANCE MOTION PASS',w,h,a,b,final,flush=True)
+            ctx.close()
         browser.close()
     server.shutdown()
 (OUT/'geometry.json').write_text(json.dumps({'rows':rows,'flags':errors,'manualVisualReview':'required'},ensure_ascii=False,indent=2))
