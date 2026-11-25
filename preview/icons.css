@@ -21,15 +21,4 @@
 .format-arrow,.rail-arrow { display:inline-flex; align-items:center; justify-content:center; line-height:1; }
 .landing-channel-arrow,.landing-final-link > span:last-child,.format-arrow { --nh-icon-size:24px; }
 .landing-forms-link > span,.landing-nav-enter > span { display:inline-flex; align-items:center; }
-/* Search results are constructed in the browser, so they need a CSS icon even
-   when their read-link has no arrow in its text. No text character is emitted. */
-.read-link::after {
-  content:"";
-  display:inline-block;
-  width:20px;
-  height:20px;
-  flex:0 0 auto;
-  background:currentColor;
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 18 18 6M6 6h12v12' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 18 18 6M6 6h12v12' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
-}
+/* Navigation is now text-only; retained selectors support legacy markup. */
