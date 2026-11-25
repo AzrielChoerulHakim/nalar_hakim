@@ -26,7 +26,7 @@ jobs:
       - name: Verify generated preview is current
         run: git diff --exit-code -- index.html beranda.html cari.html tentang.html kirim-naskah.html kebijakan-redaksi.html 404.html artikel bentuk preview sitemap.xml robots.txt
   mobile:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Install Playwright
@@ -44,6 +44,7 @@ jobs:
       - name: Compare rebuilt files
         if: always()
         run: |
+          mkdir -p mobile-proof
           python3 scripts/build-preview.py
           git diff --stat
           git diff -- index.html beranda.html cari.html tentang.html kirim-naskah.html kebijakan-redaksi.html 404.html artikel bentuk preview sitemap.xml robots.txt > mobile-proof/generated.patch
