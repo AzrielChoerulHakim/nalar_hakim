@@ -27,5 +27,5 @@ def clean_reading_ui(html, path):
         for full, short in (('Telaah Fenomena', 'Telaah'), ('Bedah Putusan atau Norma', 'Bedah')):
             nav = nav.replace('>' + full + '</a>', ' aria-label="' + full + '"><span class="nh-nav-full">' + full + '</span><span class="nh-nav-short" aria-hidden="true">' + short + '</span></a>')
         return nav
-    html = re.sub(r'<nav class="publication-nav"[\\s\\S]*?</nav>', compact_nav, html)
+    html = re.sub(r'<nav class="publication-nav"[\s\S]*?</nav>', compact_nav, html)
     return html.replace('</head>', motion + '</head>', 1)
