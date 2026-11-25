@@ -48,5 +48,4 @@
 }
 @media print {
   .article-layout > .article-header { padding-block:0 22px; }
-  .article-layout > .article-header::before,
 }

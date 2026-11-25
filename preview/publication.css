@@ -1173,7 +1173,6 @@ html[data-theme="light"] .site-footer a:hover,html[data-theme="light"] .site-foo
 }
 @media print {
   .article-layout > .article-header { padding-block:0 22px; }
-  .article-layout > .article-header::before,
 }
 
 /* Source: preview/cubist-editorial.css */
