@@ -12,6 +12,7 @@ from articles import load_articles
 from site_config import SITE, SITE_PATH
 from styles import build_styles
 from icons import render_navigation_icons
+from reading_cleanup import clean_reading_ui
 from editorial_pages import FORMATS, form_links, invitation, about_page, submission_page, policy_page
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -190,8 +191,7 @@ search_js='''/* Search the published articles locally, without tracking or exter
    meta.append(kind,date,duration);
    const heading = document.createElement('h2'); const anchor=document.createElement('a'); anchor.href=entry.url; anchor.textContent=entry.title; heading.append(anchor);
    const excerpt=document.createElement('p'); excerpt.textContent=entry.excerpt;
-   const read=document.createElement('a'); read.href=entry.url; read.className='read-link'; read.textContent='Baca tulisan';
-   card.append(meta,heading,excerpt,read); results.append(card);
+   card.append(meta,heading,excerpt); results.append(card);
   }
   if (!matches.length) { const empty=document.createElement('p'); empty.className='search-empty'; empty.textContent='Belum ada tulisan yang cocok. Coba kata “kekuasaan”, “peradilan”, atau “persetujuan”.'; results.append(empty); }
  }
@@ -234,6 +234,8 @@ for written in WRITTEN:
   if not asset.is_relative_to(ROOT) or not asset.is_file(): return match.group(0)
   return match.group(1)+url+'?v='+sha256(asset.read_bytes()).hexdigest()[:10]+match.group(3)
  html=render_navigation_icons(dest.read_text(encoding='utf-8'))
+ if not re.search(r'http-equiv="refresh"',html):
+  html=clean_reading_ui(html,written)
  html=re.sub(r'((?:href|src)=")([^"?]+\.(?:css|js|svg|webp))(")',version_asset,html)
  dest.write_text(html,encoding='utf-8')
 print(f'Built {len(WRITTEN)} HTML pages, {len(POSTS)} articles, search index and sitemap')

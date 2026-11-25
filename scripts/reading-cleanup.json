@@ -1,0 +1,334 @@
+[
+  [
+    "<script src=\"[^\"]*preview/(?:motion|editorial-motion|article-transitions|nature-scene|desktop-nature)\\.js(?:\\?[^\"]*)?\"[^>]*></script>",
+    ""
+  ],
+  [
+    "<link rel=\"stylesheet\" href=\"[^\"]*preview/butterfly\\.css(?:\\?[^\"]*)?\">",
+    ""
+  ],
+  [
+    "<svg class=\"nh-icon[^\"]*\"[^>]*>[\\s\\S]*?</svg>",
+    ""
+  ],
+  [
+    "<section id=\"gagasan\" class=\"idea-flow[^\"]*\"[^>]*>[\\s\\S]*?</section>",
+    ""
+  ],
+  [
+    "<a class=\"quote-portal-media[^\"]*\"[^>]*>[\\s\\S]*?</a>",
+    ""
+  ],
+  [
+    "<button class=\"scale-trigger\"[^>]*>([\\s\\S]*?)</button>",
+    "<div class=\"scale-trigger\">$1</div>"
+  ],
+  [
+    "<span class=\"(?:brand-mark|landing-channel-no|landing-channel-arrow|rail-arrow|format-arrow|author-avatar|brand-caption|landing-button-arrow)\"[^>]*>[^<]*</span>",
+    ""
+  ],
+  [
+    "<div class=\"landing-question\"[^>]*>[^<]*</div>",
+    ""
+  ],
+  [
+    "<div class=\"landing-running-head\">[\\s\\S]*?</div>",
+    ""
+  ],
+  [
+    "<div class=\"landing-section-top\">[\\s\\S]*?</div>",
+    ""
+  ],
+  [
+    "<div class=\"nature-overline\">[^<]*</div>",
+    ""
+  ],
+  [
+    "<div class=\"landing-hero-base\"[^>]*>[\\s\\S]*?</div>",
+    ""
+  ],
+  [
+    "<p class=\"landing-invitation-kicker\">[^<]*</p>",
+    ""
+  ],
+  [
+    "<span class=\"eyebrow\">(?:RUANG BACA SEMUA|BACAAN PILIHAN\\s*|BENTUK TULISAN(?: / NALAR HAKIM)?|TERBUKA UNTUK KONTRIBUTOR|MEJA REDAKSI / LAZARUS|TETAP TERBUKA UNTUK SEMUA|ARAH NALAR HAKIM|KIRIM NASKAH / TANPA AKUN|ALAMAT PENGIRIMAN|KEBIJAKAN REDAKSI / LAZARUS|ARSIP TULISAN|404 / HALAMAN TIDAK DITEMUKAN|0[123](?: / (?:LAYAK|POTENSIAL|TIDAK SESUAI))?)</span>",
+    ""
+  ],
+  [
+    "<span aria-hidden=\"true\">\\s*</span>",
+    ""
+  ],
+  [
+    "<span class=\"(?:landing-channel-arrow|rail-arrow|format-arrow|landing-button-arrow)\"[^>]*>\\s*</span>",
+    ""
+  ],
+  [
+    "<a class=\"read-link\" href=\"[^\"]*\">Baca tulisan\\s*</a>",
+    ""
+  ],
+  [
+    "<figcaption>Ilustrasi: Nalar Hakim\\.</figcaption>",
+    ""
+  ],
+  [
+    "<span class=\"step-number\" aria-hidden=\"true\">0[123]</span>",
+    ""
+  ],
+  [
+    " data-(?:brand-reveal|quote-portal)(?=[ >])",
+    ""
+  ],
+  [
+    " data-ink-divider=\"[^\"]*\"",
+    ""
+  ],
+  [
+    "<span class=\"eyebrow\">BACAAN PILIHAN\\s*</span>",
+    ""
+  ],
+  [
+    "<span class=\"(?:landing-channel-arrow|rail-arrow|format-arrow|landing-button-arrow)\"[^>]*>[\\s\\S]*?</span>",
+    ""
+  ],
+  [
+    "Hukum selalu tidak pernah selesai\\.",
+    "Hukum selalu tidak pernah selesai."
+  ],
+  [
+    "Baca esai, telaah peristiwa, dan kritik atas putusan hukum tanpa biaya\\. Anda juga dapat mengirim tulisan tanpa nama, gelar, jabatan, dan instansi\\.",
+    "Di sini kita membaca dan mempertanyakan hukum. Semua tulisan gratis dibaca. Kalau punya gagasan, kirim tulisan tanpa nama, gelar, jabatan, atau instansi."
+  ],
+  [
+    "Anda tidak perlu mencantumkan nama asli, gelar, atau tempat bekerja untuk mengirim tulisan\\. Redaksi membaca apa yang Anda ajukan: persoalannya, alasan di balik pendapatnya, dan sumber yang mendukungnya\\.",
+    "Nama, gelar, dan tempat kerja bukan syarat untuk punya pendapat. Yang kami baca adalah apa yang kamu persoalkan, alasanmu, dan sumber yang bisa diperiksa."
+  ],
+  [
+    "01 — ALASAN YANG JELAS",
+    "Jelaskan alasanmu"
+  ],
+  [
+    "02 — SUMBER YANG BISA DICEK",
+    "Sertakan sumber"
+  ],
+  [
+    "Jelaskan apa yang Anda persoalkan dan mengapa\\. Pakai teori jika membantu pembaca memahami argumen, bukan sekadar menambah nama tokoh\\.",
+    "Ceritakan apa yang kamu persoalkan dan mengapa. Pakai teori kalau memang membantu, bukan sekadar untuk menyebut nama tokoh."
+  ],
+  [
+    "Tautkan aturan, putusan, data, atau bacaan yang Anda gunakan\\. Pembaca perlu tahu dari mana sebuah pernyataan berasal\\.",
+    "Cantumkan aturan, putusan, data, atau bacaan yang kamu pakai supaya orang lain bisa memeriksanya."
+  ],
+  [
+    "PILIH BENTUK<br>TULISAN ANDA\\.",
+    "Mau baca apa?"
+  ],
+  [
+    "Mulai dari gagasan, peristiwa, <br>atau putusan yang ingin Anda bahas\\.",
+    "Mulai dari gagasan, peristiwa, aturan, atau putusan."
+  ],
+  [
+    "KIRIM<br><span>TULISAN\\.</span>",
+    "Punya tulisan?"
+  ],
+  [
+    "Ada putusan yang mengusik Anda, aturan yang perlu dipertanyakan, atau pemikiran yang ingin dibahas\\? Tulis dan kirimkan\\. Anda tidak perlu CV, afiliasi kampus, atau format jurnal tertentu\\.",
+    "Ada putusan yang bikin kamu bertanya-tanya? Aturan yang rasanya janggal? Tulis saja. Tidak perlu CV, nama kampus, atau format jurnal."
+  ],
+  [
+    "Kirim Word lewat email\\.",
+    "Kirim lewat email"
+  ],
+  [
+    "Dibaca oleh redaksi\\.",
+    "Kami baca"
+  ],
+  [
+    "Keputusan melalui email\\.",
+    "Kami kabari"
+  ],
+  [
+    "Sertakan nama samaran yang ingin dipakai\\.",
+    "Kalau mau, pakai nama samaran atau Anonim."
+  ],
+  [
+    "Lazarus memeriksa isi, alasan, dan sumber tulisan\\. Jika perlu diperbaiki, revisinya dibicarakan lewat email\\.",
+    "Lazarus membaca isi dan sumbernya. Kalau perlu revisi, kita bicarakan lewat email."
+  ],
+  [
+    "Anda menerima kabar apakah naskah diterima, perlu direvisi, atau belum bisa diterbitkan\\.",
+    "Kami kabari lewat email: diterima, perlu revisi, atau belum bisa terbit."
+  ],
+  [
+    "DARI RUANG BACA",
+    "Dari salah satu tulisan"
+  ],
+  [
+    "Tulisan tentang aturan, putusan, peristiwa, dan pemikiran hukum\\. Semuanya dapat Anda baca gratis, tanpa akun atau langganan\\.",
+    "Tulisan tentang hukum, dari aturan dan putusan sampai hal-hal yang terjadi di sekitar kita. Baca gratis, tanpa akun."
+  ],
+  [
+    "Baca arah redaksi",
+    "Tentang Nalar Hakim"
+  ],
+  [
+    "ARAH REDAKSI",
+    "Tentang"
+  ],
+  [
+    "Persoalan lain",
+    "Tulisan lain"
+  ],
+  [
+    "Telusuri semua tulisan",
+    "Cari tulisan"
+  ],
+  [
+    "Punya tulisan<br>tentang hukum\\?",
+    "Punya tulisan tentang hukum?"
+  ],
+  [
+    "Kirim naskah Word dengan nama samaran\\. Tidak ada biaya atau akun yang perlu dibuat di situs ini\\. Redaksi membaca naskah dan mengabari Anda lewat email\\.",
+    "Kirim file Word lewat email. Tidak perlu nama asli, akun, atau biaya. Kami baca dan kabari kamu."
+  ],
+  [
+    "Mengembangkan pendapat dan membahas pemikiran tentang hukum\\.",
+    "Gagasan dan pendapat tentang hukum."
+  ],
+  [
+    "Membahas peristiwa yang sedang terjadi beserta persoalan hukumnya\\.",
+    "Membaca peristiwa dari sudut pandang hukum."
+  ],
+  [
+    "Memeriksa alasan dalam putusan atau aturan serta akibatnya\\.",
+    "Mengulik putusan, aturan, dan akibatnya."
+  ],
+  [
+    "Nama samaran\\.<br>Tulisan untuk semua\\.",
+    "Tentang Nalar Hakim"
+  ],
+  [
+    "Penulis tidak harus membuka identitasnya agar gagasannya bisa dibaca\\. Mengirim naskah dan membaca artikel di Nalar Hakim tidak dipungut biaya\\.",
+    "Tidak perlu membuka identitas untuk menyampaikan gagasan. Membaca dan mengirim tulisan di sini gratis."
+  ],
+  [
+    "Nalar Hakim dibangun untuk menjawab dua persoalan: keamanan identitas penulis dan sulitnya membawa tulisan kepada pembaca tanpa biaya atau urusan administrasi yang panjang\\. Penulis dapat memakai nama samaran\\. Pembaca dapat membuka seluruh tulisan tanpa akun dan tanpa langganan\\.",
+    "Di Nalar Hakim, tulisan tidak dinilai dari gelar atau tempat kerja penulisnya. Kamu bisa memakai nama samaran, dan siapa pun bisa membaca tulisan yang terbit tanpa akun atau langganan."
+  ],
+  [
+    "Mengirim naskah tidak perlu rumit",
+    "Cara mengirim tulisan"
+  ],
+  [
+    "Penulis memakai nama samaran",
+    "Soal nama penulis"
+  ],
+  [
+    "Anonimitas membantu penulis memisahkan pendapatnya dari identitas pribadi\\.",
+    "Nama samaran memberi jarak antara pendapat dan identitas pribadi."
+  ],
+  [
+    "Kirim tulisan Anda\\.",
+    "Kirim tulisan"
+  ],
+  [
+    "Tanpa biaya dan tanpa akun di situs\\. Cukup kirim naskah Word dengan nama samaran lewat email; redaksi akan membaca dan mengabari Anda\\.",
+    "Kirim file Word lewat email, tanpa biaya dan tanpa akun. Kamu bisa memakai nama samaran. Kami baca, lalu kabari."
+  ],
+  [
+    "Tiga langkah lewat email\\.",
+    "Cara kirim tulisan"
+  ],
+  [
+    "Tulis email pengiriman",
+    "Buka email"
+  ],
+  [
+    "Setelah dibaca",
+    "Setelah naskah masuk"
+  ],
+  [
+    "Diterbitkan\\.",
+    "Diterbitkan"
+  ],
+  [
+    "Disunting\\.",
+    "Perlu revisi"
+  ],
+  [
+    "Tidak diterbitkan\\.",
+    "Belum bisa terbit"
+  ],
+  [
+    "Cara kami<br>menilai naskah\\.",
+    "Cara kami menilai tulisan"
+  ],
+  [
+    "Mengirim dan menerbitkan tulisan tidak dipungut biaya\\. Setiap naskah tetap dibaca oleh Lazarus sebelum diputuskan untuk terbit\\.",
+    "Mengirim tulisan dan menerbitkannya gratis. Lazarus membaca setiap naskah sebelum mengambil keputusan."
+  ],
+  [
+    "Kirim karya Anda",
+    "Kirim tulisan"
+  ],
+  [
+    "Jika ingin membantu biaya pengelolaan Nalar Hakim, Anda dapat memberi dukungan sukarela melalui alamat berikut\\.",
+    "Kalau ingin membantu biaya situs ini, kamu bisa berdonasi lewat alamat berikut."
+  ],
+  [
+    "Donasi sukarela\\. Semua tulisan tetap bebas dibaca\\.",
+    "Donasi tidak wajib. Semua tulisan tetap gratis dibaca."
+  ],
+  [
+    "Naskah dan koreksi tulisan melalui email\\.",
+    "Kirim naskah atau koreksi lewat email."
+  ],
+  [
+    "Berikut sumber yang digunakan dalam tulisan ini\\. Nomornya merujuk pada penanda di dalam artikel\\.",
+    "Nomor rujukan mengikuti penanda di dalam tulisan."
+  ],
+  [
+    "Pendapat dalam artikel ini merupakan pembacaan penulis\\. Rujukannya disertakan agar Anda dapat memeriksa dasar kesimpulannya\\.",
+    "Pendapat ini milik penulis. Rujukannya bisa kamu periksa."
+  ],
+  [
+    "Menemukan kekeliruan fakta atau rujukan\\?",
+    "Ada fakta atau rujukan yang keliru?"
+  ],
+  [
+    "Sampaikan koreksi kepada redaksi\\.",
+    "Beri tahu redaksi."
+  ],
+  [
+    "Belum ada tulisan terbit\\.",
+    "Belum ada tulisan."
+  ],
+  [
+    "Tulisan dalam bentuk ini akan muncul di sini setelah diterbitkan redaksi\\.",
+    ""
+  ],
+  [
+    "Cari tulisan\\.",
+    "Cari tulisan"
+  ],
+  [
+    "Cari berdasarkan judul, topik, nama pemikir, atau kata yang muncul dalam artikel\\.",
+    "Cari judul, topik, nama pemikir, atau kata dalam tulisan."
+  ],
+  [
+    "Tautannya mungkin berubah atau alamatnya keliru\\. Buka ruang baca untuk mencari tulisan yang Anda maksud\\.",
+    "Mungkin tautannya keliru atau sudah berubah. Coba cari lagi di ruang baca."
+  ],
+  [
+    "<span class=\"eyebrow\">SIKAP REDAKSI</span>",
+    ""
+  ],
+  [
+    "<p class=\"reference-explainer\">Nomor rujukan mengikuti penanda di dalam tulisan\\.</p>",
+    ""
+  ],
+  [
+    "<p></p>",
+    ""
+  ]
+]

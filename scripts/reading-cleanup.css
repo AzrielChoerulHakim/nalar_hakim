@@ -1,0 +1,16 @@
+/* Zero-noise pass: retain the editorial palette, real artwork and reading controls. */
+.landing-manifest-grid{display:block;max-width:920px}
+.landing-channel{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px 28px}
+.landing-channel-description{grid-column:auto;grid-row:auto}
+.landing-channel-heading{padding-top:0}
+.landing-channel-heading h2,.landing-invitation h2{text-transform:none;letter-spacing:-.035em}
+.landing-manifest-notes span{text-transform:none;letter-spacing:0}
+.quote-portal{display:block}
+.quote-portal-copy{max-width:78ch}
+.quote-portal-copy .eyebrow{text-transform:none;letter-spacing:0}
+.scale-trigger{cursor:default}
+.landing-footer-links,.footer-editorial-links{flex-wrap:wrap}
+.submission-steps{list-style:decimal;padding-inline-start:1.5rem}
+.submission-steps li{display:list-item}
+.submission-steps li::marker{font-weight:600}
+@media(max-width:767px){.landing-channel{grid-template-columns:minmax(0,1fr);gap:8px}.landing-channel-description{grid-column:1;grid-row:auto}.landing-channel-heading{padding-block:12px 20px}}
