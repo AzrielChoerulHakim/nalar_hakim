@@ -41,6 +41,7 @@ def build_release(output, site_url):
     with tempfile.TemporaryDirectory(prefix='nalar-build-') as work_dir:
         work = Path(work_dir)
         sources = list((ROOT / 'scripts').glob('*.py')) + list((ROOT / 'content').glob('*.json'))
+        sources += [ROOT / 'scripts' / name for name in ('reading-cleanup.json', 'reading-cleanup.css')]
         sources += asset_files(ROOT) + [ROOT / name for name in THEME_FILES]
         for source in sources:
             copy_file(source, work / source.relative_to(ROOT))
