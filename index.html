@@ -35,6 +35,26 @@
 .submission-steps li{display:list-item}
 .submission-steps li::marker{font-weight:600}
 @media(max-width:767px){.landing-channel{grid-template-columns:minmax(0,1fr);gap:8px}.landing-channel-description{grid-column:1;grid-row:auto}.landing-channel-heading{padding-block:12px 20px}}
+/* Mobile reading: native scroll, no moving content or added SVG. */
+.nh-reading-rail{display:none;position:fixed;inset:0 0 auto;block-size:3px;z-index:30;pointer-events:none;background:var(--accent,#405e4d);transform:scaleX(var(--nh-reading-progress,0));transform-origin:left center}
+@media(max-width:767px),(max-width:1024px) and (pointer:coarse){
+ .nh-reading-rail[data-active]{display:block}
+ .header-actions details:not([open]) .search-form{display:none}
+ .header-actions .search-form{box-sizing:border-box;max-width:100%;gap:6px;display:flex}
+ .header-actions .search-form label{min-width:0;flex:1 1 0}
+ .header-actions .search-form input{box-sizing:border-box;min-width:0;width:100%}
+ .header-actions .search-form .search-submit{flex:0 0 auto;min-width:44px;padding-inline:8px}
+ .landing-header{flex-wrap:wrap}
+ .landing-header nav{min-width:0;max-width:100%;flex-wrap:wrap;gap:6px 12px}
+ .landing-header nav a{white-space:normal;overflow-wrap:anywhere;min-height:44px;display:inline-flex;align-items:center}
+ .landing-header nav .landing-nav-enter{flex-shrink:1}
+}
+@media(max-width:480px){.landing-header nav{width:100%;justify-content:flex-start}}
+@media(max-width:767px) and (prefers-reduced-motion:no-preference),(max-width:1024px) and (pointer:coarse) and (prefers-reduced-motion:no-preference){
+ :is(.landing-primary,.landing-secondary,.landing-nav-enter,.editorial-button,.theme-toggle,.search-submit,.copy-button){transition:transform 120ms ease-out}
+ :is(.landing-primary,.landing-secondary,.landing-nav-enter,.editorial-button,.theme-toggle,.search-submit,.copy-button):active{transform:scale(.98)}
+}
+@media(prefers-reduced-motion:reduce){.nh-reading-rail{display:none!important}}
 </style></head>
 <body class="nh-landing">
 <a class="skip-link" href="#main-content">Langsung ke konten</a>
