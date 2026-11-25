@@ -170,6 +170,68 @@ with tempfile.TemporaryDirectory() as tmp:
             assert p.locator('#search-results').inner_text().strip()
             print('SEARCH PASS',w,flush=True)
             ctx.close()
+        # Editorial layout contract: compact navigation, true cover-first order,
+        # serif titles, no CSS ornaments, keyboard-accessible controls.
+        for w,h in [(320,568),(390,667),(390,844),(1440,900)]:
+            ctx=browser.new_context(viewport={'width':w,'height':h},has_touch=w<768,is_mobile=w<768,reduced_motion='reduce')
+            p=ctx.new_page()
+            for path in ['index.html','beranda.html',route]:
+                p.goto(url+path)
+                p.evaluate('document.fonts.ready')
+                p.locator('img').evaluate_all("(imgs)=>imgs.forEach(i=>i.loading='eager')")
+                p.evaluate("Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))")
+                record(p,path,w,h,'editorial-layout')
+                if path=='index.html':
+                    if w==390 and h==844:
+                        assert p.locator('.landing-primary').bounding_box()['y']+p.locator('.landing-primary').bounding_box()['height']<=h
+                    continue
+                header=p.locator('.site-header')
+                if w<768:
+                    assert header.bounding_box()['height']<=168,(w,header.bounding_box())
+                    assert p.locator('.nh-nav-short').first.is_visible()
+                    assert not p.locator('.nh-nav-full').first.is_visible()
+                else:
+                    assert p.locator('.nh-nav-full').first.is_visible()
+                    assert not p.locator('.nh-nav-short').first.is_visible()
+                assert p.locator('.publication-nav a').count()==5
+                assert p.locator('.publication-nav a[aria-label="Telaah Fenomena"]').count()==1
+                assert p.locator('.publication-nav a[aria-label="Bedah Putusan atau Norma"]').count()==1
+                if path=='beranda.html':
+                    if w<768:
+                        assert p.locator('.lead-story .story-image').bounding_box()['y'] < p.locator('.lead-story .story-body').bounding_box()['y']
+                        assert 'Source Serif 4' in p.locator('.lead-story h2').evaluate("e=>getComputedStyle(e).fontFamily")
+                    assert p.locator('.home-position .read-link').evaluate("e=>getComputedStyle(e,'::after').content") in ('none','normal')
+                else:
+                    if w<768:
+                        assert 'Source Serif 4' in p.locator('.article-header h1').evaluate("e=>getComputedStyle(e).fontFamily")
+                    assert p.locator('.article-header').evaluate("e=>getComputedStyle(e,'::before').content") in ('none','normal')
+                if w<768:
+                    for link in p.locator('.publication-nav a').all():
+                        link.focus()
+                        assert link.evaluate("e=>document.activeElement===e")
+                        assert link.bounding_box()['height']>=44
+                    p.locator('.header-actions details > summary').focus()
+                    p.keyboard.press('Enter')
+                    assert p.locator('.header-actions details').get_attribute('open') is not None
+                    p.keyboard.press('Enter')
+                    assert p.locator('.header-actions details').get_attribute('open') is None
+                # Measure actual palette contrast for text, muted text and action text.
+                ratios=p.evaluate("""()=>{const s=getComputedStyle(document.documentElement),lum=c=>{let a=c.trim().replace(/^#/,'');if(a.length===3)a=[...a].map(x=>x+x).join('');if(!/^[0-9a-f]{6}$/i.test(a))return null;return [0,2,4].map(i=>parseInt(a.slice(i,i+2),16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((v,x,i)=>v+x*[.2126,.7152,.0722][i],0)};const bg=lum(s.getPropertyValue('--bg'));return ['--text','--muted','--accent'].map(n=>{const a=lum(s.getPropertyValue(n));return a===null||bg===null?null:(Math.max(a,bg)+.05)/(Math.min(a,bg)+.05)})}""")
+                assert all(x is not None and x>=4.5 for x in ratios),ratios
+                print('EDITORIAL LAYOUT PASS',path,w,h,ratios,flush=True)
+            ctx.close()
+        # 200% text-size stress test (explicit computed font scaling, not browser zoom).
+        for w in (320,390):
+            ctx=browser.new_context(viewport={'width':w,'height':844},has_touch=True,is_mobile=True,reduced_motion='reduce')
+            p=ctx.new_page()
+            for path in PAGES:
+                p.goto(url+path)
+                p.evaluate('document.fonts.ready')
+                p.evaluate("""()=>{const nodes=[...document.querySelectorAll('main h1,main h2,main h3,main p,nav a,header a,header button,header summary,footer a,main button,main input,main li,main dt,main dd')];const sizes=nodes.map(e=>parseFloat(getComputedStyle(e).fontSize));nodes.forEach((e,i)=>{e.style.setProperty('font-size',sizes[i]*2+'px','important');e.style.setProperty('overflow-wrap','anywhere','important')})}""")
+                record(p,path,w,844,'text-200')
+                if path in ('index.html','beranda.html',route):
+                    shot(p,'text-200-'+path.replace('/','-')+'-'+str(w)+'.png')
+            ctx.close()
         # Compact rendered evidence in the job log for visual inspection, in addition to PNG artifacts.
         ctx=browser.new_context(viewport={'width':390,'height':844},has_touch=True,is_mobile=True,reduced_motion='reduce')
         p=ctx.new_page()

@@ -9,7 +9,8 @@
       "mobile only",
       "no new SVG",
       "native scroll",
-      "no hidden prose"
+      "no hidden prose",
+      "Retired ornamental CSS excluded from active public bundles"
     ],
     "baseline": "semantic-document"
   },
@@ -60,8 +61,8 @@
     }
   ],
   "qa": {
-    "reviewedCommit": "",
-    "environment": "Chromium CI; screenshots and geometry; human inspection pending",
+    "reviewedCommit": "90721ea1edef780fba345aed90dc56f8da1a61b9",
+    "environment": "Chromium 141.0.7390.37, prior audit; new commit requires fresh evidence.",
     "checks": []
   }
 }
