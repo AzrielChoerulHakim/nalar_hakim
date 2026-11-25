@@ -19,6 +19,8 @@ def clean_reading_ui(html, path):
         chunks = re.split(r'(<blockquote\b[\s\S]*?</blockquote>)', html)
         html = ''.join(part if i % 2 else re.sub(r'\bAnda\b', 'kamu', part) for i, part in enumerate(chunks))
     motion = '<script>\n' + PROGRESS + '</script>' if path.startswith('artikel/') else ''
-    if path == 'index.html':
+    if path in ('index.html', 'beranda.html'):
         motion = '<script>\n' + BALANCE + '</script>'
+    if path == 'beranda.html':
+        html = html.replace('</div></aside></div><section class="latest-section">', '</div><aside class="nh-mobile-quote"><blockquote cite="artikel/harta-bersama-bukan-seluruhnya-warisan/">Jika hanya penghasilan yang dihitung, pekerjaan merawat keluarga yang memungkinkan seseorang bekerja mudah terabaikan.</blockquote><a href="artikel/harta-bersama-bukan-seluruhnya-warisan/">Kerja yang tidak masuk rekening: menguji pembagian harta bersama</a></aside></aside></div><section class="latest-section">', 1)
     return html.replace('</head>', '<style>\n' + STYLE + '</style>' + motion + '</head>', 1)
